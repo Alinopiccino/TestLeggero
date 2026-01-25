@@ -1,0 +1,76 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://brs40x8cc3uho"]
+
+[ext_resource type="Texture2D" uid="uid://bdpf65usryy6k" path="res://Assets/CardImagesDECK/FireSpellsDeck/Vulcanicsweep4.png" id="1_0dq5j"]
+[ext_resource type="Script" uid="uid://cd4htsjoe2w4v" path="res://Scripts/CardData.gd" id="1_kickv"]
+[ext_resource type="Texture2D" uid="uid://b6r45e0my0qu5" path="res://Assets/CardImagesFIELD/FireSpellsField/Vulcanicsweep3.png" id="2_ih0x1"]
+[ext_resource type="Texture2D" uid="uid://c28f12s3wpikt" path="res://Assets/CardImages/FireSpellsHand/Vulcanicsweep2.png" id="3_f1d1p"]
+[ext_resource type="Texture2D" uid="uid://dawl1nubg4vya" path="res://Assets/CardImagesPreview/FireSpellsPreview/Vulcanicsweep1.png" id="4_3jxqq"]
+
+[resource]
+script = ExtResource("1_kickv")
+card_name = "Vulcanic Sweep"
+tooltip_name = "Vulcanic Sweep"
+card_sprite = ExtResource("3_f1d1p")
+card_field_sprite = ExtResource("2_ih0x1")
+card_sprite_preview = ExtResource("4_3jxqq")
+card_deck_sprite = ExtResource("1_0dq5j")
+card_rank = 3
+attack = 0
+health = 0
+armour = 0
+spell_multiplier = 0
+spell_duration = 1000
+base_spell_power = 0
+tributes = 0
+activation_cost = "None"
+card_attribute = "Fire"
+card_type = "Spell"
+creature_race = "None"
+creature_race_2 = "None"
+card_class = "ContinuousSpell"
+card_class_2 = "None"
+talent_1 = "None"
+talent_2 = "None"
+talent_3 = "None"
+talent_4 = "None"
+talent_5 = "None"
+effect_type = "Aura"
+trigger_type = "None"
+effect_1_threshold_type = "None"
+effect_2_threshold_type = "None"
+effect_3_threshold_type = "None"
+effect_4_threshold_type = "None"
+effect_1_threshold = 0
+effect_2_threshold = 0
+effect_3_threshold = 0
+effect_4_threshold = 0
+custom_effect_name = "None"
+effect_1 = "Buff"
+effect_2 = "Debuff"
+effect_3 = "BuffFireSpellPower"
+effect_4 = "BuffWindSpellPower"
+effect_magnitude_1 = 200
+effect_magnitude_2 = 200
+effect_magnitude_3 = 2
+effect_magnitude_4 = -2
+talent_from_buff = "None"
+targeting_type = "AoE"
+t_subtype_1 = "AllFireCreatures"
+t_subtype_2 = "AllWindCreatures"
+t_subtype_3 = "BothPlayers"
+t_subtype_4 = "BothPlayers"
+effect_speed = "None"
+temp_effect = "None"
+scaling_1 = "None"
+scaling_amount_1 = 0
+scaling_2 = "None"
+scaling_amount_2 = 0
+repeats = "1"
+mana_cost_1 = "Fire"
+mana_cost_2 = "None"
+mana_cost_3 = "None"
+mana_cost_4 = "None"
+mana_cost_5 = "None"
+mana_cost_6 = "None"
+mana_cost_7 = "None"
+metadata/_custom_type_script = "uid://cd4htsjoe2w4v"

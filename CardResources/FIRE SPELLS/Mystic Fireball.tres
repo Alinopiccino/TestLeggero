@@ -1,0 +1,70 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://cyy7bhvhu2jg1"]
+
+[ext_resource type="Texture2D" uid="uid://dt74wkss31swl" path="res://Assets/CardImagesDECK/FireSpellsDeck/mystic fireball.png" id="1_6or2u"]
+[ext_resource type="Texture2D" uid="uid://fcac3bnahp28" path="res://Assets/CardImagesFIELD/FireSpellsField/MYSTIC FIREBALL SP 150 3.png" id="1_mbu18"]
+[ext_resource type="Script" uid="uid://cd4htsjoe2w4v" path="res://Scripts/CardData.gd" id="1_unnd8"]
+[ext_resource type="Texture2D" uid="uid://cmea0m1h2fb5d" path="res://Assets/CardImages/FireSpellsHand/MYSTIC FIREBALL SP 150 2.png" id="2_6or2u"]
+[ext_resource type="Texture2D" uid="uid://w0kpymuo54me" path="res://Assets/CardImagesPreview/FireSpellsPreview/MYSTIC FIREBALL SP 150 1.png" id="3_1vm8j"]
+
+[resource]
+script = ExtResource("1_unnd8")
+card_name = "Mystic Fireball"
+tooltip_name = "Mystic Fireball"
+card_sprite = ExtResource("2_6or2u")
+card_field_sprite = ExtResource("1_mbu18")
+card_sprite_preview = ExtResource("3_1vm8j")
+card_deck_sprite = ExtResource("1_6or2u")
+card_rank = 3
+attack = 0
+health = 0
+spell_multiplier = 150
+spell_duration = 0
+base_spell_power = 0
+tributes = 0
+activation_cost = "None"
+card_attribute = "Fire"
+card_type = "Spell"
+creature_race = "None"
+creature_race_2 = "None"
+card_class = "NormalSpell"
+card_class_2 = "None"
+talent_1 = "None"
+talent_2 = "None"
+talent_3 = "None"
+talent_4 = "None"
+talent_5 = "None"
+effect_type = "OnPlay"
+trigger_type = "None"
+effect_1_threshold_type = "None"
+effect_2_threshold_type = "None"
+effect_3_threshold_type = "None"
+effect_4_threshold_type = "None"
+effect_1_threshold = 0
+effect_2_threshold = 0
+effect_3_threshold = 0
+effect_4_threshold = 0
+custom_effect_name = "None"
+effect_1 = "Damage"
+effect_2 = "None"
+effect_3 = "None"
+effect_4 = "None"
+effect_magnitude_1 = 1800
+effect_magnitude_2 = 0
+effect_magnitude_3 = 0
+effect_magnitude_4 = 0
+talent_from_buff = "None"
+targeting_type = "Targeted"
+t_subtype_1 = "AllCreatures"
+t_subtype_2 = "None"
+t_subtype_3 = "None"
+t_subtype_4 = "None"
+effect_speed = "Normal"
+temp_effect = "None"
+scaling_1 = "MagnitudeSpellPower"
+scaling_2 = "None"
+mana_cost_1 = "Fire"
+mana_cost_2 = "Colorless"
+mana_cost_3 = "Colorless"
+mana_cost_4 = "None"
+mana_cost_5 = "None"
+metadata/_custom_type_script = "uid://cd4htsjoe2w4v"

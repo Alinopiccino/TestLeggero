@@ -1,0 +1,76 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://cpv2etyt0y1qa"]
+
+[ext_resource type="Texture2D" uid="uid://d2o2oxobsqm2n" path="res://Assets/CardImagesDECK/WindSpellsDeck/mecha wings.png" id="1_84x8j"]
+[ext_resource type="Texture2D" uid="uid://btwu2ikqyfubc" path="res://Assets/CardImagesFIELD/WindSpellsField/MECAH WINGS dur2 3.png" id="1_ej2le"]
+[ext_resource type="Script" uid="uid://cd4htsjoe2w4v" path="res://Scripts/CardData.gd" id="1_gqelu"]
+[ext_resource type="Texture2D" uid="uid://fwk5jen86h8u" path="res://Assets/CardImages/WindSpellsHand/MECAH WINGS dur2 2.png" id="2_84x8j"]
+[ext_resource type="Texture2D" uid="uid://dg87h25ds7lei" path="res://Assets/CardImagesPreview/WindSpellsPreview/MECAH WINGS dur2.png" id="3_wkt1g"]
+
+[resource]
+script = ExtResource("1_gqelu")
+card_name = "Mechanical Wings"
+tooltip_name = "Mechanical Wings"
+card_sprite = ExtResource("2_84x8j")
+card_field_sprite = ExtResource("1_ej2le")
+card_sprite_preview = ExtResource("3_wkt1g")
+card_deck_sprite = ExtResource("1_84x8j")
+card_rank = 3
+attack = 0
+health = 0
+armour = 0
+spell_multiplier = 0
+spell_duration = 2
+base_spell_power = 0
+tributes = 0
+activation_cost = "None"
+card_attribute = "Wind"
+card_type = "Spell"
+creature_race = "None"
+creature_race_2 = "None"
+card_class = "EquipSpell"
+card_class_2 = "None"
+talent_1 = "None"
+talent_2 = "None"
+talent_3 = "None"
+talent_4 = "None"
+talent_5 = "None"
+effect_type = "Equip"
+trigger_type = "None"
+effect_1_threshold_type = "None"
+effect_2_threshold_type = "None"
+effect_3_threshold_type = "None"
+effect_4_threshold_type = "None"
+effect_1_threshold = 0
+effect_2_threshold = 0
+effect_3_threshold = 0
+effect_4_threshold = 0
+custom_effect_name = "None"
+effect_1 = "BuffTalent"
+effect_2 = "None"
+effect_3 = "None"
+effect_4 = "None"
+effect_magnitude_1 = 0
+effect_magnitude_2 = 0
+effect_magnitude_3 = 0
+effect_magnitude_4 = 0
+talent_from_buff = "Flying"
+targeting_type = "Targeted"
+t_subtype_1 = "AllAllyCreatures"
+t_subtype_2 = "None"
+t_subtype_3 = "None"
+t_subtype_4 = "None"
+effect_speed = "None"
+temp_effect = "None"
+scaling_1 = "None"
+scaling_amount_1 = 0
+scaling_2 = "None"
+scaling_amount_2 = 0
+repeats = "1"
+mana_cost_1 = "Wind"
+mana_cost_2 = "None"
+mana_cost_3 = "None"
+mana_cost_4 = "None"
+mana_cost_5 = "None"
+mana_cost_6 = "None"
+mana_cost_7 = "None"
+metadata/_custom_type_script = "uid://cd4htsjoe2w4v"

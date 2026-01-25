@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_n66l4"]
+[ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_gvld5"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Burning Sun Adept.tres" id="2_l4mt2"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Orc Rider.tres" id="3_l4mt2"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Lesser Fiery Fiend.tres" id="4_inrwg"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Thousand Eyes Atrocity.tres" id="5_u8nwd"]
+
+[resource]
+script = ExtResource("2_gvld5")
+deck_name = "fggfgf"
+cards = Array[ExtResource("1_n66l4")]([ExtResource("2_l4mt2"), ExtResource("2_l4mt2"), ExtResource("2_l4mt2"), ExtResource("3_l4mt2"), ExtResource("3_l4mt2"), ExtResource("3_l4mt2"), ExtResource("4_inrwg"), ExtResource("4_inrwg"), ExtResource("4_inrwg"), ExtResource("5_u8nwd"), ExtResource("5_u8nwd")])
+is_valid = false
+mana_sort_state = "none"
+rank_sort_state = "none"
+mana_slot_1 = "Fire"
+mana_slot_2 = "Fire"
+mana_slot_3 = "Fire"
+mana_slot_4 = "Fire"
+mana_slot_5 = "Fire"

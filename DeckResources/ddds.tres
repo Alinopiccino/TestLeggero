@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_tukje"]
+[ext_resource type="Resource" path="res://CardResources/WIND CREATURES/Birdman .tres" id="2_dv37d"]
+[ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_n256s"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Cyclone.tres" id="3_dv37d"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Storm Favour.tres" id="4_nohv6"]
+[ext_resource type="Resource" path="res://CardResources/WIND CREATURES/Trained Monk.tres" id="5_vhiyn"]
+[ext_resource type="Resource" path="res://CardResources/WIND CREATURES/Ninja Killer.tres" id="6_7ehsp"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Epochal Storm.tres" id="7_241qp"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Hurricane.tres" id="8_4nbxf"]
+
+[resource]
+script = ExtResource("2_n256s")
+deck_name = "ddds"
+cards = Array[ExtResource("1_tukje")]([ExtResource("2_dv37d"), ExtResource("2_dv37d"), ExtResource("3_dv37d"), ExtResource("3_dv37d"), ExtResource("4_nohv6"), ExtResource("4_nohv6"), ExtResource("5_vhiyn"), ExtResource("5_vhiyn"), ExtResource("5_vhiyn"), ExtResource("6_7ehsp"), ExtResource("6_7ehsp"), ExtResource("7_241qp"), ExtResource("7_241qp"), ExtResource("8_4nbxf")])
+is_valid = false
+mana_sort_state = "none"
+rank_sort_state = "none"
+mana_slot_1 = "Wind"
+mana_slot_2 = "Wind"
+mana_slot_3 = "Wind"
+mana_slot_4 = "Wind"
+mana_slot_5 = "Wind"

@@ -1,0 +1,70 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://b3n2ump34aigo"]
+
+[ext_resource type="Script" uid="uid://cd4htsjoe2w4v" path="res://Scripts/CardData.gd" id="1_hv8ln"]
+[ext_resource type="Texture2D" uid="uid://cf8ytmym6eecb" path="res://Assets/CardImagesDECK/FireCreaturesDeck/FieryFiend18001200 4.png" id="1_svgkw"]
+[ext_resource type="Texture2D" uid="uid://bd5bdpcwm64f8" path="res://Assets/CardImagesFIELD/FireCreaturesField/FieryFiend18001200 3.png" id="2_32g16"]
+[ext_resource type="Texture2D" uid="uid://nvttstfnxpff" path="res://Assets/CardImages/FireCreaturesHand/FieryFiend18001200 2.png" id="3_l1vxj"]
+[ext_resource type="Texture2D" uid="uid://byqgtg6vvapgh" path="res://Assets/CardImagesPreview/FireCreaturesPreview/FieryFiend18001200 1.png" id="4_u0ydv"]
+
+[resource]
+script = ExtResource("1_hv8ln")
+card_name = "Lesser Fiery Fiend"
+tooltip_name = "Lesser Fiery Fiend"
+card_sprite = ExtResource("3_l1vxj")
+card_field_sprite = ExtResource("2_32g16")
+card_sprite_preview = ExtResource("4_u0ydv")
+card_deck_sprite = ExtResource("1_svgkw")
+card_rank = 3
+attack = 1800
+health = 1200
+spell_multiplier = 0
+spell_duration = 0
+base_spell_power = 0
+tributes = 0
+activation_cost = "None"
+card_attribute = "Fire"
+card_type = "Creature"
+creature_race = "Demon"
+creature_race_2 = "None"
+card_class = "None"
+card_class_2 = "None"
+talent_1 = "None"
+talent_2 = "None"
+talent_3 = "None"
+talent_4 = "None"
+talent_5 = "None"
+effect_type = "None"
+trigger_type = "None"
+effect_1_threshold_type = "None"
+effect_2_threshold_type = "None"
+effect_3_threshold_type = "None"
+effect_4_threshold_type = "None"
+effect_1_threshold = 0
+effect_2_threshold = 0
+effect_3_threshold = 0
+effect_4_threshold = 0
+custom_effect_name = "None"
+effect_1 = "None"
+effect_2 = "None"
+effect_3 = "None"
+effect_4 = "None"
+effect_magnitude_1 = 0
+effect_magnitude_2 = 0
+effect_magnitude_3 = 0
+effect_magnitude_4 = 0
+talent_from_buff = "None"
+targeting_type = "None"
+t_subtype_1 = "None"
+t_subtype_2 = "None"
+t_subtype_3 = "None"
+t_subtype_4 = "None"
+effect_speed = "None"
+temp_effect = "None"
+scaling_1 = "None"
+scaling_2 = "None"
+mana_cost_1 = "Fire"
+mana_cost_2 = "Colorless"
+mana_cost_3 = "Colorless"
+mana_cost_4 = "Colorless"
+mana_cost_5 = "None"
+metadata/_custom_type_script = "uid://cd4htsjoe2w4v"

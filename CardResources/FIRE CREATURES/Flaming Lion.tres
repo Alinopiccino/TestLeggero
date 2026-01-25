@@ -1,0 +1,70 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://c2ewbshkkn0hm"]
+
+[ext_resource type="Texture2D" uid="uid://clr3xxxihyyh" path="res://Assets/CardImagesDECK/FireCreaturesDeck/Lion 900300 4.png" id="1_5grxp"]
+[ext_resource type="Script" uid="uid://cd4htsjoe2w4v" path="res://Scripts/CardData.gd" id="1_2760e"]
+[ext_resource type="Texture2D" uid="uid://bvlxheymolufu" path="res://Assets/CardImagesFIELD/FireCreaturesField/lion 900300 3.png" id="2_i83m0"]
+[ext_resource type="Texture2D" uid="uid://dpbu3f6o6c0t" path="res://Assets/CardImages/FireCreaturesHand/Lion 900300 2.png" id="3_d73ys"]
+[ext_resource type="Texture2D" uid="uid://tdl50t5bdxcg" path="res://Assets/CardImagesPreview/FireCreaturesPreview/LION 900300 1.png" id="4_chkpi"]
+
+[resource]
+script = ExtResource("1_2760e")
+card_name = "Flaming Lion"
+tooltip_name = "Flaming Lion"
+card_sprite = ExtResource("3_d73ys")
+card_field_sprite = ExtResource("2_i83m0")
+card_sprite_preview = ExtResource("4_chkpi")
+card_deck_sprite = ExtResource("1_5grxp")
+card_rank = 3
+attack = 900
+health = 500
+spell_multiplier = 0
+spell_duration = 0
+base_spell_power = 0
+tributes = 0
+activation_cost = "None"
+card_attribute = "Fire"
+card_type = "Creature"
+creature_race = "Beast"
+creature_race_2 = "None"
+card_class = "None"
+card_class_2 = "None"
+talent_1 = "None"
+talent_2 = "None"
+talent_3 = "None"
+talent_4 = "None"
+talent_5 = "None"
+effect_type = "None"
+trigger_type = "None"
+effect_1_threshold_type = "None"
+effect_2_threshold_type = "None"
+effect_3_threshold_type = "None"
+effect_4_threshold_type = "None"
+effect_1_threshold = 0
+effect_2_threshold = 0
+effect_3_threshold = 0
+effect_4_threshold = 0
+custom_effect_name = "None"
+effect_1 = "None"
+effect_2 = "None"
+effect_3 = "None"
+effect_4 = "None"
+effect_magnitude_1 = 0
+effect_magnitude_2 = 0
+effect_magnitude_3 = 0
+effect_magnitude_4 = 0
+talent_from_buff = "None"
+targeting_type = "None"
+t_subtype_1 = "None"
+t_subtype_2 = "None"
+t_subtype_3 = "None"
+t_subtype_4 = "None"
+effect_speed = "None"
+temp_effect = "None"
+scaling_1 = "None"
+scaling_2 = "None"
+mana_cost_1 = "Fire"
+mana_cost_2 = "None"
+mana_cost_3 = "None"
+mana_cost_4 = "None"
+mana_cost_5 = "None"
+metadata/_custom_type_script = "uid://cd4htsjoe2w4v"

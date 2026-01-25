@@ -1,0 +1,133 @@
+[gd_scene load_steps=8 format=3 uid="uid://m6d2uenli777"]
+
+[ext_resource type="Script" uid="uid://dego01iljshoq" path="res://Scene/card_display.gd" id="1_r8gcp"]
+[ext_resource type="Texture2D" uid="uid://ch3lemhfpok5j" path="res://Assets Collezione/CARD SHADOW.png" id="2_2wawl"]
+[ext_resource type="Texture2D" uid="uid://cm1am38g855lf" path="res://Assets Collezione/banner RANK ALT.png" id="2_3rw6s"]
+[ext_resource type="Texture2D" uid="uid://c1mp5rsvdwkff" path="res://Assets/CardImages/EarthSpellsHand/GRAVITY CLUB dur2 2.png" id="2_22rnn"]
+[ext_resource type="Texture2D" uid="uid://l3fn21vjinjd" path="res://Assets Collezione/HighlightBorderSoffuso ALT.png" id="4_o6t71"]
+[ext_resource type="Texture2D" uid="uid://hhtom0xmmop0" path="res://Assets Collezione/INVALID BANNER EXPAND MODE.png" id="5_1j54y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cl8pl"]
+size = Vector2(150, 208)
+
+[node name="Card" type="Node2D"]
+z_index = 104
+position = Vector2(159, 222)
+script = ExtResource("1_r8gcp")
+
+[node name="CardShadow" type="Sprite2D" parent="."]
+z_index = -20
+texture = ExtResource("2_2wawl")
+
+[node name="HighlightBorder" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(-0.5, 0.480626)
+scale = Vector2(1.0825, 1.0324)
+texture = ExtResource("4_o6t71")
+
+[node name="CardImage" type="Sprite2D" parent="."]
+z_index = -1
+texture = ExtResource("2_22rnn")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_cl8pl")
+
+[node name="Attack" type="RichTextLabel" parent="."]
+modulate = Color(0, 0, 0, 1)
+z_index = 10
+offset_left = -55.0
+offset_top = 28.0
+offset_right = -15.0
+offset_bottom = 68.0
+mouse_filter = 2
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Health" type="RichTextLabel" parent="."]
+modulate = Color(0, 0, 0, 1)
+z_index = 10
+offset_left = 20.0
+offset_top = 28.0
+offset_right = 56.0
+offset_bottom = 68.0
+mouse_filter = 2
+autowrap_mode = 0
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="SpellMultiplier" type="RichTextLabel" parent="."]
+modulate = Color(0, 0, 0, 1)
+z_index = 10
+offset_left = 37.0
+offset_top = 37.0
+offset_right = 77.0
+offset_bottom = 77.0
+scale = Vector2(0.6, 0.6)
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="SpellDuration" type="RichTextLabel" parent="."]
+modulate = Color(0, 0, 0, 1)
+z_index = 10
+offset_left = 52.0
+offset_top = 75.0
+offset_right = 92.0
+offset_bottom = 115.0
+scale = Vector2(0.7, 0.7)
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="CardRankIcon" type="Sprite2D" parent="."]
+z_index = -22
+position = Vector2(-49.7492, 124.709)
+scale = Vector2(0.632729, 0.480812)
+texture = ExtResource("2_3rw6s")
+
+[node name="CardRankLabel" type="RichTextLabel" parent="."]
+offset_left = -71.0
+offset_top = 92.0
+offset_right = -33.0
+offset_bottom = 147.0
+theme_override_colors/default_color = Color(0.998129, 0.895472, 0.873018, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_outline_size = 8
+theme_override_font_sizes/normal_font_size = 35
+theme_override_font_sizes/bold_font_size = 25
+bbcode_enabled = true
+text = "[b]3[/b]
+"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InvalidBanner" type="Sprite2D" parent="."]
+visible = false
+z_index = -104
+position = Vector2(-1, 2.50002)
+scale = Vector2(1.12169, 1.07968)
+texture = ExtResource("5_1j54y")
+
+[node name="DeckCopyLabel" type="RichTextLabel" parent="."]
+offset_left = 52.0
+offset_top = 65.0
+offset_right = 92.0
+offset_bottom = 107.0
+rotation = 0.219537
+theme_override_colors/default_color = Color(1, 0.831373, 0.301961, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_outline_size = 8
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[b][font_size=24]x[/font_size][font_size=36]2  + \"[/font_size][/b]"
+scroll_active = false
+horizontal_alignment = 1
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

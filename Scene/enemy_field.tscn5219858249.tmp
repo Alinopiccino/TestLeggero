@@ -1,0 +1,210 @@
+[gd_scene load_steps=15 format=3 uid="uid://36dutrfrtp7d"]
+
+[ext_resource type="Script" uid="uid://bammlhxplk7i" path="res://Scripts/GameSetupEnemy.gd" id="1_lg81y"]
+[ext_resource type="Script" uid="uid://gutrgdj4rmsl" path="res://Scripts/InserimentoDeck.gd" id="1_pouhd"]
+[ext_resource type="PackedScene" uid="uid://h1c0uc7u0h6r" path="res://Scene/Card.tscn" id="2_lg81y"]
+[ext_resource type="Script" uid="uid://bq65wma5oewk5" path="res://Scripts/enemy_hand.gd" id="4_tmkv5"]
+[ext_resource type="Script" uid="uid://08ir0551wuqp" path="res://Scripts/Enemydeck.gd" id="5_uc1t6"]
+[ext_resource type="Resource" uid="uid://ch6cilxcp7bge" path="res://DeckResources/Deck1.tres" id="6_sx4u1"]
+[ext_resource type="Texture2D" uid="uid://dw1qbciwb2kyu" path="res://Assets/CardImages/BackMano.png" id="7_a5ly7"]
+[ext_resource type="Texture2D" uid="uid://bytdqg80bi846" path="res://Assets/CardSlot.png" id="8_xbrkl"]
+[ext_resource type="PackedScene" uid="uid://cpkmgeqgtpd1r" path="res://Scene/Enemy_card_slot.tscn" id="9_nsw4n"]
+[ext_resource type="Script" uid="uid://es340uv1h6fc" path="res://Scripts/CreatureCardSlot.gd" id="10_78tqf"]
+[ext_resource type="Script" uid="uid://c0h5iua6g02js" path="res://Scripts/SpellCardSlot.gd" id="11_mlp73"]
+[ext_resource type="Script" uid="uid://cw1jw1r8fdg30" path="res://Scene/enemy_GY.gd" id="12_a5ly7"]
+[ext_resource type="Script" uid="uid://mmaey6tqspid" path="res://Scene/mana_slot_manager.gd" id="12_lg81y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a5ly7"]
+size = Vector2(1006.67, 1200)
+
+[node name="EnemyField" type="Node2D"]
+script = ExtResource("1_lg81y")
+
+[node name="Inserimento deck" type="Node2D" parent="."]
+position = Vector2(1.52588e-05, 6.10352e-05)
+script = ExtResource("1_pouhd")
+card_scene = ExtResource("2_lg81y")
+
+[node name="CardManager" type="Node2D" parent="."]
+
+[node name="EnemyCardManager" type="Node2D" parent="."]
+
+[node name="CardContainer" type="Node2D" parent="."]
+
+[node name="CardField" type="Node2D" parent="."]
+
+[node name="EnemyHand" type="Node2D" parent="."]
+script = ExtResource("4_tmkv5")
+
+[node name="EnemyDeck" type="Node2D" parent="."]
+position = Vector2(100, 120)
+script = ExtResource("5_uc1t6")
+deck_data = ExtResource("6_sx4u1")
+
+[node name="Sprite2D" type="Sprite2D" parent="EnemyDeck"]
+z_index = -2
+texture = ExtResource("7_a5ly7")
+
+[node name="Sprite2D2" type="Sprite2D" parent="EnemyDeck"]
+z_index = -3
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("8_xbrkl")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="EnemyDeck"]
+z_index = -2
+offset_left = -23.0
+offset_top = -60.0
+offset_right = 22.0
+offset_bottom = -8.0
+scale = Vector2(5, 5)
+text = "0"
+
+[node name="EnemyDeckTimer" type="Timer" parent="EnemyDeck"]
+
+[node name="EnemyZones" type="Node2D" parent="."]
+
+[node name="CreatureSlot1" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
+z_index = -2
+position = Vector2(1280, 371)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("10_78tqf")
+
+[node name="CreatureSlot2" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
+z_index = -2
+position = Vector2(1115, 371)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("10_78tqf")
+
+[node name="CreatureSlot3" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
+z_index = -2
+position = Vector2(950, 371)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("10_78tqf")
+
+[node name="CreatureSlot4" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
+z_index = -2
+position = Vector2(785, 371)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("10_78tqf")
+
+[node name="CreatureSlot5" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
+z_index = -2
+position = Vector2(620, 371)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("10_78tqf")
+
+[node name="SpellSlot5" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
+z_index = -2
+position = Vector2(620, 196)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("11_mlp73")
+
+[node name="SpellSlot4" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
+z_index = -2
+position = Vector2(785, 196)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("11_mlp73")
+
+[node name="SpellSlot3" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
+z_index = -2
+position = Vector2(950, 196)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("11_mlp73")
+
+[node name="SpellSlot2" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
+z_index = -2
+position = Vector2(1115, 196)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("11_mlp73")
+
+[node name="SpellSlot1" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
+z_index = -2
+position = Vector2(1280, 196)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("11_mlp73")
+
+[node name="EnemyGY" type="Node2D" parent="."]
+z_index = -3
+position = Vector2(100, 340)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("12_a5ly7")
+
+[node name="Sprite2D" type="Sprite2D" parent="EnemyGY"]
+texture = ExtResource("8_xbrkl")
+
+[node name="Area2D" type="Area2D" parent="EnemyGY"]
+z_index = 1001
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyGY/Area2D"]
+z_index = 1001
+position = Vector2(-130, -80)
+shape = SubResource("RectangleShape2D_a5ly7")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="EnemyGY"]
+z_index = 1002
+offset_left = -73.3333
+offset_top = -180.0
+offset_right = -33.3333
+offset_bottom = -140.0
+scale = Vector2(15, 15)
+text = "0"
+
+[node name="HighlightBorder" type="ColorRect" parent="EnemyGY"]
+visible = false
+z_index = -2
+offset_left = -393.333
+offset_top = -540.0
+offset_right = 391.667
+offset_bottom = 545.0
+
+[node name="TopCardSprite" type="Sprite2D" parent="EnemyGY"]
+z_index = 200
+
+[node name="AttackGYLabel" type="RichTextLabel" parent="EnemyGY"]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+z_index = 1001
+offset_left = -285.0
+offset_top = 135.0
+offset_right = -245.0
+offset_bottom = 175.0
+scale = Vector2(5, 5)
+
+[node name="HealthGYLabel" type="RichTextLabel" parent="EnemyGY"]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+z_index = 1001
+offset_left = 100.0
+offset_top = 135.0
+offset_right = 140.0
+offset_bottom = 175.0
+scale = Vector2(5, 5)
+
+[node name="EnemyLP" type="RichTextLabel" parent="."]
+offset_left = 1696.0
+offset_top = 90.0
+offset_right = 1756.0
+offset_bottom = 115.0
+scale = Vector2(2.5, 2.5)
+text = "0"
+horizontal_alignment = 2
+
+[node name="EnemyLP2" type="RichTextLabel" parent="."]
+offset_left = 1696.0
+offset_top = 90.0
+offset_right = 1756.0
+offset_bottom = 115.0
+scale = Vector2(2.5, 2.5)
+text = "0"
+horizontal_alignment = 2
+
+[node name="ManaSlots" type="VBoxContainer" parent="."]
+offset_left = 1768.0
+offset_top = 170.0
+offset_right = 1779.0
+offset_bottom = 181.0
+theme_override_constants/separation = -10
+script = ExtResource("12_lg81y")
+is_enemy = true

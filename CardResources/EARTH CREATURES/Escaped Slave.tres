@@ -1,0 +1,76 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://c1ej4bnelvy5a"]
+
+[ext_resource type="Texture2D" uid="uid://dfqq6fe783ob1" path="res://Assets/CardImagesDECK/EarthCreaturesDeck/Escapedslave120015004.png" id="1_8lncd"]
+[ext_resource type="Script" uid="uid://cd4htsjoe2w4v" path="res://Scripts/CardData.gd" id="1_jnqmx"]
+[ext_resource type="Texture2D" uid="uid://bdg6njpe6lkkr" path="res://Assets/CardImagesFIELD/EarthCreaturesField/Escapedslave120015003.png" id="2_i1rah"]
+[ext_resource type="Texture2D" uid="uid://ce2ihywedi3qn" path="res://Assets/CardImages/EarthCreaturesHand/Escapedslave120015002.png" id="3_d8qqq"]
+[ext_resource type="Texture2D" uid="uid://c02atojadn7ib" path="res://Assets/CardImagesPreview/EarthCreaturesPreview/Escapedslave120015001.png" id="4_7c3sg"]
+
+[resource]
+script = ExtResource("1_jnqmx")
+card_name = "Escaped Slave"
+tooltip_name = "Escaped Slave"
+card_sprite = ExtResource("3_d8qqq")
+card_field_sprite = ExtResource("2_i1rah")
+card_sprite_preview = ExtResource("4_7c3sg")
+card_deck_sprite = ExtResource("1_8lncd")
+card_rank = 3
+attack = 1200
+health = 1500
+armour = 0
+spell_multiplier = 0
+spell_duration = 0
+base_spell_power = 0
+tributes = 0
+activation_cost = "None"
+card_attribute = "Earth"
+card_type = "Creature"
+creature_race = "Humanoid"
+creature_race_2 = "None"
+card_class = "Figher"
+card_class_2 = "None"
+talent_1 = "None"
+talent_2 = "None"
+talent_3 = "None"
+talent_4 = "None"
+talent_5 = "None"
+effect_type = "None"
+trigger_type = "None"
+effect_1_threshold_type = "None"
+effect_2_threshold_type = "None"
+effect_3_threshold_type = "None"
+effect_4_threshold_type = "None"
+effect_1_threshold = 0
+effect_2_threshold = 0
+effect_3_threshold = 0
+effect_4_threshold = 0
+custom_effect_name = "None"
+effect_1 = "None"
+effect_2 = "None"
+effect_3 = "None"
+effect_4 = "None"
+effect_magnitude_1 = 0
+effect_magnitude_2 = 0
+effect_magnitude_3 = 0
+effect_magnitude_4 = 0
+talent_from_buff = "None"
+targeting_type = "None"
+t_subtype_1 = "None"
+t_subtype_2 = "None"
+t_subtype_3 = "None"
+t_subtype_4 = "None"
+effect_speed = "None"
+temp_effect = "None"
+scaling_1 = "None"
+scaling_amount_1 = 0
+scaling_2 = "None"
+scaling_amount_2 = 0
+repeats = "1"
+mana_cost_1 = "Earth"
+mana_cost_2 = "Colorless"
+mana_cost_3 = "Colorless"
+mana_cost_4 = "None"
+mana_cost_5 = "None"
+mana_cost_6 = "None"
+mana_cost_7 = "None"
+metadata/_custom_type_script = "uid://cd4htsjoe2w4v"

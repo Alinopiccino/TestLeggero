@@ -1,0 +1,69 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://yyb3bk7cf1yp"]
+
+[ext_resource type="Texture2D" uid="uid://bliyvviy4sr4y" path="res://Assets/CardImagesFIELD/WaterCreaturesField/GLACIAL GIANT 19502250 3.png" id="1_4pppf"]
+[ext_resource type="Script" uid="uid://cd4htsjoe2w4v" path="res://Scripts/CardData.gd" id="1_5k773"]
+[ext_resource type="Texture2D" uid="uid://cjenrb2dhe5y8" path="res://Assets/CardImagesDECK/WaterCreaturesDeck/gigante acqua.png" id="1_ll5ir"]
+[ext_resource type="Texture2D" uid="uid://cp2ibhvsorhki" path="res://Assets/CardImages/WaterCreaturesHand/GLACIAL GIANT 19502250 2.png" id="2_ll5ir"]
+[ext_resource type="Texture2D" uid="uid://drb2bbpjtey3d" path="res://Assets/CardImagesPreview/WaterCreaturesPreview/GLACIAL GIANT 19502250 1.png" id="3_ymjea"]
+
+[resource]
+script = ExtResource("1_5k773")
+card_name = "Ghost of the Snowy Mountains"
+tooltip_name = "Ghost of the Snowy Mountains"
+card_sprite = ExtResource("2_ll5ir")
+card_field_sprite = ExtResource("1_4pppf")
+card_sprite_preview = ExtResource("3_ymjea")
+card_deck_sprite = ExtResource("1_ll5ir")
+attack = 1950
+health = 2250
+spell_multiplier = 0
+spell_duration = 0
+base_spell_power = 0
+tributes = 1
+activation_cost = "None"
+card_attribute = "Water"
+card_type = "Creature"
+creature_race = "Elemental"
+creature_race_2 = "Giant"
+card_class = "None"
+card_class_2 = "None"
+talent_1 = "None"
+talent_2 = "None"
+talent_3 = "None"
+talent_4 = "None"
+talent_5 = "None"
+effect_type = "None"
+trigger_type = "None"
+effect_1_threshold_type = "None"
+effect_2_threshold_type = "None"
+effect_3_threshold_type = "None"
+effect_4_threshold_type = "None"
+effect_1_threshold = 0
+effect_2_threshold = 0
+effect_3_threshold = 0
+effect_4_threshold = 0
+custom_effect_name = "None"
+effect_1 = "None"
+effect_2 = "None"
+effect_3 = "None"
+effect_4 = "None"
+effect_magnitude_1 = 0
+effect_magnitude_2 = 0
+effect_magnitude_3 = 0
+effect_magnitude_4 = 0
+talent_from_buff = "None"
+targeting_type = "None"
+t_subtype_1 = "None"
+t_subtype_2 = "None"
+t_subtype_3 = "None"
+t_subtype_4 = "None"
+effect_speed = "None"
+temp_effect = "None"
+scaling_1 = "None"
+scaling_2 = "None"
+mana_cost_1 = "Water"
+mana_cost_2 = "Colorless"
+mana_cost_3 = "Colorless"
+mana_cost_4 = "None"
+mana_cost_5 = "None"
+metadata/_custom_type_script = "uid://cd4htsjoe2w4v"

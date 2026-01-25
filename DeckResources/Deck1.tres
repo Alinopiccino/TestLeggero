@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=9 format=3 uid="uid://cmwk1pglmss04"]
+
+[ext_resource type="Script" uid="uid://cd4htsjoe2w4v" path="res://Scripts/CardData.gd" id="1_c6fi2"]
+[ext_resource type="Resource" uid="uid://ci7omdmonp1vk" path="res://CardResources/FIRE SPELLS/Self Explosion.tres" id="4_tc6xh"]
+[ext_resource type="Resource" uid="uid://bvb2maxvh7dm7" path="res://CardResources/FIRE SPELLS/Fire Energy Tower.tres" id="5_57ud3"]
+[ext_resource type="Resource" uid="uid://coxmv4ju28svn" path="res://CardResources/FIRE SPELLS/FireBeam.tres" id="6_xcdci"]
+[ext_resource type="Resource" uid="uid://brs40x8cc3uho" path="res://CardResources/FIRE SPELLS/Vulcanic Sweep.tres" id="7_c6fi2"]
+[ext_resource type="Script" uid="uid://dfr01lxhxaoww" path="res://Scripts/DeckData.gd" id="8_hxu6o"]
+[ext_resource type="Resource" uid="uid://cpn8qc7unl7ml" path="res://CardResources/FIRE CREATURES/Burning Sun Adept.tres" id="17_l6bqu"]
+[ext_resource type="Resource" uid="uid://op61216nfng3" path="res://CardResources/FIRE CREATURES/Flame Runner.tres" id="22_pvr3a"]
+
+[resource]
+script = ExtResource("8_hxu6o")
+deck_name = "Deck1"
+cards = Array[ExtResource("1_c6fi2")]([ExtResource("17_l6bqu"), ExtResource("17_l6bqu"), ExtResource("17_l6bqu"), ExtResource("22_pvr3a"), ExtResource("22_pvr3a"), ExtResource("4_tc6xh"), ExtResource("4_tc6xh"), ExtResource("5_57ud3"), ExtResource("5_57ud3"), ExtResource("5_57ud3"), ExtResource("6_xcdci"), ExtResource("6_xcdci"), ExtResource("6_xcdci"), ExtResource("7_c6fi2"), ExtResource("7_c6fi2"), ExtResource("7_c6fi2")])
+is_valid = false
+mana_sort_state = "none"
+rank_sort_state = "desc"
+mana_slot_1 = "Fire"
+mana_slot_2 = "Earth"
+mana_slot_3 = "Water"
+mana_slot_4 = "Wind"
+mana_slot_5 = "Wind"

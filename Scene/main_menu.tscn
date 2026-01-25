@@ -1,0 +1,146 @@
+[gd_scene load_steps=7 format=3 uid="uid://bxrh2d6fl8xv5"]
+
+[ext_resource type="Script" uid="uid://dkhi8i726dof4" path="res://Scripts/main_menu.gd" id="1_ftydy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ftydy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_87ipw"]
+bg_color = Color(0.0509804, 0.235294, 0.278431, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.988091, 0.816125, 0.507255, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hii65"]
+bg_color = Color(0.100243, 0.369607, 0.436973, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.988091, 0.816125, 0.507255, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqsxi"]
+bg_color = Color(0.0501014, 0.233707, 0.279574, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.988091, 0.816125, 0.507255, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pvidh"]
+bg_color = Color(0.0733515, 0.297045, 0.352949, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.988091, 0.816125, 0.507255, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_ftydy")
+metadata/_edit_use_anchors_ = true
+
+[node name="UsernameEdit" type="LineEdit" parent="."]
+layout_mode = 2
+offset_left = 1462.0
+offset_top = 893.0
+offset_right = 1876.0
+offset_bottom = 970.0
+theme_override_font_sizes/font_size = 50
+
+[node name="UsernameLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+offset_left = 1464.0
+offset_top = 895.0
+offset_right = 1862.0
+offset_bottom = 972.0
+theme_override_font_sizes/normal_font_size = 40
+text = "Alinopiccino"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -207.0
+offset_top = -205.5
+offset_right = 207.0
+offset_bottom = 205.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 30
+
+[node name="PlayButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_pressed_color = Color(0.988235, 0.815686, 0.505882, 1)
+theme_override_colors/font_hover_color = Color(0.988235, 0.815686, 0.505882, 1)
+theme_override_colors/font_pressed_color = Color(0.988235, 0.815686, 0.505882, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ftydy")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_87ipw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hii65")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kqsxi")
+theme_override_styles/normal = SubResource("StyleBoxFlat_pvidh")
+text = "PLAY"
+
+[node name="CollectionButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_pressed_color = Color(0.988235, 0.815686, 0.505882, 1)
+theme_override_colors/font_hover_color = Color(0.988235, 0.815686, 0.505882, 1)
+theme_override_colors/font_pressed_color = Color(0.988235, 0.815686, 0.505882, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ftydy")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_87ipw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hii65")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kqsxi")
+theme_override_styles/normal = SubResource("StyleBoxFlat_pvidh")
+text = "COLLECTION
+"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_pressed_color = Color(0.988235, 0.815686, 0.505882, 1)
+theme_override_colors/font_hover_color = Color(0.988235, 0.815686, 0.505882, 1)
+theme_override_colors/font_pressed_color = Color(0.988235, 0.815686, 0.505882, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ftydy")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_87ipw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hii65")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kqsxi")
+theme_override_styles/normal = SubResource("StyleBoxFlat_pvidh")
+text = "QUIT
+"

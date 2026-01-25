@@ -1,0 +1,76 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://60mqqw70x8ef"]
+
+[ext_resource type="Texture2D" uid="uid://rcl5w14dd108" path="res://Assets/CardImagesFIELD/FireSpellsField/BAPTISM OF FIRE SP 50 3.png" id="1_6pppr"]
+[ext_resource type="Script" uid="uid://cd4htsjoe2w4v" path="res://Scripts/CardData.gd" id="1_t1bqm"]
+[ext_resource type="Texture2D" uid="uid://bld4tuvurcrk4" path="res://Assets/CardImagesDECK/FireSpellsDeck/chris baptism.png" id="1_too47"]
+[ext_resource type="Texture2D" uid="uid://vsbjup3mq4py" path="res://Assets/CardImages/FireSpellsHand/BAPTISM OF FIRE SP 50 2.png" id="2_too47"]
+[ext_resource type="Texture2D" uid="uid://h23blcp268k3" path="res://Assets/CardImagesPreview/FireSpellsPreview/BAPTISM OF FIRE SP50 1.png" id="3_joxai"]
+
+[resource]
+script = ExtResource("1_t1bqm")
+card_name = "Baptism of Fire"
+tooltip_name = "Baptism of Fire"
+card_sprite = ExtResource("2_too47")
+card_field_sprite = ExtResource("1_6pppr")
+card_sprite_preview = ExtResource("3_joxai")
+card_deck_sprite = ExtResource("1_too47")
+card_rank = 3
+attack = 0
+health = 0
+armour = 0
+spell_multiplier = 50
+spell_duration = 0
+base_spell_power = 0
+tributes = 0
+activation_cost = "None"
+card_attribute = "Fire"
+card_type = "Spell"
+creature_race = "None"
+creature_race_2 = "None"
+card_class = "NormalSpell"
+card_class_2 = "None"
+talent_1 = "None"
+talent_2 = "None"
+talent_3 = "None"
+talent_4 = "None"
+talent_5 = "None"
+effect_type = "OnPlay"
+trigger_type = "None"
+effect_1_threshold_type = "None"
+effect_2_threshold_type = "None"
+effect_3_threshold_type = "None"
+effect_4_threshold_type = "None"
+effect_1_threshold = 0
+effect_2_threshold = 0
+effect_3_threshold = 0
+effect_4_threshold = 0
+custom_effect_name = "None"
+effect_1 = "Damage"
+effect_2 = "BuffAtk"
+effect_3 = "None"
+effect_4 = "None"
+effect_magnitude_1 = 500
+effect_magnitude_2 = 1000
+effect_magnitude_3 = 0
+effect_magnitude_4 = 0
+talent_from_buff = "None"
+targeting_type = "Targeted"
+t_subtype_1 = "AllCreatures"
+t_subtype_2 = "None"
+t_subtype_3 = "None"
+t_subtype_4 = "None"
+effect_speed = "Normal"
+temp_effect = "None"
+scaling_1 = "None"
+scaling_amount_1 = 0
+scaling_2 = "MagnitudeSpellPower"
+scaling_amount_2 = 0
+repeats = "1"
+mana_cost_1 = "Fire"
+mana_cost_2 = "None"
+mana_cost_3 = "None"
+mana_cost_4 = "None"
+mana_cost_5 = "None"
+mana_cost_6 = "None"
+mana_cost_7 = "None"
+metadata/_custom_type_script = "uid://cd4htsjoe2w4v"

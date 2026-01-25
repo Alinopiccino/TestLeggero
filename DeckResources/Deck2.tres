@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=10 format=3 uid="uid://cgldxa5de4pah"]
+
+[ext_resource type="Script" uid="uid://cd4htsjoe2w4v" path="res://Scripts/CardData.gd" id="1_7n2a8"]
+[ext_resource type="Script" uid="uid://dfr01lxhxaoww" path="res://Scripts/DeckData.gd" id="6_i6a3x"]
+[ext_resource type="Resource" uid="uid://op61216nfng3" path="res://CardResources/FIRE CREATURES/Flame Runner.tres" id="7_u6yqf"]
+[ext_resource type="Resource" uid="uid://d1oelkaesyiq8" path="res://CardResources/FIRE CREATURES/Orc Rider.tres" id="8_0gr34"]
+[ext_resource type="Resource" uid="uid://gcxv61tk7cgx" path="res://CardResources/WIND SPELLS/Windy Aura.tres" id="9_p7f1d"]
+[ext_resource type="Resource" uid="uid://brs40x8cc3uho" path="res://CardResources/FIRE SPELLS/Vulcanic Sweep.tres" id="10_i6a3x"]
+[ext_resource type="Resource" uid="uid://c2qgani5g0e86" path="res://CardResources/WIND CREATURES/Blade Master.tres" id="15_2yf58"]
+[ext_resource type="Resource" uid="uid://cwvoy7srqqde2" path="res://CardResources/WIND CREATURES/Elusive Archer.tres" id="16_ur1r4"]
+[ext_resource type="Resource" uid="uid://cpn8qc7unl7ml" path="res://CardResources/FIRE CREATURES/Burning Sun Adept.tres" id="17_odkwh"]
+
+[resource]
+script = ExtResource("6_i6a3x")
+deck_name = "Deck2"
+cards = Array[ExtResource("1_7n2a8")]([ExtResource("7_u6yqf"), ExtResource("16_ur1r4"), ExtResource("17_odkwh"), ExtResource("15_2yf58"), ExtResource("15_2yf58"), ExtResource("15_2yf58"), ExtResource("9_p7f1d"), ExtResource("9_p7f1d"), ExtResource("9_p7f1d"), ExtResource("8_0gr34"), ExtResource("10_i6a3x"), ExtResource("10_i6a3x"), ExtResource("10_i6a3x"), ExtResource("8_0gr34"), ExtResource("7_u6yqf")])
+is_valid = false
+mana_sort_state = "desc"
+rank_sort_state = "none"
+mana_slot_1 = "Fire"
+mana_slot_2 = "Fire"
+mana_slot_3 = "Fire"
+mana_slot_4 = "Fire"
+mana_slot_5 = "Wind"

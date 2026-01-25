@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_avgwk"]
+[ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_ygsf3"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Crystal Research.tres" id="4_4qjbq"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Firebolt.tres" id="4_5jyun"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Blazing Gorilla.tres" id="6_so2aj"]
+
+[resource]
+script = ExtResource("2_ygsf3")
+deck_name = "Layouts1"
+cards = Array[ExtResource("1_avgwk")]([ExtResource("4_5jyun"), ExtResource("4_5jyun"), ExtResource("4_5jyun"), ExtResource("6_so2aj"), ExtResource("6_so2aj"), ExtResource("6_so2aj"), ExtResource("4_4qjbq"), ExtResource("4_4qjbq"), ExtResource("4_4qjbq")])
+is_valid = false
+mana_sort_state = "none"
+rank_sort_state = "none"
+mana_slot_1 = "Fire"
+mana_slot_2 = "Fire"
+mana_slot_3 = "Fire"
+mana_slot_4 = "Earth"
+mana_slot_5 = "Earth"

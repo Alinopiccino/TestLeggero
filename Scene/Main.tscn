@@ -1,0 +1,88 @@
+[gd_scene load_steps=6 format=3 uid="uid://ohvpof3mrbma"]
+
+[ext_resource type="Script" uid="uid://fjevlaeo1yqb" path="res://main.gd" id="1_xhtwi"]
+[ext_resource type="PackedScene" uid="uid://bkx2nydgmhnop" path="res://Scene/player_field.tscn" id="2_djkur"]
+[ext_resource type="PackedScene" uid="uid://36dutrfrtp7d" path="res://Scene/enemy_field.tscn" id="3_djkur"]
+[ext_resource type="Texture2D" uid="uid://kcdw4qih0bbn" path="res://UI main menu lobby/copy.png" id="4_h175a"]
+[ext_resource type="Texture2D" uid="uid://bpmcbmstrr88h" path="res://UI main menu lobby/copy hovered.png" id="5_togfq"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_xhtwi")
+player_field_scene = ExtResource("2_djkur")
+enemy_field_scene = ExtResource("3_djkur")
+
+[node name="HostButton" type="Button" parent="."]
+offset_left = 612.0
+offset_top = 667.0
+offset_right = 812.0
+offset_bottom = 767.0
+text = "HOST"
+
+[node name="JoinButton" type="Button" parent="."]
+offset_left = 1281.0
+offset_top = 661.0
+offset_right = 1481.0
+offset_bottom = 761.0
+text = "JOIN
+"
+
+[node name="DeckList" type="VBoxContainer" parent="."]
+offset_left = 10.0
+offset_top = 28.0
+offset_right = 467.0
+offset_bottom = 996.0
+
+[node name="LobbyListBackground" type="ColorRect" parent="."]
+z_index = -5
+offset_left = 559.0
+offset_top = 127.0
+offset_right = 1565.0
+offset_bottom = 806.0
+mouse_filter = 2
+color = Color(0.45, 0.304875, 0.2565, 1)
+
+[node name="LobbyList" type="VBoxContainer" parent="LobbyListBackground"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DeckListBackground" type="ColorRect" parent="."]
+z_index = -5
+offset_top = -3.0
+offset_right = 523.0
+offset_bottom = 1005.0
+mouse_filter = 2
+color = Color(0.176419, 0.176419, 0.176419, 1)
+
+[node name="StatusLabel" type="RichTextLabel" parent="."]
+z_index = 100
+offset_left = 830.0
+offset_top = 400.0
+offset_right = 1330.0
+offset_bottom = 541.0
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "Hosting a game...
+IP: 192.168.0.107  "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="IPInput" type="LineEdit" parent="."]
+offset_left = 1282.0
+offset_top = 620.0
+offset_right = 1477.0
+offset_bottom = 653.0
+placeholder_text = "Insert Host IP address..."
+
+[node name="CopyIPButton" type="TextureButton" parent="."]
+offset_left = 1266.0
+offset_top = 502.0
+offset_right = 1778.0
+offset_bottom = 1014.0
+scale = Vector2(0.05, 0.05)
+texture_normal = ExtResource("4_h175a")
+texture_hover = ExtResource("5_togfq")
+
+[connection signal="pressed" from="HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="JoinButton" to="." method="_on_join_button_pressed"]

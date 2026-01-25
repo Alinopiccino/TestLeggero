@@ -1,0 +1,76 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://c2qgani5g0e86"]
+
+[ext_resource type="Script" uid="uid://cd4htsjoe2w4v" path="res://Scripts/CardData.gd" id="1_0auq4"]
+[ext_resource type="Texture2D" uid="uid://boc6n6y5nbtvp" path="res://Assets/CardImagesFIELD/WindCreaturesField/BLADE MASTER 750 1050 3.png" id="1_dtyis"]
+[ext_resource type="Texture2D" uid="uid://bpdunuiy1ubtt" path="res://Assets/CardImagesDECK/WindCreaturesDeck/blade master.png" id="1_tdhru"]
+[ext_resource type="Texture2D" uid="uid://b27t7nh1qnfre" path="res://Assets/CardImages/WindCreaturesHand/BLADE MASTER 750 1050 2.png" id="2_tdhru"]
+[ext_resource type="Texture2D" uid="uid://cvjeldw7ti5en" path="res://Assets/CardImagesPreview/WindCreaturesPreview/BLADE MASTER 750 1050 1.png" id="3_l8r3x"]
+
+[resource]
+script = ExtResource("1_0auq4")
+card_name = "Blade Master"
+tooltip_name = "Blade Master"
+card_sprite = ExtResource("2_tdhru")
+card_field_sprite = ExtResource("1_dtyis")
+card_sprite_preview = ExtResource("3_l8r3x")
+card_deck_sprite = ExtResource("1_tdhru")
+card_rank = 3
+attack = 750
+health = 1050
+armour = 0
+spell_multiplier = 0
+spell_duration = 0
+base_spell_power = 0
+tributes = 0
+activation_cost = "None"
+card_attribute = "Wind"
+card_type = "Creature"
+creature_race = "Humanoid"
+creature_race_2 = "None"
+card_class = "Figher"
+card_class_2 = "None"
+talent_1 = "Double Strike"
+talent_2 = "None"
+talent_3 = "None"
+talent_4 = "None"
+talent_5 = "None"
+effect_type = "None"
+trigger_type = "None"
+effect_1_threshold_type = "None"
+effect_2_threshold_type = "None"
+effect_3_threshold_type = "None"
+effect_4_threshold_type = "None"
+effect_1_threshold = 0
+effect_2_threshold = 0
+effect_3_threshold = 0
+effect_4_threshold = 0
+custom_effect_name = "None"
+effect_1 = "None"
+effect_2 = "None"
+effect_3 = "None"
+effect_4 = "None"
+effect_magnitude_1 = 0
+effect_magnitude_2 = 0
+effect_magnitude_3 = 0
+effect_magnitude_4 = 0
+talent_from_buff = "None"
+targeting_type = "None"
+t_subtype_1 = "None"
+t_subtype_2 = "None"
+t_subtype_3 = "None"
+t_subtype_4 = "None"
+effect_speed = "None"
+temp_effect = "None"
+scaling_1 = "None"
+scaling_amount_1 = 0
+scaling_2 = "None"
+scaling_amount_2 = 0
+repeats = "1"
+mana_cost_1 = "Wind"
+mana_cost_2 = "Colorless"
+mana_cost_3 = "None"
+mana_cost_4 = "None"
+mana_cost_5 = "None"
+mana_cost_6 = "None"
+mana_cost_7 = "None"
+metadata/_custom_type_script = "uid://cd4htsjoe2w4v"

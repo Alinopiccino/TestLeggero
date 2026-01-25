@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_nuh6a"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Spell Vanisher.tres" id="2_4h0db"]
+[ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_f83aq"]
+[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Lenso.tres" id="3_4h0db"]
+[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Ice Warrior.tres" id="4_k0ndl"]
+[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Warrior Maiden.tres" id="7_2lgrn"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Frozen Weapon .tres" id="7_gy0ty"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Ice Barrier.tres" id="8_6moxa"]
+
+[resource]
+script = ExtResource("2_f83aq")
+deck_name = "lool"
+cards = Array[ExtResource("1_nuh6a")]([ExtResource("2_4h0db"), ExtResource("3_4h0db"), ExtResource("3_4h0db"), ExtResource("3_4h0db"), ExtResource("4_k0ndl"), ExtResource("4_k0ndl"), ExtResource("7_gy0ty"), ExtResource("7_gy0ty"), ExtResource("7_gy0ty"), ExtResource("8_6moxa"), ExtResource("8_6moxa"), ExtResource("8_6moxa"), ExtResource("7_2lgrn"), ExtResource("7_2lgrn"), ExtResource("7_2lgrn")])
+is_valid = false
+mana_sort_state = "none"
+rank_sort_state = "none"
+mana_slot_1 = "Water"
+mana_slot_2 = "Water"
+mana_slot_3 = "Water"
+mana_slot_4 = "Water"
+mana_slot_5 = "Water"

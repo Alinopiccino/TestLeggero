@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_nonvm"]
+[ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_eo7ae"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Stun!.tres" id="2_fpb8m"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Sand Gust.tres" id="3_fpb8m"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Centauro Solitario.tres" id="4_nha08"]
+
+[resource]
+script = ExtResource("2_eo7ae")
+deck_name = "dfffdhfdh"
+cards = Array[ExtResource("1_nonvm")]([ExtResource("2_fpb8m"), ExtResource("2_fpb8m"), ExtResource("2_fpb8m"), ExtResource("3_fpb8m"), ExtResource("3_fpb8m"), ExtResource("3_fpb8m"), ExtResource("4_nha08"), ExtResource("4_nha08"), ExtResource("4_nha08")])
+is_valid = false
+mana_sort_state = "none"
+rank_sort_state = "none"
+mana_slot_1 = "Earth"
+mana_slot_2 = "Earth"
+mana_slot_3 = "Earth"
+mana_slot_4 = "Earth"
+mana_slot_5 = "Earth"

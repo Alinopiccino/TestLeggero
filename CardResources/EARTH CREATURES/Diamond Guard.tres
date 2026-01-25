@@ -1,0 +1,74 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://cqyx7vu6mtopk"]
+
+[ext_resource type="Script" uid="uid://cd4htsjoe2w4v" path="res://Scripts/CardData.gd" id="1_bgnhl"]
+[ext_resource type="Texture2D" uid="uid://dmm0vj5w82egr" path="res://Assets/CardImagesDECK/EarthCreaturesDeck/DIAMOND GUARD 450750 4.png" id="1_hm3qm"]
+[ext_resource type="Texture2D" uid="uid://d3wchetog1l2b" path="res://Assets/CardImagesFIELD/EarthCreaturesField/DIAMOND GUARD 450750 3.png" id="2_1jeg6"]
+[ext_resource type="Texture2D" uid="uid://c81vwyahuj7c7" path="res://Assets/CardImages/EarthCreaturesHand/DIAMOND GUARD 450750 2.png" id="3_5omn1"]
+[ext_resource type="Texture2D" uid="uid://xss747ndmrt6" path="res://Assets/CardImagesPreview/EarthCreaturesPreview/DIAMOND GUARD 450750 1.png" id="4_kqfge"]
+
+[resource]
+script = ExtResource("1_bgnhl")
+card_name = "Diamond Guard"
+tooltip_name = "Diamond Guard"
+card_sprite = ExtResource("3_5omn1")
+card_field_sprite = ExtResource("2_1jeg6")
+card_sprite_preview = ExtResource("4_kqfge")
+card_deck_sprite = ExtResource("1_hm3qm")
+card_rank = 3
+attack = 450
+health = 750
+spell_multiplier = 0
+spell_duration = 0
+base_spell_power = 0
+tributes = 0
+activation_cost = "None"
+card_attribute = "Earth"
+card_type = "Creature"
+creature_race = "Humanoid"
+creature_race_2 = "None"
+card_class = "Defender"
+card_class_2 = "None"
+talent_1 = "None"
+talent_2 = "None"
+talent_3 = "None"
+talent_4 = "None"
+talent_5 = "None"
+effect_type = "On_Trigger"
+trigger_type = "While_DEFpos"
+effect_1_threshold_type = "None"
+effect_2_threshold_type = "None"
+effect_3_threshold_type = "None"
+effect_4_threshold_type = "None"
+effect_1_threshold = 0
+effect_2_threshold = 0
+effect_3_threshold = 0
+effect_4_threshold = 0
+custom_effect_name = "None"
+effect_1 = "BuffTalent"
+effect_2 = "None"
+effect_3 = "None"
+effect_4 = "None"
+effect_magnitude_1 = 0
+effect_magnitude_2 = 0
+effect_magnitude_3 = 0
+effect_magnitude_4 = 0
+talent_from_buff = "Phys Immune"
+targeting_type = "None"
+t_subtype_1 = "Self"
+t_subtype_2 = "None"
+t_subtype_3 = "None"
+t_subtype_4 = "None"
+effect_speed = "None"
+temp_effect = "While"
+scaling_1 = "None"
+scaling_amount_1 = 0
+scaling_2 = "None"
+scaling_amount_2 = 0
+mana_cost_1 = "Earth"
+mana_cost_2 = "Colorless"
+mana_cost_3 = "None"
+mana_cost_4 = "None"
+mana_cost_5 = "None"
+mana_cost_6 = "None"
+mana_cost_7 = "None"
+metadata/_custom_type_script = "uid://cd4htsjoe2w4v"

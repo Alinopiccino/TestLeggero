@@ -1,0 +1,625 @@
+[gd_scene load_steps=31 format=3 uid="uid://bkx2nydgmhnop"]
+
+[ext_resource type="Script" uid="uid://mhnnyqbkjiwh" path="res://Scene/GameSetup.gd" id="1_rwyy7"]
+[ext_resource type="Script" uid="uid://gutrgdj4rmsl" path="res://Scripts/InserimentoDeck.gd" id="1_wawig"]
+[ext_resource type="PackedScene" uid="uid://h1c0uc7u0h6r" path="res://Scene/Card.tscn" id="2_rwyy7"]
+[ext_resource type="Script" uid="uid://jmy3uo0jdcjr" path="res://Scripts/card_manager.gd" id="3_aifdw"]
+[ext_resource type="Script" uid="uid://ma2p6fts1f7v" path="res://Scripts/input_manager.gd" id="4_g20td"]
+[ext_resource type="PackedScene" uid="uid://bpb4ljr5q8fb5" path="res://Scene/card_slot.tscn" id="5_225pa"]
+[ext_resource type="Script" uid="uid://es340uv1h6fc" path="res://Scripts/CreatureCardSlot.gd" id="6_vobt0"]
+[ext_resource type="Script" uid="uid://c0h5iua6g02js" path="res://Scripts/SpellCardSlot.gd" id="7_onb2x"]
+[ext_resource type="Script" uid="uid://dev5d6lf0cjb4" path="res://Scripts/player_hand.gd" id="8_f8xqc"]
+[ext_resource type="Script" uid="uid://dqv0e1edprlh6" path="res://Scripts/deck.gd" id="9_7yhcc"]
+[ext_resource type="PackedScene" uid="uid://cpkmgeqgtpd1r" path="res://Scene/Enemy_card_slot.tscn" id="10_g20td"]
+[ext_resource type="Resource" uid="uid://dlu7x81diwaoe" path="res://DeckResources/Deck2.tres" id="10_gm5u4"]
+[ext_resource type="Texture2D" uid="uid://dmbn0yyrehhkn" path="res://Assets/CardBack.png" id="11_vd8tq"]
+[ext_resource type="Texture2D" uid="uid://bytdqg80bi846" path="res://Assets/CardSlot.png" id="12_frrmm"]
+[ext_resource type="Script" uid="uid://n3jlp7s23shg" path="res://Scripts/combat_manager.gd" id="13_vy6tj"]
+[ext_resource type="Script" uid="uid://wjpfvsgf5ony" path="res://Scripts/Player_GYclick.gd" id="14_ba1e6"]
+[ext_resource type="Script" uid="uid://cikt2jq28gq33" path="res://Scene/phase_manager.gd" id="17_g20td"]
+[ext_resource type="Texture2D" uid="uid://5q7iohemkifu" path="res://Assets/SPADA ICONA.png" id="18_vobt0"]
+[ext_resource type="Texture2D" uid="uid://cwykxa01a7mv5" path="res://Assets/SCUDO ICONA.png" id="19_onb2x"]
+[ext_resource type="Script" uid="uid://delbjee3vpasv" path="res://Scene/choose_position_popup.gd" id="20_onb2x"]
+[ext_resource type="Script" uid="uid://bs15k2437dca7" path="res://Scene/action_buttons.gd" id="21_f8xqc"]
+[ext_resource type="Script" uid="uid://mmaey6tqspid" path="res://Scene/mana_slot_manager.gd" id="22_7yhcc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xa1iw"]
+size = Vector2(745, 1040)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m0mch"]
+size = Vector2(746.667, 1033.33)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g20td"]
+bg_color = Color(0, 0, 0, 0.392157)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.803922, 0.466667, 0.133333, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7yhcc"]
+bg_color = Color(0, 0, 0, 0.392157)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.803922, 0.466667, 0.133333, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_225pa"]
+bg_color = Color(0, 0, 0, 0.392157)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.803922, 0.466667, 0.133333, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vobt0"]
+bg_color = Color(0, 0, 0, 0.392157)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.803922, 0.466667, 0.133333, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_onb2x"]
+bg_color = Color(0, 0, 0, 0.392157)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.803922, 0.466667, 0.133333, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f8xqc"]
+bg_color = Color(0, 0, 0, 0.392157)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.803922, 0.466667, 0.133333, 0)
+
+[node name="PlayerField" type="Node2D"]
+script = ExtResource("1_rwyy7")
+
+[node name="InputManager" type="Node2D" parent="."]
+script = ExtResource("4_g20td")
+
+[node name="CardManager" type="Node2D" parent="."]
+script = ExtResource("3_aifdw")
+card_field_path = NodePath("../CardField")
+
+[node name="ChoosePositionPopup" type="PopupPanel" parent="."]
+initial_position = 2
+size = Vector2i(800, 400)
+script = ExtResource("20_onb2x")
+
+[node name="CreatureOptions" type="HBoxContainer" parent="ChoosePositionPopup"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 796.0
+offset_bottom = 396.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 500
+alignment = 1
+
+[node name="AttackWrapper" type="Control" parent="ChoosePositionPopup/CreatureOptions"]
+custom_minimum_size = Vector2(50, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AttackPreview" type="TextureButton" parent="ChoosePositionPopup/CreatureOptions/AttackWrapper"]
+layout_mode = 2
+offset_right = 792.0
+
+[node name="DefenseWrapper" type="Control" parent="ChoosePositionPopup/CreatureOptions"]
+custom_minimum_size = Vector2(50, 150)
+layout_mode = 2
+
+[node name="DefensePreview" type="TextureButton" parent="ChoosePositionPopup/CreatureOptions/DefenseWrapper"]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 792.0
+offset_bottom = 4.0
+
+[node name="SpellOptions" type="HBoxContainer" parent="ChoosePositionPopup"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 796.0
+offset_bottom = 396.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="FaceupWrapper" type="Control" parent="ChoosePositionPopup/SpellOptions"]
+layout_mode = 2
+
+[node name="FaceupPreview" type="TextureButton" parent="ChoosePositionPopup/SpellOptions/FaceupWrapper"]
+layout_mode = 2
+offset_top = 8.0
+offset_right = 792.0
+offset_bottom = 8.0
+
+[node name="FacedownWrapper" type="Control" parent="ChoosePositionPopup/SpellOptions"]
+layout_mode = 2
+
+[node name="FacedownPreview" type="TextureButton" parent="ChoosePositionPopup/SpellOptions/FacedownWrapper"]
+layout_mode = 2
+offset_top = 12.0
+offset_right = 792.0
+offset_bottom = 12.0
+
+[node name="EnemyCardManager" type="Node2D" parent="."]
+
+[node name="Inserimento deck" type="Node2D" parent="."]
+position = Vector2(1.52588e-05, 6.10352e-05)
+script = ExtResource("1_wawig")
+card_scene = ExtResource("2_rwyy7")
+
+[node name="CardField" type="Node2D" parent="."]
+
+[node name="CardContainer" type="Node2D" parent="."]
+
+[node name="PlayerZones" type="Node2D" parent="."]
+
+[node name="CreatureSlot1" parent="PlayerZones" instance=ExtResource("5_225pa")]
+position = Vector2(630, 614)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("6_vobt0")
+
+[node name="CreatureSlot2" parent="PlayerZones" instance=ExtResource("5_225pa")]
+position = Vector2(795, 614)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("6_vobt0")
+
+[node name="CreatureSlot3" parent="PlayerZones" instance=ExtResource("5_225pa")]
+position = Vector2(960, 614)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("6_vobt0")
+
+[node name="CreatureSlot4" parent="PlayerZones" instance=ExtResource("5_225pa")]
+position = Vector2(1125, 614)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("6_vobt0")
+
+[node name="CreatureSlot5" parent="PlayerZones" instance=ExtResource("5_225pa")]
+position = Vector2(1290, 614)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("6_vobt0")
+
+[node name="SpellSlot1" parent="PlayerZones" instance=ExtResource("5_225pa")]
+position = Vector2(630, 790)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("7_onb2x")
+
+[node name="SpellSlot2" parent="PlayerZones" instance=ExtResource("5_225pa")]
+position = Vector2(795, 790)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("7_onb2x")
+
+[node name="SpellSlot3" parent="PlayerZones" instance=ExtResource("5_225pa")]
+position = Vector2(960, 790)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("7_onb2x")
+
+[node name="SpellSlot4" parent="PlayerZones" instance=ExtResource("5_225pa")]
+position = Vector2(1125, 790)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("7_onb2x")
+
+[node name="SpellSlot5" parent="PlayerZones" instance=ExtResource("5_225pa")]
+position = Vector2(1290, 790)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("7_onb2x")
+
+[node name="EnemyCreatureSlot1" parent="PlayerZones" instance=ExtResource("10_g20td")]
+position = Vector2(1290, 371)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("6_vobt0")
+
+[node name="EnemyCreatureSlot2" parent="PlayerZones" instance=ExtResource("10_g20td")]
+position = Vector2(1125, 371)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("6_vobt0")
+
+[node name="EnemyCreatureSlot3" parent="PlayerZones" instance=ExtResource("10_g20td")]
+position = Vector2(960, 371)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("6_vobt0")
+
+[node name="EnemyCreatureSlot4" parent="PlayerZones" instance=ExtResource("10_g20td")]
+position = Vector2(795, 371)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("6_vobt0")
+
+[node name="EnemyCreatureSlot5" parent="PlayerZones" instance=ExtResource("10_g20td")]
+position = Vector2(630, 371)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("6_vobt0")
+
+[node name="EnemySpellSlot5" parent="PlayerZones" instance=ExtResource("10_g20td")]
+position = Vector2(630, 196)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("7_onb2x")
+
+[node name="EnemySpellSlot4" parent="PlayerZones" instance=ExtResource("10_g20td")]
+position = Vector2(795, 196)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("7_onb2x")
+
+[node name="EnemySpellSlot3" parent="PlayerZones" instance=ExtResource("10_g20td")]
+position = Vector2(960, 196)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("7_onb2x")
+
+[node name="EnemySpellSlot2" parent="PlayerZones" instance=ExtResource("10_g20td")]
+position = Vector2(1125, 196)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("7_onb2x")
+
+[node name="EnemySpellSlot1" parent="PlayerZones" instance=ExtResource("10_g20td")]
+position = Vector2(1290, 196)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("7_onb2x")
+
+[node name="PlayerHand" type="Node2D" parent="."]
+script = ExtResource("8_f8xqc")
+
+[node name="Deck" type="Node2D" parent="."]
+position = Vector2(1800, 890)
+scale = Vector2(0.2, 0.2)
+script = ExtResource("9_7yhcc")
+deck_data = ExtResource("10_gm5u4")
+
+[node name="Sprite2D" type="Sprite2D" parent="Deck"]
+z_index = -2
+texture = ExtResource("11_vd8tq")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Deck"]
+z_index = -3
+texture = ExtResource("12_frrmm")
+
+[node name="Area2D" type="Area2D" parent="Deck"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Deck/Area2D"]
+z_index = -2
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_xa1iw")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Deck"]
+z_index = -2
+offset_left = -45.0
+offset_top = -120.0
+offset_bottom = -68.0
+scale = Vector2(10, 10)
+text = "0"
+
+[node name="DeckTimer" type="Timer" parent="Deck"]
+
+[node name="PlayerGY" type="Node2D" parent="."]
+z_index = -3
+position = Vector2(1800, 670)
+scale = Vector2(0.15, 0.15)
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerGY"]
+texture = ExtResource("12_frrmm")
+
+[node name="Area2D" type="Area2D" parent="PlayerGY"]
+collision_layer = 128
+collision_mask = 128
+script = ExtResource("14_ba1e6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerGY/Area2D"]
+position = Vector2(0, 3.3335)
+shape = SubResource("RectangleShape2D_m0mch")
+
+[node name="PlayerLP" type="RichTextLabel" parent="."]
+offset_left = 52.0
+offset_top = 890.0
+offset_right = 112.0
+offset_bottom = 915.0
+scale = Vector2(2.5, 2.5)
+text = "0"
+
+[node name="CombatManager" type="Node" parent="."]
+script = ExtResource("13_vy6tj")
+
+[node name="BattleTimer" type="Timer" parent="."]
+
+[node name="PhaseManager" type="Node" parent="."]
+script = ExtResource("17_g20td")
+
+[node name="PlayerPassPhaseButton" type="Button" parent="."]
+offset_left = 1450.0
+offset_top = 500.0
+offset_right = 1630.0
+offset_bottom = 580.0
+text = "PASS PHASE"
+
+[node name="EnemyPassPhaseButton" type="Button" parent="."]
+visible = false
+offset_left = 1450.0
+offset_top = 410.0
+offset_right = 1630.0
+offset_bottom = 490.0
+text = "PASS PHASE"
+
+[node name="PhaseIndicators" type="HBoxContainer" parent="."]
+z_index = -10
+offset_left = 558.0
+offset_top = 456.0
+offset_right = 1362.0
+offset_bottom = 528.0
+
+[node name="StartPhasePanel" type="Panel" parent="PhaseIndicators"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_g20td")
+
+[node name="SPLabel" type="Label" parent="PhaseIndicators/StartPhasePanel"]
+layout_mode = 0
+offset_right = 63.0
+offset_bottom = 36.0
+scale = Vector2(2, 2)
+text = "SP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UpkeepPhasePanel" type="Panel" parent="PhaseIndicators"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_7yhcc")
+
+[node name="UPLabel" type="Label" parent="PhaseIndicators/UpkeepPhasePanel"]
+layout_mode = 0
+offset_right = 63.0
+offset_bottom = 36.0
+scale = Vector2(2, 2)
+text = "UP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MainPhasePanel" type="Panel" parent="PhaseIndicators"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_225pa")
+
+[node name="MPLabel" type="Label" parent="PhaseIndicators/MainPhasePanel"]
+layout_mode = 0
+offset_right = 63.0
+offset_bottom = 36.0
+scale = Vector2(2, 2)
+text = "MP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PrepPhasePanel" type="Panel" parent="PhaseIndicators"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_vobt0")
+
+[node name="PPLabel" type="Label" parent="PhaseIndicators/PrepPhasePanel"]
+layout_mode = 0
+offset_right = 63.0
+offset_bottom = 36.0
+scale = Vector2(2, 2)
+text = "PP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BattlePhasePanel" type="Panel" parent="PhaseIndicators"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_onb2x")
+
+[node name="BPLabel" type="Label" parent="PhaseIndicators/BattlePhasePanel"]
+layout_mode = 0
+offset_right = 63.0
+offset_bottom = 36.0
+scale = Vector2(2, 2)
+text = "BP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EndPhasePanel" type="Panel" parent="PhaseIndicators"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_f8xqc")
+
+[node name="EPLabel" type="Label" parent="PhaseIndicators/EndPhasePanel"]
+layout_mode = 0
+offset_right = 63.0
+offset_bottom = 36.0
+scale = Vector2(2, 2)
+text = "EP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerDefenderIcon" type="TextureRect" parent="."]
+visible = false
+offset_left = 350.0
+offset_top = 550.0
+offset_right = 2350.0
+offset_bottom = 2550.0
+scale = Vector2(0.06, 0.06)
+texture = ExtResource("19_onb2x")
+
+[node name="PlayerAttackerIcon" type="TextureRect" parent="."]
+visible = false
+offset_left = 350.0
+offset_top = 550.0
+offset_right = 2350.0
+offset_bottom = 2550.0
+scale = Vector2(0.06, 0.06)
+texture = ExtResource("18_vobt0")
+
+[node name="EnemyDefenderIcon" type="TextureRect" parent="."]
+visible = false
+offset_left = 350.0
+offset_top = 330.0
+offset_right = 2350.0
+offset_bottom = 2330.0
+scale = Vector2(0.06, 0.06)
+texture = ExtResource("19_onb2x")
+
+[node name="EnemyAttackerIcon" type="TextureRect" parent="."]
+visible = false
+offset_left = 350.0
+offset_top = 330.0
+offset_right = 2350.0
+offset_bottom = 2330.0
+scale = Vector2(0.06, 0.06)
+texture = ExtResource("18_vobt0")
+
+[node name="ActionButtons" type="Node2D" parent="."]
+script = ExtResource("21_f8xqc")
+
+[node name="EnemyResolveButton" type="Button" parent="ActionButtons"]
+modulate = Color(0, 0.490196, 0.886275, 1)
+offset_left = 1450.0
+offset_top = 410.0
+offset_right = 1590.0
+offset_bottom = 470.0
+scale = Vector2(1.3, 1.3)
+text = "RESOLVE
+"
+
+[node name="PlayerOkButton" type="Button" parent="ActionButtons"]
+modulate = Color(1, 0.72549, 0, 1)
+offset_left = 1450.0
+offset_top = 609.0
+offset_right = 1525.0
+offset_bottom = 661.0
+scale = Vector2(1.5, 1.5)
+text = "OK"
+
+[node name="PlayerResolveButton" type="Button" parent="ActionButtons"]
+modulate = Color(0, 0.490196, 0.886275, 1)
+offset_left = 1450.0
+offset_top = 500.0
+offset_right = 1590.0
+offset_bottom = 560.0
+scale = Vector2(1.3, 1.3)
+text = "RESOLVE
+"
+
+[node name="PlayerGoToCombatButton" type="Button" parent="ActionButtons"]
+modulate = Color(0, 0.490196, 0.886275, 1)
+offset_left = 1450.0
+offset_top = 500.0
+offset_right = 1590.0
+offset_bottom = 560.0
+scale = Vector2(1.3, 1.3)
+text = "GO TO COMBAT
+"
+
+[node name="PlayerToDamageStepButton" type="Button" parent="ActionButtons"]
+modulate = Color(0, 0.490196, 0.886275, 1)
+offset_left = 1448.0
+offset_top = 501.0
+offset_right = 1591.0
+offset_bottom = 561.0
+scale = Vector2(1.3, 1.3)
+text = "TO DAMAGE STEP
+"
+
+[node name="PlayerRetaliateButton" type="Button" parent="ActionButtons"]
+modulate = Color(1, 0.160784, 0, 1)
+offset_left = 1450.0
+offset_top = 500.0
+offset_right = 1590.0
+offset_bottom = 560.0
+scale = Vector2(1.3, 1.3)
+text = "RETALIATE"
+
+[node name="PlayerDirectAttackButton" type="Button" parent="ActionButtons"]
+modulate = Color(1, 0.160784, 0, 1)
+offset_left = 1450.0
+offset_top = 500.0
+offset_right = 1590.0
+offset_bottom = 560.0
+scale = Vector2(1.3, 1.3)
+text = "DIRECT ATTACK
+"
+
+[node name="EnemyOkButton" type="Button" parent="ActionButtons"]
+modulate = Color(1, 0.72549, 0, 1)
+offset_left = 1450.0
+offset_top = 410.0
+offset_right = 1525.0
+offset_bottom = 462.0
+scale = Vector2(1.5, 1.5)
+text = "OK"
+
+[node name="EnemyRetaliateButton" type="Button" parent="ActionButtons"]
+modulate = Color(1, 0.160784, 0, 1)
+offset_left = 1450.0
+offset_top = 410.0
+offset_right = 1590.0
+offset_bottom = 470.0
+scale = Vector2(1.3, 1.3)
+text = "RETALIATE"
+
+[node name="PromptLabels" type="Node2D" parent="."]
+
+[node name="DrawPromptLabel" type="Label" parent="PromptLabels"]
+visible = false
+offset_left = 1450.0
+offset_top = 752.0
+offset_right = 1641.0
+offset_bottom = 775.0
+scale = Vector2(1.3, 1.3)
+text = "DRAW YOUR TURN CARD"
+
+[node name="PlayerEnchainLabel" type="RichTextLabel" parent="PromptLabels"]
+visible = false
+offset_left = 1449.0
+offset_top = 659.0
+offset_right = 1598.0
+offset_bottom = 708.0
+scale = Vector2(1.5, 1.5)
+bbcode_enabled = true
+text = "YOU MAY [color=green]ENCHAIN[/color]
+CARDS OR EFFECTS"
+horizontal_alignment = 3
+
+[node name="PlayerSelectionLabel" type="RichTextLabel" parent="PromptLabels"]
+offset_left = 1447.0
+offset_top = 659.0
+offset_right = 1599.0
+offset_bottom = 713.0
+scale = Vector2(1.5, 1.5)
+bbcode_enabled = true
+horizontal_alignment = 1
+
+[node name="ProceedStepLabel" type="RichTextLabel" parent="PromptLabels"]
+offset_left = 1447.0
+offset_top = 659.0
+offset_right = 1625.0
+offset_bottom = 713.0
+scale = Vector2(1.5, 1.5)
+text = "
+"
+
+[node name="ManaSlots" type="VBoxContainer" parent="."]
+offset_left = -37.0
+offset_top = 663.0
+offset_right = -29.0
+offset_bottom = 671.0
+theme_override_constants/separation = -460
+script = ExtResource("22_7yhcc")

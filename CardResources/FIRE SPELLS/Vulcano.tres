@@ -1,0 +1,70 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://c4fd8nrt65n5k"]
+
+[ext_resource type="Texture2D" uid="uid://dvronwr2ft4tl" path="res://Assets/CardImagesDECK/FireSpellsDeck/vulcano.png" id="1_5ero1"]
+[ext_resource type="Texture2D" uid="uid://c60yo3ihpx7eo" path="res://Assets/CardImagesFIELD/FireSpellsField/VULCANO SP50 DUR3 3.png" id="1_sxt4u"]
+[ext_resource type="Texture2D" uid="uid://c3iv8h7o5g4jm" path="res://Assets/CardImages/FireSpellsHand/VULCANO SP50 DUR3 2.png" id="2_5ero1"]
+[ext_resource type="Texture2D" uid="uid://b6xjfu0jyqsvf" path="res://Assets/CardImagesPreview/FireSpellsPreview/VULCANO SP50 DUR3 1.png" id="3_8687r"]
+[ext_resource type="Script" uid="uid://cd4htsjoe2w4v" path="res://Scripts/CardData.gd" id="4_kfep8"]
+
+[resource]
+script = ExtResource("4_kfep8")
+card_name = "Vulcano"
+tooltip_name = "Vulcano"
+card_sprite = ExtResource("2_5ero1")
+card_field_sprite = ExtResource("1_sxt4u")
+card_sprite_preview = ExtResource("3_8687r")
+card_deck_sprite = ExtResource("1_5ero1")
+card_rank = 3
+attack = 0
+health = 0
+spell_multiplier = 50
+spell_duration = 3
+base_spell_power = 0
+tributes = 0
+activation_cost = "None"
+card_attribute = "Fire"
+card_type = "Spell"
+creature_race = "None"
+creature_race_2 = "None"
+card_class = "ContinuousSpell"
+card_class_2 = "None"
+talent_1 = "None"
+talent_2 = "None"
+talent_3 = "None"
+talent_4 = "None"
+talent_5 = "None"
+effect_type = "On_Trigger"
+trigger_type = "On_EndPhase"
+effect_1_threshold_type = "None"
+effect_2_threshold_type = "None"
+effect_3_threshold_type = "None"
+effect_4_threshold_type = "None"
+effect_1_threshold = 0
+effect_2_threshold = 0
+effect_3_threshold = 0
+effect_4_threshold = 0
+custom_effect_name = "None"
+effect_1 = "Damage"
+effect_2 = "None"
+effect_3 = "None"
+effect_4 = "None"
+effect_magnitude_1 = 600
+effect_magnitude_2 = 0
+effect_magnitude_3 = 0
+effect_magnitude_4 = 0
+talent_from_buff = "None"
+targeting_type = "Targeted"
+t_subtype_1 = "AllCreatures"
+t_subtype_2 = "None"
+t_subtype_3 = "None"
+t_subtype_4 = "None"
+effect_speed = "Normal"
+temp_effect = "None"
+scaling_1 = "MagnitudeSpellPower"
+scaling_2 = "None"
+mana_cost_1 = "Fire"
+mana_cost_2 = "Colorless"
+mana_cost_3 = "None"
+mana_cost_4 = "None"
+mana_cost_5 = "None"
+metadata/_custom_type_script = "uid://cd4htsjoe2w4v"

@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_406ot"]
+[ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_m128q"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Desert King.tres" id="5_ungxg"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Hurricane.tres" id="6_ruaf3"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Arcane Goblin.tres" id="6_tih2q"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Forced Return.tres" id="7_jple3"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Firebolt.tres" id="7_ruaf3"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Vulcano.tres" id="7_tmexw"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Fire Energy Tower.tres" id="8_jple3"]
+[ext_resource type="Resource" path="res://CardResources/WIND CREATURES/Kon'Mar.tres" id="9_tmexw"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Centauro Solitario.tres" id="10_t1qkf"]
+
+[resource]
+script = ExtResource("2_m128q")
+deck_name = "Test bouncer"
+cards = Array[ExtResource("1_406ot")]([ExtResource("5_ungxg"), ExtResource("5_ungxg"), ExtResource("5_ungxg"), ExtResource("6_tih2q"), ExtResource("6_tih2q"), ExtResource("6_tih2q"), ExtResource("7_ruaf3"), ExtResource("7_ruaf3"), ExtResource("7_ruaf3"), ExtResource("7_jple3"), ExtResource("7_jple3"), ExtResource("7_jple3"), ExtResource("6_ruaf3"), ExtResource("6_ruaf3"), ExtResource("6_ruaf3"), ExtResource("7_tmexw"), ExtResource("7_tmexw"), ExtResource("7_tmexw"), ExtResource("8_jple3"), ExtResource("8_jple3"), ExtResource("9_tmexw"), ExtResource("9_tmexw"), ExtResource("9_tmexw"), ExtResource("10_t1qkf"), ExtResource("10_t1qkf"), ExtResource("10_t1qkf")])
+is_valid = false
+mana_sort_state = "none"
+rank_sort_state = "none"
+mana_slot_1 = "Wind"
+mana_slot_2 = "Wind"
+mana_slot_3 = "Earth"
+mana_slot_4 = "Earth"
+mana_slot_5 = "Fire"

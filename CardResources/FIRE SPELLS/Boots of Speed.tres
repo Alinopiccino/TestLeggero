@@ -1,0 +1,74 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://xy06m5g6iugp"]
+
+[ext_resource type="Script" uid="uid://cd4htsjoe2w4v" path="res://Scripts/CardData.gd" id="1_hhqs8"]
+[ext_resource type="Texture2D" uid="uid://i0qjel12khne" path="res://Assets/CardImagesDECK/FireSpellsDeck/bootsofspeeddur2 4.png" id="1_k0u6s"]
+[ext_resource type="Texture2D" uid="uid://7mliu4x7ee2a" path="res://Assets/CardImagesFIELD/FireSpellsField/bootsofspeeddur2 3.png" id="2_hahhe"]
+[ext_resource type="Texture2D" uid="uid://dbt32rynfa42p" path="res://Assets/CardImages/FireSpellsHand/bootsofspeeddur2 2.png" id="3_a12ka"]
+[ext_resource type="Texture2D" uid="uid://bfwciy2pdnhri" path="res://Assets/CardImagesPreview/FireSpellsPreview/bootsofspeeddur2 1.png" id="4_vaqjj"]
+
+[resource]
+script = ExtResource("1_hhqs8")
+card_name = "Boots of Speed"
+tooltip_name = "Boots of Speed"
+card_sprite = ExtResource("3_a12ka")
+card_field_sprite = ExtResource("2_hahhe")
+card_sprite_preview = ExtResource("4_vaqjj")
+card_deck_sprite = ExtResource("1_k0u6s")
+card_rank = 3
+attack = 0
+health = 0
+spell_multiplier = 0
+spell_duration = 2
+base_spell_power = 0
+tributes = 0
+activation_cost = "None"
+card_attribute = "Fire"
+card_type = "Spell"
+creature_race = "None"
+creature_race_2 = "None"
+card_class = "EquipSpell"
+card_class_2 = "None"
+talent_1 = "None"
+talent_2 = "None"
+talent_3 = "None"
+talent_4 = "None"
+talent_5 = "None"
+effect_type = "Equip"
+trigger_type = "None"
+effect_1_threshold_type = "None"
+effect_2_threshold_type = "None"
+effect_3_threshold_type = "None"
+effect_4_threshold_type = "None"
+effect_1_threshold = 0
+effect_2_threshold = 0
+effect_3_threshold = 0
+effect_4_threshold = 0
+custom_effect_name = "None"
+effect_1 = "BuffTalent"
+effect_2 = "None"
+effect_3 = "None"
+effect_4 = "None"
+effect_magnitude_1 = 0
+effect_magnitude_2 = 0
+effect_magnitude_3 = 0
+effect_magnitude_4 = 0
+talent_from_buff = "Haste"
+targeting_type = "Targeted"
+t_subtype_1 = "AllAllyCreatures"
+t_subtype_2 = "None"
+t_subtype_3 = "None"
+t_subtype_4 = "None"
+effect_speed = "Normal"
+temp_effect = "None"
+scaling_1 = "None"
+scaling_amount_1 = 0
+scaling_2 = "None"
+scaling_amount_2 = 0
+mana_cost_1 = "Fire"
+mana_cost_2 = "None"
+mana_cost_3 = "None"
+mana_cost_4 = "None"
+mana_cost_5 = "None"
+mana_cost_6 = "None"
+mana_cost_7 = "None"
+metadata/_custom_type_script = "uid://cd4htsjoe2w4v"

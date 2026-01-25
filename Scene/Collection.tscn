@@ -1,0 +1,695 @@
+[gd_scene load_steps=32 format=3 uid="uid://nls3w6x7lyo0"]
+
+[ext_resource type="Script" uid="uid://bgab0dg4bw1f2" path="res://Scripts/collection.gd" id="1_svfcu"]
+[ext_resource type="Texture2D" uid="uid://c1ncesmbsjn2g" path="res://Assets Collezione/BackGroundCollection.png" id="2_y2fgx"]
+[ext_resource type="Texture2D" uid="uid://cpig7v54hisg6" path="res://Assets Collezione/BackGroundCollectionDietro.png" id="3_44ngf"]
+[ext_resource type="Texture2D" uid="uid://bfmei8tbnfre7" path="res://Assets Collezione/NEXT PAGE ICON.png" id="3_xmwbe"]
+[ext_resource type="Texture2D" uid="uid://dtjgd61rj6y7n" path="res://Assets Collezione/PREV PAGE ICON.png" id="4_r1hnu"]
+[ext_resource type="Script" uid="uid://bephcefek25vy" path="res://Scene/card_preview_manager.gd" id="5_r1hnu"]
+[ext_resource type="Texture2D" uid="uid://bnhitx8d23wk" path="res://Assets Collezione/FIRE PAGE ICON.png" id="7_2ui3b"]
+[ext_resource type="Texture2D" uid="uid://dfcq1tf07nt2f" path="res://Assets Collezione/WIND PAGE ICON.png" id="8_e36nh"]
+[ext_resource type="Texture2D" uid="uid://nk5a1p0ipt0p" path="res://Assets Collezione/WATER PAGE ICON.png" id="9_6ve4f"]
+[ext_resource type="Texture2D" uid="uid://dnqx14ie5mfts" path="res://Assets Collezione/EARTH PAGE ICON.png" id="10_dckv5"]
+[ext_resource type="Texture2D" uid="uid://cs66iikncdere" path="res://Assets/CardSlotDEF2.png" id="11_a2twt"]
+[ext_resource type="Texture2D" uid="uid://6g8k1vf73lik" path="res://Assets Collezione/MANA ICON DECKBUILDER.png" id="11_xbgpi"]
+[ext_resource type="Script" uid="uid://by1gaj6vyqoun" path="res://Scene/mana_slot_deckbuild.gd" id="12_jhy48"]
+[ext_resource type="Texture2D" uid="uid://diod0rkhwoeny" path="res://Assets Collezione/NO FILTER ICON.png" id="12_u2g57"]
+[ext_resource type="Texture2D" uid="uid://cbdee37b1muhh" path="res://Assets/Mana/Fuoco.png" id="13_80u6b"]
+[ext_resource type="Texture2D" uid="uid://3dy5uhc60i5g" path="res://Assets Collezione/BANNER ICONA PER FILTRO DECK.png" id="13_xbgpi"]
+[ext_resource type="Texture2D" uid="uid://cp7wn7jtghjlk" path="res://Assets/Mana/Vento.png" id="14_b5ewn"]
+[ext_resource type="Script" uid="uid://cnoxx2d11te0i" path="res://Scripts/mana_options.gd" id="14_jhy48"]
+[ext_resource type="Texture2D" uid="uid://42pfvuo4ktge" path="res://Assets Collezione/STAR ICON BOH.png" id="14_ni68y"]
+[ext_resource type="Texture2D" uid="uid://61821jq0ggy2" path="res://Assets/Mana/Acqua.png" id="15_gyiry"]
+[ext_resource type="Texture2D" uid="uid://ddokxenulklk" path="res://Assets Collezione/CARDICONPERLABEL.png" id="15_us43y"]
+[ext_resource type="Texture2D" uid="uid://bf810bpd8kxhv" path="res://Assets/Mana/Terra.png" id="16_gh488"]
+[ext_resource type="Texture2D" uid="uid://w7axfgriqxyc" path="res://Assets Collezione/BackGroundDeck.png" id="18_gyiry"]
+[ext_resource type="Texture2D" uid="uid://cufipy4xereof" path="res://Assets Collezione/EXPAND DECK ICON.png" id="19_gh488"]
+[ext_resource type="Texture2D" uid="uid://bghjvh51fpdxs" path="res://Assets Collezione/SHRINK DECK ICON.png" id="20_kwgrh"]
+[ext_resource type="Texture2D" uid="uid://b7r5x3y1bq8h4" path="res://Assets Collezione/PATCH DECK3.png" id="26_qfgf1"]
+[ext_resource type="Texture2D" uid="uid://cqheuagf2bye1" path="res://Assets Collezione/DECK UI VERTBORDER.png" id="27_2wswb"]
+[ext_resource type="Texture2D" uid="uid://vrhky1v5ydwy" path="res://Assets Collezione/DECK BORDER HORIZ.png" id="28_qfgf1"]
+[ext_resource type="Texture2D" uid="uid://b0f1wwpfvqiki" path="res://Assets Collezione/DECK BORDER HORIZright.png" id="29_hkwvr"]
+[ext_resource type="Texture2D" uid="uid://bhdmw3d6vfjv8" path="res://Assets Collezione/DECK BORDER TOPleft.png" id="30_hkwvr"]
+[ext_resource type="Texture2D" uid="uid://co50rsn3rn174" path="res://Assets Collezione/DECK BORDER TOPright.png" id="31_8joyb"]
+
+[node name="Collection" type="Node2D"]
+script = ExtResource("1_svfcu")
+
+[node name="CardArea" type="Node2D" parent="."]
+z_index = 103
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(805, 483.5)
+scale = Vector2(1.308, 0.835)
+texture = ExtResource("2_y2fgx")
+
+[node name="BackgroundScreen" type="Sprite2D" parent="."]
+z_index = -100
+texture = ExtResource("3_44ngf")
+centered = false
+
+[node name="BackButton" type="Button" parent="."]
+z_index = 200
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1740.0
+offset_top = 925.0
+offset_right = 1885.0
+offset_bottom = 995.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 30
+text = "LEAVE"
+
+[node name="SaveDeckButton" type="Button" parent="."]
+visible = false
+z_index = 200
+offset_left = 1529.0
+offset_top = 925.0
+offset_right = 1682.0
+offset_bottom = 995.0
+theme_override_font_sizes/font_size = 30
+text = "SAVE "
+
+[node name="NextPageButton" type="TextureButton" parent="."]
+z_index = 100
+offset_left = 1401.0
+offset_top = 433.0
+offset_right = 1601.0
+offset_bottom = 633.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("3_xmwbe")
+texture_pressed = ExtResource("3_xmwbe")
+texture_hover = ExtResource("3_xmwbe")
+texture_disabled = ExtResource("3_xmwbe")
+texture_focused = ExtResource("3_xmwbe")
+
+[node name="PrevPageButton" type="TextureButton" parent="."]
+z_index = 100
+offset_left = 114.0
+offset_top = 433.0
+offset_right = 314.0
+offset_bottom = 633.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("4_r1hnu")
+texture_pressed = ExtResource("4_r1hnu")
+texture_hover = ExtResource("4_r1hnu")
+texture_disabled = ExtResource("4_r1hnu")
+texture_focused = ExtResource("4_r1hnu")
+metadata/_edit_use_anchors_ = true
+
+[node name="PageLabel" type="RichTextLabel" parent="."]
+offset_left = 1322.0
+offset_top = 819.0
+offset_right = 1446.0
+offset_bottom = 899.0
+theme_override_colors/default_color = Color(0.504864, 0.300801, 0.187961, 1)
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+horizontal_alignment = 2
+vertical_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="CardPreviewManager" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("5_r1hnu")
+collection_mode = true
+metadata/_edit_use_anchors_ = true
+
+[node name="PreviewContainer" type="Control" parent="CardPreviewManager"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="CardPreview" type="TextureRect" parent="CardPreviewManager/PreviewContainer"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="AttackPreview" type="RichTextLabel" parent="CardPreviewManager/PreviewContainer"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(5, 5)
+mouse_filter = 2
+bbcode_enabled = true
+metadata/_edit_use_anchors_ = true
+
+[node name="HealthPreview" type="RichTextLabel" parent="CardPreviewManager/PreviewContainer"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(5, 5)
+mouse_filter = 2
+bbcode_enabled = true
+metadata/_edit_use_anchors_ = true
+
+[node name="SpellMultiplierPreview" type="RichTextLabel" parent="CardPreviewManager/PreviewContainer"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(2.5, 2.5)
+horizontal_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="SpellDurationPreview" type="RichTextLabel" parent="CardPreviewManager/PreviewContainer"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 243.0
+offset_right = 80.0
+offset_bottom = 283.0
+scale = Vector2(2.5, 2.5)
+horizontal_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TooltipPanel" type="Panel" parent="CardPreviewManager/PreviewContainer"]
+visible = false
+custom_minimum_size = Vector2(750, 0)
+layout_mode = 0
+offset_right = 750.0
+offset_bottom = 200.0
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CardPreviewManager/PreviewContainer/TooltipPanel"]
+custom_minimum_size = Vector2(750, 200)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="TooltipText" type="RichTextLabel" parent="CardPreviewManager/PreviewContainer/TooltipPanel/MarginContainer"]
+custom_minimum_size = Vector2(750, 200)
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="DebuffTooltipPanel" type="Panel" parent="CardPreviewManager/PreviewContainer"]
+visible = false
+custom_minimum_size = Vector2(750, 0)
+layout_mode = 0
+offset_right = 750.0
+offset_bottom = 200.0
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CardPreviewManager/PreviewContainer/DebuffTooltipPanel"]
+custom_minimum_size = Vector2(750, 200)
+layout_mode = 0
+offset_right = 790.0
+offset_bottom = 240.0
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 20
+
+[node name="DebuffTooltipText" type="RichTextLabel" parent="CardPreviewManager/PreviewContainer/DebuffTooltipPanel/MarginContainer"]
+custom_minimum_size = Vector2(750, 200)
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="AttributeButtons" type="Node2D" parent="."]
+show_behind_parent = true
+
+[node name="FireButton" type="TextureButton" parent="AttributeButtons"]
+offset_left = 167.0
+offset_top = 28.0
+offset_right = 253.0
+offset_bottom = 114.0
+texture_normal = ExtResource("7_2ui3b")
+texture_pressed = ExtResource("7_2ui3b")
+texture_hover = ExtResource("7_2ui3b")
+texture_disabled = ExtResource("7_2ui3b")
+texture_focused = ExtResource("7_2ui3b")
+metadata/_edit_use_anchors_ = true
+
+[node name="WindButton" type="TextureButton" parent="AttributeButtons"]
+offset_left = 257.0
+offset_top = 28.0
+offset_right = 343.0
+offset_bottom = 114.0
+texture_normal = ExtResource("8_e36nh")
+texture_pressed = ExtResource("8_e36nh")
+texture_hover = ExtResource("8_e36nh")
+texture_disabled = ExtResource("8_e36nh")
+texture_focused = ExtResource("8_e36nh")
+metadata/_edit_use_anchors_ = true
+
+[node name="WaterButton" type="TextureButton" parent="AttributeButtons"]
+offset_left = 347.0
+offset_top = 28.0
+offset_right = 433.0
+offset_bottom = 114.0
+texture_normal = ExtResource("9_6ve4f")
+texture_pressed = ExtResource("9_6ve4f")
+texture_hover = ExtResource("9_6ve4f")
+texture_disabled = ExtResource("9_6ve4f")
+texture_focused = ExtResource("9_6ve4f")
+metadata/_edit_use_anchors_ = true
+
+[node name="EarthButton" type="TextureButton" parent="AttributeButtons"]
+offset_left = 437.0
+offset_top = 28.0
+offset_right = 523.0
+offset_bottom = 114.0
+texture_normal = ExtResource("10_dckv5")
+texture_pressed = ExtResource("10_dckv5")
+texture_hover = ExtResource("10_dckv5")
+texture_disabled = ExtResource("10_dckv5")
+texture_focused = ExtResource("10_dckv5")
+metadata/_edit_use_anchors_ = true
+
+[node name="SearchBar" type="LineEdit" parent="."]
+offset_left = 1044.0
+offset_top = 924.0
+offset_right = 1418.0
+offset_bottom = 973.0
+placeholder_text = "Global Search"
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="DeckListPanel" type="Panel" parent="."]
+offset_left = 1510.0
+offset_top = 20.0
+offset_right = 1911.0
+offset_bottom = 909.0
+mouse_filter = 2
+
+[node name="ManaOrderingButton" type="TextureButton" parent="DeckListPanel"]
+visible = false
+z_index = 300
+layout_mode = 2
+offset_left = 283.0
+offset_top = 2.0
+offset_right = 483.0
+offset_bottom = 202.0
+scale = Vector2(0.25, 0.25)
+texture_normal = ExtResource("11_xbgpi")
+
+[node name="ManaOrderingIcon" type="Sprite2D" parent="DeckListPanel"]
+visible = false
+z_index = 300
+position = Vector2(354, 28)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("12_u2g57")
+
+[node name="RankOrderingButton" type="TextureButton" parent="DeckListPanel"]
+visible = false
+z_index = 300
+layout_mode = 0
+offset_left = 283.0
+offset_top = 58.0
+offset_right = 483.0
+offset_bottom = 258.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("13_xbgpi")
+
+[node name="RankOrderingIcon" type="Sprite2D" parent="DeckListPanel"]
+visible = false
+z_index = 300
+position = Vector2(354, 86)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("12_u2g57")
+
+[node name="RankSpriteForLabel" type="Sprite2D" parent="DeckListPanel"]
+visible = false
+z_index = 300
+position = Vector2(218, 96)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("14_ni68y")
+
+[node name="DeckSizeSpriteForLabel" type="Sprite2D" parent="DeckListPanel"]
+visible = false
+z_index = 300
+position = Vector2(27.5996, 96.55)
+scale = Vector2(0.0954545, 0.0963576)
+texture = ExtResource("15_us43y")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DeckListPanel"]
+z_index = 102
+layout_mode = 0
+offset_left = 7.0
+offset_top = 2.0
+offset_right = 383.0
+offset_bottom = 884.0
+mouse_filter = 2
+
+[node name="DeckButtonsContainer" type="VBoxContainer" parent="DeckListPanel/VBoxContainer"]
+z_index = 100
+layout_mode = 2
+
+[node name="CreateDeckButton" type="Button" parent="DeckListPanel/VBoxContainer"]
+z_index = 100
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "CREATE"
+
+[node name="HSeparator" type="HSeparator" parent="DeckListPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="DeckCardsArea" type="Node2D" parent="DeckListPanel"]
+z_index = 100
+
+[node name="DeckCreationPopup" type="AcceptDialog" parent="."]
+title = " "
+initial_position = 2
+size = Vector2i(896, 694)
+unresizable = true
+borderless = true
+always_on_top = true
+
+[node name="MarginContainer" type="MarginContainer" parent="DeckCreationPopup"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 888.0
+offset_bottom = 645.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DeckCreationPopup/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="DeckNameInput" type="LineEdit" parent="DeckCreationPopup/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 40
+placeholder_text = "Deck Name"
+alignment = 1
+
+[node name="Control" type="Control" parent="DeckCreationPopup/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="DeckCreationPopup/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.852421, 0.829978, 0.950658, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/shadow_outline_size = 10
+theme_override_font_sizes/font_size = 40
+text = "CHOOSE ENERGY CONFIGURATION:"
+horizontal_alignment = 1
+
+[node name="ManaSlotContainer" type="HBoxContainer" parent="DeckCreationPopup/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="ManaSlot1" type="Control" parent="DeckCreationPopup/MarginContainer/VBoxContainer/ManaSlotContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+script = ExtResource("12_jhy48")
+
+[node name="Slot" type="TextureRect" parent="DeckCreationPopup/MarginContainer/VBoxContainer/ManaSlotContainer/ManaSlot1"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+mouse_filter = 2
+texture = ExtResource("11_a2twt")
+expand_mode = 3
+flip_v = true
+
+[node name="ManaChoice" type="TextureRect" parent="DeckCreationPopup/MarginContainer/VBoxContainer/ManaSlotContainer/ManaSlot1"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+
+[node name="ManaSlot2" type="Control" parent="DeckCreationPopup/MarginContainer/VBoxContainer/ManaSlotContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+script = ExtResource("12_jhy48")
+
+[node name="Slot" type="TextureRect" parent="DeckCreationPopup/MarginContainer/VBoxContainer/ManaSlotContainer/ManaSlot2"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+mouse_filter = 2
+texture = ExtResource("11_a2twt")
+expand_mode = 3
+flip_v = true
+
+[node name="ManaChoice" type="TextureRect" parent="DeckCreationPopup/MarginContainer/VBoxContainer/ManaSlotContainer/ManaSlot2"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+
+[node name="ManaSlot3" type="Control" parent="DeckCreationPopup/MarginContainer/VBoxContainer/ManaSlotContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+script = ExtResource("12_jhy48")
+
+[node name="Slot" type="TextureRect" parent="DeckCreationPopup/MarginContainer/VBoxContainer/ManaSlotContainer/ManaSlot3"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+mouse_filter = 2
+texture = ExtResource("11_a2twt")
+expand_mode = 3
+flip_v = true
+
+[node name="ManaChoice" type="TextureRect" parent="DeckCreationPopup/MarginContainer/VBoxContainer/ManaSlotContainer/ManaSlot3"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+
+[node name="ManaSlot4" type="Control" parent="DeckCreationPopup/MarginContainer/VBoxContainer/ManaSlotContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+script = ExtResource("12_jhy48")
+
+[node name="Slot" type="TextureRect" parent="DeckCreationPopup/MarginContainer/VBoxContainer/ManaSlotContainer/ManaSlot4"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+mouse_filter = 2
+texture = ExtResource("11_a2twt")
+expand_mode = 3
+flip_v = true
+
+[node name="ManaChoice" type="TextureRect" parent="DeckCreationPopup/MarginContainer/VBoxContainer/ManaSlotContainer/ManaSlot4"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+
+[node name="ManaSlot5" type="Control" parent="DeckCreationPopup/MarginContainer/VBoxContainer/ManaSlotContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+script = ExtResource("12_jhy48")
+
+[node name="Slot" type="TextureRect" parent="DeckCreationPopup/MarginContainer/VBoxContainer/ManaSlotContainer/ManaSlot5"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+mouse_filter = 2
+texture = ExtResource("11_a2twt")
+expand_mode = 3
+flip_v = true
+
+[node name="ManaChoice" type="TextureRect" parent="DeckCreationPopup/MarginContainer/VBoxContainer/ManaSlotContainer/ManaSlot5"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+
+[node name="ManaOptions" type="HBoxContainer" parent="DeckCreationPopup/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="Fire" type="TextureRect" parent="DeckCreationPopup/MarginContainer/VBoxContainer/ManaOptions"]
+layout_mode = 2
+mouse_filter = 0
+texture = ExtResource("13_80u6b")
+expand_mode = 3
+script = ExtResource("14_jhy48")
+mana_type = "Fire"
+
+[node name="Wind" type="TextureRect" parent="DeckCreationPopup/MarginContainer/VBoxContainer/ManaOptions"]
+layout_mode = 2
+mouse_filter = 0
+texture = ExtResource("14_b5ewn")
+expand_mode = 3
+script = ExtResource("14_jhy48")
+mana_type = "Wind"
+
+[node name="Water" type="TextureRect" parent="DeckCreationPopup/MarginContainer/VBoxContainer/ManaOptions"]
+layout_mode = 2
+mouse_filter = 0
+texture = ExtResource("15_gyiry")
+expand_mode = 3
+script = ExtResource("14_jhy48")
+mana_type = "Water"
+
+[node name="Earth" type="TextureRect" parent="DeckCreationPopup/MarginContainer/VBoxContainer/ManaOptions"]
+layout_mode = 2
+mouse_filter = 0
+texture = ExtResource("16_gh488")
+expand_mode = 3
+script = ExtResource("14_jhy48")
+mana_type = "Earth"
+
+[node name="SaveConfirmPopup" type="ConfirmationDialog" parent="."]
+title = ""
+initial_position = 3
+current_screen = 0
+unresizable = true
+borderless = true
+always_on_top = true
+
+[node name="DeleteDeckPopup" type="ConfirmationDialog" parent="."]
+initial_position = 3
+size = Vector2i(269, 106)
+current_screen = 0
+unresizable = true
+borderless = true
+always_on_top = true
+ok_button_text = "DELETE"
+
+[node name="DeckBackground" type="Sprite2D" parent="."]
+z_index = 101
+position = Vector2(1491, 461)
+scale = Vector2(1.345, 0.893)
+texture = ExtResource("18_gyiry")
+centered = false
+offset = Vector2(-1000, -500)
+
+[node name="ExpandDeckButton" type="TextureButton" parent="."]
+visible = false
+z_index = 103
+offset_left = 1419.0
+offset_top = 38.0
+offset_right = 1619.0
+offset_bottom = 238.0
+scale = Vector2(0.6, 0.6)
+texture_normal = ExtResource("19_gh488")
+texture_pressed = ExtResource("19_gh488")
+texture_hover = ExtResource("19_gh488")
+texture_disabled = ExtResource("19_gh488")
+texture_focused = ExtResource("19_gh488")
+
+[node name="ShrinkDeckButton" type="TextureButton" parent="."]
+visible = false
+z_index = 103
+offset_left = 1412.0
+offset_top = 39.0
+offset_right = 1612.0
+offset_bottom = 239.0
+scale = Vector2(0.6, 0.6)
+texture_normal = ExtResource("20_kwgrh")
+texture_pressed = ExtResource("20_kwgrh")
+texture_hover = ExtResource("20_kwgrh")
+texture_disabled = ExtResource("20_kwgrh")
+texture_focused = ExtResource("20_kwgrh")
+
+[node name="PatchDeckSotto" type="TextureRect" parent="."]
+z_index = 100
+offset_left = 1454.0
+offset_top = 908.0
+offset_right = 1921.0
+offset_bottom = 1080.0
+mouse_filter = 2
+texture = ExtResource("26_qfgf1")
+expand_mode = 1
+
+[node name="PatchDeckSopra" type="ColorRect" parent="."]
+z_index = 100
+offset_left = 1500.0
+offset_top = -18.0
+offset_right = 1911.0
+offset_bottom = 157.0
+mouse_filter = 2
+color = Color(0.18, 0.1368, 0.1224, 1)
+
+[node name="DeckUIborders" type="Node2D" parent="."]
+
+[node name="DeckBorderVleft" type="TextureRect" parent="DeckUIborders"]
+z_index = 101
+offset_left = 1465.0
+offset_top = -16.0
+offset_right = 1545.0
+offset_bottom = 937.0
+mouse_filter = 2
+texture = ExtResource("27_2wswb")
+expand_mode = 1
+
+[node name="DeckBorderVright" type="TextureRect" parent="DeckUIborders"]
+z_index = 101
+offset_left = 1870.0
+offset_top = -16.0
+offset_right = 1950.0
+offset_bottom = 937.0
+mouse_filter = 2
+texture = ExtResource("27_2wswb")
+expand_mode = 1
+
+[node name="DeckBorderBotLeft" type="TextureRect" parent="DeckUIborders"]
+z_index = 101
+offset_left = 1473.0
+offset_top = 884.0
+offset_right = 1760.0
+offset_bottom = 934.0
+mouse_filter = 2
+texture = ExtResource("28_qfgf1")
+expand_mode = 1
+
+[node name="DeckBorderBotRight" type="TextureRect" parent="DeckUIborders"]
+z_index = 101
+offset_left = 1641.0
+offset_top = 884.0
+offset_right = 1933.0
+offset_bottom = 934.0
+mouse_filter = 2
+texture = ExtResource("29_hkwvr")
+expand_mode = 1
+
+[node name="DeckBorderTopLeft" type="TextureRect" parent="DeckUIborders"]
+z_index = 101
+offset_left = 1473.0
+offset_top = -12.0
+offset_right = 1760.0
+offset_bottom = 38.0
+mouse_filter = 2
+texture = ExtResource("30_hkwvr")
+expand_mode = 1
+
+[node name="DeckBorderTopRight" type="TextureRect" parent="DeckUIborders"]
+z_index = 101
+offset_left = 1641.0
+offset_top = -12.0
+offset_right = 1933.0
+offset_bottom = 38.0
+mouse_filter = 2
+texture = ExtResource("31_8joyb")
+expand_mode = 1
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="NextPageButton" to="." method="_on_next_page_button_pressed"]
+[connection signal="pressed" from="PrevPageButton" to="." method="_on_prev_page_button_pressed"]

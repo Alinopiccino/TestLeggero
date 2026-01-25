@@ -1,0 +1,76 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://duirsrtsq2ov1"]
+
+[ext_resource type="Script" uid="uid://cd4htsjoe2w4v" path="res://Scripts/CardData.gd" id="1_3ecqq"]
+[ext_resource type="Texture2D" uid="uid://dgphi2chiadk" path="res://Assets/CardImagesDECK/WaterSpellsDeck/Army50sp 4.png" id="1_sbd24"]
+[ext_resource type="Texture2D" uid="uid://bdw1mirre58vg" path="res://Assets/CardImagesFIELD/WaterSpellsField/Army50sp 3.png" id="2_2afmw"]
+[ext_resource type="Texture2D" uid="uid://dxdhx506cuslg" path="res://Assets/CardImages/WaterSpellsHand/Army50sp 2.png" id="3_iwdj6"]
+[ext_resource type="Texture2D" uid="uid://dumrlguk5f5u5" path="res://Assets/CardImagesPreview/WaterSpellsPreview/Army50sp 1.png" id="4_ws1ow"]
+
+[resource]
+script = ExtResource("1_3ecqq")
+card_name = "Army of the North"
+tooltip_name = "Army of the North"
+card_sprite = ExtResource("3_iwdj6")
+card_field_sprite = ExtResource("2_2afmw")
+card_sprite_preview = ExtResource("4_ws1ow")
+card_deck_sprite = ExtResource("1_sbd24")
+card_rank = 3
+attack = 0
+health = 0
+armour = 0
+spell_multiplier = 50
+spell_duration = 4
+base_spell_power = 0
+tributes = 0
+activation_cost = "None"
+card_attribute = "Water"
+card_type = "Spell"
+creature_race = "None"
+creature_race_2 = "None"
+card_class = "ContinuousSpell"
+card_class_2 = "None"
+talent_1 = "None"
+talent_2 = "None"
+talent_3 = "None"
+talent_4 = "None"
+talent_5 = "None"
+effect_type = "Aura"
+trigger_type = "None"
+effect_1_threshold_type = "None"
+effect_2_threshold_type = "None"
+effect_3_threshold_type = "None"
+effect_4_threshold_type = "None"
+effect_1_threshold = 0
+effect_2_threshold = 0
+effect_3_threshold = 0
+effect_4_threshold = 0
+custom_effect_name = "None"
+effect_1 = "BuffHp"
+effect_2 = "None"
+effect_3 = "None"
+effect_4 = "None"
+effect_magnitude_1 = 400
+effect_magnitude_2 = 0
+effect_magnitude_3 = 0
+effect_magnitude_4 = 0
+talent_from_buff = "None"
+targeting_type = "AoE"
+t_subtype_1 = "AllAllyDEFCreatures"
+t_subtype_2 = "None"
+t_subtype_3 = "None"
+t_subtype_4 = "None"
+effect_speed = "None"
+temp_effect = "None"
+scaling_1 = "MagnitudeSpellPower"
+scaling_amount_1 = 0
+scaling_2 = "None"
+scaling_amount_2 = 0
+repeats = "1"
+mana_cost_1 = "Water"
+mana_cost_2 = "Colorless"
+mana_cost_3 = "None"
+mana_cost_4 = "None"
+mana_cost_5 = "None"
+mana_cost_6 = "None"
+mana_cost_7 = "None"
+metadata/_custom_type_script = "uid://cd4htsjoe2w4v"
