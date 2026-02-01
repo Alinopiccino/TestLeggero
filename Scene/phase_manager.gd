@@ -367,7 +367,7 @@ func rpc_give_action(peer_id: int, from_attack: bool = false, from_phase: bool =
 
 	# 🟢 Altrimenti assegna normalmente
 	var target_position: Vector2
-	if my_id == peer_id:
+	if my_id == peer_id :
 		player_action_count = 1
 		enemy_action_count = 0
 		target_position = Vector2(270, 580)
@@ -380,17 +380,26 @@ func rpc_give_action(peer_id: int, from_attack: bool = false, from_phase: bool =
 		print("🛡️ Action assegnata al peer avversario → Sei difensore per la fase.")
 		
 
+	actions_container.visible = true
+
+	if actions_container.position.distance_to(target_position) > 1.0:
+		var tween = create_tween()
+		tween.tween_property(actions_container, "position", target_position, 0.35)\
+			.set_trans(Tween.TRANS_BACK)\
+			.set_ease(Tween.EASE_OUT)
+	else:
+		actions_container.position = target_position
 	# 👁️ Mostra o nascondi il bottone Pass Phase in base a chi ha l'azione
 
-#
+
 	 #=====================================
 	 #🧠 AUTO-PASS SU GIVE_ACTION (NON DA FASE)
 	 #=====================================
 	if my_id != peer_id and not from_phase:
 		if from_attack:
 			print("from attack faccio progredire piu' lento")
-			await get_tree().create_timer(0.2).timeout  # sicurezza UI/Input per ora l'ho tolto ma se ci sono bug metti attesa
-
+			await get_tree().create_timer(0.5).timeout  # sicurezza UI/Input per ora l'ho tolto ma se ci sono bug metti attesa
+#
 		var has_actions := player_has_any_actions(true)
 
 		if not has_actions:
@@ -408,7 +417,7 @@ func rpc_give_action(peer_id: int, from_attack: bool = false, from_phase: bool =
 	if my_id == peer_id and player_action_count != 0 and not from_phase:
 		if from_attack:
 			print("from attack faccio progredire piu' lento")
-			await get_tree().create_timer(0.2).timeout  # sicurezza UI/Input per ora l'ho tolto ma se ci sono bug metti attesa
+			await get_tree().create_timer(0.5).timeout  # sicurezza UI/Input per ora l'ho tolto ma se ci sono bug metti attesa
 
 		var has_actions := player_has_any_actions(true)
 
@@ -447,15 +456,7 @@ func rpc_give_action(peer_id: int, from_attack: bool = false, from_phase: bool =
 			player_pass_button.disabled = true
 			print(" HO PASSATO QUINDI RIMANE VISIBILE")
 
-	actions_container.visible = true
 
-	if actions_container.position.distance_to(target_position) > 1.0:
-		var tween = create_tween()
-		tween.tween_property(actions_container, "position", target_position, 0.35)\
-			.set_trans(Tween.TRANS_BACK)\
-			.set_ease(Tween.EASE_OUT)
-	else:
-		actions_container.position = target_position
 
 	var input_manager = get_tree().get_current_scene().get_node_or_null("PlayerField/InputManager")
 	if input_manager:

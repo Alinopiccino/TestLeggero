@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_pjpli"]
+[ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_kvqwi"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Storm Favour.tres" id="2_ya5rh"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Sharpen the Blades.tres" id="3_ya5rh"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Windy Aura.tres" id="4_6t18p"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Flaming Lion.tres" id="5_xaesa"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Arcane Goblin.tres" id="6_5b7w6"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Rapid-Flame Assailant.tres" id="7_42aii"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Berserker.tres" id="8_djg1m"]
+[ext_resource type="Resource" path="res://CardResources/WIND CREATURES/Birdman .tres" id="9_sxbwr"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Firebolt.tres" id="12_06wvy"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/FireBeam.tres" id="12_cp7je"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Burning Sun Adept.tres" id="12_dw5f5"]
+
+[resource]
+script = ExtResource("2_kvqwi")
+deck_name = "Fuoco iper"
+cards = Array[ExtResource("1_pjpli")]([ExtResource("2_ya5rh"), ExtResource("2_ya5rh"), ExtResource("2_ya5rh"), ExtResource("3_ya5rh"), ExtResource("3_ya5rh"), ExtResource("4_6t18p"), ExtResource("4_6t18p"), ExtResource("4_6t18p"), ExtResource("5_xaesa"), ExtResource("5_xaesa"), ExtResource("5_xaesa"), ExtResource("6_5b7w6"), ExtResource("6_5b7w6"), ExtResource("6_5b7w6"), ExtResource("7_42aii"), ExtResource("7_42aii"), ExtResource("7_42aii"), ExtResource("8_djg1m"), ExtResource("8_djg1m"), ExtResource("9_sxbwr"), ExtResource("9_sxbwr"), ExtResource("9_sxbwr"), ExtResource("12_cp7je"), ExtResource("12_cp7je"), ExtResource("12_06wvy"), ExtResource("12_06wvy"), ExtResource("12_06wvy"), ExtResource("12_dw5f5"), ExtResource("12_dw5f5")])
+is_valid = false
+mana_sort_state = "none"
+rank_sort_state = "none"
+mana_slot_1 = "Fire"
+mana_slot_2 = "Fire"
+mana_slot_3 = "Fire"
+mana_slot_4 = "Wind"
+mana_slot_5 = "Wind"

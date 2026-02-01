@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://dev5d6lf0cjb4" path="res://Scripts/player_hand.gd" id="8_f8xqc"]
 [ext_resource type="Script" uid="uid://dqv0e1edprlh6" path="res://Scripts/deck.gd" id="9_7yhcc"]
 [ext_resource type="PackedScene" uid="uid://cpkmgeqgtpd1r" path="res://Scene/Enemy_card_slot.tscn" id="10_g20td"]
-[ext_resource type="Resource" uid="uid://cgldxa5de4pah" path="res://DeckResources/Deck2.tres" id="10_gm5u4"]
+[ext_resource type="Resource" path="res://DeckResources/Deck2.tres" id="10_gm5u4"]
 [ext_resource type="Texture2D" uid="uid://bytdqg80bi846" path="res://Assets/CardSlot.png" id="12_frrmm"]
 [ext_resource type="Script" uid="uid://n3jlp7s23shg" path="res://Scripts/combat_manager.gd" id="13_vy6tj"]
 [ext_resource type="Script" uid="uid://wjpfvsgf5ony" path="res://Scripts/Player_GYclick.gd" id="14_ba1e6"]

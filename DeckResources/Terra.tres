@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_e2heu"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Arcane Goblin.tres" id="2_3wdt1"]
+[ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_rct13"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Gathered Experience.tres" id="3_3wdt1"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Brawler Bear.tres" id="4_3y3ex"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Gravity Shell.tres" id="5_2pant"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Potenziamento.tres" id="6_vx5rx"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Sand Gust.tres" id="7_g8xaj"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Firebolt.tres" id="8_1eqpj"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Baptism of Fire.tres" id="9_r616t"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Stun!.tres" id="10_mq0rv"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Hole.tres" id="11_puqxh"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Centauro Solitario.tres" id="12_qu7pl"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/FireBeam.tres" id="13_05gd5"]
+
+[resource]
+script = ExtResource("2_rct13")
+deck_name = "Terra"
+cards = Array[ExtResource("1_e2heu")]([ExtResource("2_3wdt1"), ExtResource("2_3wdt1"), ExtResource("2_3wdt1"), ExtResource("3_3wdt1"), ExtResource("4_3y3ex"), ExtResource("4_3y3ex"), ExtResource("4_3y3ex"), ExtResource("5_2pant"), ExtResource("5_2pant"), ExtResource("5_2pant"), ExtResource("6_vx5rx"), ExtResource("6_vx5rx"), ExtResource("6_vx5rx"), ExtResource("7_g8xaj"), ExtResource("7_g8xaj"), ExtResource("7_g8xaj"), ExtResource("8_1eqpj"), ExtResource("8_1eqpj"), ExtResource("8_1eqpj"), ExtResource("9_r616t"), ExtResource("9_r616t"), ExtResource("9_r616t"), ExtResource("10_mq0rv"), ExtResource("10_mq0rv"), ExtResource("11_puqxh"), ExtResource("11_puqxh"), ExtResource("12_qu7pl"), ExtResource("12_qu7pl"), ExtResource("12_qu7pl"), ExtResource("13_05gd5")])
+is_valid = false
+mana_sort_state = "none"
+rank_sort_state = "none"
+mana_slot_1 = "Earth"
+mana_slot_2 = "Earth"
+mana_slot_3 = "Earth"
+mana_slot_4 = "Fire"
+mana_slot_5 = "Fire"

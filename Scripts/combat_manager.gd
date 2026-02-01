@@ -2877,6 +2877,11 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 			"player_id": player_id
 		})
 		print("🕒 Aggiunta in attesa GO TO COMBAT:", attacking_card.name, "| Player:", player_id)
+		
+		#attacking_card.card_is_in_slot = true
+		#attacking_card.has_an_attack_target = true #QUESTI 3 RIGHE SONO FALLBACK PER NON FARE SKIPPARE IN AUTOMATICO
+		#defending_card.card_is_in_slot = true 
+		
 		await wait_for_combat_confirmation(is_attacker, defending_card)
 		cards_waiting_for_go_to_combat = cards_waiting_for_go_to_combat.filter(func(e): return e.card != attacking_card)
 		print("📉 Rimossa da attesa GO TO COMBAT:", attacking_card.name)
@@ -2891,11 +2896,27 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 		)
 		wants_to_retaliate = await wait_for_retaliate_choice(is_attacker, defender_can_retaliate)
 	else:
-		print("⛔ [AUTO] Una delle carte non è valida → skip RETALIATE")
+		print("⛔ [AUTO] skip RETALIATE — stato condizioni:")
+		print("  attacking_card != null:", attacking_card != null)
+		print("  attacking_card.card_is_in_slot:", attacking_card != null and attacking_card.card_is_in_slot)
+		print("  defending_card != null:", defending_card != null)
+		print("  defending_card.card_is_in_slot:", defending_card != null and defending_card.card_is_in_slot)
+		print("  not attacking_card.attack_negated:", attacking_card != null and not attacking_card.attack_negated)
+		print("  not attacking_card.frozen:", attacking_card != null and not attacking_card.frozen)
+		print("  attacking_card.position_type != defense:", attacking_card != null and attacking_card.position_type != "defense")
+		print("  attacking_card.has_an_attack_target:", attacking_card != null and attacking_card.has_an_attack_target)
+		print("  not attacking_card.stunned:", attacking_card != null and not attacking_card.stunned)
 
 	# 🛑 STOP: Attendi TO DAMAGE STEP
 	if attacking_card == null or not attacking_card.card_is_in_slot or not attacking_card.has_an_attack_target or defending_card == null or not defending_card.card_is_in_slot or attacking_card.attack_negated or attacking_card.position_type == "defense":
-		print("⛔ [AUTO] Una delle carte non è valida → skip TO DAMAGE STEP")
+		print("⛔ [AUTO] skip TO DAMAGE STEP — stato condizioni:")
+		print("  attacking_card == null:", attacking_card == null)
+		print("  attacking_card.card_is_in_slot:", attacking_card != null and attacking_card.card_is_in_slot)
+		print("  attacking_card.has_an_attack_target:", attacking_card != null and attacking_card.has_an_attack_target)
+		print("  defending_card == null:", defending_card == null)
+		print("  defending_card.card_is_in_slot:", defending_card != null and defending_card.card_is_in_slot)
+		print("  attacking_card.attack_negated:", attacking_card != null and attacking_card.attack_negated)
+		print("  attacking_card.position_type == defense:", attacking_card != null and attacking_card.position_type == "defense")
 
 		# ✅ FIX VISUALE: riporta l'attaccante nella sua posizione di slot se ancora valido
 		if attacking_card and attacking_card.card_is_in_slot and attacking_card.current_slot:
@@ -3184,7 +3205,7 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 				attacking_card.update_card_visuals()
 				defending_card.update_card_visuals()
 
-
+				
 			await get_tree().create_timer(0.4).timeout
 
 		print("✅ Fine fase danni (Double Strike gestito automaticamente)")

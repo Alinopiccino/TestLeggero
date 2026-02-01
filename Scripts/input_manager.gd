@@ -176,8 +176,11 @@ func raycast_at_cursor():
 					var summoned_this_turn = cm.summoned_this_turn.any(func(entry):
 						return entry.card == card
 					)
-
-					if card.card_data.card_type == "Creature" and card.card_is_in_slot and not summoned_this_turn:
+					if card_manager.tribute_is_for_summon and summoned_this_turn:
+						print("stai cercando di tributare per summon quindi ritorno perche hai appena evocato questa carta cliccata")
+						return
+						
+					if card.card_data.card_type == "Creature" and card.card_is_in_slot:
 						# Evita duplicati
 						if not card_manager.tribute_selected_cards.has(card):
 							card_manager.tribute_selected_cards.append(card)

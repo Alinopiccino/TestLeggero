@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_tfq4t"]
+[ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_2ivam"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Frozen Weapon .tres" id="2_xogw4"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Self Explosion.tres" id="3_xogw4"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Backfire Shot.tres" id="4_1r6fb"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Arcane Goblin.tres" id="5_dkldy"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Flaming Lion.tres" id="6_kyl6v"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Ice Barrier.tres" id="7_uvsrl"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Counterspell.tres" id="8_7lpdg"]
+
+[resource]
+script = ExtResource("2_2ivam")
+deck_name = "acqua"
+cards = Array[ExtResource("1_tfq4t")]([ExtResource("2_xogw4"), ExtResource("2_xogw4"), ExtResource("3_xogw4"), ExtResource("3_xogw4"), ExtResource("4_1r6fb"), ExtResource("4_1r6fb"), ExtResource("5_dkldy"), ExtResource("5_dkldy"), ExtResource("5_dkldy"), ExtResource("6_kyl6v"), ExtResource("6_kyl6v"), ExtResource("7_uvsrl"), ExtResource("7_uvsrl"), ExtResource("8_7lpdg"), ExtResource("7_uvsrl")])
+is_valid = false
+mana_sort_state = "none"
+rank_sort_state = "none"
+mana_slot_1 = "Water"
+mana_slot_2 = "Water"
+mana_slot_3 = "Water"
+mana_slot_4 = "Fire"
+mana_slot_5 = "Fire"

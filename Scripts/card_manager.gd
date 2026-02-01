@@ -114,7 +114,10 @@ func card_clicked(card):
 	var local_id = multiplayer.get_unique_id()
 	var pm = $"../PhaseManager"
 	var action_buttons = $"../ActionButtons"
-
+	
+	if tribute_selection_active:
+		print ("tribute selection attiva, se ne occupa input manager")
+		return
 	# 🧱 BLOCCO GLOBALE: se non hai azioni disponibili, disabilita click (tranne in green-border context)
 	var green_border_context_active: bool = (
 		action_buttons.resolve_button.visible or
@@ -190,7 +193,7 @@ func card_clicked(card):
 			return
 
 	# 🔒 BLOCCO GREEN BORDER: clic consentito solo se la carta ha il bordo verde o è valida per enchain
-	if green_border_context_active and card.card_is_in_slot:
+	if green_border_context_active and card.card_is_in_slot and not tribute_selection_active:
 		if not $"../ActionButtons".can_card_be_enchained(card, cm):
 			print("⛔ Click ignorato: carta non valida per enchain:", card.name)
 			return
