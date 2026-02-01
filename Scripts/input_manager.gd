@@ -314,9 +314,17 @@ func raycast_at_cursor_right_click():
 			return
 
 	# Se invece siamo in selection mode normale (es. prima di cliccare un target), allora si può annullare
-	if card_manager_reference.selection_mode_active and not card_manager_reference.selection_purpose == "tribute_selection" and not selected_card.card_data.effect_type == "OnPlay":
-		card_manager_reference.exit_selection_mode()
-		return
+	if card_manager_reference.selection_mode_active:
+		# 🚫 Selection forzata (Assault) → non annullabile
+		if card_manager_reference.selection_is_forced:
+			print("⛔ Right-click ignorato: selection forzata (Assault)")
+			return
+
+		# 🚪 Selection normale → annullabile
+		if not card_manager_reference.selection_purpose == "tribute_selection" \
+		and not selected_card.card_data.effect_type == "OnPlay":
+			card_manager_reference.exit_selection_mode()
+			return
 
 	# Altrimenti: raycast come prima
 	var space_state = get_world_2d().direct_space_state

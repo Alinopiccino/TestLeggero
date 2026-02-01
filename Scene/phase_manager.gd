@@ -1232,6 +1232,13 @@ func _player_has_haste_creature(player_side: String) -> bool:
 		creatures = combat_manager.opponent_creatures_on_field
 
 	for c in creatures:
+				# ⚔️ conta solo creature PRONTE AD ATTACCARE
+		if c.position_type != "attack":
+			continue
+		# Deve poter attaccare
+		if c.stunned or c.frozen:
+			continue
+			
 		if "Haste" in c.card_data.get_all_talents():
 			return true
 

@@ -17,6 +17,7 @@ const Z_INDEX_HIGHLIGHT_BORDER = 10
 const Z_INDEX_DRAG = 50
 
 var selection_purpose: String = ""  # può essere "attack" oppure "effect"
+var selection_is_forced: bool = false
 var is_position_popup_open: bool = false
 var opponent_selection_mode_active: bool = false
 var action_consume_pending: bool = false
@@ -1231,7 +1232,7 @@ func exit_selection_mode(selection_resolved := false):
 		selected_card.action_border.visible = false
 		selected_card.action_border.z_index = -1
 
-	
+	selection_is_forced = false
 	selection_mode_active = false
 	selection_purpose = ""
 
@@ -1255,10 +1256,28 @@ func exit_selection_mode(selection_resolved := false):
 	$"../ActionButtons".hide_label(player_selection_label)
 	print("❌ Selection mode disattivata")
 	
-	if selected_card and $"../PhaseManager".haste_battle_step:
-		if "Haste" in selected_card.card_data.get_all_talents() and not selection_resolved:
-			if selected_card.has_node("GreenHighlightBorder"):
-				selected_card.get_node("GreenHighlightBorder").visible = true
+# ⚡ HASTE BATTLE STEP: ri-evidenzia tutte le creature valide con Haste
+	if not selection_resolved:
+		var pm = $"../PhaseManager"
+		var cm = $"../CombatManager"
+
+		if pm.haste_battle_step and pm.current_phase == pm.Phase.BATTLE:
+			for card in cm.player_creatures_on_field:
+				# solo creature pronte ad attaccare
+				if card.position_type != "attack":
+					continue
+
+				# deve avere Haste
+				if "Haste" not in card.card_data.get_all_talents():
+					continue
+
+				# non deve essere bloccata
+				if card.stunned or card.frozen:
+					continue
+
+				# bordo verde
+				if card.has_node("GreenHighlightBorder"):
+					card.get_node("GreenHighlightBorder").visible = true
 			
 	selected_card = null
 
@@ -1984,6 +2003,7 @@ func gioca_carta_subito(card: Node2D, slot: Node2D):
 		if "Assault" in card_to_place.card_data.get_all_talents() and pos_type == "attack":
 			print("ASSAULT MODE!")
 			await get_tree().create_timer(0.3).timeout
+			selection_is_forced = true
 			enter_selection_mode(card_to_place, "attack")
 			# 🕒 Delay azione solo se non già delayata
 			#var combat_manager = $"../CombatManager"
