@@ -2771,6 +2771,8 @@ func direct_attack_here_and_replicate_client_opponent(player_id: int,attacking_c
 	
 	already_chained_in_this_go_to_combat = false
 	already_chained_in_this_go_to_damage_step = false
+	attacking_card.attack_negated = false
+	
 	if chained_this_battle_step:
 		print("🔁 Fine attacco diretto → reset chained_this_battle_step = false")
 		chained_this_battle_step = false
@@ -3255,7 +3257,7 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 	
 	already_chained_in_this_go_to_combat = false
 	already_chained_in_this_go_to_damage_step = false
-	#attacking_card.attack_negated = false
+	attacking_card.attack_negated = false
 	
 	if chained_this_battle_step:
 		print("🔁 Fine attacco normale → reset chained_this_battle_step = false")
@@ -5360,8 +5362,7 @@ func await_effect_fully_resolved(card: Node) -> void:
 		or not effect_stack.is_empty()
 		or $"../CardManager".selection_mode_active
 		or $"../CardManager".opponent_selection_mode_active
-		#or not trigger_endphase_cards.is_empty()  # 🆕 aspetta che TUTTI i TriggerEndPhase siano risolti
-		
+		#or not trigger_endphase_cards.is_empty()  # 🆕 aspetta che TUTTI i TriggerEndPhase siano risolti		
 	):
 		await get_tree().process_frame
 
