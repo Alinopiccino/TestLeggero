@@ -323,11 +323,11 @@ func _on_self_changed_position(card: Card, new_position: String) -> void:
 						print("🧹 [ENEMY AURA REMOVE] ", self.card_data.card_name, "ha perso condizione DEF → rimuovo SOLO i suoi effetti di", possible_aura.card_data.card_name)
 						combat_manager.remove_aura_effects(possible_aura, self)
 						break
-	#elif new_position == "defense":
-		#var card_manager = get_tree().get_current_scene().get_node_or_null("PlayerField/CardManager")
-		#if card_manager and card_manager.has_method("apply_existing_aura_effect"):
-			#print("🌱 [AURA APPLY] ", card_data.card_name, "ora in DEF → controllo aure attive...")
-			#card_manager.apply_existing_aura_effect(self)
+	elif new_position == "defense":
+		var card_manager = get_tree().get_current_scene().get_node_or_null("PlayerField/CardManager")
+		if card_manager and card_manager.has_method("apply_existing_aura_effect"):
+			print("🌱 [AURA APPLY] ", card_data.card_name, "ora in DEF → controllo aure attive...")
+			card_manager.apply_existing_aura_effect(self)
 
 func _on_self_lost_while_condition(card: Card) -> void:
 	if card != self:

@@ -192,14 +192,14 @@ func card_clicked(card):
 			print("⛔ Click ignorato: carta non valida durante fase prioritaria:", card.name)
 			return
 
-	# 🔒 BLOCCO GREEN BORDER: clic consentito solo se la carta ha il bordo verde o è valida per enchain
-	if green_border_context_active and card.card_is_in_slot and not tribute_selection_active:
-		if not $"../ActionButtons".can_card_be_enchained(card, cm):
-			print("⛔ Click ignorato: carta non valida per enchain:", card.name)
-			return
+	## 🔒 BLOCCO GREEN BORDER: clic consentito solo se la carta ha il bordo verde o è valida per enchain
+	#if green_border_context_active and card.card_is_in_slot and not tribute_selection_active:
+		#if not $"../ActionButtons".can_card_be_enchained(card, cm):
+			#print("⛔ Click ignorato: carta non valida per enchain:", card.name)
+			#return
 
 	# 🚫 Blocca click per spell OnPlay/OnCast se non in green-border context
-	if card.card_is_in_slot and not green_border_context_active and card.card_data.card_type == "Spell" and (
+	if card.card_is_in_slot and not priority_context_active and card.card_data.card_type == "Spell" and (
 		card.card_data.trigger_type == "On_Play" or 
 		card.card_data.trigger_type == "On_Cast" or 
 		card.card_data.trigger_type == "On_Attack"
@@ -212,16 +212,17 @@ func card_clicked(card):
 
 	# 🟢 Marca la carta come enchained se in green-border context e rpc
 	if green_border_context_active and card.card_is_in_slot:
-		card.was_enchained = true
-		print("🟢 Carta marcata come ENCHAINATA:", card.name)
+		if $"../ActionButtons".can_card_be_enchained(card, cm):
+			card.was_enchained = true
+			print("🟢 Carta marcata come ENCHAINATA:", card.name)
 
-		# 🔁 Invia la sincronizzazione solo all’altro peer
-		var peers = multiplayer.get_peers()
-		if peers.size() > 0:
-			var other_peer_id = peers[0]
-			var owner_id = multiplayer.get_unique_id()
-			print("📡 Invio RPC di ENCHAIN a peer:", other_peer_id, "per carta:", card.name)
-			rpc_id(other_peer_id, "rpc_mark_card_as_enchained", card.name, owner_id)
+			# 🔁 Invia la sincronizzazione solo all’altro peer
+			var peers = multiplayer.get_peers()
+			if peers.size() > 0:
+				var other_peer_id = peers[0]
+				var owner_id = multiplayer.get_unique_id()
+				print("📡 Invio RPC di ENCHAIN a peer:", other_peer_id, "per carta:", card.name)
+				rpc_id(other_peer_id, "rpc_mark_card_as_enchained", card.name, owner_id)
 
 
 
@@ -2973,7 +2974,14 @@ func apply_existing_aura_effect(card: Node2D):
 			if aura_card.card_data.effect_type != "Aura":
 				print("⛔ [SKIP] Non è un’aura →", aura_card.card_data.card_name, "| effect_type:", aura_card.card_data.effect_type)
 				continue
-
+			# 🚫 SKIP TOTALE se la carta è già influenzata da questa aura
+			if aura_card.aura_affected_cards.any(
+				func(entry):
+					return typeof(entry) == TYPE_DICTIONARY and entry.card == card
+			):
+				print("⏭️ [AURA SKIP] ", card.card_data.card_name,
+					"già influenzata da", aura_card.card_data.card_name)
+				continue
 
 			# 🔄 Cicla su tutti e 4 gli effetti
 			for i in range(1, 5):

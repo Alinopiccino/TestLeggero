@@ -1480,10 +1480,10 @@ func _on_self_changed_position(card: Card, new_position: String) -> void:
 						combat_manager.remove_aura_effects(possible_aura, self)
 						break
 		## 🌱 --- NUOVO BLOCCO: guadagna condizione per AURA "AllAllyDEFCreatures" ---
-	#elif new_position == "defense":
-		#if card_manager and card_manager.has_method("apply_existing_aura_effect"):
-			#print("🌱 [AURA APPLY] ", card_data.card_name, "ora in DEF → controllo aure attive...")
-			#card_manager.apply_existing_aura_effect(self)
+	elif new_position == "defense":
+		if card_manager and card_manager.has_method("apply_existing_aura_effect"):
+			print("🌱 [AURA APPLY] ", card_data.card_name, "ora in DEF → controllo aure attive...")
+			card_manager.apply_existing_aura_effect(self)
 			
 func _on_self_summoned_on_field(card: Card, position: String) -> void:
 	if card != self:
