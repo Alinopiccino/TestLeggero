@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DeckData" load_steps=10 format=3]
+[gd_resource type="Resource" script_class="DeckData" load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_tfq4t"]
 [ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_2ivam"]
@@ -7,18 +7,20 @@
 [ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Army of the North.tres" id="8_7lpdg"]
 [ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Lenso.tres" id="8_ms5c7"]
 [ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Reptilian Assailant.tres" id="9_ms5c7"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Self Explosion.tres" id="9_rsbid"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Backfire Shot.tres" id="10_2m7kq"]
 [ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Acquatic Warrior.tres" id="10_rsbid"]
 [ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Acquatic Soul.tres" id="12_cuvio"]
 
 [resource]
 script = ExtResource("2_2ivam")
 deck_name = "acqua"
-cards = Array[ExtResource("1_tfq4t")]([ExtResource("2_xogw4"), ExtResource("2_xogw4"), ExtResource("7_uvsrl"), ExtResource("7_uvsrl"), ExtResource("7_uvsrl"), ExtResource("8_7lpdg"), ExtResource("8_7lpdg"), ExtResource("8_7lpdg"), ExtResource("9_ms5c7"), ExtResource("9_ms5c7"), ExtResource("9_ms5c7"), ExtResource("10_rsbid"), ExtResource("10_rsbid"), ExtResource("10_rsbid"), ExtResource("12_cuvio"), ExtResource("8_ms5c7"), ExtResource("8_ms5c7"), ExtResource("8_ms5c7")])
+cards = Array[ExtResource("1_tfq4t")]([ExtResource("2_xogw4"), ExtResource("2_xogw4"), ExtResource("7_uvsrl"), ExtResource("7_uvsrl"), ExtResource("7_uvsrl"), ExtResource("8_7lpdg"), ExtResource("8_7lpdg"), ExtResource("8_7lpdg"), ExtResource("9_ms5c7"), ExtResource("9_ms5c7"), ExtResource("9_ms5c7"), ExtResource("10_rsbid"), ExtResource("10_rsbid"), ExtResource("10_rsbid"), ExtResource("12_cuvio"), ExtResource("8_ms5c7"), ExtResource("8_ms5c7"), ExtResource("8_ms5c7"), ExtResource("9_rsbid"), ExtResource("9_rsbid"), ExtResource("10_2m7kq"), ExtResource("10_2m7kq"), ExtResource("10_2m7kq")])
 is_valid = false
 mana_sort_state = "none"
 rank_sort_state = "none"
 mana_slot_1 = "Water"
 mana_slot_2 = "Water"
 mana_slot_3 = "Water"
-mana_slot_4 = "Water"
-mana_slot_5 = "Water"
+mana_slot_4 = "Fire"
+mana_slot_5 = "Fire"

@@ -2684,8 +2684,9 @@ func direct_attack_here_and_replicate_client_opponent(player_id: int,attacking_c
 	print("ATTACCOOOOO")
 
 	if attacking_card.card_is_in_slot and not attacking_card.attack_negated and enemy_LP > 0:
+		print("ATTACCO PROSEGUE")
 		var attack_pos = Vector2(attacking_card.current_slot.position.x, attack_pos_y)
-		attacking_card.z_index = 100
+
 
 		var num_strikes = 1
 		if "Double Strike" in attacking_card.card_data.get_all_talents():
@@ -2707,10 +2708,11 @@ func direct_attack_here_and_replicate_client_opponent(player_id: int,attacking_c
 				break
 
 			# ⚔️ Animazione avanti
+			attacking_card.z_index = 100
 			var tween_attack = create_tween()
 			tween_attack.tween_property(attacking_card, "position", attack_pos, 0.15)
 			await tween_attack.finished
-
+			
 
 			# 💥 Danno diretto ai LP
 			if multiplayer.get_unique_id() == player_id:
@@ -2740,7 +2742,7 @@ func direct_attack_here_and_replicate_client_opponent(player_id: int,attacking_c
 
 
 
-			#await get_tree().create_timer(0.1).timeout
+
 
 			# 💨 Tween indietro come in attack_here_and_replicate_client_opponent
 			var tween_back = create_tween()
@@ -2750,17 +2752,20 @@ func direct_attack_here_and_replicate_client_opponent(player_id: int,attacking_c
 
 			# ✨ Effetto visivo Double Strike (solo se secondo colpo)
 			if i == 0 and num_strikes == 2:
-				await get_tree().create_timer(0.1).timeout
 				attacking_card.play_talent_icon_pulse("Double Strike")
+				await get_tree().create_timer(0.4).timeout
 
 
-		await get_tree().create_timer(0.15).timeout
-		attacking_card.z_index = 0 
+	#await get_tree().create_timer(0.15).timeout
+	var tween_back = create_tween()
+	tween_back.tween_property(attacking_card, "position", attacking_card.current_slot.position, DEFAULT_CARD_MOVE_SPEED_ATTACK)
+	await tween_back.finished
+	attacking_card.z_index = 0
 	
-		if attacking_card.action_border:
-			attacking_card.action_border.z_index = -1
-			attacking_card.action_border.visible = false
-			rpc("hide_action_border_on_card", attacking_card.name)
+	if attacking_card.action_border:
+		attacking_card.action_border.z_index = -1
+		attacking_card.action_border.visible = false
+		rpc("hide_action_border_on_card", attacking_card.name)
 			
 		# 👇 Rimuovi overlay attacco
 	remove_attack_overlay(attacking_card)
