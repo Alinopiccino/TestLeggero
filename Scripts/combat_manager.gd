@@ -2633,7 +2633,9 @@ func direct_attack_here_and_replicate_client_opponent(player_id: int,attacking_c
 		attacking_card.play_talent_icon_pulse("Flying")
 		await get_tree().create_timer(1.0).timeout  # piccola attesa per far vedere il pulse
 		
-
+	attacking_card.card_is_in_slot = true
+	attacking_card.has_an_attack_target = true #QUESTI 3 RIGHE SONO FALLBACK PER NON FARE SKIPPARE IN AUTOMATICO
+	print("FALLBACK FIX ATK DIRETTO")
 
 		#AUTO-APPROVE
 	# 🛑 STOP: Attendi GO TO COMBAT (se difensore ha risposta)
@@ -2880,9 +2882,10 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 		})
 		print("🕒 Aggiunta in attesa GO TO COMBAT:", attacking_card.name, "| Player:", player_id)
 		
-		#attacking_card.card_is_in_slot = true
-		#attacking_card.has_an_attack_target = true #QUESTI 3 RIGHE SONO FALLBACK PER NON FARE SKIPPARE IN AUTOMATICO
-		#defending_card.card_is_in_slot = true 
+		attacking_card.card_is_in_slot = true
+		attacking_card.has_an_attack_target = true #QUESTI 3 RIGHE SONO FALLBACK PER NON FARE SKIPPARE IN AUTOMATICO
+		defending_card.card_is_in_slot = true 
+		print("FALLBACK FIX ATK A CREATURA")
 		
 		await wait_for_combat_confirmation(is_attacker, defending_card)
 		cards_waiting_for_go_to_combat = cards_waiting_for_go_to_combat.filter(func(e): return e.card != attacking_card)

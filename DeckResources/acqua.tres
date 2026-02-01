@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DeckData" load_steps=12 format=3]
+[gd_resource type="Resource" script_class="DeckData" load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_tfq4t"]
 [ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_2ivam"]
@@ -11,11 +11,14 @@
 [ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Army of the North.tres" id="8_7lpdg"]
 [ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Reptilian Assailant.tres" id="9_ms5c7"]
 [ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Acquatic Warrior.tres" id="10_rsbid"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Thousand Eyes Atrocity.tres" id="11_2m7kq"]
+[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Acquatic Soul.tres" id="12_cuvio"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/FireBeam.tres" id="13_h1srp"]
 
 [resource]
 script = ExtResource("2_2ivam")
 deck_name = "acqua"
-cards = Array[ExtResource("1_tfq4t")]([ExtResource("2_xogw4"), ExtResource("2_xogw4"), ExtResource("3_xogw4"), ExtResource("3_xogw4"), ExtResource("4_1r6fb"), ExtResource("4_1r6fb"), ExtResource("5_dkldy"), ExtResource("5_dkldy"), ExtResource("5_dkldy"), ExtResource("6_kyl6v"), ExtResource("6_kyl6v"), ExtResource("7_uvsrl"), ExtResource("7_uvsrl"), ExtResource("7_uvsrl"), ExtResource("8_7lpdg"), ExtResource("8_7lpdg"), ExtResource("8_7lpdg"), ExtResource("9_ms5c7"), ExtResource("9_ms5c7"), ExtResource("9_ms5c7"), ExtResource("10_rsbid"), ExtResource("10_rsbid"), ExtResource("10_rsbid")])
+cards = Array[ExtResource("1_tfq4t")]([ExtResource("2_xogw4"), ExtResource("2_xogw4"), ExtResource("3_xogw4"), ExtResource("3_xogw4"), ExtResource("4_1r6fb"), ExtResource("4_1r6fb"), ExtResource("5_dkldy"), ExtResource("5_dkldy"), ExtResource("5_dkldy"), ExtResource("6_kyl6v"), ExtResource("6_kyl6v"), ExtResource("7_uvsrl"), ExtResource("7_uvsrl"), ExtResource("7_uvsrl"), ExtResource("8_7lpdg"), ExtResource("8_7lpdg"), ExtResource("8_7lpdg"), ExtResource("9_ms5c7"), ExtResource("9_ms5c7"), ExtResource("9_ms5c7"), ExtResource("10_rsbid"), ExtResource("10_rsbid"), ExtResource("10_rsbid"), ExtResource("11_2m7kq"), ExtResource("12_cuvio"), ExtResource("13_h1srp"), ExtResource("13_h1srp")])
 is_valid = false
 mana_sort_state = "none"
 rank_sort_state = "none"

@@ -496,6 +496,15 @@ func go_to_next_phase():
 		print("🧹 [PHASE CHANGE] Pulizia just_targeted_creature (nuova fase)")
 		combat_manager.just_targeted_creature.clear()
 		
+	for card in combat_manager.player_creatures_on_field + combat_manager.opponent_creatures_on_field:
+		if not card.is_card():
+			continue
+		if card.attack_negated:
+			print("REFRESH ATTACK NEGATED FINE FASE A TUTTI")
+		if card.has_an_attack_target:
+			print("REFRESH HAS ATTACK TARGET FINE FASE A TUTTI")
+
+		
 	if current_phase == Phase.END and both_players_passed(): #QUI TRIGGERI TUTTI GLI EFFETTI DI FINE TURNO
 		var card_manager = $"../CardManager"
 		var my_id = multiplayer.get_unique_id()
