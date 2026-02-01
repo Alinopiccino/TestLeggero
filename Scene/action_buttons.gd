@@ -309,7 +309,7 @@ func on_direct_attack_pressed():
 
 func on_resolve_pressed():
 	
-
+	print("PREMUTO RESOLVE")
 		
 	if $"../CardManager".selection_mode_active:
 		resolve_button.focus_mode = Control.FOCUS_NONE
@@ -322,7 +322,7 @@ func on_resolve_pressed():
 	hide_resolve_button()
 
 func on_retaliate_pressed():
-
+	print("PREMUTO RETALIATE")
 	if $"../CardManager".selection_mode_active:
 		retaliate_button.focus_mode = Control.FOCUS_NONE
 		retaliate_button.release_focus()
@@ -333,7 +333,7 @@ func on_retaliate_pressed():
 	emit_signal("retaliate_chosen")
 
 func on_ok_pressed():
-
+ 
 	if $"../CardManager".selection_mode_active:
 		ok_button.focus_mode = Control.FOCUS_NONE
 		ok_button.release_focus()
@@ -344,7 +344,7 @@ func on_ok_pressed():
 	emit_signal("retaliate_chosen")
 
 func on_go_to_combat_pressed():
-
+	print("PREMUTO GTC")
 	if $"../CardManager".selection_mode_active:
 		go_to_combat_button.focus_mode = Control.FOCUS_NONE
 		go_to_combat_button.release_focus()
@@ -361,7 +361,7 @@ func on_go_to_combat_pressed():
 		combat_manager.rpc_id(other_player_id, "notify_opponent_pressed_go_to_combat")
 
 func on_to_damage_step_pressed():
-
+	print("PREMUTO TDS")
 	if $"../CardManager".selection_mode_active:
 		to_damage_step_button.focus_mode = Control.FOCUS_NONE
 		to_damage_step_button.release_focus()

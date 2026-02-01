@@ -2864,7 +2864,7 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 		# 🔄 Replica su entrambi i client
 		#rpc("rpc_remove_talent_overlay", player_id, attacking_card.name, "Elusive")
 
-	
+
 	# 🔥 Animazione attacco
 	var new_pos = Vector2(defending_card.position.x, defending_card.position.y + y_offset)
 	var tween_attack = create_tween()
@@ -2882,18 +2882,15 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 		})
 		print("🕒 Aggiunta in attesa GO TO COMBAT:", attacking_card.name, "| Player:", player_id)
 		
-		attacking_card.card_is_in_slot = true
-		attacking_card.has_an_attack_target = true #QUESTI 3 RIGHE SONO FALLBACK PER NON FARE SKIPPARE IN AUTOMATICO
-		defending_card.card_is_in_slot = true 
-		print("FALLBACK FIX ATK A CREATURA")
+
 		
 		await wait_for_combat_confirmation(is_attacker, defending_card)
 		cards_waiting_for_go_to_combat = cards_waiting_for_go_to_combat.filter(func(e): return e.card != attacking_card)
 		print("📉 Rimossa da attesa GO TO COMBAT:", attacking_card.name)
 
-	# 🔥 Determina se il difensore può retaliate
+	# 🔥 Determina se il difensore può retaliate  #RIMOSSA CONDIZIONE HAS_AN_ATTACK_TARGET
 	var wants_to_retaliate = false
-	if attacking_card != null and attacking_card.card_is_in_slot and defending_card != null and defending_card.card_is_in_slot and not attacking_card.attack_negated and not attacking_card.frozen and not attacking_card.position_type == "defense" and attacking_card.has_an_attack_target and not attacking_card.stunned:
+	if attacking_card != null and attacking_card.card_is_in_slot and defending_card != null and defending_card.card_is_in_slot and not attacking_card.attack_negated and not attacking_card.frozen and not attacking_card.position_type == "defense" and not attacking_card.stunned:
 		#var defender_can_retaliate = defending_card.position_type == "defense" and defending_card and defending_card.card_data.attack > 0 and defending_card.stunned == false  #tolto player_creatures_that_retaliated_this_turn
 		var has_reactivity = "Reactivity" in defending_card.card_data.get_all_talents()
 		var defender_can_retaliate = defending_card and defending_card.card_data.attack > 0 and not defending_card.stunned and not defending_card.frozen and (
@@ -2913,7 +2910,7 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 		print("  not attacking_card.stunned:", attacking_card != null and not attacking_card.stunned)
 
 	# 🛑 STOP: Attendi TO DAMAGE STEP
-	if attacking_card == null or not attacking_card.card_is_in_slot or not attacking_card.has_an_attack_target or defending_card == null or not defending_card.card_is_in_slot or attacking_card.attack_negated or attacking_card.position_type == "defense":
+	if attacking_card == null or not attacking_card.card_is_in_slot or defending_card == null or not defending_card.card_is_in_slot or attacking_card.attack_negated or attacking_card.position_type == "defense":
 		print("⛔ [AUTO] skip TO DAMAGE STEP — stato condizioni:")
 		print("  attacking_card == null:", attacking_card == null)
 		print("  attacking_card.card_is_in_slot:", attacking_card != null and attacking_card.card_is_in_slot)
@@ -5668,7 +5665,9 @@ func apply_simple_effect_to_card(card: Node, effect: String, magnitude: int, sou
 func check_magic_veil(card: Node, source_card: Node) -> bool:
 	if not is_instance_valid(card):
 		return false
-
+	if source_card.card_data.effect_type == "Aura":
+		print("MAGIC VEIL NON SI APPLICA SU EFFETTI AURA")
+		return false
 	# 💡 Prima di tutto: controlla il threshold
 	var effect_index := 1
 	var current_effect = source_card.card_data.effect_1
@@ -7846,12 +7845,11 @@ func stop_attack(card: Node) -> void:
 
 	if card.has_an_attack_target or card.is_being_attacked: #or card.is_being_targeted:  #PER ORA BUG ATK MORTO FIXATO SOLO SE C'E IS BEING TARGETED
 	#if card.is_being_targeted:
-		print("⚠️ Carta", card.name, "CHANGE POS durante un combat → combat terminato, imposto anche i flag attak_target e being attacked a FALSE")
+		print("⚠️ Carta", card.name, "CHANGE POS/STOP ATK durante un combat → combat terminato, imposto anche i flag attak_target e being attacked a FALSE")
 		any_combat_in_progress = false
 		chained_this_battle_step = false
 		already_chained_in_this_go_to_combat = false
 		already_chained_in_this_go_to_damage_step = false
-		card.has_an_attack_target = false
 		card.is_being_attacked = false
 		print("IMPOSTA ANCHE FLAG ATTACK NEGATED")
 		card.attack_negated = true
@@ -7859,34 +7857,33 @@ func stop_attack(card: Node) -> void:
 	clear_combat_state(card)
 	recheck_combat_status()
 	#FORSE QUI IL FORCED COMBAAT END NON SERVE VEDI IN FUTURO EVNETUALI BUG
-	if card.has_an_attack_target:
-		handle_forced_combat_end(card, "atk_stopped")
+	handle_forced_combat_end(card, "atk_stopped")
 
-	 ##🌀 Passa azione all’altro giocatore, come in direct_attack
-	if pending_action_owner_id != multiplayer.get_unique_id():
-		var phase_manager = get_node_or_null("../PhaseManager")
-		if phase_manager:
-			await get_tree().create_timer(0.2).timeout
-			var peers = multiplayer.get_peers()
-			if peers.size() > 0:
-				var other_id = peers[0]
-				print("♻️ [Action Switch] Attacco interrotto → passo azione all’altro peer:", other_id)
-				phase_manager.rpc("rpc_give_action", other_id,true)
-				phase_manager.rpc_give_action(other_id,true)
+	 ###🌀 Passa azione all’altro giocatore, come in direct_attack
+	#if pending_action_owner_id != multiplayer.get_unique_id():
+		#var phase_manager = get_node_or_null("../PhaseManager")
+		#if phase_manager:
+			#await get_tree().create_timer(0.2).timeout
+			#var peers = multiplayer.get_peers()
+			#if peers.size() > 0:
+				#var other_id = peers[0]
+				#print("♻️ [Action Switch] Attacco interrotto → passo azione all’altro peer:", other_id)
+				#phase_manager.rpc("rpc_give_action", other_id,true)
+				#phase_manager.rpc_give_action(other_id,true)
+	##else:
+		##print("⚠️ PhaseManager non trovato — impossibile passare l’azione!")
+#
+#
+	## 🔁 Se la carta è ancora in campo → riportala nella posizione del suo slot
+	#if card.card_is_in_slot and card.current_slot and is_instance_valid(card.current_slot):
+		#var tween_return = create_tween()
+		#tween_return.set_trans(Tween.TRANS_QUAD)
+		#tween_return.set_ease(Tween.EASE_OUT)
+		#tween_return.tween_property(card, "position", card.current_slot.position, 0.3)
+		#await tween_return.finished
+		#print("↩️ [STOP ATTACK] Carta", card.card_data.card_name, "riportata al suo slot.")
 	#else:
-		#print("⚠️ PhaseManager non trovato — impossibile passare l’azione!")
-
-
-	# 🔁 Se la carta è ancora in campo → riportala nella posizione del suo slot
-	if card.card_is_in_slot and card.current_slot and is_instance_valid(card.current_slot):
-		var tween_return = create_tween()
-		tween_return.set_trans(Tween.TRANS_QUAD)
-		tween_return.set_ease(Tween.EASE_OUT)
-		tween_return.tween_property(card, "position", card.current_slot.position, 0.3)
-		await tween_return.finished
-		print("↩️ [STOP ATTACK] Carta", card.card_data.card_name, "riportata al suo slot.")
-	else:
-		print("⚠️ [STOP ATTACK] Nessuno slot valido trovato per", card.card_data.card_name, "→ skip movimento.")
+		#print("⚠️ [STOP ATTACK] Nessuno slot valido trovato per", card.card_data.card_name, "→ skip movimento.")
 
 
 	card.z_index = 0
@@ -8963,7 +8960,13 @@ func handle_forced_combat_end(card: Node2D, reason: String = "removed") -> void:
 
 	print("⚠️ [FORCED COMBAT END] Carta", card.name, reason, "durante chain → combat terminato e flag resettati.")
 
+	var action_buttons = $"../ActionButtons"
+	action_buttons.on_go_to_combat_pressed()
+	action_buttons.on_resolve_pressed()
+	action_buttons.on_retaliate_pressed()
+	action_buttons.on_to_damage_step_pressed()
 	# 🔔 Risveglia eventuali coroutine in attesa di scelte o conferme
+	emit_signal("go_to_combat_chosen")
 	emit_signal("resolve_choice_received")
 	emit_signal("retaliate_choice_received")
 	emit_signal("to_damage_step_chosen")
