@@ -12,6 +12,7 @@ var player_is_attacker: bool = false
 var player_is_defender: bool = false
 var first_turn_done: bool = false # Per sapere se siamo ancora nel primo turno
 var current_phase: Phase = Phase.START
+var haste_battle_step: bool = false
 var has_passed_this_phase = false
 var enemy_has_passed_this_phase = false
 var last_action_from_attack := false
@@ -148,6 +149,7 @@ func set_phase(new_phase: Phase):
 	current_phase = new_phase
 	has_passed_this_phase = false
 	enemy_has_passed_this_phase = false
+	haste_battle_step = false
 		
 	update_phase_indicators()
 	# Player pass button reset
@@ -258,15 +260,38 @@ func set_phase(new_phase: Phase):
 
 	elif current_phase == Phase.PREPARATION or current_phase == Phase.BATTLE:
 		var attacker_id: int
+		var defender_id: int
+
 		if player_is_attacker:
 			attacker_id = multiplayer.get_unique_id()
+			defender_id = multiplayer.get_peers()[0]
 		else:
 			attacker_id = multiplayer.get_peers()[0]
+			defender_id = multiplayer.get_unique_id()
 
-		print("⚔️ [PhaseManager] Assegno l’action all’ATTACCANTE per la fase:", get_phase_name(), "(peer_id =", attacker_id, ")")
+		var give_action_to := attacker_id  # 👈 default
 
-		rpc("rpc_give_action", attacker_id, false, true)
-		await rpc_give_action(attacker_id, false, true)
+		# ⚡ HASTE: serve SOLO al DIFENSORE per rubare la priority
+		if current_phase == Phase.BATTLE:
+			var attacker_has_haste = _player_has_haste_creature("player" if player_is_attacker else "opponent")
+			var defender_has_haste = _player_has_haste_creature("opponent" if player_is_attacker else "player")
+
+			await get_tree().process_frame
+
+			# 👉 override SOLO se il difensore ha Haste e l'attaccante NO
+			if defender_has_haste and not attacker_has_haste:
+				haste_battle_step = true
+				give_action_to = defender_id
+				print("⚡ [HASTE OVERRIDE] Action al DIFENSORE (haste battle step)")
+				_pulse_haste_icons("opponent" if player_is_attacker else "player")
+			else:
+				print("⚔️ [HASTE] Nessun override (attaccante priority normale)")
+
+		print("⚔️ [PhaseManager] Action assegnata a peer_id =", give_action_to, " | phase =", get_phase_name())
+
+		rpc("rpc_give_action", give_action_to, false, true)
+		await rpc_give_action(give_action_to, false, true)
+
 
 		
 		# 🧠CHECK AUTO-PASS IMMEDIATO ALL’INGRESSO DELLA PREPARATION o della BATTLE
@@ -313,7 +338,7 @@ func set_phase(new_phase: Phase):
 	#else:
 		#player_pass_button.visible = false
 		#print("🔴 [PhaseManager] Bottone Pass Phase NASCOSTO (non hai l'azione).")
-	
+
 @rpc("any_peer")
 func rpc_give_action(peer_id: int, from_attack: bool = false, from_phase: bool = false):
 
@@ -1196,3 +1221,34 @@ func any_player_has_actions_for_phase(phase: Phase) -> bool:
 	if player_has_any_actions(false, phase):
 		return true
 	return false
+
+func _player_has_haste_creature(player_side: String) -> bool:
+	var combat_manager = $"../CombatManager"
+	var creatures: Array = []
+
+	if player_side == "player":
+		creatures = combat_manager.player_creatures_on_field
+	elif player_side == "opponent":
+		creatures = combat_manager.opponent_creatures_on_field
+
+	for c in creatures:
+		if "Haste" in c.card_data.get_all_talents():
+			return true
+
+	return false
+
+
+func _pulse_haste_icons(player_side: String):
+	var combat_manager = $"../CombatManager"
+	var creatures: Array = []
+
+	if player_side == "player":
+		creatures = combat_manager.player_creatures_on_field
+	elif player_side == "opponent":
+		creatures = combat_manager.opponent_creatures_on_field
+
+	for card in creatures:
+		if "Haste" in card.card_data.get_all_talents():
+			card.play_talent_icon_pulse("Haste")
+			if card.has_node("GreenHighlightBorder"):
+				card.get_node("GreenHighlightBorder").visible = true 

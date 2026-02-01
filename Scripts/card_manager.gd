@@ -361,6 +361,11 @@ func card_clicked(card):
 
 			# Fase di battaglia
 			Phase.BATTLE:
+				# ⚡ HASTE BATTLE STEP: solo creature con Haste possono attaccare
+				if pm.haste_battle_step:
+					if "Haste" not in card.card_data.get_all_talents():
+						print("⛔ HASTE STEP attivo: creatura senza Haste non può attaccare:", card.name)
+						return
 				print("⚔️ Battaglia: selezioniamo per attacco:", card.name)
 				if pm.player_action_count == 0 and not green_border_context_active:
 					print("⛔ Click disabilitato: nessuna azione disponibile (player_action_count = 0)")
@@ -1226,7 +1231,7 @@ func exit_selection_mode(selection_resolved := false):
 		selected_card.action_border.visible = false
 		selected_card.action_border.z_index = -1
 
-	selected_card = null
+	
 	selection_mode_active = false
 	selection_purpose = ""
 
@@ -1249,6 +1254,13 @@ func exit_selection_mode(selection_resolved := false):
 
 	$"../ActionButtons".hide_label(player_selection_label)
 	print("❌ Selection mode disattivata")
+	
+	if selected_card and $"../PhaseManager".haste_battle_step:
+		if "Haste" in selected_card.card_data.get_all_talents() and not selection_resolved:
+			if selected_card.has_node("GreenHighlightBorder"):
+				selected_card.get_node("GreenHighlightBorder").visible = true
+			
+	selected_card = null
 
 @rpc("any_peer")
 func rpc_notify_selection_mode_start(player_id: int, card_name: String, purpose: String):

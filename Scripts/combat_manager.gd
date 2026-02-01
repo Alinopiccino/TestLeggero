@@ -5322,7 +5322,9 @@ func clear_combat_state(card: Card) -> void:
 
 func recheck_combat_status():
 	var combat_in_progress := false
-
+	if $"../PhaseManager".haste_battle_step:
+		print("RESETTO HASTE BATTLE STEP")
+		$"../PhaseManager".haste_battle_step = false
 ##LUI FORSE E' IL COLPEVOLE DEL BUG DI ATTACKER MORTO, E PROBABILMENTE BUG ANCHE PER CHAIN 1 2 FACEDOWN (PENSAVO SERVISSE)
 	#for card in player_creatures_on_field + opponent_creatures_on_field:
 		#if card.has_an_attack_target or card.is_being_attacked:
