@@ -3161,12 +3161,12 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 				
 				#if defending_card not in player_creatures_that_retaliated_this_turn:
 				# 💥 Calcolo del danno effettivo inflitto all'attaccante
-				var damage_to_attacker = min(defending_card.card_data.attack, attacking_card.card_data.health)
+				var damage_to_attacker = min((defending_card.card_data.attack - attacking_card.card_data.armour), attacking_card.card_data.health) 
 				# 💔 Applica il danno all'attaccante (ma rispetta Phys Immune)
 				if "Phys Immune" in attacking_card.card_data.get_all_talents():
 					play_damage_shake(attacking_card, 0)
 				else:
-					attacking_card.card_data.health = max(0, attacking_card.card_data.health - (damage_to_attacker - attacking_card.card_data.armour))
+					attacking_card.card_data.health = max(0, attacking_card.card_data.health - damage_to_attacker)
 					attacking_card.get_node("Health").text = str(attacking_card.card_data.health)
 					if damage_to_attacker > 0:
 						defending_card.emit_signal("damage_dealt", defending_card, defending_card.card_data.attack, "to_creature")
