@@ -1,21 +1,26 @@
-[gd_resource type="Resource" script_class="DeckData" load_steps=12 format=3]
+[gd_resource type="Resource" script_class="DeckData" load_steps=17 format=3]
 
 [ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_tfq4t"]
 [ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_2ivam"]
-[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Frozen Weapon .tres" id="2_xogw4"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Turtle Shell.tres" id="4_1r6fb"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Flame Runner.tres" id="5_dkldy"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Firebolt.tres" id="6_kyl6v"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Burning Skull.tres" id="7_7lpdg"]
 [ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Ice Barrier.tres" id="7_uvsrl"]
-[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Army of the North.tres" id="8_7lpdg"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Mystic Fireball.tres" id="8_7lpdg"]
 [ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Lenso.tres" id="8_ms5c7"]
-[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Reptilian Assailant.tres" id="9_ms5c7"]
-[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Self Explosion.tres" id="9_rsbid"]
-[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Backfire Shot.tres" id="10_2m7kq"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Flaming Lion.tres" id="10_2m7kq"]
 [ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Acquatic Warrior.tres" id="10_rsbid"]
-[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Acquatic Soul.tres" id="12_cuvio"]
+[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Abyssal Terror.tres" id="11_2m7kq"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Boots of Speed.tres" id="11_cuvio"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/FireBeam.tres" id="13_h1srp"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Backfire Shot.tres" id="14_36wsd"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Army of the North.tres" id="15_81mvf"]
 
 [resource]
 script = ExtResource("2_2ivam")
 deck_name = "acqua"
-cards = Array[ExtResource("1_tfq4t")]([ExtResource("2_xogw4"), ExtResource("2_xogw4"), ExtResource("7_uvsrl"), ExtResource("7_uvsrl"), ExtResource("7_uvsrl"), ExtResource("8_7lpdg"), ExtResource("8_7lpdg"), ExtResource("8_7lpdg"), ExtResource("9_ms5c7"), ExtResource("9_ms5c7"), ExtResource("9_ms5c7"), ExtResource("10_rsbid"), ExtResource("10_rsbid"), ExtResource("10_rsbid"), ExtResource("12_cuvio"), ExtResource("8_ms5c7"), ExtResource("8_ms5c7"), ExtResource("8_ms5c7"), ExtResource("9_rsbid"), ExtResource("9_rsbid"), ExtResource("10_2m7kq"), ExtResource("10_2m7kq"), ExtResource("10_2m7kq")])
+cards = Array[ExtResource("1_tfq4t")]([ExtResource("7_uvsrl"), ExtResource("7_uvsrl"), ExtResource("7_uvsrl"), ExtResource("4_1r6fb"), ExtResource("4_1r6fb"), ExtResource("5_dkldy"), ExtResource("5_dkldy"), ExtResource("5_dkldy"), ExtResource("6_kyl6v"), ExtResource("6_kyl6v"), ExtResource("7_7lpdg"), ExtResource("7_7lpdg"), ExtResource("7_7lpdg"), ExtResource("8_7lpdg"), ExtResource("10_rsbid"), ExtResource("10_rsbid"), ExtResource("10_2m7kq"), ExtResource("10_2m7kq"), ExtResource("11_2m7kq"), ExtResource("11_2m7kq"), ExtResource("11_2m7kq"), ExtResource("11_cuvio"), ExtResource("13_h1srp"), ExtResource("13_h1srp"), ExtResource("14_36wsd"), ExtResource("14_36wsd"), ExtResource("8_ms5c7"), ExtResource("8_ms5c7"), ExtResource("15_81mvf"), ExtResource("15_81mvf")])
 is_valid = false
 mana_sort_state = "none"
 rank_sort_state = "none"

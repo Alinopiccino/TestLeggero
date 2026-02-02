@@ -2757,10 +2757,11 @@ func direct_attack_here_and_replicate_client_opponent(player_id: int,attacking_c
 
 
 	#await get_tree().create_timer(0.15).timeout
-	var tween_back = create_tween()
-	tween_back.tween_property(attacking_card, "position", attacking_card.current_slot.position, DEFAULT_CARD_MOVE_SPEED_ATTACK)
-	await tween_back.finished
-	attacking_card.z_index = 0
+	if attacking_card.card_is_in_slot:
+		var tween_back = create_tween()
+		tween_back.tween_property(attacking_card, "position", attacking_card.current_slot.position, DEFAULT_CARD_MOVE_SPEED_ATTACK)
+		await tween_back.finished
+		attacking_card.z_index = 0
 	
 	if attacking_card.action_border:
 		attacking_card.action_border.z_index = -1

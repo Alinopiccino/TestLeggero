@@ -200,7 +200,7 @@ func card_clicked(card):
 			#return
 
 	# 🚫 Blocca click per spell OnPlay/OnCast se non in green-border context
-	if card.card_is_in_slot and not priority_context_active and card.card_data.card_type == "Spell" and (
+	if card.card_is_in_slot and not green_border_context_active and card.card_data.card_type == "Spell" and (
 		card.card_data.trigger_type == "On_Play" or 
 		card.card_data.trigger_type == "On_Cast" or 
 		card.card_data.trigger_type == "On_Attack"
