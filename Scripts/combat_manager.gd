@@ -693,6 +693,7 @@ func apply_targeted_effect(selected_card, defending_card):
 	if selected_card.card_data.effect_type == "ActivableAttack":
 		if not player_creature_that_attacked_this_turn.has(selected_card):
 			player_creature_that_attacked_this_turn.append(selected_card)
+			selected_card.attacked_this_turn = true
 			print("📝 Aggiunta a player_creature_that_attacked_this_turn:", selected_card.name)
 	#selected_card.action_border.z_index = 35
 	var player_id = multiplayer.get_unique_id()
@@ -824,7 +825,8 @@ func direct_attack(attacking_card):  #CONSUMA AZIONE
 	if attacking_card.card_data.card_type != "Creature":   #chatgpt, le spell non possono attaccare
 		return        
 
-	player_creature_that_attacked_this_turn.append(attacking_card)
+	#player_creature_that_attacked_this_turn.append(attacking_card)
+	#attacking_card.attacked_this_turn = true
 	attacking_card.action_border.visible = true
 	attacking_card.has_an_attack_target = true
 	if attacking_card.attack_negated:
@@ -879,8 +881,9 @@ func direct_attack(attacking_card):  #CONSUMA AZIONE
 
 func attack(attacking_card, defending_card): 
 	$"../CardManager".selected_card = null
-	if not "Ruthless" in attacking_card.card_data.get_all_talents():
-		player_creature_that_attacked_this_turn.append(attacking_card)
+	#if not "Ruthless" in attacking_card.card_data.get_all_talents():
+		#player_creature_that_attacked_this_turn.append(attacking_card)
+		#attacking_card.attacked_this_turn = true
 	
 	attacking_card.action_border.visible = true  # 🔥 Ora accendiamo anche qua
 	if attacking_card.attack_negated:
@@ -975,6 +978,7 @@ func apply_untargeted_effect_here_and_replicate_client_opponent(player_id, sourc
 	if source_card.card_data.effect_type == "ActivableAttack":
 		if not player_creature_that_attacked_this_turn.has(source_card):
 			player_creature_that_attacked_this_turn.append(source_card)
+			source_card.attacked_this_turn = true
 			print("📝 Aggiunta a player_creature_that_attacked_this_turn:", source_card.name)
 	
 		# 🔮 Controllo scaling Spell Power anche per effetti untargeted
@@ -1688,6 +1692,7 @@ func apply_effect_here_and_replicate_client_opponent(player_id, source_card_name
 	if source_card.card_data.effect_type == "ActivableAttack":
 		if not player_creature_that_attacked_this_turn.has(source_card):
 			player_creature_that_attacked_this_turn.append(source_card)
+			source_card.attacked_this_turn = true
 			print("📝 Aggiunta a player_creature_that_attacked_this_turn:", source_card.name)
 	
 	if effect_stack.is_empty():
@@ -2614,6 +2619,8 @@ func direct_attack_here_and_replicate_client_opponent(player_id: int,attacking_c
 		
 	attacking_card.position.y += offset
 	attacking_card.has_an_attack_target = true
+	player_creature_that_attacked_this_turn.append(attacking_card)
+	attacking_card.attacked_this_turn = true
 	# 🌀 Se la carta ha Elusive, disattivalo temporaneamente
 	if attacking_card.is_elusive:
 		print("🚫", attacking_card.card_data.card_name, " perde temporaneamente Elusive per questo attacco.")
@@ -2861,7 +2868,9 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 
 	attacking_card.z_index = 5
 
-	
+	if not "Ruthless" in attacking_card.card_data.get_all_talents():
+		player_creature_that_attacked_this_turn.append(attacking_card)
+		attacking_card.attacked_this_turn = true
 	# 🌀 Se la carta ha Elusive, disattivalo temporaneamente
 	if attacking_card.is_elusive:
 		print("🚫", attacking_card.card_data.card_name, " perde temporaneamente Elusive per questo attacco.")
@@ -8064,6 +8073,7 @@ func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_i
 	if source_card.card_data.effect_type == "ActivableAttack":
 		if not player_creature_that_attacked_this_turn.has(source_card):
 			player_creature_that_attacked_this_turn.append(source_card)
+			source_card.attacked_this_turn = true
 			print("📝 Aggiunta a player_creature_that_attacked_this_turn:", source_card.name)
 		# 🔮 Controllo scaling Spell Power anche per effetti untargeted
 

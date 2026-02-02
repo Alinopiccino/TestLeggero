@@ -408,6 +408,7 @@ var card_is_in_slot: bool = false
 var current_slot: Node = null
 var card_is_in_playerGY: bool = false
 var effect_triggered_this_turn: bool = false
+var attacked_this_turn: bool = false
 var position_type: String = "attack" # di default
 var already_changed_position_this_turn: bool = false #RIFERTIO AL CHANGE IN PREPARATION PHASE
 

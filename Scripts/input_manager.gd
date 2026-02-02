@@ -161,6 +161,8 @@ func raycast_at_cursor():
 					
 				else:
 					print("👀 Hai cliccato una carta nemica ma nessuna carta è selezionata.")
+					if card.attacked_this_turn:
+						print("HA GIA' ATTACCATO NEMICA")
 					#print("   ➤ Nemica?:", card.is_enemy_card())
 					#print("   ➤ In Slot?:", card.card_is_in_slot)
 					#print("   ➤ Nel Cimitero?:", card.card_is_in_playerGY)

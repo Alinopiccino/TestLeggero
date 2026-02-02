@@ -116,6 +116,10 @@ func card_clicked(card):
 	var pm = $"../PhaseManager"
 	var action_buttons = $"../ActionButtons"
 	
+	if card.attacked_this_turn:
+		print ("HA GIA' ATTACCATO")
+	if not card.attacked_this_turn:
+		print ("NONNN HA GIA' ATTACCATO")
 	if tribute_selection_active:
 		print ("tribute selection attiva, se ne occupa input manager")
 		return

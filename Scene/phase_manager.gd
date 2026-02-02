@@ -174,6 +174,7 @@ func set_phase(new_phase: Phase):
 		# Reset flag delle carte in campo (sia player che opponent)
 		for card in combat_manager.player_creatures_on_field + combat_manager.opponent_creatures_on_field + combat_manager.player_spells_on_field + combat_manager.opponent_spells_on_field:
 			card.effect_triggered_this_turn = false
+			card.attacked_this_turn = false
 			card.already_changed_position_this_turn = false
 
 		# 🧹 RESET creature evocate nel turno precedente
@@ -1195,8 +1196,12 @@ func player_has_any_actions(is_player: bool, phase_override = null) -> bool:
 					continue
 
 				# Non deve aver già attaccato
-				if combat_manager.player_creature_that_attacked_this_turn.has(c):
+				if c.attacked_this_turn:
+					print("HA GIA' ATTACCATO SKIPPO BATTLE PER LEI")
 					continue
+				#if combat_manager.player_creature_that_attacked_this_turn.has(c):
+					#print("PUO' ATTACCARE ASSAULT")
+					#continue
 
 				# Deve poter attaccare
 				if c.stunned or c.frozen:
