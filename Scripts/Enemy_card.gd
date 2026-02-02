@@ -260,10 +260,11 @@ func _on_area_2d_mouse_entered() -> void:
 		emit_signal("hovered", self)
 		if not is_in_hand():
 			highlight_border.visible = true
-		hover_timer.start()
+		if position_type != "facedown":
+			hover_timer.start()
 
 func _on_area_2d_mouse_exited() -> void:
-	if hover_enabled and not card_is_in_playerGY:
+	if hover_enabled and not card_is_in_playerGY :
 		is_hovered = false
 		emit_signal("hovered_off", self)
 	highlight_border.visible = false

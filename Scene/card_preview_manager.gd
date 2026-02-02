@@ -35,6 +35,7 @@ var current_card: Card = null
 var showing_original_stats: bool = false
 
 func show_preview(arg, show_original_stats: bool = false):
+
 	print("SHOW-PREVIEW")
 	if dragging:
 		print("STO DRAGGANDO RETURN")
