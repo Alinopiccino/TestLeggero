@@ -126,7 +126,7 @@ func raycast_at_cursor():
 									
 							return  # 🔒 blocca il click
 						
-				if card_manager.selected_card and card_manager.selected_card.card_data.card_type == "Spell":
+				if card_manager.selected_card and card_manager.selected_card.card_data.card_type == "Spell" and card.card_data.card_type == "Creature":
 					var enemy_cards = cm.opponent_creatures_on_field
 					var magical_taunt_cards = enemy_cards.filter(func(c):
 						return "Magical Taunt" in c.card_data.get_all_talents()
