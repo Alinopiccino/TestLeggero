@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=19 format=3]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_4504i"]
+[ext_resource type="Resource" path="res://CardResources/WIND CREATURES/Blade Master.tres" id="2_iyg36"]
+[ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_naaqr"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/FREEZE!.tres" id="3_iyg36"]
+[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Ice Lord.tres" id="4_cpgho"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Disturbing Water.tres" id="5_6g7n6"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Frozen Weapon .tres" id="6_hdjst"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Gravity Club.tres" id="7_m83tm"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Stun!.tres" id="8_iealv"]
+[ext_resource type="Resource" path="res://CardResources/WIND CREATURES/Rain Spirit.tres" id="9_44sb5"]
+[ext_resource type="Resource" path="res://CardResources/WIND CREATURES/Elusive Archer.tres" id="10_itqys"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Spell Vanisher.tres" id="11_5jj6n"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Counterspell.tres" id="12_umegh"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Battle Boar.tres" id="13_e3rd5"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Mountain Giant.tres" id="14_5ogr5"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Potenziamento.tres" id="15_42n4y"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Ice Barrier.tres" id="16_67uub"]
+[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Abyssal Terror.tres" id="17_678t7"]
+
+[resource]
+script = ExtResource("2_naaqr")
+deck_name = "Double Strike"
+cards = Array[ExtResource("1_4504i")]([ExtResource("2_iyg36"), ExtResource("2_iyg36"), ExtResource("2_iyg36"), ExtResource("3_iyg36"), ExtResource("3_iyg36"), ExtResource("4_cpgho"), ExtResource("4_cpgho"), ExtResource("5_6g7n6"), ExtResource("5_6g7n6"), ExtResource("6_hdjst"), ExtResource("6_hdjst"), ExtResource("7_m83tm"), ExtResource("8_iealv"), ExtResource("8_iealv"), ExtResource("9_44sb5"), ExtResource("9_44sb5"), ExtResource("10_itqys"), ExtResource("10_itqys"), ExtResource("11_5jj6n"), ExtResource("12_umegh"), ExtResource("13_e3rd5"), ExtResource("13_e3rd5"), ExtResource("14_5ogr5"), ExtResource("15_42n4y"), ExtResource("15_42n4y"), ExtResource("15_42n4y"), ExtResource("16_67uub"), ExtResource("16_67uub"), ExtResource("17_678t7"), ExtResource("17_678t7")])
+is_valid = false
+mana_sort_state = "none"
+rank_sort_state = "none"
+mana_slot_1 = "Wind"
+mana_slot_2 = "Water"
+mana_slot_3 = "Water"
+mana_slot_4 = "Earth"
+mana_slot_5 = "Earth"

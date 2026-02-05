@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=19 format=3]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_f6osw"]
+[ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_23fhv"]
+[ext_resource type="Resource" path="res://CardResources/WIND CREATURES/Rain Spirit.tres" id="2_n4a0e"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Storm Favour.tres" id="3_n4a0e"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Windy Aura.tres" id="4_52qh6"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Sharpen the Blades.tres" id="5_dm6ia"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Firebolt.tres" id="6_itol2"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Baptism of Fire.tres" id="7_jrjjs"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Flaming Lion.tres" id="8_87efa"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Boots of Speed.tres" id="9_bxqs1"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Berserker.tres" id="10_qufga"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Flame Runner.tres" id="11_3qio5"]
+[ext_resource type="Resource" path="res://CardResources/WIND CREATURES/Elusive Archer.tres" id="12_3jw24"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Burning Skull.tres" id="13_4wwbv"]
+[ext_resource type="Resource" path="res://CardResources/WIND CREATURES/Shadow Plunderer.tres" id="14_4glrp"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Fire Tribute.tres" id="15_e8gwi"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Rapid-Flame Assailant.tres" id="16_wa568"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Mystic Fireball.tres" id="17_mlmdr"]
+
+[resource]
+script = ExtResource("2_23fhv")
+deck_name = "Aggro"
+cards = Array[ExtResource("1_f6osw")]([ExtResource("17_mlmdr"), ExtResource("11_3qio5"), ExtResource("13_4wwbv"), ExtResource("11_3qio5"), ExtResource("16_wa568"), ExtResource("3_n4a0e"), ExtResource("3_n4a0e"), ExtResource("4_52qh6"), ExtResource("4_52qh6"), ExtResource("10_qufga"), ExtResource("10_qufga"), ExtResource("16_wa568"), ExtResource("10_qufga"), ExtResource("14_4glrp"), ExtResource("2_n4a0e"), ExtResource("2_n4a0e"), ExtResource("2_n4a0e"), ExtResource("3_n4a0e"), ExtResource("12_3jw24"), ExtResource("12_3jw24"), ExtResource("15_e8gwi"), ExtResource("9_bxqs1"), ExtResource("9_bxqs1"), ExtResource("8_87efa"), ExtResource("8_87efa"), ExtResource("5_dm6ia"), ExtResource("5_dm6ia"), ExtResource("6_itol2"), ExtResource("7_jrjjs"), ExtResource("6_itol2")])
+is_valid = false
+mana_sort_state = "desc"
+rank_sort_state = "none"
+mana_slot_1 = "Fire"
+mana_slot_2 = "Fire"
+mana_slot_3 = "Fire"
+mana_slot_4 = "Wind"
+mana_slot_5 = "Wind"
