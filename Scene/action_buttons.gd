@@ -785,7 +785,7 @@ func can_card_be_enchained(card: Node, cm: Node) -> bool:
 		if not target_card.card_data:
 			return false
 
-		var target_class = target_card.card_data.card_class
+		var target_class = target_card.card_data.card_type
 		if target_class != "Spell":
 			print("🚫 [COUNTER] Target non è una spell:", target_card.card_data.card_name)
 			return false
