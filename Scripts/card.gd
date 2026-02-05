@@ -81,6 +81,7 @@ var TALENT_ICONS := {
 	"Freeze": preload("res://Assets/TalentSprites/FREEZE SPRITE.png"),
 	"Ruthless": preload("res://Assets/TalentSprites/RUTHLESS SPRITE.png"),
 	"Deathtouch": preload("res://Assets/TalentSprites/DEATHTOUCH SPRITE.png"),
+	"Free Strike": preload("res://Assets/TalentSprites/FREE STRIKE SPRITE.png"),
 	#"Lifesteal": preload("res://Assets/TalentSprites/LIFESTEAL SPRITE.png"),
 	#"Charge": preload("res://Assets/TalentSprites/CHARGE SPRITE.png")
 }

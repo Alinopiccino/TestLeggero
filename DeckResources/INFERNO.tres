@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=17 format=3]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_8tgjh"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Restoration.tres" id="2_rppf4"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Boots of Speed.tres" id="3_25378"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Sand Gust.tres" id="4_nlx5w"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Crystal Research.tres" id="5_vwkbi"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Magnetic Protection.tres" id="6_ompnm"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Firebolt.tres" id="7_l8okn"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Backfire Shot.tres" id="8_718gv"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Fire Energy Tower.tres" id="9_tkcfu"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Escaped Slave.tres" id="10_g7i5y"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Lesser Fiery Fiend.tres" id="11_4seah"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Brawler Bear.tres" id="12_0bqt7"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Stone Giant.tres" id="13_br3rw"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Mystical beast.tres" id="14_1h21e"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Inferno.tres" id="15_b2gm2"]
+[ext_resource type="Script" path="res://Scripts/DeckData.gd" id="16_sbxor"]
+
+[resource]
+script = ExtResource("16_sbxor")
+deck_name = "INFERNO"
+cards = Array[ExtResource("1_8tgjh")]([ExtResource("2_rppf4"), ExtResource("3_25378"), ExtResource("3_25378"), ExtResource("4_nlx5w"), ExtResource("5_vwkbi"), ExtResource("5_vwkbi"), ExtResource("6_ompnm"), ExtResource("4_nlx5w"), ExtResource("7_l8okn"), ExtResource("7_l8okn"), ExtResource("6_ompnm"), ExtResource("8_718gv"), ExtResource("9_tkcfu"), ExtResource("9_tkcfu"), ExtResource("9_tkcfu"), ExtResource("8_718gv"), ExtResource("10_g7i5y"), ExtResource("10_g7i5y"), ExtResource("10_g7i5y"), ExtResource("11_4seah"), ExtResource("11_4seah"), ExtResource("12_0bqt7"), ExtResource("12_0bqt7"), ExtResource("12_0bqt7"), ExtResource("13_br3rw"), ExtResource("13_br3rw"), ExtResource("13_br3rw"), ExtResource("14_1h21e"), ExtResource("15_b2gm2"), ExtResource("15_b2gm2")])
+is_valid = false
+mana_sort_state = "asc"
+rank_sort_state = "none"
+mana_slot_1 = "Earth"
+mana_slot_2 = "Earth"
+mana_slot_3 = "Earth"
+mana_slot_4 = "Fire"
+mana_slot_5 = "Fire"

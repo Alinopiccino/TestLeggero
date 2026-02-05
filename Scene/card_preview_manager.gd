@@ -380,6 +380,8 @@ func build_tooltip_text(card_data: CardData) -> String:
 				tooltip_text += format_tooltip("Ruthless", "This minion can attack each enemy minion.") + "\n\n"
 			"Deathtouch":
 				tooltip_text += format_tooltip("Deathtouch", "Destroy any unit damaged by this card.") + "\n\n"
+			"Free Strike":
+				tooltip_text += format_tooltip("Free Strike", "This unit attacks without consuming action.") + "\n\n"
 			"Freeze":
 				tooltip_text += format_tooltip("Freeze", "Minions damaged by this one are [b][color=#da72ff]Frozen[/color][/b].") + "\n\n"
 				tooltip_text += "[font_size=40][b][color=#da72ff]Frozen[/color][/b] minions cannot attack or retaliate until the end of this turn.[/font_size]\n\n"

@@ -1,0 +1,76 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://c1ak58wspmc8r"]
+
+[ext_resource type="Texture2D" uid="uid://ckqf0h807rj38" path="res://Assets/CardImagesDECK/EarthSpellsDeck/GRAVITATIONALARMOR dur2 4.png" id="1_ke8px"]
+[ext_resource type="Script" uid="uid://cd4htsjoe2w4v" path="res://Scripts/CardData.gd" id="1_sl7ln"]
+[ext_resource type="Texture2D" uid="uid://bledhplf4t5e6" path="res://Assets/CardImagesFIELD/EarthSpellsField/GRAVITATIONALARMOR dur2 3.png" id="2_lixyy"]
+[ext_resource type="Texture2D" uid="uid://g5x3qkhwodrg" path="res://Assets/CardImages/EarthSpellsHand/GRAVITATIONALARMOR dur2 2.png" id="3_85ehu"]
+[ext_resource type="Texture2D" uid="uid://cxkg4bawx11ou" path="res://Assets/CardImagesPreview/EarthSpellsPreview/GRAVITATIONALARMOR dur2.png" id="4_p80kr"]
+
+[resource]
+script = ExtResource("1_sl7ln")
+card_name = "Gravitational Armor"
+tooltip_name = "Gravitational Armor"
+card_sprite = ExtResource("3_85ehu")
+card_field_sprite = ExtResource("2_lixyy")
+card_sprite_preview = ExtResource("4_p80kr")
+card_deck_sprite = ExtResource("1_ke8px")
+card_rank = 3
+attack = 0
+health = 0
+armour = 0
+spell_multiplier = 0
+spell_duration = 2
+base_spell_power = 0
+tributes = 0
+activation_cost = "None"
+card_attribute = "Earth"
+card_type = "Spell"
+creature_race = "None"
+creature_race_2 = "None"
+card_class = "EquipSpell"
+card_class_2 = "None"
+talent_1 = "None"
+talent_2 = "None"
+talent_3 = "None"
+talent_4 = "None"
+talent_5 = "None"
+effect_type = "None"
+trigger_type = "None"
+effect_1_threshold_type = "None"
+effect_2_threshold_type = "None"
+effect_3_threshold_type = "None"
+effect_4_threshold_type = "None"
+effect_1_threshold = 0
+effect_2_threshold = 0
+effect_3_threshold = 0
+effect_4_threshold = 0
+custom_effect_name = "None"
+effect_1 = "BuffTalent"
+effect_2 = "None"
+effect_3 = "None"
+effect_4 = "None"
+effect_magnitude_1 = 0
+effect_magnitude_2 = 0
+effect_magnitude_3 = 0
+effect_magnitude_4 = 0
+talent_from_buff = "Taunt"
+targeting_type = "Targeted"
+t_subtype_1 = "AllAllyCreatures"
+t_subtype_2 = "None"
+t_subtype_3 = "None"
+t_subtype_4 = "None"
+effect_speed = "None"
+temp_effect = "None"
+scaling_1 = "None"
+scaling_amount_1 = 0
+scaling_2 = "None"
+scaling_amount_2 = 0
+repeats = "1"
+mana_cost_1 = "Earth"
+mana_cost_2 = "None"
+mana_cost_3 = "None"
+mana_cost_4 = "None"
+mana_cost_5 = "None"
+mana_cost_6 = "None"
+mana_cost_7 = "None"
+metadata/_custom_type_script = "uid://cd4htsjoe2w4v"
