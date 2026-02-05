@@ -3308,7 +3308,7 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 	rpc("sync_attack_flags", attacking_card.name, "", attacker_id, defender_id)  # "" cancella
 
 	# 🧩 [ACTION CONSUME] — Passa l'azione solo dal peer attaccante
-	if not "Free Strike" in defending_card.card_data.get_all_talents():
+	if not "Free Strike" in attacking_card.card_data.get_all_talents():
 		if multiplayer.get_unique_id() == player_id:
 			var phase_manager = get_node_or_null("../PhaseManager")
 			if phase_manager:
@@ -3320,7 +3320,7 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 					phase_manager.rpc_give_action(other_id, true)
 	else:
 		print("FREE STRIKE NON CONSUMO ACTION")
-		attacking_card.play_talent_icon_pulse("Deathtouch")
+		attacking_card.play_talent_icon_pulse("Free Strike")
 				
 	# 📣 [SIGNAL EMIT] direct_damage_fully_resolved (solo se c'è stato danno diretto tipo Overkill)
 	if direct_damage_done > 0 and is_instance_valid(attacking_card):
