@@ -2806,15 +2806,19 @@ func direct_attack_here_and_replicate_client_opponent(player_id: int,attacking_c
 	rpc_id(other_player_id, "sync_chained_flags", false, false)
 		
 	# 🧩 [ACTION CONSUME] — Passa l'azione solo dal peer attaccante
-	if multiplayer.get_unique_id() == player_id:
-		var phase_manager = get_node_or_null("../PhaseManager")
-		if phase_manager:
-			var peers = multiplayer.get_peers()
-			if peers.size() > 0:
-				var other_id = peers[0]
-				print("♻️ [Action Switch] Attacco completato → passo azione all’altro peer:", other_id)
-				phase_manager.rpc("rpc_give_action", other_id, true)  # 👈 true = from_attack
-				phase_manager.rpc_give_action(other_id, true)
+	if not "Free Strike" in attacking_card.card_data.get_all_talents():
+		if multiplayer.get_unique_id() == player_id:
+			var phase_manager = get_node_or_null("../PhaseManager")
+			if phase_manager:
+				var peers = multiplayer.get_peers()
+				if peers.size() > 0:
+					var other_id = peers[0]
+					print("♻️ [Action Switch] Attacco completato → passo azione all’altro peer:", other_id)
+					phase_manager.rpc("rpc_give_action", other_id, true)  # 👈 true = from_attack
+					phase_manager.rpc_give_action(other_id, true)
+	else:
+		print("FREE STRIKE NON CONSUMO ACTION")
+		attacking_card.play_talent_icon_pulse("Free Strike")
 		# ✅ Reset di sicurezza della catena E' PER SICUREZZA
 	if chain_locked:
 		print("🔓 Reset di sicurezza chain_locked = false dopo direct_attack")
