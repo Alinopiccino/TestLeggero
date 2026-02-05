@@ -1,22 +1,20 @@
-[gd_resource type="Resource" script_class="DeckData" load_steps=8 format=3]
+[gd_resource type="Resource" script_class="DeckData" load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_kqyfy"]
 [ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_d3dr1"]
-[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Firebolt.tres" id="2_hgnss"]
-[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Orc Rider.tres" id="3_hgnss"]
 [ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Spell Vanisher.tres" id="4_bqss8"]
+[ext_resource type="Resource" path="res://CardResources/WIND CREATURES/Rain Spirit.tres" id="4_rbodr"]
 [ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Counterspell.tres" id="5_rbodr"]
-[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Burning Fist.tres" id="6_nlhqs"]
 
 [resource]
 script = ExtResource("2_d3dr1")
 deck_name = "counter test"
-cards = Array[ExtResource("1_kqyfy")]([ExtResource("2_hgnss"), ExtResource("2_hgnss"), ExtResource("2_hgnss"), ExtResource("3_hgnss"), ExtResource("3_hgnss"), ExtResource("3_hgnss"), ExtResource("4_bqss8"), ExtResource("4_bqss8"), ExtResource("4_bqss8"), ExtResource("5_rbodr"), ExtResource("5_rbodr"), ExtResource("5_rbodr"), ExtResource("6_nlhqs"), ExtResource("6_nlhqs"), ExtResource("6_nlhqs")])
+cards = Array[ExtResource("1_kqyfy")]([ExtResource("4_bqss8"), ExtResource("4_bqss8"), ExtResource("4_bqss8"), ExtResource("5_rbodr"), ExtResource("5_rbodr"), ExtResource("5_rbodr"), ExtResource("4_rbodr"), ExtResource("4_rbodr")])
 is_valid = false
 mana_sort_state = "none"
 rank_sort_state = "none"
-mana_slot_1 = "Fire"
-mana_slot_2 = "Fire"
+mana_slot_1 = "Wind"
+mana_slot_2 = "Wind"
 mana_slot_3 = "Water"
 mana_slot_4 = "Water"
 mana_slot_5 = "Water"

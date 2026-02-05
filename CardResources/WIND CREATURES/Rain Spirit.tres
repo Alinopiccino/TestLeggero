@@ -10,8 +10,8 @@
 script = ExtResource("1_ksr1m")
 card_name = "Rain Spirit"
 tooltip_name = "Rain Spirit"
-card_sprite = ExtResource("3_k5fdm")
-card_field_sprite = ExtResource("2_1rn5y")
+card_sprite = ExtResource("2_1rn5y")
+card_field_sprite = ExtResource("3_k5fdm")
 card_sprite_preview = ExtResource("1_o5c8g")
 card_deck_sprite = ExtResource("4_dsqlp")
 card_rank = 3
