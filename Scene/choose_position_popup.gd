@@ -147,6 +147,7 @@ func _emit_choice(choice: String):
 				if valid_targets.is_empty():
 					print("❌ Nessun target valido per Spell ", card_to_play.card_data.card_name, "→ carta annullata e restituita in mano.")
 					_return_card_to_hand(card_manager, card_to_play)
+					$"../ManaSlots".set_all_slots_using(false)
 					return
 				else:
 					print("🎯 Trovati", valid_targets.size(), "target validi per", card_to_play.card_data.card_name)

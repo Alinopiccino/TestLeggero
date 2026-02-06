@@ -5408,7 +5408,8 @@ func apply_simple_effect_to_card(card: Node, effect: String, magnitude: int, sou
 		effect_index = 3
 	elif effect == source_card.card_data.effect_4:
 		effect_index = 4
-
+	elif effect == source_card.card_data.effect_5:
+		effect_index = 5
 	# ⚖️ THRESHOLD CHECK PRIMA DI APPLICARE L’EFFETTO
 	if not check_threshold_condition(source_card, card, effect_index):
 		print("🚫 Threshold non superato → effetto", effect, "annullato su", card.card_data.card_name)
@@ -5674,6 +5675,8 @@ func apply_simple_effect_to_card(card: Node, effect: String, magnitude: int, sou
 			print("🌀 [BOUNCER] Effetto rimbalzo su", card.card_data.card_name)
 			var owner = "Player" if not card.is_enemy_card() else "Opponent"
 			await apply_bouncer_effect(card, owner)
+		"FloodedField":
+			print("EFFETTO FLOODED FIELD")
 		_:
 			print("⚠️ Effetto non riconosciuto:", effect)
 

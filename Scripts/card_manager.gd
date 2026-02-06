@@ -115,7 +115,7 @@ func card_clicked(card):
 	var local_id = multiplayer.get_unique_id()
 	var pm = $"../PhaseManager"
 	var action_buttons = $"../ActionButtons"
-	
+	var mana_manager := $"../ManaSlots"
 	if card.attacked_this_turn:
 		print ("HA GIA' ATTACCATO")
 	if not card.attacked_this_turn:
