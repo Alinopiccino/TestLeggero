@@ -1,0 +1,81 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://bd0h8olnygx1e"]
+
+[ext_resource type="Texture2D" uid="uid://ch1ixwmx2ohbm" path="res://Assets/CardImagesDECK/FireCreaturesDeck/Mflamesword 900600 4.png" id="1_lwpvs"]
+[ext_resource type="Script" uid="uid://cd4htsjoe2w4v" path="res://Scripts/CardData.gd" id="1_qr4yy"]
+[ext_resource type="Texture2D" uid="uid://cnytcejfedrlg" path="res://Assets/CardImagesFIELD/FireCreaturesField/Mflamesword 900600 3.png" id="2_sr4ro"]
+[ext_resource type="Texture2D" uid="uid://c3kxifdke0wu5" path="res://Assets/CardImages/FireCreaturesHand/Mflamesword 900600 2.png" id="3_ts5my"]
+[ext_resource type="Texture2D" uid="uid://r76ipcdno6km" path="res://Assets/CardImagesPreview/FireCreaturesPreview/Mflamesword 900600 1.png" id="4_8tve2"]
+
+[resource]
+script = ExtResource("1_qr4yy")
+card_name = "Mystical Flame Swordsman"
+tooltip_name = "Mystical Flame Swordsman"
+card_sprite = ExtResource("3_ts5my")
+card_field_sprite = ExtResource("2_sr4ro")
+card_sprite_preview = ExtResource("4_8tve2")
+card_deck_sprite = ExtResource("1_lwpvs")
+card_rank = 3
+attack = 900
+health = 600
+armour = 0
+spell_multiplier = 0
+spell_duration = 0
+base_spell_power = 0
+tributes = 0
+activation_cost = "None"
+card_attribute = "Fire"
+card_type = "Creature"
+creature_race = "Humanoid"
+creature_race_2 = "None"
+card_class = "Figher"
+card_class_2 = "Spellcaster"
+talent_1 = "None"
+talent_2 = "None"
+talent_3 = "None"
+talent_4 = "None"
+talent_5 = "None"
+effect_type = "OnPlay"
+trigger_type = "None"
+effect_1_threshold_type = "None"
+effect_2_threshold_type = "None"
+effect_3_threshold_type = "None"
+effect_4_threshold_type = "None"
+effect_5_threshold_type = "None"
+effect_1_threshold = 0
+effect_2_threshold = 0
+effect_3_threshold = 0
+effect_4_threshold = 0
+effect_5_threshold = 0
+custom_effect_name = "None"
+effect_1 = "Buff"
+effect_2 = "None"
+effect_3 = "None"
+effect_4 = "None"
+effect_5 = "None"
+effect_magnitude_1 = 0
+effect_magnitude_2 = 0
+effect_magnitude_3 = 0
+effect_magnitude_4 = 0
+effect_magnitude_5 = 0
+talent_from_buff = "None"
+targeting_type = "None"
+t_subtype_1 = "Self"
+t_subtype_2 = "None"
+t_subtype_3 = "None"
+t_subtype_4 = "None"
+t_subtype_5 = "None"
+effect_speed = "None"
+temp_effect = "None"
+scaling_1 = "SpellsPlayerGY"
+scaling_amount_1 = 150
+scaling_2 = "None"
+scaling_amount_2 = 0
+repeats = "1"
+mana_cost_1 = "Fire"
+mana_cost_2 = "Fire"
+mana_cost_3 = "Colorless"
+mana_cost_4 = "None"
+mana_cost_5 = "None"
+mana_cost_6 = "None"
+mana_cost_7 = "None"
+metadata/_custom_type_script = "uid://cd4htsjoe2w4v"

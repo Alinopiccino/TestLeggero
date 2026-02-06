@@ -966,9 +966,10 @@ func card_right_clicked(card):
 
 
 			
-func trigger_card_effect(card, from_triggered_effect: bool = false):
+func trigger_card_effect(card, from_triggered_effect: bool = false, card_that_caused_trigger: Card = null):
 	var combat_manager = $"../CombatManager"
 
+		
 	if not combat_manager.pending_action_after_chain:
 		print("⏳ [Action Delay] Effetto Untargeted → azione passerà solo dopo chain.")
 		action_consume_pending = true
@@ -1019,9 +1020,15 @@ func trigger_card_effect(card, from_triggered_effect: bool = false):
 			card.get_node("GreenHighlightBorder").visible = false
 			
 		if from_triggered_effect:
+			print("⚡ [TRIGGER EFFECT] RPC apply_untargeted_TRIGGER_effect")
+
+			var trigger_cause_name := ""
+			if card_that_caused_trigger != null:
+				trigger_cause_name = card_that_caused_trigger.name
+				
 			print("⚡ [TRIGGER EFFECT] Chiamo RPC apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent")
-			$"../CombatManager".rpc("apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent", player_id, card.name, effect, magnitude, t_subtype)
-			await $"../CombatManager".apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_id, card.name, effect, magnitude, t_subtype)
+			$"../CombatManager".rpc("apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent", player_id, card.name, effect, magnitude, t_subtype, true, trigger_cause_name)
+			await $"../CombatManager".apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_id, card.name, effect, magnitude, t_subtype, true, trigger_cause_name)
 		else:
 			print("✨ [NORMAL EFFECT] Chiamo RPC apply_untargeted_effect_here_and_replicate_client_opponent")
 			$"../CombatManager".rpc("apply_untargeted_effect_here_and_replicate_client_opponent", player_id, card.name, effect, magnitude, t_subtype)

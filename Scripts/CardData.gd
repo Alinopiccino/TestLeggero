@@ -63,7 +63,7 @@ var voided_atk: int = 0 # ✅
 @export_enum("None", "Overkill", "Taunt", "Lifesteal", "Charge", "Berserker", "Haste", "Assault", "Regeneration", "Stun", "Flying", "Double Strike", "Elusive", "Mastery", "Magic Veil", "Phys Immune", "Magical Taunt", "Reactivity", "Freeze", "Ruthless","Deathtouch","Free Strike") var talent_5: String = "None"
 @export_group("")  # 🔚 Chiude il gruppo
 @export_enum("None", "Passive", "OnPlay", "OnDeath", "Activable", "ActivableAttack", "On_Trigger", "Aura", "Equip") var effect_type: String = "None"
-@export_enum("None", "On_EndPhase", "On_UpKeepPhase", "On_Attack", "On_Direct_Damage_Self", "On_Retaliate", "On_Death", "On_Play", "On_Cast", "While_DEFpos", "While_NoOtherAlly", "While_FieldFlooded") var trigger_type: String = "None" # ✅ NUOVO
+@export_enum("None", "On_EndPhase", "On_UpKeepPhase", "On_Attack", "On_Direct_Damage_Self", "On_Retaliate", "On_Death", "On_Play", "On_Cast", "While_DEFpos", "While_NoOtherAlly", "IF_NoOtherAlly", "While_FieldFlooded", "When_Equipped") var trigger_type: String = "None" # ✅ NUOVO
 
 @export_group("Thresholds")
 
@@ -692,7 +692,7 @@ func clear_debuffs() -> void:
 
 
 
-func add_buff(source_card: Card, buff_type: String, atk_amount: int = 0, hp_amount: int = 0, armour_amount: int = 0) -> void:
+func add_buff(source_card: Card, buff_type: String, atk_amount: int = 0, hp_amount: int = 0, armour_amount: int = 0, condition_source: Card = null) -> void:
 	if not is_instance_valid(source_card):
 		push_warning("⚠️ add_buff: source_card non valida")
 		return
@@ -717,7 +717,7 @@ func add_buff(source_card: Card, buff_type: String, atk_amount: int = 0, hp_amou
 
 	# 🔎 Se la stessa carta ha già applicato un buff dello stesso tipo in questo gruppo → aggiorna
 	for b in target_array:
-		if typeof(b) == TYPE_DICTIONARY and b.has("source_card") and b["source_card"] == source_card and b["type"] == buff_type:
+		if typeof(b) == TYPE_DICTIONARY and b.has("source_card") and b["source_card"] == source_card and b["type"] == buff_type and b.get("condition_source", null) == condition_source:
 			b["magnitude_atk"] += atk_amount
 			b["magnitude_hp"] += hp_amount
 			b["magnitude_armour"] += armour_amount
@@ -726,7 +726,7 @@ func add_buff(source_card: Card, buff_type: String, atk_amount: int = 0, hp_amou
 			# 🧩 Aggiorna anche l'ultimo record corrispondente in all_stat_modifiers
 			for i in range(all_stat_modifiers.size() - 1, -1, -1):
 				var mod = all_stat_modifiers[i]
-				if typeof(mod) == TYPE_DICTIONARY and mod.get("source_card") == source_card and mod.get("type") == "Buff":
+				if typeof(mod) == TYPE_DICTIONARY and mod.get("source_card") == source_card and mod.get("type") == "Buff" and mod.get("condition_source", null) == condition_source:
 					mod["magnitude_atk"] += atk_amount
 					mod["magnitude_hp"] += hp_amount
 					mod["magnitude_armour"] += armour_amount
@@ -744,7 +744,8 @@ func add_buff(source_card: Card, buff_type: String, atk_amount: int = 0, hp_amou
 		"magnitude_armour": armour_amount,
 		"temp_effect": temp_effect_type
 	}
-
+	if condition_source != null:
+		new_buff["condition_source"] = condition_source
 	# 🔸 Gestione BuffTalent
 	if buff_type == "BuffTalent":
 		if source_card.card_data and source_card.card_data.talent_from_buff != "None":
@@ -753,7 +754,10 @@ func add_buff(source_card: Card, buff_type: String, atk_amount: int = 0, hp_amou
 			print("💪 [BUFF TALENT] Aggiunto talento", talent_to_add, "da", source_card.card_data.card_name)
 		else:
 			print("⚠️ BuffTalent ma la source non ha talent_from_buff valido")
-
+			
+	print("🧩 [ADD BUFF]", buff_type,
+		"source:", source_card.card_data.card_name,
+		"condition:", condition_source.card_data.card_name if condition_source else "None")
 	# Aggiungi il nuovo buff
 	target_array.append(new_buff)
 
@@ -768,6 +772,9 @@ func add_buff(source_card: Card, buff_type: String, atk_amount: int = 0, hp_amou
 				"magnitude_armour": armour_amount,
 				"temp_effect": temp_effect_type
 			}
+			if condition_source != null:
+				record["condition_source"] = condition_source
+				
 			all_stat_modifiers.append(record)
 			print("🧩 [ALL_MODIFIERS] Aggiunto nuovo record Buff (ATK:", atk_amount, ", HP:", hp_amount, ", ARM:", armour_amount, ")")
 			debug_print_all_modifiers()
@@ -777,6 +784,32 @@ func add_buff(source_card: Card, buff_type: String, atk_amount: int = 0, hp_amou
 	print("✨ Nuovo buff aggiunto da", source_card.card_data.card_name, "→", buff_type, "(", temp_effect_type, ")")
 
 
+
+
+#func remove_buff_by_source(source_card: Card) -> void:
+	#if not is_instance_valid(source_card):
+		#return
+#
+	#var all_groups = [
+		#active_buffs,
+		#active_buffs_until_endphase,
+		#active_buffs_until_battlephase,
+		#active_buffs_until_battlestep,
+		#active_buffs_from_while_effects
+	#]
+#
+	#for group in all_groups:
+		#for b in group.duplicate():
+			#if typeof(b) == TYPE_DICTIONARY and b.has("source_card") and b["source_card"] == source_card:
+				#group.erase(b)
+				#print("💨 Buff rimosso da", source_card.card_data.card_name)
+#
+	## 🔄 Rimuovi anche da all_stat_modifiers
+	#for mod in all_stat_modifiers.duplicate():
+		#if typeof(mod) == TYPE_DICTIONARY and mod.get("source_card") == source_card and mod.get("type") == "Buff":
+			#all_stat_modifiers.erase(mod)
+			#print("🧩 [ALL_MODIFIERS] Buff rimosso da", source_card.card_data.card_name)
+			#debug_print_all_modifiers()
 
 
 func remove_buff_by_source(source_card: Card) -> void:
@@ -793,17 +826,42 @@ func remove_buff_by_source(source_card: Card) -> void:
 
 	for group in all_groups:
 		for b in group.duplicate():
-			if typeof(b) == TYPE_DICTIONARY and b.has("source_card") and b["source_card"] == source_card:
+			if typeof(b) != TYPE_DICTIONARY:
+				continue
+
+			# 🔹 Caso 1: buff CON condition_source → rimuovo SOLO se combacia
+			if b.has("condition_source"):
+				if b["condition_source"] == source_card:
+					group.erase(b)
+					print("💨 Buff rimosso per condition_source:", source_card.card_data.card_name)
+
+			# 🔹 Caso 2: buff SENZA condition_source → rimuovo per source_card
+			elif b.has("source_card") and b["source_card"] == source_card:
 				group.erase(b)
-				print("💨 Buff rimosso da", source_card.card_data.card_name)
-
-	# 🔄 Rimuovi anche da all_stat_modifiers
+				print("💨 Buff rimosso da source:", source_card.card_data.card_name)
+				
+	#for group in all_groups:
+		#for b in group.duplicate():
+			#if typeof(b) == TYPE_DICTIONARY and b.has("source_card") and b["source_card"] == source_card:
+				#group.erase(b)
+				#print("💨 Buff rimosso da", source_card.card_data.card_name)
+				
+	# 🔄 all_stat_modifiers (stessa logica)
 	for mod in all_stat_modifiers.duplicate():
-		if typeof(mod) == TYPE_DICTIONARY and mod.get("source_card") == source_card and mod.get("type") == "Buff":
-			all_stat_modifiers.erase(mod)
-			print("🧩 [ALL_MODIFIERS] Buff rimosso da", source_card.card_data.card_name)
-			debug_print_all_modifiers()
+		if typeof(mod) != TYPE_DICTIONARY:
+			continue
 
+		if mod.has("condition_source"):
+			if mod["condition_source"] == source_card:
+				all_stat_modifiers.erase(mod)
+				print("🧩 [ALL_MODIFIERS] Buff rimosso per condition_source:", source_card.card_data.card_name)
+
+		elif mod.has("source_card") and mod["source_card"] == source_card:
+			all_stat_modifiers.erase(mod)
+			print("🧩 [ALL_MODIFIERS] Buff rimosso da source:", source_card.card_data.card_name)
+
+	debug_print_all_modifiers()
+	
 func remove_buff_type(buff_type: String) -> void:
 	var all_groups = [
 		active_buffs,

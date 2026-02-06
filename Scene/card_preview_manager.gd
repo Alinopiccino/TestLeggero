@@ -762,6 +762,30 @@ func build_buff_tooltip_text(arg) -> String:
 		var title_colored = "[color=%s]%s[/color]" % [title_color, title_text]
 		tooltip_text += format_tooltip(title_colored, empowered_text) + "\n\n"
 
+	# -------------------------------------------------------------------------
+	# 🔹 FALLBACK DI SICUREZZA — Stat MAX alterate senza buff logici visibili
+	# -------------------------------------------------------------------------
+	if total_stat_buffs == 0 and card_data.card_type == "Creature":
+		var atk_diff := card_data.max_attack - card_data.original_attack
+		var hp_diff  := card_data.max_health - card_data.original_health
+
+		if atk_diff > 0 or hp_diff > 0:
+			# 🔹 separatore se c'è già contenuto
+			if tooltip_text != "":
+				tooltip_text += "\n"
+
+			var line := ""
+			if atk_diff > 0 and hp_diff > 0:
+				line = "+%d/+%d" % [atk_diff, hp_diff]
+			elif atk_diff > 0:
+				line = "+%d ATK" % atk_diff
+			elif hp_diff > 0:
+				line = "+%d HP" % hp_diff
+
+			tooltip_text += "[font_size=50][b][i][color=#7dff7d]Increased Stats[/color][/i][/b][/font_size]\n"
+			tooltip_text += "[font_size=40]- " + line + "[/font_size]\n"
+
+
 	return tooltip_text
 
 

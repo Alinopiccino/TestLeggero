@@ -2403,7 +2403,12 @@ func apply_effect_here_and_replicate_client_opponent(player_id, source_card_name
 					source_card.card_data.spell_duration = max(1, source_card.card_data.spell_duration)
 
 					print("🔗 Equip ", source_card.card_data.card_name, " collegata a ", target_card.card_data.card_name, " durabilità:", source_card.card_data.spell_duration)
-
+					# 🔥 QUI: trigger When_Equipped sulla creatura
+					
+					# 🔥 Trigger ONLY se la creatura è del player locale
+					if not target_card.is_enemy_card():
+						_trigger_when_equipped_effect(target_card, source_card)
+					
 				else: #LOGICA MISS TARGET PER EQUIP
 					# ❌ Target non valida o non in slot
 					print("⚠️ Equip ", source_card.card_data.card_name, " non può legarsi: target non in slot o rimossa.")
@@ -3611,10 +3616,18 @@ func tribute_card(card, card_owner, is_for_tribute_summ: bool = false):
 	# 🧩 Se la carta tributo era Equip → rimuovi i suoi effetti
 	if card.card_data.effect_type == "Equip" and card.equipped_to and is_instance_valid(card.equipped_to):
 		var target = card.equipped_to
-		print("💥 Equip", card.card_data.card_name, "tribuata → rimuovo effetti da", target.card_data.card_name)
+		print("💥 Equip", card.card_data.card_name, "tributata → rimuovo effetti da", target.card_data.card_name)
 
+		# ✅ 1️⃣ PRIMA: cleanup While (usa ancora i buff)
+		if target.card_data.trigger_type == "When_Equipped" \
+		and target.card_data.temp_effect == "While":
+			combat_manager.remove_while_effects_from_source(target, card)
+
+		# ✅ 2️⃣ POI: rimozione completa equip (può distruggere tutto)
 		if combat_manager and combat_manager.has_method("remove_equip_effects"):
 			combat_manager.remove_equip_effects(card, target)
+
+		# 3️⃣ Scollega riferimenti equip
 		target.equipped_spells.erase(card)
 		card.equipped_to = null
 
@@ -3817,13 +3830,18 @@ func apply_bouncer_effect(card: Node2D, card_owner: String, is_for_tribute_summ:
 	# 🧩 Se la carta distrutta è una Equip → rimuovi completamente i suoi effetti dal target
 	if card.card_data.effect_type == "Equip" and card.equipped_to and is_instance_valid(card.equipped_to):
 		var target = card.equipped_to
-		print("💥 Equip", card.card_data.card_name, "distrutta → rimuovo effetti da", target.card_data.card_name)
+		print("💥 Equip", card.card_data.card_name, "bouncerata → rimuovo effetti da", target.card_data.card_name)
 
+		# ✅ 1️⃣ PRIMA: cleanup While (usa ancora i buff)
+		if target.card_data.trigger_type == "When_Equipped" \
+		and target.card_data.temp_effect == "While":
+			combat_manager.remove_while_effects_from_source(target, card)
 
+		# ✅ 2️⃣ POI: rimozione completa equip (può distruggere tutto)
 		if combat_manager and combat_manager.has_method("remove_equip_effects"):
 			combat_manager.remove_equip_effects(card, target)
 
-		# 🔗 Scollega riferimenti equip
+		# 3️⃣ Scollega riferimenti equip
 		target.equipped_spells.erase(card)
 		card.equipped_to = null
 	
@@ -4228,11 +4246,16 @@ func destroy_card(card, card_owner, is_for_tribute_summ: bool = false):
 		var target = card.equipped_to
 		print("💥 Equip", card.card_data.card_name, "distrutta → rimuovo effetti da", target.card_data.card_name)
 
-		
+		# ✅ 1️⃣ PRIMA: cleanup While (usa ancora i buff)
+		if target.card_data.trigger_type == "When_Equipped" \
+		and target.card_data.temp_effect == "While":
+			combat_manager.remove_while_effects_from_source(target, card)
+
+		# ✅ 2️⃣ POI: rimozione completa equip (può distruggere tutto)
 		if combat_manager and combat_manager.has_method("remove_equip_effects"):
 			combat_manager.remove_equip_effects(card, target)
 
-		# 🔗 Scollega riferimenti equip
+		# 3️⃣ Scollega riferimenti equip
 		target.equipped_spells.erase(card)
 		card.equipped_to = null
 
@@ -5398,7 +5421,7 @@ func await_effect_fully_resolved(card: Node) -> void:
 
 
 # 🧩 Funzione centralizzata per applicare un effetto a una carta
-func apply_simple_effect_to_card(card: Node, effect: String, magnitude: int, source_card: Node, player_id: int) -> bool:
+func apply_simple_effect_to_card(card: Node, effect: String, magnitude: int, source_card: Node, player_id: int, trigger_cause: Card = null) -> bool:
 	if not is_instance_valid(card):
 		return false
 
@@ -5469,7 +5492,7 @@ func apply_simple_effect_to_card(card: Node, effect: String, magnitude: int, sou
 				var already_had_talent = talent_to_add in card.card_data.get_all_talents()
 
 				# 📦 Aggiungi SEMPRE il buff logico
-				card.card_data.add_buff(source_card, "BuffTalent", 0, 0)
+				card.card_data.add_buff(source_card, "BuffTalent", 0, 0, trigger_cause)
 
 				# 📎 Inserisci il nome del talento nel dizionario del buff
 				for b in card.card_data.active_buffs:
@@ -5501,7 +5524,7 @@ func apply_simple_effect_to_card(card: Node, effect: String, magnitude: int, sou
 			card.card_data.health += magnitude
 			card.card_data.max_health += magnitude
 			card.card_data.voided_atk = max(0, voided_atk - magnitude)
-			card.card_data.add_buff(source_card, "Buff", magnitude, magnitude)
+			card.card_data.add_buff(source_card, "Buff", magnitude, magnitude, 0, trigger_cause)
 			card.update_card_visuals()
 			print("💪 [BUFF] +", effective_buff, "ATK / +", magnitude, "HP su", card.card_data.card_name)
 
@@ -5511,16 +5534,16 @@ func apply_simple_effect_to_card(card: Node, effect: String, magnitude: int, sou
 			card.card_data.attack += effective_buff
 			card.card_data.max_attack += effective_buff
 			card.card_data.voided_atk = max(0, voided_atk - magnitude)
-			card.card_data.add_buff(source_card, "BuffAtk", magnitude, 0)
+			card.card_data.add_buff(source_card, "BuffAtk", magnitude, 0, 0, trigger_cause)
 			card.update_card_visuals()
 
 		"BuffHp":
 			card.card_data.health += magnitude
 			card.card_data.max_health += magnitude
-			card.card_data.add_buff(source_card, "BuffHp", 0, magnitude)
+			card.card_data.add_buff(source_card, "BuffHp", 0, magnitude,0, trigger_cause)
 		"BuffArmour":
 			card.card_data.armour += magnitude
-			card.card_data.add_buff(source_card, "BuffArmour", 0, 0, magnitude)
+			card.card_data.add_buff(source_card, "BuffArmour", 0, 0, magnitude, trigger_cause)
 			card.update_card_visuals()
 			print("🛡️ [BUFF ARMOUR] +", magnitude, "Armour su", card.card_data.card_name)
 		"Debuff":
@@ -6917,7 +6940,7 @@ func remove_aura_effects(card: Node, specific_target: Node = null) -> void:
 
 
 
-func remove_enchant_effects(enchant_card: Node, target: Node) -> void:
+func remove_enchant_effects(enchant_card: Node, target: Node, condition_source: Node = null) -> void:
 	if not is_instance_valid(enchant_card) or not is_instance_valid(target):
 		return
 	if not enchant_card.card_data or not target.card_data:
@@ -7960,40 +7983,52 @@ func remove_temporary_spellpower_effects():
 		spell_power_sources[sp_type] = sources
 
 
-func remove_while_effects_from_source(source_card: Card) -> void:
-	if not is_instance_valid(source_card):
+func remove_while_effects_from_source(source_card: Card, condition_source: Card) -> void:
+	if not is_instance_valid(source_card) or not is_instance_valid(condition_source):
 		return
 
-	print("🧹 [CLEANUP] Rimozione effetti While da", source_card.card_data.card_name)
+	print("🧹 [CLEANUP] Rimozione effetti While da",
+		source_card.card_data.card_name,
+		"causati da",
+		condition_source.card_data.card_name)
 
-	# Ottieni tutte le carte attualmente sul campo (creature + spell)
-	var all_cards = player_creatures_on_field + opponent_creatures_on_field + player_spells_on_field + opponent_spells_on_field
+	var all_cards = player_creatures_on_field + opponent_creatures_on_field \
+		+ player_spells_on_field + opponent_spells_on_field
 
 	for target in all_cards:
 		if not is_instance_valid(target) or not target.card_data:
 			continue
 
-		# Controlla se il target ha buff/debuff attivi provenienti dalla source_card
 		var buffs = target.card_data.get_buffs_array()
 		var debuffs = target.card_data.get_debuffs_array()
 
 		var affected := false
+
 		for b in buffs:
-			if typeof(b) == TYPE_DICTIONARY and b.get("source_card") == source_card:
+			if typeof(b) == TYPE_DICTIONARY \
+			and b.get("source_card") == source_card \
+			and b.get("condition_source", null) == condition_source:
 				affected = true
 				break
+
 		if not affected:
 			for d in debuffs:
-				if typeof(d) == TYPE_DICTIONARY and d.get("source_card") == source_card:
+				if typeof(d) == TYPE_DICTIONARY \
+				and d.get("source_card") == source_card \
+				and d.get("condition_source", null) == condition_source:
 					affected = true
 					break
 
-		# Se la carta è affetta da quell'effetto While → rimuovi tramite logica enchant
 		if affected:
-			print("🧩 [WHILE CLEANUP] Rimozione effetti While di", source_card.card_data.card_name, "da", target.card_data.card_name)
-			remove_enchant_effects(source_card, target)
+			print("🧩 [WHILE CLEANUP] Rimuovo While da",
+				target.card_data.card_name,
+				"(equip:",
+				condition_source.card_data.card_name,
+				")")
+			remove_enchant_effects(source_card, target, condition_source)
 
-	print("✅ [CLEANUP] Effetti While completamente rimossi da tutte le carte affette")
+	print("✅ [CLEANUP] While rimossi solo per equip distrutto")
+
 
 #
 		## 🔄 Aggiorna grafica e icone dopo la rimozione del While
@@ -8065,14 +8100,21 @@ func process_triggered_effects_this_chain_link() -> void:
 	print("✅ Tutti gli effetti accodati sono stati risolti completamente.")
 	
 @rpc("any_peer")
-func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_id, source_card_name: String, effect: String, magnitude: int, t_subtype: String = "", is_triggered: bool = true):
+func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_id, source_card_name: String, effect: String, magnitude: int, t_subtype: String = "", is_triggered: bool = true, trigger_cause_name: String = ""):
 	var is_attacker = multiplayer.get_unique_id() == player_id
 	var source_card
 	if is_attacker:
 		source_card = $"../CardManager".get_node_or_null(source_card_name)
 	else:
 		source_card = get_parent().get_parent().get_node_or_null("EnemyField/CardManager/" + source_card_name)
+		
+	var trigger_cause: Card = null
 
+	if trigger_cause_name != "":
+		if is_attacker:
+			trigger_cause = $"../CardManager".get_node_or_null(trigger_cause_name)
+		else:
+			trigger_cause = get_parent().get_parent().get_node_or_null("EnemyField/CardManager/" + trigger_cause_name)
 	#if not source_card:
 		#push_error("❌ Source card non trovata per untargeted effect:", source_card_name)
 		#return
@@ -8290,7 +8332,7 @@ func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_i
 					if card.card_data.health <= 0 and not card.card_data_card_type == "Spell":
 						continue
 
-					apply_simple_effect_to_card(card, effect_name, magnitude, source_card, player_id)
+					apply_simple_effect_to_card(card, effect_name, magnitude, source_card, player_id, trigger_cause)
 					await handle_card_destruction_check(card, cards_to_destroy)
 					card.update_card_visuals()
 					rpc("update_card_stats", card.name, card.card_data.attack, card.card_data.health)
@@ -8312,7 +8354,7 @@ func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_i
 					"Self":
 						print("🪞 [UNTARGETED SELF] Applico effetto", effect_name, "su", source_card.card_data.card_name)
 						if is_instance_valid(source_card) and not source_card.effect_negated:
-							apply_simple_effect_to_card(source_card, effect_name, magnitude, source_card, player_id)
+							apply_simple_effect_to_card(source_card, effect_name, magnitude, source_card, player_id, trigger_cause)
 							source_card.update_card_visuals()
 							await handle_card_destruction_check(source_card, [])
 						else:
@@ -8361,7 +8403,7 @@ func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_i
 									await get_tree().create_timer(0.05).timeout
 
 							elif effect_name in ["BuffSpellPower", "BuffFireSpellPower", "BuffWaterSpellPower", "BuffEarthSpellPower", "BuffWindSpellPower"]:
-								apply_simple_effect_to_card(source_card, effect_name, magnitude, source_card, player_id)
+								apply_simple_effect_to_card(source_card, effect_name, magnitude, source_card, player_id, trigger_cause)
 
 						else:
 							if effect_name == "GainLP":
@@ -8405,7 +8447,7 @@ func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_i
 									await get_tree().create_timer(0.05).timeout
 
 							elif effect_name in ["BuffSpellPower", "BuffFireSpellPower", "BuffWaterSpellPower", "BuffEarthSpellPower", "BuffWindSpellPower"]:
-								apply_simple_effect_to_card(source_card, effect_name, magnitude, source_card, player_id)
+								apply_simple_effect_to_card(source_card, effect_name, magnitude, source_card, player_id, trigger_cause)
 
 
 					"EnemyPlayer":
@@ -8430,7 +8472,7 @@ func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_i
 								print("🛡️ [PreventDamage] Protezione attiva sull’enemy player (attaccante)")
 
 							elif effect_name in ["BuffSpellPower", "BuffFireSpellPower", "BuffWaterSpellPower", "BuffEarthSpellPower", "BuffWindSpellPower"]:
-								apply_simple_effect_to_card(source_card, effect_name, magnitude, source_card, player_id)
+								apply_simple_effect_to_card(source_card, effect_name, magnitude, source_card, player_id, trigger_cause)
 
 						else:
 							if effect_name == "GainLP":
@@ -8454,10 +8496,10 @@ func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_i
 								print("🛡️ [PreventDamage] Protezione attiva sul player (difensore)")
 
 							elif effect_name in ["BuffSpellPower", "BuffFireSpellPower", "BuffWaterSpellPower", "BuffEarthSpellPower", "BuffWindSpellPower"]:
-								apply_simple_effect_to_card(source_card, effect_name, magnitude, source_card, player_id)
+								apply_simple_effect_to_card(source_card, effect_name, magnitude, source_card, player_id, trigger_cause)
 					"None", _:
 						print("APPLICO EFFETTO NONE")
-						apply_simple_effect_to_card(source_card, effect_name, magnitude, source_card, player_id)
+						apply_simple_effect_to_card(source_card, effect_name, magnitude, source_card, player_id, trigger_cause)
 		else:
 			print("❌ Effetto annullato: carta non più in campo o negata →", source_card.name)
 			if is_instance_valid(source_card) and source_card.card_is_in_slot:
@@ -9504,3 +9546,26 @@ func remove_field_effects() -> void:
 		and c.card_data.trigger_type == "While_FieldFlooded":
 			print("❌ [WHILE LOST] While_FieldFlooded perso da", c.card_data.card_name)
 			c.emit_signal("lost_while_condition", c)
+
+func _trigger_when_equipped_effect(target_card: Card, equip_card: Card) -> void:
+	if not is_instance_valid(target_card):
+		return
+	if not target_card.card_data:
+		return
+	if target_card.card_data.trigger_type != "When_Equipped":
+		return
+
+	print("✨ [WHEN_EQUIPPED] Trigger su", target_card.card_data.card_name)
+
+	if chain_locked:
+		print("⏸️ [QUEUE] Chain attiva → accodo When_Equipped")
+		triggered_effects_this_chain_link.append({
+			"card": target_card,
+			"owner_id": multiplayer.get_unique_id()
+		})
+	else:
+		var card_manager = get_tree().get_current_scene() \
+			.get_node_or_null("PlayerField/CardManager")
+
+		if card_manager and card_manager.has_method("trigger_card_effect"):
+			card_manager.trigger_card_effect(target_card, true, equip_card)
