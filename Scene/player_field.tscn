@@ -11,7 +11,6 @@
 [ext_resource type="Script" uid="uid://dev5d6lf0cjb4" path="res://Scripts/player_hand.gd" id="8_f8xqc"]
 [ext_resource type="Script" uid="uid://dqv0e1edprlh6" path="res://Scripts/deck.gd" id="9_7yhcc"]
 [ext_resource type="PackedScene" uid="uid://cpkmgeqgtpd1r" path="res://Scene/Enemy_card_slot.tscn" id="10_g20td"]
-[ext_resource type="Resource" path="res://DeckResources/Deck2.tres" id="10_gm5u4"]
 [ext_resource type="Texture2D" uid="uid://bytdqg80bi846" path="res://Assets/CardSlot.png" id="12_frrmm"]
 [ext_resource type="Script" uid="uid://n3jlp7s23shg" path="res://Scripts/combat_manager.gd" id="13_vy6tj"]
 [ext_resource type="Script" uid="uid://wjpfvsgf5ony" path="res://Scripts/Player_GYclick.gd" id="14_ba1e6"]
@@ -36,6 +35,9 @@
 [ext_resource type="Texture2D" uid="uid://cc261yydobx0i" path="res://Assets/Mana/ACTION BASE.png" id="34_ulniw"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_frrmm"]
+
+[sub_resource type="Resource" id="Resource_3om6r"]
+metadata/__load_path__ = "res://DeckResources/Deck2.tres"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xa1iw"]
 size = Vector2(150, 209)
@@ -360,7 +362,7 @@ script = ExtResource("8_f8xqc")
 [node name="Deck" type="Node2D" parent="."]
 position = Vector2(1800, 890)
 script = ExtResource("9_7yhcc")
-deck_data = ExtResource("10_gm5u4")
+deck_data = SubResource("Resource_3om6r")
 
 [node name="Sprite2D" type="Sprite2D" parent="Deck"]
 z_index = -2

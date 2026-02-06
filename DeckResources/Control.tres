@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=18 format=3]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_bucih"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Arcane Goblin.tres" id="2_2xceg"]
+[ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_muls2"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Firebolt.tres" id="4_3bktw"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Fire Nova.tres" id="5_886kn"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Inferno.tres" id="6_rdh2r"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Earth Energy Tower.tres" id="7_mtdi5"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Mystical beast.tres" id="8_h5hox"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Mountain Giant.tres" id="9_qna4u"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Centauro Solitario.tres" id="10_42j0t"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Potenziamento.tres" id="11_wda5q"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Hole.tres" id="12_cen60"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Burning Sun Adept.tres" id="13_birb2"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Brawler Bear.tres" id="14_6454k"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Fire Energy Tower.tres" id="14_sjxlw"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Vulcano.tres" id="16_kp2qu"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/FireBeam.tres" id="17_0x6b2"]
+
+[resource]
+script = ExtResource("2_muls2")
+deck_name = "Control"
+cards = Array[ExtResource("1_bucih")]([ExtResource("2_2xceg"), ExtResource("2_2xceg"), ExtResource("4_3bktw"), ExtResource("4_3bktw"), ExtResource("4_3bktw"), ExtResource("5_886kn"), ExtResource("5_886kn"), ExtResource("6_rdh2r"), ExtResource("7_mtdi5"), ExtResource("7_mtdi5"), ExtResource("8_h5hox"), ExtResource("9_qna4u"), ExtResource("10_42j0t"), ExtResource("10_42j0t"), ExtResource("10_42j0t"), ExtResource("8_h5hox"), ExtResource("11_wda5q"), ExtResource("11_wda5q"), ExtResource("11_wda5q"), ExtResource("12_cen60"), ExtResource("12_cen60"), ExtResource("12_cen60"), ExtResource("13_birb2"), ExtResource("13_birb2"), ExtResource("14_6454k"), ExtResource("14_6454k"), ExtResource("14_sjxlw"), ExtResource("16_kp2qu"), ExtResource("17_0x6b2"), ExtResource("5_886kn"), ExtResource("13_birb2"), ExtResource("16_kp2qu")])
+is_valid = false
+mana_sort_state = "none"
+rank_sort_state = "none"
+mana_slot_1 = "Fire"
+mana_slot_2 = "Fire"
+mana_slot_3 = "Fire"
+mana_slot_4 = "Earth"
+mana_slot_5 = "Earth"

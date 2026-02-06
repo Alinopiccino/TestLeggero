@@ -1126,7 +1126,7 @@ func apply_untargeted_effect_here_and_replicate_client_opponent(player_id, sourc
 	
 	
 	# 👇 sostituisci tutto quel blocco con questo:
-	for i in range(1, 5):
+	for i in range(1, 6):
 		var effect_name = source_card.card_data.get("effect_%d" % i)
 		magnitude = source_card.card_data.get("effect_magnitude_%d" % i)
 		t_subtype = source_card.card_data.get("t_subtype_%d" % i)
@@ -3572,7 +3572,7 @@ func tribute_card(card, card_owner, is_for_tribute_summ: bool = false):
 
 	card.z_index = graveyard_z_index
 	graveyard_z_index += 1
-
+	
 	# 🧩 Distruggi eventuali enchant legate
 	if card.enchant_spells.size() > 0:
 		for enchant_card in card.enchant_spells.duplicate():
@@ -3619,6 +3619,7 @@ func tribute_card(card, card_owner, is_for_tribute_summ: bool = false):
 		card.equipped_to = null
 
 	# 🌀 Effetti generali post-rimozione
+	remove_field_effects()
 	handle_spellpower_on_destroy(card, card_owner)
 	remove_aura_effects(card)
 	if card.card_data.trigger_type.begins_with("While_"):
@@ -3912,7 +3913,7 @@ func apply_bouncer_effect(card: Node2D, card_owner: String, is_for_tribute_summ:
 		# Se l’aura ha perso un target, aggiorna subito la grafica
 		aura.update_card_visuals()
 
-
+	remove_field_effects()
 	handle_spellpower_on_destroy(card, card_owner)
 
 	remove_aura_effects(card)
@@ -4240,7 +4241,7 @@ func destroy_card(card, card_owner, is_for_tribute_summ: bool = false):
 	# Muovi nel GY corretto
 	card.z_index = graveyard_z_index
 	graveyard_z_index += 1
-
+	
 
 
 	# 🔁 Se questa carta era bersagliata, resetta targeting anche via RPC
@@ -4328,6 +4329,7 @@ func destroy_card(card, card_owner, is_for_tribute_summ: bool = false):
 		# Se l’aura ha perso un target, aggiorna subito la grafica
 		aura.update_card_visuals()
 
+	remove_field_effects()
 
 	handle_spellpower_on_destroy(card, card_owner)
 
@@ -5675,8 +5677,15 @@ func apply_simple_effect_to_card(card: Node, effect: String, magnitude: int, sou
 			print("🌀 [BOUNCER] Effetto rimbalzo su", card.card_data.card_name)
 			var owner = "Player" if not card.is_enemy_card() else "Opponent"
 			await apply_bouncer_effect(card, owner)
-		"FloodedField":
-			print("EFFETTO FLOODED FIELD")
+		"FieldFlood", "FieldBurn", "FieldWindy", "FieldArid":
+			print("🌍 Applico Field Effect:", effect, "da", source_card.card_data.card_name)
+
+			var combat_manager = $"../CombatManager"
+			if combat_manager:
+				var is_attacker := multiplayer.get_unique_id() == player_id
+				combat_manager.apply_field_effect(effect, is_attacker)
+			else:
+				push_warning("⚠️ CombatManager non trovato durante FieldEffect")
 		_:
 			print("⚠️ Effetto non riconosciuto:", effect)
 
@@ -6795,7 +6804,7 @@ func remove_aura_effects(card: Node, specific_target: Node = null) -> void:
 				entry.erase("voided_atk")
 
 		# 🔄 Ciclo su tutti e 4 gli effetti della carta Aura
-		for i in range(1, 5):
+		for i in range(1, 6):
 			var effect_name = card.card_data.get("effect_%d" % i)
 			if effect_name == "None":
 				continue
@@ -7361,7 +7370,7 @@ func handle_spellpower_on_destroy(card: Node, card_owner: String) -> void:
 	var is_enemy_owner = (card_owner == "Opponent")
 
 	# 🔁 Scansiona tutti e 4 gli effetti della carta
-	for i in range(1, 5):
+	for i in range(1, 6):
 		var eff_name = card.card_data.get("effect_%d" % i)
 		var t_sub = card.card_data.get("t_subtype_%d" % i)
 		var magnitude = card.card_data.get("effect_magnitude_%d" % i)
@@ -7601,7 +7610,7 @@ func update_all_enchant_bonuses(delta_sp: float, sp_type: String = "Generic", sp
 		var effective_debuff_hp := 0.0
 		var prev_applied_atk := 0.0   # 🧠 necessario per usarlo dopo
 		
-		for i in range(1, 5):
+		for i in range(1, 6):
 			var effect_name = enchant.card_data.get("effect_%d" % i)
 			if effect_name == "None" or effect_name == "":
 				continue
@@ -8108,7 +8117,7 @@ func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_i
 	
 	
 	# 👇 sostituisci tutto quel blocco con questo:
-	for i in range(1, 5):
+	for i in range(1, 6):
 		var effect_name = source_card.card_data.get("effect_%d" % i)
 		magnitude = source_card.card_data.get("effect_magnitude_%d" % i)
 		t_subtype = source_card.card_data.get("t_subtype_%d" % i)
@@ -9306,3 +9315,126 @@ func is_global_field_spell(card: Node) -> bool:
 		card.card_data.card_type == "Spell"
 		and card.card_data.spell_duration == 1000
 	)
+
+const FIELD_BORDER_COLORS := {
+	# 🌊 Acqua – blu pulito, luminoso ma non notturno
+	"FieldFlood": Color(0.3, 0.70, 0.95, 1.0),
+
+	# 🔥 Fuoco – rosso caldo deciso (questo va bene)
+	"FieldBurn":  Color(1.0, 0.45, 0.25, 1.0),
+
+	# 🌬️ Vento – verde naturale, quasi salvia
+	"FieldWindy": Color(0.35, 0.85, 0.50, 1.0),
+
+	# 🏜️ Arido – ocra caldo, rilassante
+	"FieldArid": Color(0.75, 0.60, 0.30, 1.0)
+}
+
+
+func apply_field_effect(effect: String, _is_attacker: bool) -> void:
+	print("🌍 [FIELD EFFECT] Applico:", effect)
+
+	if not FIELD_BORDER_COLORS.has(effect):
+		push_warning("⚠️ Field effect non riconosciuto: " + effect)
+		return
+
+	var scene := get_tree().get_current_scene()
+	var all_slots := []
+
+	var player_zones = scene.get_node_or_null("PlayerField/PlayerZones")
+	if player_zones:
+		all_slots += player_zones.get_children()
+
+	var enemy_zones = scene.get_node_or_null("EnemyField/EnemyZones")
+	if enemy_zones:
+		all_slots += enemy_zones.get_children()
+
+	var target_color: Color = FIELD_BORDER_COLORS[effect]
+
+	for slot in all_slots:
+		# 🔁 reset logico
+		slot.flooded = false
+		slot.burning = false
+		slot.windy   = false
+		slot.arid    = false
+
+		# ✅ attiva flag corretto
+		match effect:
+			"FieldFlood": slot.flooded = true
+			"FieldBurn":  slot.burning = true
+			"FieldWindy": slot.windy   = true
+			"FieldArid":  slot.arid    = true
+
+		# 🎨 CROSS-FADE DEL BORDO
+		if slot.has_node("SlotBorder"):
+			var border = slot.get_node("SlotBorder")
+
+			
+
+			# se è la prima volta → parte da trasparente
+			if border.modulate.a == 0.0:
+				border.modulate = Color(
+					target_color.r,
+					target_color.g,
+					target_color.b,
+					0.0
+				)
+			
+			border.visible = true
+			var tween := get_tree().create_tween()
+			tween.set_trans(Tween.TRANS_SINE)
+			tween.set_ease(Tween.EASE_OUT)
+
+			# fade diretto dal colore attuale → nuovo colore
+			tween.tween_property(
+				border,
+				"modulate",
+				target_color,
+				0.35
+			)
+
+
+
+
+
+
+func remove_field_effects() -> void:
+	print("🧹 [FIELD EFFECT] Rimozione field effect")
+
+	var scene := get_tree().get_current_scene()
+	var all_slots := []
+
+	var player_zones = scene.get_node_or_null("PlayerField/PlayerZones")
+	if player_zones:
+		all_slots += player_zones.get_children()
+
+	var enemy_zones = scene.get_node_or_null("EnemyField/EnemyZones")
+	if enemy_zones:
+		all_slots += enemy_zones.get_children()
+
+	for slot in all_slots:
+		# reset logico
+		slot.flooded = false
+		slot.burning = false
+		slot.windy   = false
+		slot.arid    = false
+
+		# 🎨 fade-out SlotBorder
+		if slot.has_node("SlotBorder"):
+			var border = slot.get_node("SlotBorder")
+
+			var tween := get_tree().create_tween()
+			tween.set_trans(Tween.TRANS_SINE)
+			tween.set_ease(Tween.EASE_OUT)
+
+			tween.tween_property(
+				border,
+				"modulate",
+				Color(1, 1, 1, 0.0),
+				0.35
+			)
+
+			# nascondi alla fine
+			tween.finished.connect(func():
+				border.visible = false
+			)

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_e2heu"]
+[ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_rct13"]
+
+[resource]
+script = ExtResource("2_rct13")
+deck_name = "Terra"
+cards = Array[ExtResource("1_e2heu")]([])
+is_valid = false
+mana_sort_state = "none"
+rank_sort_state = "none"
+mana_slot_1 = "Earth"
+mana_slot_2 = "Earth"
+mana_slot_3 = "Earth"
+mana_slot_4 = "Water"
+mana_slot_5 = "Water"

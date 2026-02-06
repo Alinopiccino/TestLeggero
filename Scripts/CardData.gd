@@ -87,25 +87,30 @@ var voided_atk: int = 0 # ✅
 	"ApplyThresholdOverATK","ApplyThresholdUnderATK","ApplyThresholdOverHP","ApplyThresholdUnderHP", "ApplyToFrozen", "ApplyToUnderXmanaCost"
 ) var effect_4_threshold_type: String = "None"
 
-
+@export_enum(
+	"None","SelectionOverATK","SelectionOverHP","SelectionUnderATK","SelectionUnderHP", "ApplyToFire", "ApplyToEarth", "ApplyToWater" ,"ApplyToWind",
+	"ApplyThresholdOverATK","ApplyThresholdUnderATK","ApplyThresholdOverHP","ApplyThresholdUnderHP", "ApplyToFrozen", "ApplyToUnderXmanaCost"
+) var effect_5_threshold_type: String = "None"
 # 🔢 Thresholds numerici corrispondenti
 @export var effect_1_threshold: int = 0
 @export var effect_2_threshold: int = 0
 @export var effect_3_threshold: int = 0
 @export var effect_4_threshold: int = 0
+@export var effect_5_threshold: int = 0
 
 @export_group("") # 🔚 chiude il gruppo
 @export_group("Effects")
 @export var custom_effect_name: String = "None"
-@export_enum("None", "Custom", "Damage", "Heal", "PreventDamage", "Destroy", "Bouncer", "ChangePosition", "Draw", "Buff", "BuffAtk" , "BuffHp", "BuffArmour", "Debuff", "DebuffAtk", "DebuffHp", "Freeze", "Stun", "Root", "Counter", "SpawnToken", "BuffTalent", "BuffSpellPower", "BuffFireSpellPower", "BuffEarthSpellPower", "BuffWindSpellPower", "BuffWaterSpellPower", "AddColorlessMana", "AddFireMana", "AddEarthMana", "AddWindMana", "AddWaterMana","PayMana_for","FloodedField") var effect_1: String = "None"
-@export_enum("None", "Custom", "Damage", "Heal", "PreventDamage", "Destroy", "Bouncer", "ChangePosition", "Draw", "Buff", "BuffAtk" , "BuffHp", "BuffArmour", "Debuff", "DebuffAtk", "DebuffHp", "Freeze", "Stun", "Root", "Counter", "SpawnToken", "BuffTalent", "BuffSpellPower", "BuffFireSpellPower", "BuffEarthSpellPower", "BuffWindSpellPower", "BuffWaterSpellPower", "AddColorlessMana", "AddFireMana", "AddEarthMana", "AddWindMana", "AddWaterMana","PayMana_for","FloodedField") var effect_2: String = "None"
-@export_enum("None", "Custom", "Damage", "Heal", "PreventDamage", "Destroy", "Bouncer", "ChangePosition", "Draw", "Buff", "BuffAtk" , "BuffHp", "BuffArmour", "Debuff", "DebuffAtk", "DebuffHp", "Freeze", "Stun", "Root", "Counter", "SpawnToken", "BuffTalent", "BuffSpellPower", "BuffFireSpellPower", "BuffEarthSpellPower", "BuffWindSpellPower", "BuffWaterSpellPower", "AddColorlessMana", "AddFireMana", "AddEarthMana", "AddWindMana", "AddWaterMana","PayMana_for","FloodedField") var effect_3: String = "None"
-@export_enum("None", "Custom", "Damage", "Heal", "PreventDamage", "Destroy", "Bouncer", "ChangePosition", "Draw", "Buff", "BuffAtk" , "BuffHp", "BuffArmour", "Debuff", "DebuffAtk", "DebuffHp", "Freeze", "Stun", "Root", "Counter", "SpawnToken", "BuffTalent", "BuffSpellPower", "BuffFireSpellPower", "BuffEarthSpellPower", "BuffWindSpellPower", "BuffWaterSpellPower", "AddColorlessMana", "AddFireMana", "AddEarthMana", "AddWindMana", "AddWaterMana","PayMana_for","FloodedField") var effect_4: String = "None"
-@export_enum("None", "Custom", "Damage", "Heal", "PreventDamage", "Destroy", "Bouncer", "ChangePosition", "Draw", "Buff", "BuffAtk" , "BuffHp", "BuffArmour", "Debuff", "DebuffAtk", "DebuffHp", "Freeze", "Stun", "Root", "Counter", "SpawnToken", "BuffTalent", "BuffSpellPower", "BuffFireSpellPower", "BuffEarthSpellPower", "BuffWindSpellPower", "BuffWaterSpellPower", "AddColorlessMana", "AddFireMana", "AddEarthMana", "AddWindMana", "AddWaterMana","PayMana_for","FloodedField") var effect_5: String = "None"
+@export_enum("None", "Custom", "Damage", "Heal", "PreventDamage", "Destroy", "Bouncer", "ChangePosition", "Draw", "Buff", "BuffAtk" , "BuffHp", "BuffArmour", "Debuff", "DebuffAtk", "DebuffHp", "Freeze", "Stun", "Root", "Counter", "SpawnToken", "BuffTalent", "BuffSpellPower", "BuffFireSpellPower", "BuffEarthSpellPower", "BuffWindSpellPower", "BuffWaterSpellPower", "AddColorlessMana", "AddFireMana", "AddEarthMana", "AddWindMana", "AddWaterMana","PayMana_for","FieldFlood","FieldBurn","FieldWindy","FieldArid") var effect_1: String = "None"
+@export_enum("None", "Custom", "Damage", "Heal", "PreventDamage", "Destroy", "Bouncer", "ChangePosition", "Draw", "Buff", "BuffAtk" , "BuffHp", "BuffArmour", "Debuff", "DebuffAtk", "DebuffHp", "Freeze", "Stun", "Root", "Counter", "SpawnToken", "BuffTalent", "BuffSpellPower", "BuffFireSpellPower", "BuffEarthSpellPower", "BuffWindSpellPower", "BuffWaterSpellPower", "AddColorlessMana", "AddFireMana", "AddEarthMana", "AddWindMana", "AddWaterMana","PayMana_for","FieldFlood","FieldBurn","FieldWindy","FieldArid") var effect_2: String = "None"
+@export_enum("None", "Custom", "Damage", "Heal", "PreventDamage", "Destroy", "Bouncer", "ChangePosition", "Draw", "Buff", "BuffAtk" , "BuffHp", "BuffArmour", "Debuff", "DebuffAtk", "DebuffHp", "Freeze", "Stun", "Root", "Counter", "SpawnToken", "BuffTalent", "BuffSpellPower", "BuffFireSpellPower", "BuffEarthSpellPower", "BuffWindSpellPower", "BuffWaterSpellPower", "AddColorlessMana", "AddFireMana", "AddEarthMana", "AddWindMana", "AddWaterMana","PayMana_for","FieldFlood","FieldBurn","FieldWindy","FieldArid") var effect_3: String = "None"
+@export_enum("None", "Custom", "Damage", "Heal", "PreventDamage", "Destroy", "Bouncer", "ChangePosition", "Draw", "Buff", "BuffAtk" , "BuffHp", "BuffArmour", "Debuff", "DebuffAtk", "DebuffHp", "Freeze", "Stun", "Root", "Counter", "SpawnToken", "BuffTalent", "BuffSpellPower", "BuffFireSpellPower", "BuffEarthSpellPower", "BuffWindSpellPower", "BuffWaterSpellPower", "AddColorlessMana", "AddFireMana", "AddEarthMana", "AddWindMana", "AddWaterMana","PayMana_for","FieldFlood","FieldBurn","FieldWindy","FieldArid") var effect_4: String = "None"
+@export_enum("None", "Custom", "Damage", "Heal", "PreventDamage", "Destroy", "Bouncer", "ChangePosition", "Draw", "Buff", "BuffAtk" , "BuffHp", "BuffArmour", "Debuff", "DebuffAtk", "DebuffHp", "Freeze", "Stun", "Root", "Counter", "SpawnToken", "BuffTalent", "BuffSpellPower", "BuffFireSpellPower", "BuffEarthSpellPower", "BuffWindSpellPower", "BuffWaterSpellPower", "AddColorlessMana", "AddFireMana", "AddEarthMana", "AddWindMana", "AddWaterMana","PayMana_for","FieldFlood","FieldBurn","FieldWindy","FieldArid") var effect_5: String = "None"
 @export var effect_magnitude_1: int = 0
 @export var effect_magnitude_2: int = 0
 @export var effect_magnitude_3: int = 0
 @export var effect_magnitude_4: int = 0 # ✅ nuovo valore secondario
+@export var effect_magnitude_5: int = 0 # ✅ nuovo valore secondario
 @export_group("")
 
 @export_enum("None", "Overkill", "Taunt", "Lifesteal", "Charge", "Berserker", "Haste", "Assault", "Regeneration", "Stun", "Flying", "Double Strike", "Elusive", "Mastery", "Magic Veil", "Phys Immune", "Magical Taunt", "Reactivity", "Freeze", "Ruthless","Deathtouch","Free Strike") var talent_from_buff: String = "None" # ✅ nuovo: talento temporaneo da buff
@@ -114,6 +119,7 @@ var voided_atk: int = 0 # ✅
 @export_enum("None", "AllCreatures", "AllATKCreatures", "AllDEFCreatures", "AllFireCreatures", "AllEarthCreatures", "AllWaterCreatures", "AllWindCreatures", "AllEnemyCreatures", "AllEnemyATKCreatures", "AllEnemyDEFCreatures", "AllCards", "AllAllyCreatures", "AllAllyDEFCreatures", "AllAllyATKCreatures", "Self", "SelfPlayer", "EnemyPlayer", "BothPlayers","AllSpells", "AllEnemySpells","LastPlayedCreature","JustTargetedCreature", "AttackingCreature") var t_subtype_2: String = "None"
 @export_enum("None", "AllCreatures", "AllATKCreatures", "AllDEFCreatures", "AllFireCreatures", "AllEarthCreatures", "AllWaterCreatures", "AllWindCreatures", "AllEnemyCreatures", "AllEnemyATKCreatures", "AllEnemyDEFCreatures", "AllCards", "AllAllyCreatures", "AllAllyDEFCreatures", "AllAllyATKCreatures", "Self", "SelfPlayer", "EnemyPlayer", "BothPlayers","AllSpells", "AllEnemySpells","LastPlayedCreature","JustTargetedCreature", "AttackingCreature") var t_subtype_3: String = "None"
 @export_enum("None", "AllCreatures", "AllATKCreatures", "AllDEFCreatures", "AllFireCreatures", "AllEarthCreatures", "AllWaterCreatures", "AllWindCreatures", "AllEnemyCreatures", "AllEnemyATKCreatures", "AllEnemyDEFCreatures", "AllCards", "AllAllyCreatures", "AllAllyDEFCreatures", "AllAllyATKCreatures", "Self", "SelfPlayer", "EnemyPlayer", "BothPlayers", "AllSpells", "AllEnemySpells","LastPlayedCreature" ,"JustTargetedCreature", "AttackingCreature") var t_subtype_4: String = "None"
+@export_enum("None", "AllCreatures", "AllATKCreatures", "AllDEFCreatures", "AllFireCreatures", "AllEarthCreatures", "AllWaterCreatures", "AllWindCreatures", "AllEnemyCreatures", "AllEnemyATKCreatures", "AllEnemyDEFCreatures", "AllCards", "AllAllyCreatures", "AllAllyDEFCreatures", "AllAllyATKCreatures", "Self", "SelfPlayer", "EnemyPlayer", "BothPlayers", "AllSpells", "AllEnemySpells","LastPlayedCreature" ,"JustTargetedCreature", "AttackingCreature") var t_subtype_5: String = "None"
 @export_enum("None", "Quick", "Normal") var effect_speed: String = "None"
 @export_enum("None", "EndPhase", "BattlePhase", "BattleStep", "Enchant", "While", "This_Step") var temp_effect: String = "None"
 
@@ -164,6 +170,7 @@ var original_effect_magnitude_1: int
 var original_effect_magnitude_2: int # ✅ nuovo
 var original_effect_magnitude_3: int # ✅ nuovo
 var original_effect_magnitude_4: int # ✅ nuovo
+var original_effect_magnitude_5: int # ✅ nuovo
 var original_spell_multiplier: int
 var original_spell_duration: int
 
@@ -180,6 +187,8 @@ func init_original_stats():
 		original_effect_magnitude_3 = effect_magnitude_3
 	if original_effect_magnitude_4 == 0:
 		original_effect_magnitude_4 = effect_magnitude_4
+	if original_effect_magnitude_5 == 0:
+		original_effect_magnitude_5 = effect_magnitude_5
 	if original_spell_multiplier == 0:
 		original_spell_multiplier = spell_multiplier
 	if original_spell_duration == 0:
@@ -231,25 +240,30 @@ func to_dict() -> Dictionary:
 		"effect_2_threshold_type": effect_2_threshold_type, # 🆕
 		"effect_3_threshold_type": effect_3_threshold_type,
 		"effect_4_threshold_type": effect_4_threshold_type,
+		"effect_5_threshold_type": effect_5_threshold_type,
 		"effect_1_threshold": effect_1_threshold, # 🆕
 		"effect_2_threshold": effect_2_threshold, # 🆕
 		"effect_3_threshold": effect_3_threshold,
 		"effect_4_threshold": effect_4_threshold,
+		"effect_5_threshold": effect_5_threshold,
 		"custom_effect_name": custom_effect_name,
 		"effect_1": effect_1,
 		"effect_2": effect_2,
 		"effect_3": effect_3,
 		"effect_4": effect_4,
+		"effect_5": effect_5,
 		"effect_magnitude_1": effect_magnitude_1,
 		"effect_magnitude_2": effect_magnitude_2,
 		"effect_magnitude_3": effect_magnitude_3,
 		"effect_magnitude_4": effect_magnitude_4,
+		"effect_magnitude_5": effect_magnitude_5,
 		"talent_from_buff": talent_from_buff,
 		"targeting_type": targeting_type,
 		"t_subtype_1": t_subtype_1,
 		"t_subtype_2": t_subtype_2,
 		"t_subtype_3": t_subtype_3,
 		"t_subtype_4": t_subtype_4,
+		"t_subtype_5": t_subtype_5,
 		"scaling_1": scaling_1,
 		"scaling_amount_1": scaling_amount_1,
 		"scaling_2": scaling_2,
@@ -266,6 +280,7 @@ func to_dict() -> Dictionary:
 		"original_effect_magnitude_2": original_effect_magnitude_2,
 		"original_effect_magnitude_3": original_effect_magnitude_3,
 		"original_effect_magnitude_4": original_effect_magnitude_4,
+		"original_effect_magnitude_5": original_effect_magnitude_5,
 		"original_spell_multiplier": original_spell_multiplier,
 		"original_spell_duration": original_spell_duration,
 		"mana_cost": get_mana_cost_array(),
@@ -312,25 +327,30 @@ static func from_dict(data: Dictionary) -> CardData:
 	cd.effect_2_threshold_type = data.get("effect_2_threshold_type", "None") # 🆕
 	cd.effect_3_threshold_type = data.get("effect_3_threshold_type", "None")
 	cd.effect_4_threshold_type = data.get("effect_4_threshold_type", "None")
+	cd.effect_5_threshold_type = data.get("effect_5_threshold_type", "None")
 	cd.effect_1_threshold = data.get("effect_1_threshold", 0) # 🆕
 	cd.effect_2_threshold = data.get("effect_2_threshold", 0) # 🆕
 	cd.effect_3_threshold = data.get("effect_3_threshold", 0)
 	cd.effect_4_threshold = data.get("effect_4_threshold", 0)
+	cd.effect_5_threshold = data.get("effect_5_threshold", 0)
 	cd.custom_effect_name = data.get("custom_effect_name", "None")
 	cd.effect_1 = data.get("effect_1", "None")
 	cd.effect_2 = data.get("effect_2", "None") # ✅ nuovo
 	cd.effect_3 = data.get("effect_3", "None")
 	cd.effect_4 = data.get("effect_4", "None")
+	cd.effect_5 = data.get("effect_5", "None")
 	cd.effect_magnitude_1 = data.get("effect_magnitude_1", 0)
 	cd.effect_magnitude_2 = data.get("effect_magnitude_2", 0) # ✅ nuovo
 	cd.effect_magnitude_3 = data.get("effect_magnitude_3", 0)
 	cd.effect_magnitude_4 = data.get("effect_magnitude_4", 0) # ✅ nuovo
+	cd.effect_magnitude_5 = data.get("effect_magnitude_5", 0) # ✅ nuovo
 	cd.talent_from_buff = data.get("talent_from_buff", "None")
 	cd.targeting_type = data.get("targeting_type", "None")
 	cd.t_subtype_1 = data.get("t_subtype_1", "None") # ✅ nuovo
 	cd.t_subtype_2 = data.get("t_subtype_2", "None") # ✅ nuovo
 	cd.t_subtype_3 = data.get("t_subtype_3", "None") # ✅ nuovo
 	cd.t_subtype_4 = data.get("t_subtype_4", "None") # ✅ nuovo
+	cd.t_subtype_5 = data.get("t_subtype_5", "None") # ✅ nuovo
 	cd.scaling_1 = data.get("scaling_1", "None")
 	cd.scaling_amount_1 = data.get("scaling_amount_1", 0)
 	cd.scaling_2 = data.get("scaling_2", "None")
@@ -407,6 +427,7 @@ func make_runtime_copy() -> CardData:
 	copy.effect_2 = effect_2
 	copy.effect_3 = effect_3
 	copy.effect_4 = effect_4 # ✅ nuovo
+	copy.effect_5 = effect_5 # ✅ nuovo
 	copy.effect_magnitude_1 = effect_magnitude_1
 	copy.effect_magnitude_2 = effect_magnitude_2
 	copy.effect_magnitude_3 = effect_magnitude_3
@@ -417,6 +438,7 @@ func make_runtime_copy() -> CardData:
 	copy.t_subtype_2 = t_subtype_2 # ✅ nuovo
 	copy.t_subtype_3 = t_subtype_3 # ✅ nuovo
 	copy.t_subtype_4 = t_subtype_4 # ✅ nuovo
+	copy.t_subtype_5 = t_subtype_5 # ✅ nuovo
 	copy.scaling_1 = scaling_1 # ✅ nuovo
 	copy.scaling_amount_1 = scaling_amount_1
 	copy.scaling_2 = scaling_2 # ✅ nuovo
@@ -435,6 +457,7 @@ func make_runtime_copy() -> CardData:
 	copy.original_effect_magnitude_2 = original_effect_magnitude_2 # ✅ nuov
 	copy.original_effect_magnitude_3 = original_effect_magnitude_3 # ✅ nuov
 	copy.original_effect_magnitude_4 = original_effect_magnitude_4 # ✅ nuov
+	copy.original_effect_magnitude_5 = original_effect_magnitude_5 # ✅ nuov
 	copy.mana_cost_1 = mana_cost_1
 	copy.mana_cost_2 = mana_cost_2
 	copy.mana_cost_3 = mana_cost_3
