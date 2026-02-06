@@ -1759,4 +1759,4 @@ func on_direct_damage_fully_resolved(attacking_card: Card, damage_amount: int, d
 			"owner_id": multiplayer.get_unique_id()
 		})
 	elif card_manager and is_instance_valid(self):
-		card_manager.trigger_card_effect(self)
+		card_manager.trigger_card_effect(self,true)

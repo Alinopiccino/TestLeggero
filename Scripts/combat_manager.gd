@@ -1849,7 +1849,7 @@ func apply_effect_here_and_replicate_client_opponent(player_id, source_card_name
 				effects_to_apply.append(source_card.card_data.effect_1)
 				magnitudes_to_apply.append(source_card.card_data.effect_magnitude_1)
 
-			if source_card.card_data.effect_2 != "None":
+			if source_card.card_data.effect_2 != "None" and source_card.card_data.targeting_type_2 == "Targeted":  #PROTEZIONE VERSO LA MYSTICAL BLADE
 				effects_to_apply.append(source_card.card_data.effect_2)
 				magnitudes_to_apply.append(source_card.card_data.effect_magnitude_2)
 
@@ -3257,6 +3257,23 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 			await tween_return.finished
 			attacking_card.z_index = 0
 	
+		# 🔔 TRIGGER: When_Equipped_Destroys_by_Combat
+		# === ATTACCANTE uccide DIFENSORE ===
+		if defender_destroyed and defending_card.is_enemy_card():
+			for equip_card in attacking_card.equipped_spells:
+				if equip_card.card_data.effect_type_2 == "On_Trigger" \
+				and equip_card.card_data.trigger_type_2 == "When_Equipped_Destroys_by_Combat":
+					print("🔥 [EQUIP TRIGGER FROM KILL] ATTACCANTE →", equip_card.card_data.card_name)
+					await $"../CardManager".trigger_card_effect(equip_card, true, attacking_card, 2)
+
+		# === DIFENSORE uccide ATTACCANTE ===
+		if attacker_destroyed and attacking_card.is_enemy_card():
+			for equip_card in defending_card.equipped_spells:
+				if equip_card.card_data.effect_type_2 == "On_Trigger" and equip_card.card_data.trigger_type_2 == "When_Equipped_Destroys_by_Combat":
+					print("🔥 [EQUIP TRIGGER FROM KILL] DIFENSORE →", equip_card)
+					await $"../CardManager".trigger_card_effect(equip_card, true, defending_card, 2)
+
+
 
 
 	# 🔥 Pulisci il bordo rosso del difensore
@@ -8100,7 +8117,7 @@ func process_triggered_effects_this_chain_link() -> void:
 	print("✅ Tutti gli effetti accodati sono stati risolti completamente.")
 	
 @rpc("any_peer")
-func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_id, source_card_name: String, effect: String, magnitude: int, t_subtype: String = "", is_triggered: bool = true, trigger_cause_name: String = ""):
+func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_id, source_card_name: String, effect: String, magnitude: int, t_subtype: String = "", is_triggered: bool = true, trigger_cause_name: String = "",forced_effect_index: int = 0):
 	var is_attacker = multiplayer.get_unique_id() == player_id
 	var source_card
 	if is_attacker:
@@ -8157,11 +8174,17 @@ func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_i
 		# ✅ Se è la prima carta della chain ed esistono carte in attesa gia' in battle → segna chaining attivo
 
 	
+	var effect_indices := []
+
+	if forced_effect_index > 0:
+		# 🔥 Trigger On Kill → applica SOLO quell’effetto
+		effect_indices = [forced_effect_index]
+	else:
+		# ✨ Effetto normale → ciclo completo
+		effect_indices = range(1, 6)
 	
-	
-	
-	# 👇 sostituisci tutto quel blocco con questo:
-	for i in range(1, 6):
+
+	for i in effect_indices:
 		var effect_name = source_card.card_data.get("effect_%d" % i)
 		magnitude = source_card.card_data.get("effect_magnitude_%d" % i)
 		t_subtype = source_card.card_data.get("t_subtype_%d" % i)
@@ -8313,7 +8336,7 @@ func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_i
 		var temp_effect_type = ""
 		temp_effect_type = source_card.card_data.temp_effect
 		
-		if source_card.card_is_in_slot and not source_card.effect_negated and not source_card.card_data.targeting_type == "Targeted":
+		if source_card.card_is_in_slot and not source_card.effect_negated and (forced_effect_index != 0 or source_card.card_data.targeting_type != "Targeted"):
 			# 🔮 Se non è uno dei subtype logici o Self, usa helper
 			if not t_subtype in ["Self", "SelfPlayer", "EnemyPlayer", "BothPlayers", "None"]:
 				var valid_targets = $"../CombatManager".get_valid_targets(source_card, is_attacker, t_subtype)

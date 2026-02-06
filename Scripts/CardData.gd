@@ -63,8 +63,9 @@ var voided_atk: int = 0 # ✅
 @export_enum("None", "Overkill", "Taunt", "Lifesteal", "Charge", "Berserker", "Haste", "Assault", "Regeneration", "Stun", "Flying", "Double Strike", "Elusive", "Mastery", "Magic Veil", "Phys Immune", "Magical Taunt", "Reactivity", "Freeze", "Ruthless","Deathtouch","Free Strike") var talent_5: String = "None"
 @export_group("")  # 🔚 Chiude il gruppo
 @export_enum("None", "Passive", "OnPlay", "OnDeath", "Activable", "ActivableAttack", "On_Trigger", "Aura", "Equip") var effect_type: String = "None"
-@export_enum("None", "On_EndPhase", "On_UpKeepPhase", "On_Attack", "On_Direct_Damage_Self", "On_Retaliate", "On_Death", "On_Play", "On_Cast", "While_DEFpos", "While_NoOtherAlly", "IF_NoOtherAlly", "While_FieldFlooded", "When_Equipped") var trigger_type: String = "None" # ✅ NUOVO
-
+@export_enum("None", "Passive", "OnPlay", "OnDeath", "Activable", "ActivableAttack", "On_Trigger", "Aura", "Equip") var effect_type_2: String = "None"
+@export_enum("None", "On_EndPhase", "On_UpKeepPhase", "On_Attack", "On_Direct_Damage_Self", "On_Retaliate", "On_Death", "On_Play", "On_Cast", "While_DEFpos", "While_NoOtherAlly", "IF_NoOtherAlly", "While_FieldFlooded", "When_Equipped", "When_Equipped_Destroys_by_Combat") var trigger_type: String = "None" # ✅ NUOVO
+@export_enum("None", "On_EndPhase", "On_UpKeepPhase", "On_Attack", "On_Direct_Damage_Self", "On_Retaliate", "On_Death", "On_Play", "On_Cast", "While_DEFpos", "While_NoOtherAlly", "IF_NoOtherAlly", "While_FieldFlooded", "When_Equipped", "When_Equipped_Destroys_by_Combat") var trigger_type_2: String = "None" # ✅ NUOVO
 @export_group("Thresholds")
 
 @export_enum(
@@ -115,6 +116,7 @@ var voided_atk: int = 0 # ✅
 
 @export_enum("None", "Overkill", "Taunt", "Lifesteal", "Charge", "Berserker", "Haste", "Assault", "Regeneration", "Stun", "Flying", "Double Strike", "Elusive", "Mastery", "Magic Veil", "Phys Immune", "Magical Taunt", "Reactivity", "Freeze", "Ruthless","Deathtouch","Free Strike") var talent_from_buff: String = "None" # ✅ nuovo: talento temporaneo da buff
 @export_enum("None", "Targeted", "AoE") var targeting_type: String = "None"
+@export_enum("None", "Targeted", "AoE") var targeting_type_2: String = "None"
 @export_enum("None", "AllCreatures", "AllATKCreatures", "AllDEFCreatures", "AllFireCreatures", "AllEarthCreatures", "AllWaterCreatures", "AllWindCreatures", "AllEnemyCreatures", "AllEnemyATKCreatures", "AllEnemyDEFCreatures", "AllCards", "AllAllyCreatures", "AllAllyDEFCreatures", "AllAllyATKCreatures", "Self", "SelfPlayer", "EnemyPlayer", "BothPlayers","AllSpells", "AllEnemySpells","LastPlayedCreature","JustTargetedCreature", "AttackingCreature", "All_NON_WaterNON_Flying_Creatures") var t_subtype_1: String = "None"
 @export_enum("None", "AllCreatures", "AllATKCreatures", "AllDEFCreatures", "AllFireCreatures", "AllEarthCreatures", "AllWaterCreatures", "AllWindCreatures", "AllEnemyCreatures", "AllEnemyATKCreatures", "AllEnemyDEFCreatures", "AllCards", "AllAllyCreatures", "AllAllyDEFCreatures", "AllAllyATKCreatures", "Self", "SelfPlayer", "EnemyPlayer", "BothPlayers","AllSpells", "AllEnemySpells","LastPlayedCreature","JustTargetedCreature", "AttackingCreature", "All_NON_WaterNON_Flying_Creatures") var t_subtype_2: String = "None"
 @export_enum("None", "AllCreatures", "AllATKCreatures", "AllDEFCreatures", "AllFireCreatures", "AllEarthCreatures", "AllWaterCreatures", "AllWindCreatures", "AllEnemyCreatures", "AllEnemyATKCreatures", "AllEnemyDEFCreatures", "AllCards", "AllAllyCreatures", "AllAllyDEFCreatures", "AllAllyATKCreatures", "Self", "SelfPlayer", "EnemyPlayer", "BothPlayers","AllSpells", "AllEnemySpells","LastPlayedCreature","JustTargetedCreature", "AttackingCreature", "All_NON_WaterNON_Flying_Creatures") var t_subtype_3: String = "None"
@@ -235,7 +237,9 @@ func to_dict() -> Dictionary:
 		"card_class_2": card_class_2,
 		"talents": get_talents_array(),
 		"effect_type": effect_type,
+		"effect_type_2": effect_type_2,
 		"trigger_type": trigger_type,
+		"trigger_type_2": trigger_type_2,
 		"effect_1_threshold_type": effect_1_threshold_type, # 🆕
 		"effect_2_threshold_type": effect_2_threshold_type, # 🆕
 		"effect_3_threshold_type": effect_3_threshold_type,
@@ -259,6 +263,7 @@ func to_dict() -> Dictionary:
 		"effect_magnitude_5": effect_magnitude_5,
 		"talent_from_buff": talent_from_buff,
 		"targeting_type": targeting_type,
+		"targeting_type_2": targeting_type_2,
 		"t_subtype_1": t_subtype_1,
 		"t_subtype_2": t_subtype_2,
 		"t_subtype_3": t_subtype_3,
@@ -322,7 +327,9 @@ static func from_dict(data: Dictionary) -> CardData:
 		if talents.size() > 4: cd.talent_5 = talents[4]
 
 	cd.effect_type = data.get("effect_type", "None")
+	cd.effect_type_2 = data.get("effect_type_2", "None")
 	cd.trigger_type = data.get("trigger_type", "None") # ✅ nuovo
+	cd.trigger_type_2 = data.get("trigger_type_2", "None") # ✅ nuovo
 	cd.effect_1_threshold_type = data.get("effect_1_threshold_type", "None") # 🆕
 	cd.effect_2_threshold_type = data.get("effect_2_threshold_type", "None") # 🆕
 	cd.effect_3_threshold_type = data.get("effect_3_threshold_type", "None")
@@ -346,6 +353,7 @@ static func from_dict(data: Dictionary) -> CardData:
 	cd.effect_magnitude_5 = data.get("effect_magnitude_5", 0) # ✅ nuovo
 	cd.talent_from_buff = data.get("talent_from_buff", "None")
 	cd.targeting_type = data.get("targeting_type", "None")
+	cd.targeting_type_2 = data.get("targeting_type_2", "None")
 	cd.t_subtype_1 = data.get("t_subtype_1", "None") # ✅ nuovo
 	cd.t_subtype_2 = data.get("t_subtype_2", "None") # ✅ nuovo
 	cd.t_subtype_3 = data.get("t_subtype_3", "None") # ✅ nuovo
@@ -417,7 +425,9 @@ func make_runtime_copy() -> CardData:
 	copy.talent_4 = talent_4
 	copy.talent_5 = talent_5
 	copy.effect_type = effect_type
+	copy.effect_type_2 = effect_type_2
 	copy.trigger_type = trigger_type # ✅ nuovo
+	copy.trigger_type_2 = trigger_type_2 # ✅ nuovo
 	copy.effect_1_threshold_type = effect_1_threshold_type # 🆕
 	copy.effect_2_threshold_type = effect_2_threshold_type # 🆕
 	copy.effect_1_threshold = effect_1_threshold # 🆕
@@ -434,6 +444,7 @@ func make_runtime_copy() -> CardData:
 	copy.effect_magnitude_4 = effect_magnitude_4 # ✅ nuovo
 	copy.talent_from_buff = talent_from_buff
 	copy.targeting_type = targeting_type
+	copy.targeting_type_2 = targeting_type_2
 	copy.t_subtype_1 = t_subtype_1 # ✅ nuovo
 	copy.t_subtype_2 = t_subtype_2 # ✅ nuovo
 	copy.t_subtype_3 = t_subtype_3 # ✅ nuovo

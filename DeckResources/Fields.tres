@@ -4,13 +4,13 @@
 [ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_ph4cm"]
 [ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Flaming Lion.tres" id="3_gxdwt"]
 [ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Firebolt.tres" id="4_awqin"]
-[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Self Explosion.tres" id="5_3m2ov"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Orc Rider.tres" id="5_3m2ov"]
 [ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/FireBeam.tres" id="5_jxgc6"]
 
 [resource]
 script = ExtResource("2_ph4cm")
 deck_name = "Fields"
-cards = Array[ExtResource("1_pjley")]([ExtResource("3_gxdwt"), ExtResource("3_gxdwt"), ExtResource("3_gxdwt"), ExtResource("4_awqin"), ExtResource("4_awqin"), ExtResource("4_awqin"), ExtResource("5_3m2ov"), ExtResource("5_jxgc6"), ExtResource("5_jxgc6"), ExtResource("5_jxgc6")])
+cards = Array[ExtResource("1_pjley")]([ExtResource("3_gxdwt"), ExtResource("3_gxdwt"), ExtResource("3_gxdwt"), ExtResource("4_awqin"), ExtResource("4_awqin"), ExtResource("4_awqin"), ExtResource("5_jxgc6"), ExtResource("5_3m2ov"), ExtResource("5_3m2ov"), ExtResource("5_3m2ov")])
 is_valid = false
 mana_sort_state = "none"
 rank_sort_state = "none"

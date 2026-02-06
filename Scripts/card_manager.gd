@@ -966,7 +966,7 @@ func card_right_clicked(card):
 
 
 			
-func trigger_card_effect(card, from_triggered_effect: bool = false, card_that_caused_trigger: Card = null):
+func trigger_card_effect(card, from_triggered_effect: bool = false, card_that_caused_trigger: Card = null, effect_index: int = 0):
 	var combat_manager = $"../CombatManager"
 
 		
@@ -991,9 +991,9 @@ func trigger_card_effect(card, from_triggered_effect: bool = false, card_that_ca
 	card.z_index = 5
 
 
-		# Evita riattivazioni successive
-		
-	if not card.card_data.targeting_type == "Targeted":
+
+ #QUANDO SI METTONO QUESTI EFFECT INDEX AFFIANCO AI CONTROLLI TARGETED E' PERCHE' RIGUARDA MYSTIC BLADE
+	if not card.card_data.targeting_type == "Targeted" or effect_index != 0: #QUANDO SI METTONO QUESTI EFFECT INDEX AFFIANCO AI CONTROLLI TARGETED E' PERCHE' RIGUARDA MYSTIC BLADE
 		var tween := create_tween()
 		tween.tween_property(card, "position:y", card.position.y - 10, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
@@ -1011,7 +1011,7 @@ func trigger_card_effect(card, from_triggered_effect: bool = false, card_that_ca
 	await get_tree().create_timer(0.2).timeout
 
 	# ✅ Gestione differenziata se viene da process_triggered_effects_this_chain_link
-	if card.card_data.targeting_type != "Targeted":
+	if card.card_data.targeting_type != "Targeted" or effect_index != 0: #EFFECT INDEX E' PER MYSTICAL BLADE
 		var player_id = multiplayer.get_unique_id()
 		var effect = card.card_data.effect_1
 		var magnitude = card.card_data.effect_magnitude_1
@@ -1027,8 +1027,8 @@ func trigger_card_effect(card, from_triggered_effect: bool = false, card_that_ca
 				trigger_cause_name = card_that_caused_trigger.name
 				
 			print("⚡ [TRIGGER EFFECT] Chiamo RPC apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent")
-			$"../CombatManager".rpc("apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent", player_id, card.name, effect, magnitude, t_subtype, true, trigger_cause_name)
-			await $"../CombatManager".apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_id, card.name, effect, magnitude, t_subtype, true, trigger_cause_name)
+			$"../CombatManager".rpc("apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent", player_id, card.name, effect, magnitude, t_subtype, true, trigger_cause_name,effect_index)
+			await $"../CombatManager".apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_id, card.name, effect, magnitude, t_subtype, true, trigger_cause_name,effect_index)
 		else:
 			print("✨ [NORMAL EFFECT] Chiamo RPC apply_untargeted_effect_here_and_replicate_client_opponent")
 			$"../CombatManager".rpc("apply_untargeted_effect_here_and_replicate_client_opponent", player_id, card.name, effect, magnitude, t_subtype)

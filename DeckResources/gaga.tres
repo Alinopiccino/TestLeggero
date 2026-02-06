@@ -1,15 +1,16 @@
-[gd_resource type="Resource" script_class="DeckData" load_steps=6 format=3]
+[gd_resource type="Resource" script_class="DeckData" load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_x4eer"]
 [ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Mechanical Wings.tres" id="2_1kea0"]
 [ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_pr4vk"]
-[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Deathblade.tres" id="3_1kea0"]
 [ext_resource type="Resource" path="res://CardResources/WIND CREATURES/Arsenal Warrior.tres" id="4_58lr2"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Mystical Blade.tres" id="4_soefo"]
+[ext_resource type="Resource" path="res://CardResources/WIND CREATURES/Shadow Plunderer.tres" id="5_soefo"]
 
 [resource]
 script = ExtResource("2_pr4vk")
 deck_name = "gaga"
-cards = Array[ExtResource("1_x4eer")]([ExtResource("2_1kea0"), ExtResource("2_1kea0"), ExtResource("2_1kea0"), ExtResource("3_1kea0"), ExtResource("3_1kea0"), ExtResource("3_1kea0"), ExtResource("4_58lr2"), ExtResource("4_58lr2"), ExtResource("4_58lr2")])
+cards = Array[ExtResource("1_x4eer")]([ExtResource("2_1kea0"), ExtResource("2_1kea0"), ExtResource("2_1kea0"), ExtResource("4_58lr2"), ExtResource("4_58lr2"), ExtResource("4_58lr2"), ExtResource("4_soefo"), ExtResource("4_soefo"), ExtResource("4_soefo"), ExtResource("5_soefo"), ExtResource("5_soefo"), ExtResource("5_soefo")])
 is_valid = false
 mana_sort_state = "none"
 rank_sort_state = "none"
