@@ -1561,6 +1561,39 @@ func _on_self_summoned_on_field(card: Card, position: String) -> void:
 				if card_manager and card_manager.has_method("trigger_card_effect"):
 					card_manager.trigger_card_effect(self)
 
+# 🧩 --- NUOVO BLOCCO: While_FieldFlooded ---
+
+	if card_data.trigger_type == "While_FieldFlooded":
+		await get_tree().create_timer(0.3).timeout
+		print("🌊 [AUTO] While_FieldFlooded check su summon per", card_data.card_name)
+
+		if combat_manager == null:
+			print("❌ CombatManager non trovato!")
+			return
+
+		# 🔍 Controllo field flooded (basta uno slot)
+		var zones = get_tree().get_current_scene().get_node_or_null("PlayerField/PlayerZones")
+		if not zones:
+			return
+
+		var field_is_flooded := true
+		for slot in zones.get_children():
+			if not slot.flooded:
+				field_is_flooded = false
+				break
+
+		if field_is_flooded:
+			print("✨ [TRIGGER] While_FieldFlooded attivato per", card_data.card_name)
+
+			if combat_manager.chain_locked:
+				print("⏸️ [QUEUE] Chain attiva → accodo effetto in triggered_effects_this_chain_link")
+				combat_manager.triggered_effects_this_chain_link.append({
+					"card": self,
+					"owner_id": multiplayer.get_unique_id()
+				})
+			else:
+				if card_manager and card_manager.has_method("trigger_card_effect"):
+					card_manager.trigger_card_effect(self)
 
 func _on_ally_summoned(summoned_card: Card) -> void:
 	if not is_instance_valid(summoned_card):

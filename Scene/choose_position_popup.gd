@@ -176,7 +176,7 @@ func _return_card_to_hand(card_manager, card_to_play):
 	card_manager.pending_card_to_place = null
 	card_manager.pending_slot_to_place = null
 	card_manager.is_position_popup_open = false
-
+	$"../ManaSlots".set_all_slots_using(false)
 
 func prepare_for_creature(card_data: CardData):
 	$"../CardManager".is_position_popup_open = true

@@ -8068,7 +8068,6 @@ func process_triggered_effects_this_chain_link() -> void:
 func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_id, source_card_name: String, effect: String, magnitude: int, t_subtype: String = "", is_triggered: bool = true):
 	var is_attacker = multiplayer.get_unique_id() == player_id
 	var source_card
-
 	if is_attacker:
 		source_card = $"../CardManager".get_node_or_null(source_card_name)
 	else:
@@ -8080,7 +8079,10 @@ func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_i
 	# 🔥 Rimuovi subito il selection overlay se c'era
 	if $"../CardManager".selection_purpose == "effect":
 		$"../CardManager".remove_selection_overlay(source_card)
-
+		
+	if not is_instance_valid(source_card): #IMPORTANTE SERVE PER EVITARE BUG DOVE SOURCE CARD NEMICA E' NULL PERCHE' NON RICONOSCE IL NOME, TANTO SIAMO DENTRO RPC.
+		push_warning("❌ Source card non valida per effect: " + source_card_name)
+		return
 	if source_card.has_node("ActionBorder"):
 		source_card.get_node("ActionBorder").visible = true
 	# ✅ Imposta effect_triggered_this_turn SOLO se non è un effetto On_Trigger
@@ -8945,6 +8947,22 @@ func get_valid_targets(source_card: Card, is_attacker: bool = true, forced_subty
 			for c in player_creatures + enemy_creatures:
 				if is_instance_valid(c) and c.card_data.card_attribute == attr:
 					targets.append(c)
+					
+		"All_NON_WaterNON_Flying_Creatures":
+			for c in player_creatures + enemy_creatures:
+				if not is_instance_valid(c):
+					continue
+
+				# ❌ Escludi Water
+				if c.card_data.card_attribute == "Water":
+					continue
+
+				# ❌ Escludi Flying
+				var talents = c.card_data.get_all_talents()
+				if "Flying" in talents:
+					continue
+
+				targets.append(c)
 
 		# 👤 SELF & PLAYERS (gestiti altrove)
 		"Self", "SelfPlayer", "EnemyPlayer", "BothPlayers":
@@ -9392,7 +9410,45 @@ func apply_field_effect(effect: String, _is_attacker: bool) -> void:
 				target_color,
 				0.35
 			)
+			
+	await get_tree().create_timer(1.0).timeout
+	# ⚠️ SOLO IL PROPRIETARIO DELLA FIELD NOTIFICA I WHILE
+	#if not _is_attacker:
+		#return
+	# 🌊 Notifica alle creature se il campo è diventato Flooded
+	if effect == "FieldFlood":
+		print("🌊 [FIELD EFFECT] Notifico creature While_FieldFlooded")
 
+		var card_manager = scene.get_node_or_null("PlayerField/CardManager")
+		if card_manager == null:
+			return
+
+		# 🔍 Prende tutte le creature sul terreno (array già esistenti)
+		var all_creatures := []
+		all_creatures += $"../CombatManager".player_creatures_on_field
+		all_creatures += $"../CombatManager".opponent_creatures_on_field
+
+		for c in all_creatures:
+			if not is_instance_valid(c):
+				continue
+			if not c.card_data:
+				continue
+			if c.card_data.trigger_type != "While_FieldFlooded":
+				continue
+
+			print("✨ [TRIGGER] While_FieldFlooded attivato per", c.card_data.card_name)
+
+			# stesso pattern delle altre While
+			#if chain_locked:
+				#print("CHAIN LOCKED FLOODED")
+				#triggered_effects_this_chain_link.append({
+					#"card": c,
+					#"owner_id": c.multiplayer.get_unique_id()
+				#})
+			#else:
+			if card_manager.has_method("trigger_card_effect"):
+				print("TRIGGERO EFFETTO DA FLOODED")
+				card_manager.trigger_card_effect(c,true)
 
 
 
@@ -9438,3 +9494,13 @@ func remove_field_effects() -> void:
 			tween.finished.connect(func():
 				border.visible = false
 			)
+
+
+	var all_creatures = player_creatures_on_field + opponent_creatures_on_field
+
+	for c in all_creatures:
+		if is_instance_valid(c) \
+		and c.card_data \
+		and c.card_data.trigger_type == "While_FieldFlooded":
+			print("❌ [WHILE LOST] While_FieldFlooded perso da", c.card_data.card_name)
+			c.emit_signal("lost_while_condition", c)

@@ -3758,14 +3758,30 @@ func check_activation_cost(card: Card) -> bool:
 			print("❌ Attivazione negata:", card.card_data.card_name, "| Nessuna creatura WATER o SPELLCASTER alleata sul campo.")
 			return false
 
-		# 🟦 Nessun costo di attivazione
+		# 🌊 NUOVO CASO: Field Flooded
+		"FieldFlooded":
+			# basta controllare un solo slot (se il field è globale)
+			var zones = cm.get_tree().get_current_scene().get_node_or_null("PlayerField/PlayerZones")
+			if not zones:
+				print("⚠️ FieldFlooded: PlayerZones non trovate.")
+				return false
+
+			for slot in zones.get_children():
+				if not slot.flooded:
+					print("❌ Attivazione negata:", card.card_data.card_name, "| Il campo NON è flooded.")
+					return false
+
+			print("✅ Requisito FieldFlooded soddisfatto → campo allagato.")
+			return true
+
+		# 🟦 Nessun costo
 		"None":
 			return true
 
-		# 🚫 Caso sconosciuto o non gestito
+		# 🚫 Caso sconosciuto
 		_:
 			print("⚠️ Tipo di costo di attivazione non riconosciuto:", cost_type)
-			return true  # fallback per evitare blocchi non voluti
+			return true
 
 @rpc("any_peer")
 func rpc_mark_card_as_enchained(card_name: String, owner_id: int):
