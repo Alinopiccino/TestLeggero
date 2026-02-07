@@ -26,6 +26,7 @@ var cards_to_destroy_after_chain: Array = []
 var last_played_card: Dictionary = {}  # {"card": Node, "owner_id": int}
 var just_summoned_creature: Array = []
 var just_played_spell: Array = []
+var next_played_card_bonuses: Array[Dictionary] = []
 
 var setted_this_turn: Array = []
 var summoned_this_turn: Array = []
@@ -1279,7 +1280,7 @@ func apply_untargeted_effect_here_and_replicate_client_opponent(player_id, sourc
 		
 		if source_card.card_is_in_slot and not source_card.effect_negated and not source_card.card_data.targeting_type == "Targeted":
 			# --- 🔮 Se non è Self / Player effect, usa helper get_valid_targets ---
-			if not t_subtype in ["Self", "SelfPlayer", "EnemyPlayer", "BothPlayers", "None"]:
+			if not t_subtype in ["Self", "SelfPlayer", "EnemyPlayer", "BothPlayers","MyNextNormalSpell", "None"]:
 				var valid_targets = $"../CombatManager".get_valid_targets(source_card, is_attacker, t_subtype)
 
 
@@ -1450,7 +1451,8 @@ func apply_untargeted_effect_here_and_replicate_client_opponent(player_id, sourc
 
 							elif effect_name in ["BuffSpellPower", "BuffFireSpellPower", "BuffWaterSpellPower", "BuffEarthSpellPower", "BuffWindSpellPower"]:
 								apply_simple_effect_to_card(source_card, effect_name, magnitude, source_card, player_id)
-
+					"MyNextNormalSpell":
+						apply_simple_effect_to_card(source_card, effect_name, magnitude, source_card, player_id)
 					"None", _:
 						print("APPLICO EFFETTO NONE")
 						apply_simple_effect_to_card(source_card, effect_name, magnitude, source_card, player_id)
@@ -1849,7 +1851,7 @@ func apply_effect_here_and_replicate_client_opponent(player_id, source_card_name
 				effects_to_apply.append(source_card.card_data.effect_1)
 				magnitudes_to_apply.append(source_card.card_data.effect_magnitude_1)
 
-			if source_card.card_data.effect_2 != "None" and source_card.card_data.targeting_type_2 == "Targeted":  #PROTEZIONE VERSO LA MYSTICAL BLADE
+			if source_card.card_data.effect_2 != "None" and not (source_card.card_data.targeting_type_2 != "Targeted" and source_card.card_data.effect_type_2 == "On_Trigger"):  #PROTEZIONE VERSO LA MYSTICAL BLADE
 				effects_to_apply.append(source_card.card_data.effect_2)
 				magnitudes_to_apply.append(source_card.card_data.effect_magnitude_2)
 
@@ -5726,6 +5728,28 @@ func apply_simple_effect_to_card(card: Node, effect: String, magnitude: int, sou
 				combat_manager.apply_field_effect(effect, is_attacker)
 			else:
 				push_warning("⚠️ CombatManager non trovato durante FieldEffect")
+		"AddRepeats":
+			var cm = $"../CombatManager"
+			if not cm:
+				push_warning("⚠️ CombatManager non trovato per AddRepeats")
+				return false
+
+			# 📌 Dati dal CardData della source
+			var repeat_amount := magnitude
+			var max_cost = source_card.card_data.effect_1_threshold
+			#if max_cost <= 0:
+				#max_cost = 1  # fallback di sicurezza
+
+			cm.register_next_played_spell_repeat_bonus(
+				player_id,
+				max_cost,
+				repeat_amount,
+				source_card
+			)
+
+			print("🔁 [ADD REPEATS] Prossima Spell ≤", max_cost,
+				"otterrà +", repeat_amount, " repeat")
+
 		_:
 			print("⚠️ Effetto non riconosciuto:", effect)
 
@@ -5735,6 +5759,88 @@ func apply_simple_effect_to_card(card: Node, effect: String, magnitude: int, sou
 	return card.card_data.health == 0
 
 
+func register_next_played_spell_repeat_bonus(owner_id: int, max_cost: int, repeat_amount: int,source_card: Node):
+	next_played_card_bonuses.append({
+		"type": "AddRepeats",
+		"amount": repeat_amount,
+		"max_mana_cost": max_cost,
+		"card_type": "Spell",
+		"owner_id": owner_id,
+		"expires": "EndPhase"
+	})
+
+	print("✨ [BONUS] Prossima Spell ≤", max_cost, "ottiene +", repeat_amount, " repeat")
+	print("✨ [BONUS REGISTRATO]")
+	print(" ├─ Owner ID:", owner_id)
+	print(" ├─ Tipo:", "AddRepeats")
+	print(" ├─ Max Mana Cost:", max_cost)
+	print(" ├─ Amount:", repeat_amount)
+	print(" ├─ Source:", source_card.card_data.card_name)
+	print(" └─ Totale bonus attivi:", next_played_card_bonuses.size())
+
+	print("📋 [LISTA BONUS AGGIORNATA]")
+	for i in range(next_played_card_bonuses.size()):
+		var b = next_played_card_bonuses[i]
+		print(
+			" ", i, "→",
+			"Owner:", b.owner_id,
+			"| Type:", b.type,
+			"| +", b.amount,
+			"| ≤", b.max_mana_cost,
+			"| CardType:", b.card_type,
+			"| Expires:", b.expires,
+		)
+
+func apply_next_played_card_bonuses(card: Node2D):
+	var cm = $"../CombatManager"
+	var my_id = multiplayer.get_unique_id()
+
+	if cm.next_played_card_bonuses.is_empty():
+		return
+
+	var bonuses_to_remove: Array = []
+	
+	for bonus in cm.next_played_card_bonuses:
+		if bonus.owner_id != my_id:
+			print("NON SONO IO IL FRUITORE DEL BONUS")
+			continue
+
+		# 🎯 Tipo carta
+		if bonus.card_type != card.card_data.card_type:
+			continue
+
+		# 💰 Costo mana (conteggio slot non-None)
+		var mana_cost := 0
+		for cost in [
+			card.card_data.mana_cost_1,
+			card.card_data.mana_cost_2,
+			card.card_data.mana_cost_3,
+			card.card_data.mana_cost_4,
+			card.card_data.mana_cost_5,
+			card.card_data.mana_cost_6,
+			card.card_data.mana_cost_7
+		]:
+			if cost != "None":
+				mana_cost += 1
+
+		if mana_cost > bonus.max_mana_cost:
+			continue
+
+		# 🔥 BONUS APPLICABILE
+		match bonus.type:
+			"AddRepeats":
+				var current_repeats = int(card.card_data.repeats)
+				card.card_data.repeats = str(current_repeats + bonus.amount)
+
+				print("🔁 [BONUS CONSUMATO] +", bonus.amount,
+					" repeat su", card.card_data.card_name,
+					"→ repeats ora:", card.card_data.repeats)
+
+		bonuses_to_remove.append(bonus)
+
+	# 🧹 Consuma i bonus one-shot
+	for b in bonuses_to_remove:
+		cm.next_played_card_bonuses.erase(b)
 
 # 💎 Controlla se il Magic Veil blocca l’effetto e gestisce l’animazione
 # 💎 Controlla se il Magic Veil blocca l’effetto e gestisce l’animazione
@@ -8338,7 +8444,7 @@ func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_i
 		
 		if source_card.card_is_in_slot and not source_card.effect_negated and (forced_effect_index != 0 or source_card.card_data.targeting_type != "Targeted"):
 			# 🔮 Se non è uno dei subtype logici o Self, usa helper
-			if not t_subtype in ["Self", "SelfPlayer", "EnemyPlayer", "BothPlayers", "None"]:
+			if not t_subtype in ["Self", "SelfPlayer", "EnemyPlayer", "BothPlayers", "MyNextNormalSpell","None"]:
 				var valid_targets = $"../CombatManager".get_valid_targets(source_card, is_attacker, t_subtype)
 				
 
@@ -8520,6 +8626,8 @@ func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_i
 
 							elif effect_name in ["BuffSpellPower", "BuffFireSpellPower", "BuffWaterSpellPower", "BuffEarthSpellPower", "BuffWindSpellPower"]:
 								apply_simple_effect_to_card(source_card, effect_name, magnitude, source_card, player_id, trigger_cause)
+					"MyNextNormalSpell":
+						apply_simple_effect_to_card(source_card, effect_name, magnitude, source_card, player_id, trigger_cause)
 					"None", _:
 						print("APPLICO EFFETTO NONE")
 						apply_simple_effect_to_card(source_card, effect_name, magnitude, source_card, player_id, trigger_cause)

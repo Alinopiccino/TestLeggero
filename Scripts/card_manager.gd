@@ -931,7 +931,27 @@ func card_right_clicked(card):
 				combat_manager.pending_action_owner_id = multiplayer.get_unique_id()
 
 			return
+	
+	if card.card_data.effect_type == "Activable":
+		if current_phase != Phase.MAIN:
+			print("⛔ Effetto 'Activable' attivabile solo in MAIN Phase:", card.name)
+			return
+		if card.effect_triggered_this_turn:
+			print("⏳ Effetto 'Activable' già attivato questo turno:", card.name)
+			return
+			# Non può essere già in attesa di RESOLVE
+		if card.has_node("ActionBorder") and card.get_node("ActionBorder").visible:
+			print("⏳ Carta già in attesa di RESOLVE:", card.name)
+			return
+		print("⚔️ Attivato effetto 'Activable' in Main Phase:", card.name)
+		# Attiva effetto (targeted o no)
+		if card.card_data.targeting_type == "Targeted":
+			enter_selection_mode(card, "effect")
+		else:
+			trigger_card_effect(card)
 
+		return
+				
 	# ✅ Nuovo blocco: ActivableAttack (attivabili solo in Battle Phase)
 	if card.card_data.effect_type == "ActivableAttack":
 		# Deve essere in Battle Phase
@@ -1691,6 +1711,8 @@ func gioca_carta_subito(card: Node2D, slot: Node2D):
 	card_to_place.scale = Vector2(0.35, 0.35)
 	card_to_place.card_is_in_slot = true
 	card_to_place.current_slot = slot_to_place
+
+	
 	if $"../ActionButtons".enchain_label.visible:
 		$"../ActionButtons".hide_label($"../ActionButtons".enchain_label)
 	$"../ActionButtons".force_hide_all_green_borders()
@@ -1973,6 +1995,8 @@ func gioca_carta_subito(card: Node2D, slot: Node2D):
 	# ✅ Reset pending vars (puoi farlo ora, dopo tween)
 	pending_card_to_place = null
 	pending_slot_to_place = null
+	await cm.apply_next_played_card_bonuses(card_to_place)
+	
 	
 	
 	apply_existing_aura_effect(card_to_place)
@@ -2277,6 +2301,8 @@ func play_card_here_and_for_clients_opponent(player_id, card_data_dict: Dictiona
 
 	# 🔹 Aggiorna anche lato avversario
 	$"../CombatManager".set_last_played_card(new_card, player_id)
+	await $"../CombatManager".apply_next_played_card_bonuses(new_card)
+	
 	apply_existing_aura_effect_per_rpc(new_card)
 
 	if new_card.card_data.card_type == "Creature":

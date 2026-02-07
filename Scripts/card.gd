@@ -1668,7 +1668,7 @@ func _on_self_lost_while_condition(card: Card) -> void:
 
 	var combat_manager = get_tree().get_current_scene().get_node_or_null("PlayerField/CombatManager")
 	if combat_manager and combat_manager.has_method("remove_while_effects_from_source"):
-		combat_manager.remove_while_effects_from_source(self)
+		combat_manager.remove_while_effects_from_source(self,null)
 
 
 func _on_self_damage_dealt(source_card: Card, damage_amount: int, damage_type: String) -> void:
