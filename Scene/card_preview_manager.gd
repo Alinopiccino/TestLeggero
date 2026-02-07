@@ -677,102 +677,103 @@ func build_buff_tooltip_text(arg) -> String:
 			value_color = "#ffffff"    # 🤍 bianco puro per i numeri neutrali
 			title_text = "Spell Modifiers"
 			effect_color = "#ffffff"   # 🤍 bianco anche per i testi degli effetti
-
-		if card_data.scaling_1 == "MagnitudeSpellPower":
-			var empowered_total = card_data.effect_magnitude_1 + (total_spell_power * card_data.spell_multiplier)
-			var label = str(card_data.effect_1)
-			if card_data.effect_1 == "None":
-				label = "Effect 1"
-			empowered_lines.append("[font_size=40]" + label + ": [b][color=%s]%d[/color][/b][/font_size]" % [effect_color, empowered_total])
-
-		if card_data.scaling_2 == "MagnitudeSpellPower":
-			var empowered_total2 = card_data.effect_magnitude_2 + (total_spell_power * card_data.spell_multiplier)
-			var label2 = str(card_data.effect_2)
-			if card_data.effect_2 == "None":
-				label2 = "Effect 2"
-			empowered_lines.append("[font_size=40]" + label2 + ": [b][color=%s]%d[/color][/b][/font_size]" % [effect_color, empowered_total2])
-
-		if card_data.scaling_1 == "ThresholdSpellPower":
-			var empowered_total = card_data.effect_1_threshold + (total_spell_power * card_data.spell_multiplier)
-			var label = str(card_data.effect_1)
-			label = "Threshold"
-			empowered_lines.append("[font_size=40]" + label + ": [b][color=%s]%d[/color][/b][/font_size]" % [effect_color, empowered_total])
-
-		if card_data.scaling_2 == "ThresholdSpellPower":
-			var empowered_total2 = card_data.effect_2_threshold + (total_spell_power * card_data.spell_multiplier)
-			var label2 = str(card_data.effect_2)
-			label2 = "Threshold"
-			empowered_lines.append("[font_size=40]" + label2 + ": [b][color=%s]%d[/color][/b][/font_size]" % [effect_color, empowered_total2])
-		# 🪄 Fonti di Spell Power
-		if total_SP != 0:
-			var col = "#7dff7d" if total_SP > 0 else "#ff6b6b"
-			var generic_sources = cm.spell_power_sources.get("Generic", [])
-			var relevant_sources: Array[String] = []
-			for s in generic_sources:
-				if s.get("enemy", false) == is_enemy and s.get("value", 0) != 0:
-					var src_name = s.get("source", "")
-					if src_name != "":
-						relevant_sources.append(src_name)
-
-			if relevant_sources.size() <= 1:
-				var src_text = ""
-				if relevant_sources.size() == 1:
-					src_text = " [font_size=35][i][color=#ffcc00](%s)[/color][/i][/font_size]" % relevant_sources[0]
-				power_breakdown += "[font_size=35][color=%s]%+d Spell Power%s[/color][/font_size]\n" % [col, total_SP, src_text]
-			else:
-				power_breakdown += "[font_size=35][color=%s]%+d Spell Power:[/color][/font_size]\n" % [col, total_SP]
-				for src in relevant_sources:
-					power_breakdown += "    [font_size=35][i][color=#ffcc00](%s)[/color][/i][/font_size]\n" % src
-
-		if elemental_SP != 0 and attr != "" and attr != "None":
-			var color_map = {
-				"Fire": "#ffa31a",   # 🔥 arancione brillante, più chiaro e luminoso
-				"Water": "#40c0ff",  # 💧 azzurro medio bilanciato
-				"Earth": "#b47d32",  # 🌍 marrone caldo
-				"Wind": "#00ffe5"    # 🌪️ turchese acceso e luminoso
-			}
-			var col_elem = color_map.get(attr, "#ffd27f")
-			var col_value = "#7dff7d" if elemental_SP > 0 else "#ff6b6b"
-
-			var elem_sources = cm.spell_power_sources.get(attr, [])
-			var relevant_elem_sources: Array[String] = []
-			for s in elem_sources:
-				if s.get("enemy", false) == is_enemy and s.get("value", 0) != 0:
-					var src_name = s.get("source", "")
-					if src_name != "":
-						relevant_elem_sources.append(src_name)
-
-			var attr_colored = "[color=%s]%s[/color]" % [color_map.get(attr, "#ffd27f"), attr]
-
-			if relevant_elem_sources.size() <= 1:
-				var src_text2 = ""
-				if relevant_elem_sources.size() == 1:
-					src_text2 = " [font_size=35][i][color=#ffcc00](%s)[/color][/i][/font_size]" % relevant_elem_sources[0]
-
-				# ✅ +2 (verde) + parola elemento colorata + Spell Power (verde)
-				power_breakdown += "[font_size=35][color=%s]%+d %s Spell Power[/color]%s\n" % [col_value, elemental_SP, attr_colored, src_text2]
-			else:
-				power_breakdown += "[font_size=35][color=%s]%+d %s Spell Power:[/color][/font_size]\n" % [col_value, elemental_SP, attr_colored]
-				for src in relevant_elem_sources:
-					power_breakdown += "    [font_size=35][i][color=#ffcc00](%s)[/color][/i][/font_size]\n" % src
-
-
-
-		if card_data.base_spell_power != 0:
-			var col_base = "#7dff7d" if card_data.base_spell_power > 0 else "#ff6b6b"
-			power_breakdown += "[font_size=35][color=%s]%+d Spell Power [font_size=35][i][color=#ffcc00](Card)[/color][/i][/font_size]\n" % [col_base, card_data.base_spell_power]
-
-		var total_bonus_value = total_spell_power * card_data.spell_multiplier
-		
-
-		# 🔮 Spell Power breakdown (se presente)
+			
 		if has_any_sp_change:
-			var text_desc := "Spell Power modifiers applied.\n\n"
-			empowered_text += text_desc + power_breakdown + "\n"
+			if card_data.scaling_1 == "MagnitudeSpellPower":
+				var empowered_total = card_data.effect_magnitude_1 + (total_spell_power * card_data.spell_multiplier)
+				var label = str(card_data.effect_1)
+				if card_data.effect_1 == "None":
+					label = "Effect 1"
+				empowered_lines.append("[font_size=40]" + label + ": [b][color=%s]%d[/color][/b][/font_size]" % [effect_color, empowered_total])
 
-		# ✨ Spell effects scalati
-		for line in empowered_lines:
-			empowered_text += line + "\n"
+			if card_data.scaling_2 == "MagnitudeSpellPower":
+				var empowered_total2 = card_data.effect_magnitude_2 + (total_spell_power * card_data.spell_multiplier)
+				var label2 = str(card_data.effect_2)
+				if card_data.effect_2 == "None":
+					label2 = "Effect 2"
+				empowered_lines.append("[font_size=40]" + label2 + ": [b][color=%s]%d[/color][/b][/font_size]" % [effect_color, empowered_total2])
+
+			if card_data.scaling_1 == "ThresholdSpellPower":
+				var empowered_total = card_data.effect_1_threshold + (total_spell_power * card_data.spell_multiplier)
+				var label = str(card_data.effect_1)
+				label = "Threshold"
+				empowered_lines.append("[font_size=40]" + label + ": [b][color=%s]%d[/color][/b][/font_size]" % [effect_color, empowered_total])
+
+			if card_data.scaling_2 == "ThresholdSpellPower":
+				var empowered_total2 = card_data.effect_2_threshold + (total_spell_power * card_data.spell_multiplier)
+				var label2 = str(card_data.effect_2)
+				label2 = "Threshold"
+				empowered_lines.append("[font_size=40]" + label2 + ": [b][color=%s]%d[/color][/b][/font_size]" % [effect_color, empowered_total2])
+			# 🪄 Fonti di Spell Power
+			if total_SP != 0:
+				var col = "#7dff7d" if total_SP > 0 else "#ff6b6b"
+				var generic_sources = cm.spell_power_sources.get("Generic", [])
+				var relevant_sources: Array[String] = []
+				for s in generic_sources:
+					if s.get("enemy", false) == is_enemy and s.get("value", 0) != 0:
+						var src_name = s.get("source", "")
+						if src_name != "":
+							relevant_sources.append(src_name)
+
+				if relevant_sources.size() <= 1:
+					var src_text = ""
+					if relevant_sources.size() == 1:
+						src_text = " [font_size=35][i][color=#ffcc00](%s)[/color][/i][/font_size]" % relevant_sources[0]
+					power_breakdown += "[font_size=35][color=%s]%+d Spell Power%s[/color][/font_size]\n" % [col, total_SP, src_text]
+				else:
+					power_breakdown += "[font_size=35][color=%s]%+d Spell Power:[/color][/font_size]\n" % [col, total_SP]
+					for src in relevant_sources:
+						power_breakdown += "    [font_size=35][i][color=#ffcc00](%s)[/color][/i][/font_size]\n" % src
+
+			if elemental_SP != 0 and attr != "" and attr != "None":
+				var color_map = {
+					"Fire": "#ffa31a",   # 🔥 arancione brillante, più chiaro e luminoso
+					"Water": "#40c0ff",  # 💧 azzurro medio bilanciato
+					"Earth": "#b47d32",  # 🌍 marrone caldo
+					"Wind": "#00ffe5"    # 🌪️ turchese acceso e luminoso
+				}
+				var col_elem = color_map.get(attr, "#ffd27f")
+				var col_value = "#7dff7d" if elemental_SP > 0 else "#ff6b6b"
+
+				var elem_sources = cm.spell_power_sources.get(attr, [])
+				var relevant_elem_sources: Array[String] = []
+				for s in elem_sources:
+					if s.get("enemy", false) == is_enemy and s.get("value", 0) != 0:
+						var src_name = s.get("source", "")
+						if src_name != "":
+							relevant_elem_sources.append(src_name)
+
+				var attr_colored = "[color=%s]%s[/color]" % [color_map.get(attr, "#ffd27f"), attr]
+
+				if relevant_elem_sources.size() <= 1:
+					var src_text2 = ""
+					if relevant_elem_sources.size() == 1:
+						src_text2 = " [font_size=35][i][color=#ffcc00](%s)[/color][/i][/font_size]" % relevant_elem_sources[0]
+
+					# ✅ +2 (verde) + parola elemento colorata + Spell Power (verde)
+					power_breakdown += "[font_size=35][color=%s]%+d %s Spell Power[/color]%s\n" % [col_value, elemental_SP, attr_colored, src_text2]
+				else:
+					power_breakdown += "[font_size=35][color=%s]%+d %s Spell Power:[/color][/font_size]\n" % [col_value, elemental_SP, attr_colored]
+					for src in relevant_elem_sources:
+						power_breakdown += "    [font_size=35][i][color=#ffcc00](%s)[/color][/i][/font_size]\n" % src
+
+
+
+			if card_data.base_spell_power != 0:
+				var col_base = "#7dff7d" if card_data.base_spell_power > 0 else "#ff6b6b"
+				power_breakdown += "[font_size=35][color=%s]%+d Spell Power [font_size=35][i][color=#ffcc00](Card)[/color][/i][/font_size]\n" % [col_base, card_data.base_spell_power]
+
+			var total_bonus_value = total_spell_power * card_data.spell_multiplier
+			
+
+			# 🔮 Spell Power breakdown (se presente)
+			if has_any_sp_change:
+				var text_desc := "Spell Power modifiers applied.\n\n"
+				empowered_text += text_desc + power_breakdown + "\n"
+
+			# ✨ Spell effects scalati
+			for line in empowered_lines:
+				empowered_text += line + "\n"
 
 		# 🔥 NEXT PLAYED CARD BONUS
 		if not next_bonus_lines.is_empty():

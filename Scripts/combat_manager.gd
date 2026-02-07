@@ -5750,7 +5750,7 @@ func apply_simple_effect_to_card(card: Node, effect: String, magnitude: int, sou
 
 			var additional_req = null
 			# 📌 Leggi il subtype DIRETTAMENTE dal CardData
-			if source_card.card_data.targeting_type == "MyNextNormalSpell":
+			if source_card.card_data.t_subtype_1 == "MyNextNormalSpell":
 				additional_req = "normal"
 
 			cm.register_next_played_spell_repeat_bonus(player_id,max_cost,repeat_amount,source_card,additional_req)
@@ -5830,10 +5830,12 @@ func apply_next_played_card_bonuses(card: Node2D, owner_id: int):
 func card_matches_next_played_bonus(card: Node2D, bonus: Dictionary, owner_id: int) -> bool:
 	# 🧠 owner check (stile set_last_played_card)
 	if bonus.owner_id != owner_id:
+		print("NON E' OWNER GIUSTO")
 		return false
 
 	# 🎯 tipo carta
 	if bonus.card_type != card.card_data.card_type:
+		print("NON E' IL TIPO GIUSTO")
 		return false
 
 	# 🔎 Additional requirement
@@ -5841,7 +5843,7 @@ func card_matches_next_played_bonus(card: Node2D, bonus: Dictionary, owner_id: i
 	if req != null:
 		match req:
 			"normal":
-				if card.card_data.spell_subtype != "Normal":
+				if card.card_data.card_class != "NormalSpell":
 					print("NON E' NORMALE QUINDI SKIPPO")
 					return false
 	# 💰 calcolo costo mana
@@ -5859,6 +5861,7 @@ func card_matches_next_played_bonus(card: Node2D, bonus: Dictionary, owner_id: i
 			mana_cost += 1
 
 	if mana_cost > bonus.max_mana_cost:
+		print("NON E' MANA COST GIUSTO")
 		return false
 
 	# ✅ tutti i criteri rispettati
