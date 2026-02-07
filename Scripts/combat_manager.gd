@@ -5826,6 +5826,7 @@ func apply_next_played_card_bonuses(card: Node2D, owner_id: int):
 	# 🧹 one-shot
 	for b in bonuses_to_remove:
 		cm.next_played_card_bonuses.erase(b)
+		clear_next_card_buffed_borders()
 		
 func card_matches_next_played_bonus(card: Node2D, bonus: Dictionary, owner_id: int) -> bool:
 	# 🧠 owner check (stile set_last_played_card)
