@@ -8130,13 +8130,15 @@ func remove_temporary_spellpower_effects():
 
 
 func remove_while_effects_from_source(source_card: Card, condition_source: Card) -> void:
-	if not is_instance_valid(source_card) or not is_instance_valid(condition_source):
-		return
-
-	print("🧹 [CLEANUP] Rimozione effetti While da",
-		source_card.card_data.card_name,
-		"causati da",
-		condition_source.card_data.card_name)
+	#if not is_instance_valid(source_card) or not is_instance_valid(condition_source):
+		#print("RITRNOOOSOSO")
+		#return
+	print("🧹 [CLEANUP] Rimozione effetti While da",source_card.card_data.card_name)
+	if is_instance_valid(condition_source):
+		print("🧹 [CLEANUP] Rimozione effetti While da",
+			source_card.card_data.card_name,
+			"causati da",
+			condition_source.card_data.card_name)
 
 	var all_cards = player_creatures_on_field + opponent_creatures_on_field \
 		+ player_spells_on_field + opponent_spells_on_field
@@ -8166,11 +8168,14 @@ func remove_while_effects_from_source(source_card: Card, condition_source: Card)
 					break
 
 		if affected:
+			var equip_name := "GLOBAL"
+			if is_instance_valid(condition_source):
+				equip_name = condition_source.card_data.card_name
+
 			print("🧩 [WHILE CLEANUP] Rimuovo While da",
 				target.card_data.card_name,
-				"(equip:",
-				condition_source.card_data.card_name,
-				")")
+				"(equip:", equip_name, ")")
+
 			remove_enchant_effects(source_card, target, condition_source)
 
 	print("✅ [CLEANUP] While rimossi solo per equip distrutto")
@@ -8879,7 +8884,7 @@ func notify_summon_global(summoned_card: Card) -> void:
 			continue
 		if c == summoned_card:
 			continue
-		if c.card_data and c.card_data.trigger_type == "While_NoOtherAlly":
+		if c.card_data and c.card_data.trigger_type == "While_NoOtherAlly" or c.card_data.trigger_type == "IF_NoOtherAlly":
 			print("📣 [SIGNAL] Invio on_ally_summoned →", c.card_data.card_name)
 			c._on_ally_summoned(summoned_card)
 

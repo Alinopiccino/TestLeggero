@@ -1527,43 +1527,8 @@ func _on_self_summoned_on_field(card: Card, position: String) -> void:
 					print("CHAIN NON E' LOCKED")
 					card_manager.trigger_card_effect(self)
 
-	# 🧩 --- NUOVO BLOCCO: IF_NoOtherAlly ---
-	if card_data.trigger_type == "IF_NoOtherAlly":
-		await get_tree().create_timer(0.3).timeout
-		print("🧩 [AUTO] IF_NoOtherAlly check su summon per", card_data.card_name)
-		if combat_manager == null:
-			print("❌ CombatManager non trovato!")
-			return
 
-		# 🔍 Determina se la carta è nemica o del giocatore locale
-		var ally_creatures = []
-		if is_enemy_card():
-			ally_creatures = combat_manager.opponent_creatures_on_field
-		else:
-			ally_creatures = combat_manager.player_creatures_on_field
-
-		# ✅ Filtra solo le creature valide, escludendo se stessa
-		var valid_allies = []
-		for c in ally_creatures:
-			if is_instance_valid(c) and c != self:
-				valid_allies.append(c)
-
-		# ✅ Se non ci sono altre creature alleate → condizione soddisfatta
-		if valid_allies.size() == 0:
-			print("✨ [TRIGGER] IF_NoOtherAlly attivato per", card_data.card_name)
-
-			if combat_manager.chain_locked:
-				print("⏸️ [QUEUE] Chain attiva → accodo effetto in triggered_effects_this_chain_link")
-				combat_manager.triggered_effects_this_chain_link.append({
-					"card": self,
-					"owner_id": multiplayer.get_unique_id()
-				})
-			else:
-				if card_manager and card_manager.has_method("trigger_card_effect"):
-					card_manager.trigger_card_effect(self)
-
-
-	if card_data.trigger_type == "While_NoOtherAlly":
+	if card_data.trigger_type == "While_NoOtherAlly" or card_data.trigger_type == "IF_NoOtherAlly":
 		await get_tree().create_timer(0.3).timeout
 		print("🧩 [AUTO] While_NoOtherAlly check su summon per", card_data.card_name)
 		if combat_manager == null:
@@ -1585,7 +1550,7 @@ func _on_self_summoned_on_field(card: Card, position: String) -> void:
 
 		# ✅ Se non ci sono altre creature alleate → condizione soddisfatta
 		if valid_allies.size() == 0:
-			print("✨ [TRIGGER] While_NoOtherAlly attivato per", card_data.card_name)
+			print("✨ [TRIGGER] While_NoOtherAlly/IF_NoOtherAlly attivato per", card_data.card_name)
 
 			if combat_manager.chain_locked:
 				print("⏸️ [QUEUE] Chain attiva → accodo effetto in triggered_effects_this_chain_link")
@@ -1658,7 +1623,7 @@ func _on_ally_summoned(summoned_card: Card) -> void:
 			valid_allies.append(c)
 
 	if valid_allies.size() > 0:
-		print("❌ [WHILE LOST] While_NoOtherAlly perso da", card_data.card_name, "perché è entrata", summoned_card.card_data.card_name)
+		print("❌ [WHILE LOST] While_NoOtherAlly/IF_no_otherAlly perso da", card_data.card_name, "perché è entrata", summoned_card.card_data.card_name)
 		emit_signal("lost_while_condition", self)
 
 

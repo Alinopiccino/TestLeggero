@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_g4udr"]
+[ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_4qvqy"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Centauro Solitario.tres" id="2_siqlh"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Firebolt.tres" id="3_siqlh"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Flaming Lion.tres" id="4_pb6oc"]
+
+[resource]
+script = ExtResource("2_4qvqy")
+deck_name = "asdsaagsa"
+cards = Array[ExtResource("1_g4udr")]([ExtResource("2_siqlh"), ExtResource("2_siqlh"), ExtResource("2_siqlh"), ExtResource("3_siqlh"), ExtResource("3_siqlh"), ExtResource("3_siqlh"), ExtResource("4_pb6oc"), ExtResource("4_pb6oc"), ExtResource("4_pb6oc")])
+is_valid = false
+mana_sort_state = "none"
+rank_sort_state = "none"
+mana_slot_1 = "Earth"
+mana_slot_2 = "Earth"
+mana_slot_3 = "Earth"
+mana_slot_4 = "Fire"
+mana_slot_5 = "Fire"
