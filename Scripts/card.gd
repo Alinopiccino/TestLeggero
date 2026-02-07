@@ -272,7 +272,9 @@ func play_flip_to_faceup():
 	# 🆕 --- NUOVO BLOCCO: aggiorna last_played_card e applica Spell Power ---
 	var combat_manager = get_tree().get_current_scene().get_node_or_null("PlayerField/CombatManager")
 	var card_manager = get_tree().get_current_scene().get_node_or_null("PlayerField/CardManager")
-
+	
+	await combat_manager.apply_next_played_card_bonuses(self, multiplayer.get_unique_id())
+	
 	if combat_manager and card_manager:
 		var is_local_card = not is_enemy_card()
 		if is_local_card and card_is_in_slot:
@@ -1760,3 +1762,21 @@ func on_direct_damage_fully_resolved(attacking_card: Card, damage_amount: int, d
 		})
 	elif card_manager and is_instance_valid(self):
 		card_manager.trigger_card_effect(self,true)
+
+
+func show_next_card_buffed_border(show: bool, on_field: bool = false) -> void:
+	var border := get_node_or_null("NextCardBuffedBorder")
+	if not border:
+		return
+
+	border.visible = show
+
+	if show:
+		if on_field:
+			border.scale = Vector2(0.8, 0.78)
+		else:
+			border.scale = Vector2(1.0, 1.0)
+			
+	## ✨ animazione SOLO in mano
+	#if not on_field:
+		#start_overlay_animation(border)

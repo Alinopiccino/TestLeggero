@@ -510,7 +510,9 @@ func build_debuff_tooltip_text(arg) -> String:
 func build_buff_tooltip_text(arg) -> String:
 	var tooltip_text = ""
 	var card_data: CardData = null
-
+	var next_bonus_lines: Array[String] = []
+	if arg is Card:
+		next_bonus_lines = get_next_played_bonus_lines(arg, card_data)
 	if arg is Card:
 		card_data = arg.card_data
 	elif arg is CardData:
@@ -646,18 +648,26 @@ func build_buff_tooltip_text(arg) -> String:
 		card_data.base_spell_power != 0
 	)
 
-	if (card_data.scaling_1 == "MagnitudeSpellPower" or card_data.scaling_2 == "MagnitudeSpellPower" or card_data.scaling_1 == "ThresholdSpellPower" or card_data.scaling_2 == "ThresholdSpellPower") and has_any_sp_change:
+	#if (card_data.scaling_1 == "MagnitudeSpellPower" or card_data.scaling_2 == "MagnitudeSpellPower" or card_data.scaling_1 == "ThresholdSpellPower" or card_data.scaling_2 == "ThresholdSpellPower") and has_any_sp_change:
+	var has_spell_scaling := (
+	card_data.scaling_1 in ["MagnitudeSpellPower", "ThresholdSpellPower"] or
+	card_data.scaling_2 in ["MagnitudeSpellPower", "ThresholdSpellPower"]
+)
+
+	var has_empowered_content = has_any_sp_change or not next_bonus_lines.is_empty()
+	var empowered_text := ""
+	if (has_spell_scaling and has_any_sp_change) or not next_bonus_lines.is_empty():
 		var title_color := ""
 		var value_color := ""
 		var title_text := ""
 		var effect_color := ""
 
-		if total_spell_power > 0:
+		if total_spell_power > 0 or not next_bonus_lines.is_empty():
 			title_color = "#7dff7d"   # ✅ verde come gli altri buff
 			value_color = "#7dff7d"
 			title_text = "Empowered"
 			effect_color = "#7dff7d"
-		elif total_spell_power < 0:
+		elif total_spell_power < 0 and next_bonus_lines.is_empty():
 			title_color = "#A02B2B"
 			value_color = "#ff6b6b"
 			title_text = "Weakened"
@@ -665,7 +675,7 @@ func build_buff_tooltip_text(arg) -> String:
 		else:
 			title_color = "#b175ff"    # 💜 viola chiaro e luminoso
 			value_color = "#ffffff"    # 🤍 bianco puro per i numeri neutrali
-			title_text = "Spell Power Modifiers"
+			title_text = "Spell Modifiers"
 			effect_color = "#ffffff"   # 🤍 bianco anche per i testi degli effetti
 
 		if card_data.scaling_1 == "MagnitudeSpellPower":
@@ -753,14 +763,31 @@ func build_buff_tooltip_text(arg) -> String:
 			power_breakdown += "[font_size=35][color=%s]%+d Spell Power [font_size=35][i][color=#ffcc00](Card)[/color][/i][/font_size]\n" % [col_base, card_data.base_spell_power]
 
 		var total_bonus_value = total_spell_power * card_data.spell_multiplier
-		var text_desc := "Spell Power modifiers applied.\n\n"
+		
 
-		var empowered_text = text_desc + power_breakdown + "\n"
+		# 🔮 Spell Power breakdown (se presente)
+		if has_any_sp_change:
+			var text_desc := "Spell Power modifiers applied.\n\n"
+			empowered_text += text_desc + power_breakdown + "\n"
+
+		# ✨ Spell effects scalati
 		for line in empowered_lines:
 			empowered_text += line + "\n"
 
+		# 🔥 NEXT PLAYED CARD BONUS
+		if not next_bonus_lines.is_empty():
+			#if empowered_text != "":
+				#empowered_text += "\n"
+				#empowered_text += "[font_size=45][b]Next Played Card[/b][/font_size]\n"
+		#	# ➕ spazio extra SOLO se c'erano effetti Spell Power prima
+			if has_any_sp_change or not empowered_lines.is_empty():
+				empowered_text += "\n"
+			
+			for line in next_bonus_lines:
+				empowered_text += line + "\n"
+
 		var title_colored = "[color=%s]%s[/color]" % [title_color, title_text]
-		tooltip_text += format_tooltip(title_colored, empowered_text) + "\n\n"
+		tooltip_text += format_tooltip(title_colored, empowered_text)
 
 	# -------------------------------------------------------------------------
 	# 🔹 FALLBACK DI SICUREZZA — Stat MAX alterate senza buff logici visibili
@@ -784,6 +811,18 @@ func build_buff_tooltip_text(arg) -> String:
 
 			tooltip_text += "[font_size=50][b][i][color=#7dff7d]Increased Stats[/color][/i][/b][/font_size]\n"
 			tooltip_text += "[font_size=40]- " + line + "[/font_size]\n"
+
+	## -------------------------------------------------------------------------
+	## ✨ NEXT PLAYED CARD BONUS (integrato nei buff)
+	## -------------------------------------------------------------------------
+	#if arg is Card:
+		#var border = arg.get_node_or_null("NextCardBuffedBorder")
+		#if border and border.visible:
+			#next_bonus_lines = get_next_played_bonus_lines(arg, card_data)
+			#if not next_bonus_lines.is_empty():
+#
+				#for line in next_bonus_lines:
+					#tooltip_text += "[font_size=40]- " + line + "[/font_size]\n"
 
 
 	return tooltip_text
@@ -898,3 +937,31 @@ func update_stat_labels(show_original: bool = false) -> void:
 			health_label.modulate = Color(0.8, 0, 0)
 		else:
 			health_label.modulate = Color(0, 0, 0)
+
+func get_next_played_bonus_lines(card, card_data: CardData) -> Array[String]:
+	var cm := $"../CombatManager"
+	if not cm:
+		return []
+
+	# 🧠 preview UI → sempre player locale
+	var owner_id := multiplayer.get_unique_id()
+
+	var lines: Array[String] = []
+
+	for bonus in cm.next_played_card_bonuses:
+		if not cm.card_matches_next_played_bonus(card, bonus, owner_id):
+			continue
+
+		var source_text := ""
+		var source_card = bonus.get("source_card", null)
+		if is_instance_valid(source_card) and source_card.card_data:
+			source_text = " [font_size=35][i][color=#ffcc00](%s)[/color][/i][/font_size]" % source_card.card_data.card_name
+
+		match bonus.type:
+			"AddRepeats":
+				lines.append(
+					"[font_size=35][color=#7dff7d]+%d Repeats[/color]%s[/font_size]"
+					% [bonus.amount, source_text]
+				)
+
+	return lines

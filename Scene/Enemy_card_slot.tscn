@@ -17,7 +17,6 @@ texture = ExtResource("1_mddvd")
 [node name="SlotBorder" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(0, -6.96182e-05)
-scale = Vector2(1, 1)
 texture = ExtResource("2_c6kbc")
 
 [node name="Area2D" type="Area2D" parent="."]

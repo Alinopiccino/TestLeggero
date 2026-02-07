@@ -28,6 +28,7 @@ var just_summoned_creature: Array = []
 var just_played_spell: Array = []
 var next_played_card_bonuses: Array[Dictionary] = []
 
+
 var setted_this_turn: Array = []
 var summoned_this_turn: Array = []
 
@@ -1452,6 +1453,7 @@ func apply_untargeted_effect_here_and_replicate_client_opponent(player_id, sourc
 							elif effect_name in ["BuffSpellPower", "BuffFireSpellPower", "BuffWaterSpellPower", "BuffEarthSpellPower", "BuffWindSpellPower"]:
 								apply_simple_effect_to_card(source_card, effect_name, magnitude, source_card, player_id)
 					"MyNextNormalSpell":
+						print("MY NEXT NORMAL SPELL AGGIUNGO CONDITION NORMAL AL BUFF NEXT SPELL")
 						apply_simple_effect_to_card(source_card, effect_name, magnitude, source_card, player_id)
 					"None", _:
 						print("APPLICO EFFETTO NONE")
@@ -2506,7 +2508,8 @@ func apply_effect_here_and_replicate_client_opponent(player_id, source_card_name
 			source_card.get_node("ActionBorder").z_index = -1
 			source_card.get_node("ActionBorder").visible = false
 			var ab = source_card.get_node("ActionBorder")
-			
+		if source_card.has_node("NextCardBuffedBorder"):
+			source_card.get_node("NextCardBuffedBorder").visible = false
 		var owner = "Player" if is_attacker else "Opponent"
 		rpc("hide_action_border_on_card", source_card.name, owner)
 	
@@ -3529,7 +3532,8 @@ func tribute_card(card, card_owner, is_for_tribute_summ: bool = false):
 		card.get_node("RedHighlightBorder").visible = false
 	if card.has_node("GreenHighlightBorder"):
 		card.get_node("GreenHighlightBorder").visible = false
-
+	if card.has_node("NextCardBuffedBorder"):
+		card.get_node("NextCardBuffedBorder").visible = false
 	remove_chain_overlay(card)
 
 	if card.has_node("AttackOverlay"):
@@ -3731,7 +3735,9 @@ func apply_bouncer_effect(card: Node2D, card_owner: String, is_for_tribute_summ:
 		card.get_node("RedHighlightBorder").visible = false
 	if card.has_node("GreenHighlightBorder"):
 		card.get_node("GreenHighlightBorder").visible = false
-	
+	if card.has_node("NextCardBuffedBorder"):
+		card.get_node("NextCardBuffedBorder").visible = false
+		
 	if effect_stack.size() <= 1:        # FIXA BUG CHE QUANDO ATTACCANTE MUORE NON SCOMPAIONO I REDBORDER
 		# 🔁 Rimuovi RedHighlightBorder da tutte le carte sul campo (inline, senza funzione)
 		for c in player_creatures_on_field:
@@ -4123,7 +4129,9 @@ func destroy_card(card, card_owner, is_for_tribute_summ: bool = false):
 		card.get_node("RedHighlightBorder").visible = false
 	if card.has_node("GreenHighlightBorder"):
 		card.get_node("GreenHighlightBorder").visible = false
-	
+	if card.has_node("NextCardBuffedBorder"):
+		card.get_node("NextCardBuffedBorder").visible = false
+		
 	if effect_stack.size() <= 1:        # FIXA BUG CHE QUANDO ATTACCANTE MUORE NON SCOMPAIONO I REDBORDER
 		# 🔁 Rimuovi RedHighlightBorder da tutte le carte sul campo (inline, senza funzione)
 		for c in player_creatures_on_field:
@@ -5740,14 +5748,13 @@ func apply_simple_effect_to_card(card: Node, effect: String, magnitude: int, sou
 			#if max_cost <= 0:
 				#max_cost = 1  # fallback di sicurezza
 
-			cm.register_next_played_spell_repeat_bonus(
-				player_id,
-				max_cost,
-				repeat_amount,
-				source_card
-			)
+			var additional_req = null
+			# 📌 Leggi il subtype DIRETTAMENTE dal CardData
+			if source_card.card_data.targeting_type == "MyNextNormalSpell":
+				additional_req = "normal"
 
-			print("🔁 [ADD REPEATS] Prossima Spell ≤", max_cost,
+			cm.register_next_played_spell_repeat_bonus(player_id,max_cost,repeat_amount,source_card,additional_req)
+			print("🔁 [ADD REPEATS] Prossima", additional_req," Spell ≤", max_cost,
 				"otterrà +", repeat_amount, " repeat")
 
 		_:
@@ -5759,88 +5766,103 @@ func apply_simple_effect_to_card(card: Node, effect: String, magnitude: int, sou
 	return card.card_data.health == 0
 
 
-func register_next_played_spell_repeat_bonus(owner_id: int, max_cost: int, repeat_amount: int,source_card: Node):
-	next_played_card_bonuses.append({
+func register_next_played_spell_repeat_bonus(owner_id: int,max_cost: int,repeat_amount: int,source_card: Node, additional_requirement = null):
+	var bonus := {
 		"type": "AddRepeats",
 		"amount": repeat_amount,
 		"max_mana_cost": max_cost,
 		"card_type": "Spell",
 		"owner_id": owner_id,
-		"expires": "EndPhase"
-	})
+		"expires": "EndPhase",
+		"source_card": source_card,   # ✅ AGGIUNTO
+		"additional_requirement": additional_requirement # ✅
+	}
+
+	next_played_card_bonuses.append(bonus)
 
 	print("✨ [BONUS] Prossima Spell ≤", max_cost, "ottiene +", repeat_amount, " repeat")
-	print("✨ [BONUS REGISTRATO]")
-	print(" ├─ Owner ID:", owner_id)
-	print(" ├─ Tipo:", "AddRepeats")
-	print(" ├─ Max Mana Cost:", max_cost)
-	print(" ├─ Amount:", repeat_amount)
-	print(" ├─ Source:", source_card.card_data.card_name)
-	print(" └─ Totale bonus attivi:", next_played_card_bonuses.size())
 
-	print("📋 [LISTA BONUS AGGIORNATA]")
-	for i in range(next_played_card_bonuses.size()):
-		var b = next_played_card_bonuses[i]
-		print(
-			" ", i, "→",
-			"Owner:", b.owner_id,
-			"| Type:", b.type,
-			"| +", b.amount,
-			"| ≤", b.max_mana_cost,
-			"| CardType:", b.card_type,
-			"| Expires:", b.expires,
-		)
+	# 🎨 PREVIEW IMMEDIATA SOLO SUL CLIENT PROPRIETARIO
+	if multiplayer.get_unique_id() != owner_id:
+		return
 
-func apply_next_played_card_bonuses(card: Node2D):
+	var player_hand_node = $"../PlayerHand"
+	if not player_hand_node:
+		return
+
+	for card in player_hand_node.player_hand:
+		if card_matches_next_played_bonus(card, bonus, owner_id):
+			card.show_next_card_buffed_border(true)
+			print("✨ [PREVIEW BONUS] Border ON su:", card.card_data.card_name)
+
+func clear_next_card_buffed_borders():
+	var hand = $"../PlayerHand"
+	if not hand:
+		return
+
+	for card in hand.player_hand:
+		card.show_next_card_buffed_border(false)
+
+func apply_next_played_card_bonuses(card: Node2D, owner_id: int):
 	var cm = $"../CombatManager"
-	var my_id = multiplayer.get_unique_id()
 
 	if cm.next_played_card_bonuses.is_empty():
 		return
 
 	var bonuses_to_remove: Array = []
-	
+
 	for bonus in cm.next_played_card_bonuses:
-		if bonus.owner_id != my_id:
-			print("NON SONO IO IL FRUITORE DEL BONUS")
+		if not cm.card_matches_next_played_bonus(card, bonus, owner_id):
 			continue
-
-		# 🎯 Tipo carta
-		if bonus.card_type != card.card_data.card_type:
-			continue
-
-		# 💰 Costo mana (conteggio slot non-None)
-		var mana_cost := 0
-		for cost in [
-			card.card_data.mana_cost_1,
-			card.card_data.mana_cost_2,
-			card.card_data.mana_cost_3,
-			card.card_data.mana_cost_4,
-			card.card_data.mana_cost_5,
-			card.card_data.mana_cost_6,
-			card.card_data.mana_cost_7
-		]:
-			if cost != "None":
-				mana_cost += 1
-
-		if mana_cost > bonus.max_mana_cost:
-			continue
-
-		# 🔥 BONUS APPLICABILE
+			
+		card.show_next_card_buffed_border(true, true)  #secondo true = on field.
 		match bonus.type:
 			"AddRepeats":
-				var current_repeats = int(card.card_data.repeats)
-				card.card_data.repeats = str(current_repeats + bonus.amount)
-
-				print("🔁 [BONUS CONSUMATO] +", bonus.amount,
-					" repeat su", card.card_data.card_name,
-					"→ repeats ora:", card.card_data.repeats)
+				var current := int(card.card_data.repeats)
+				card.card_data.repeats = str(current + bonus.amount)
 
 		bonuses_to_remove.append(bonus)
 
-	# 🧹 Consuma i bonus one-shot
+	# 🧹 one-shot
 	for b in bonuses_to_remove:
 		cm.next_played_card_bonuses.erase(b)
+		
+func card_matches_next_played_bonus(card: Node2D, bonus: Dictionary, owner_id: int) -> bool:
+	# 🧠 owner check (stile set_last_played_card)
+	if bonus.owner_id != owner_id:
+		return false
+
+	# 🎯 tipo carta
+	if bonus.card_type != card.card_data.card_type:
+		return false
+
+	# 🔎 Additional requirement
+	var req = bonus.get("additional_requirement", null)
+	if req != null:
+		match req:
+			"normal":
+				if card.card_data.spell_subtype != "Normal":
+					print("NON E' NORMALE QUINDI SKIPPO")
+					return false
+	# 💰 calcolo costo mana
+	var mana_cost := 0
+	for cost in [
+		card.card_data.mana_cost_1,
+		card.card_data.mana_cost_2,
+		card.card_data.mana_cost_3,
+		card.card_data.mana_cost_4,
+		card.card_data.mana_cost_5,
+		card.card_data.mana_cost_6,
+		card.card_data.mana_cost_7
+	]:
+		if cost != "None":
+			mana_cost += 1
+
+	if mana_cost > bonus.max_mana_cost:
+		return false
+
+	# ✅ tutti i criteri rispettati
+	return true
 
 # 💎 Controlla se il Magic Veil blocca l’effetto e gestisce l’animazione
 # 💎 Controlla se il Magic Veil blocca l’effetto e gestisce l’animazione
@@ -8022,7 +8044,8 @@ func stop_attack(card: Node) -> void:
 		card.get_node("GreenHighlightBorder").visible = false
 	if card.has_node("AttackOverlay"):
 		card.get_node("AttackOverlay").queue_free()
-
+	if card.has_node("NextCardBuffedBorder"):
+		card.get_node("NextCardBuffedBorder").visible = false
 	# 🔄 Rimuovi overlay chain
 	remove_chain_overlay(card)
 
@@ -8627,6 +8650,7 @@ func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_i
 							elif effect_name in ["BuffSpellPower", "BuffFireSpellPower", "BuffWaterSpellPower", "BuffEarthSpellPower", "BuffWindSpellPower"]:
 								apply_simple_effect_to_card(source_card, effect_name, magnitude, source_card, player_id, trigger_cause)
 					"MyNextNormalSpell":
+						print("MY NEXT NORMAL SPELL AGGIUNGO CONDITION NORMAL AL BUFF NEXT SPELL")
 						apply_simple_effect_to_card(source_card, effect_name, magnitude, source_card, player_id, trigger_cause)
 					"None", _:
 						print("APPLICO EFFETTO NONE")
@@ -8645,6 +8669,8 @@ func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_i
 	if source_card.card_is_in_slot:
 		if source_card.has_node("ActionBorder"):
 			source_card.get_node("ActionBorder").visible = false
+		if source_card.has_node("NextCardBuffedBorder"):
+			source_card.get_node("NextCardBuffedBorder").visible = false
 		rpc("hide_action_border_on_card", source_card.name)
 
 		if source_card.card_data.card_type == "Spell" and source_card.card_data.card_class != "ContinuousSpell" and source_card.card_data.card_class != "EquipSpell" and not source_card in cards_to_destroy_after_chain:
@@ -8678,7 +8704,8 @@ func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_i
 			source_card.get_node("ActionBorder").z_index = -1
 			source_card.get_node("ActionBorder").visible = false
 			var ab = source_card.get_node("ActionBorder")
-
+		if source_card.has_node("NextCardBuffedBorder"):
+			source_card.get_node("NextCardBuffedBorder").visible = false
 		var owner = "Player" if is_attacker else "Opponent"
 		rpc("hide_action_border_on_card", source_card.name, owner)
 		# 🔇 Spegnimento visivo bottoni RESOLVE e ENEMY RESOLVE
@@ -9599,7 +9626,7 @@ func apply_field_effect(effect: String, _is_attacker: bool) -> void:
 		# 🔍 Prende tutte le creature sul terreno (array già esistenti)
 		var all_creatures := []
 		all_creatures += $"../CombatManager".player_creatures_on_field
-		all_creatures += $"../CombatManager".opponent_creatures_on_field
+		#all_creatures += $"../CombatManager".opponent_creatures_on_field  #non serve vedere quelle di oppo perche' la chiamata e' gia' replicata su anche il suo client, le guarda da se'
 
 		for c in all_creatures:
 			if not is_instance_valid(c):

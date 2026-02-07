@@ -615,7 +615,8 @@ func rpc_set_spell_position(player_id: int, card_name: String, new_position: Str
 				# 🔹 AGGIORNA ULTIMA CARTA GIOCATA (come se fosse appena "attivata")
 				var combat_manager = get_tree().get_current_scene().get_node_or_null("PlayerField/CombatManager")
 				var card_manager = get_tree().get_current_scene().get_node_or_null("PlayerField/CardManager")
-
+				
+				await combat_manager.apply_next_played_card_bonuses(card, player_id)
 				if combat_manager:
 					combat_manager.last_played_card = {
 						"card": card,
@@ -887,18 +888,18 @@ func card_right_clicked(card):
 	# 🔒 BLOCCO GREEN BORDER
 
 
-	if green_border_context_active:
-		var card_class = card.card_data.card_class
-		var effect_type = card.card_data.effect_type
-		var effect_speed = card.card_data.effect_speed
-		var is_valid = (
-			card_class == "InstantSpell" or
-			(effect_type == "Activable" and effect_speed == "Quick")
-		)
-
-		if not is_valid or not card.has_node("GreenHighlightBorder") or not card.get_node("GreenHighlightBorder").visible:
-			print("⛔ Click ignorato: carta non ha il bordo verde visibile o non è valida per enchain:", card.name)
-			return
+	#if green_border_context_active:
+		#var card_class = card.card_data.card_class
+		#var effect_type = card.card_data.effect_type
+		#var effect_speed = card.card_data.effect_speed
+		#var is_valid = (
+			#card_class == "InstantSpell" or
+			#(effect_type == "Activable" and effect_speed == "Quick")
+		#)
+#
+		#if not is_valid or not card.has_node("GreenHighlightBorder") or not card.get_node("GreenHighlightBorder").visible:
+			#print("⛔ Click ignorato: carta non ha il bordo verde visibile o non è valida per enchain:", card.name)
+			#return
 
 	if card.position_type == "facedown":
 		print("🚫 Non puoi attivare effetti su una carta coperta:", card.name)
@@ -1995,7 +1996,7 @@ func gioca_carta_subito(card: Node2D, slot: Node2D):
 	# ✅ Reset pending vars (puoi farlo ora, dopo tween)
 	pending_card_to_place = null
 	pending_slot_to_place = null
-	await cm.apply_next_played_card_bonuses(card_to_place)
+	await cm.apply_next_played_card_bonuses(card_to_place, multiplayer.get_unique_id())
 	
 	
 	
@@ -2301,7 +2302,7 @@ func play_card_here_and_for_clients_opponent(player_id, card_data_dict: Dictiona
 
 	# 🔹 Aggiorna anche lato avversario
 	$"../CombatManager".set_last_played_card(new_card, player_id)
-	await $"../CombatManager".apply_next_played_card_bonuses(new_card)
+	await $"../CombatManager".apply_next_played_card_bonuses(new_card, player_id)
 	
 	apply_existing_aura_effect_per_rpc(new_card)
 

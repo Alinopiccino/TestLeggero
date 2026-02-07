@@ -398,5 +398,13 @@ position = Vector2(0, 3)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_cl8pl")
 
+[node name="NextCardBuffedBorder" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.647059, 0.556863, 1, 1)
+z_index = -2
+position = Vector2(8.04663e-06, 0)
+scale = Vector2(1.015, 1)
+texture = ExtResource("2_cl8pl")
+
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
