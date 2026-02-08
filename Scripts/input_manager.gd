@@ -96,35 +96,55 @@ func raycast_at_cursor():
 			if card.has_method("is_enemy_card") and card.is_enemy_card():
 				var cm = $"../CombatManager"
 				var card_manager = $"../CardManager"
+				var attacker = card_manager.selected_card
+				var attacker_has_flying = "Flying" in attacker.card_data.get_all_talents()
 				
 				if card_manager.selected_card and card_manager.selection_mode_active and card_manager.selection_purpose == "attack":
-					# 🛡️ Controllo Taunt: verifica se ci sono carte nemiche con talento "Taunt"
+					# 🛡️ Carte con Taunt sul campo
 					var enemy_cards = cm.opponent_creatures_on_field
 					var taunt_cards = enemy_cards.filter(func(c):
 						return "Taunt" in c.card_data.get_all_talents()
 					)
-					
-										# 🚫 Controllo Elusive: non puoi attaccare carte con questo talento
+
+					# 🚫 Controllo Elusive (immutato)
 					if card.is_elusive:
-						print("🚫 Bersaglio non valido:", card.name, "è ELUSIVE! L'attacco viene ignorato.")
-						return  # 🔒 blocca il click	
-					
+						print("🚫 Bersaglio non valido:", card.name, "è ELUSIVE!")
+						return
+
 					if taunt_cards.size() > 0:
-						# Se esiste almeno una carta con Taunt, puoi cliccare solo su quelle
-						if not ("Taunt" in card.card_data.get_all_talents()):
-							print("🚫 Hai cliccato", card.name, "ma ci sono nemici con TAUNT! Devi attaccare prima una carta con Taunt.")
-							
-							# 🔴 Effetto visivo sulla carta cliccata (errore)
-							if card.has_method("play_invalid_target_flash"):
-								card.play_invalid_target_flash()
-							
-							# 🟩 Evidenzia le carte con TAUNT che possono essere attaccate
-							for taunt_card in taunt_cards:
-								if is_instance_valid(taunt_card):
-									print("💡 Evidenzio carta con TAUNT:", taunt_card.name)
-									taunt_card.play_talent_icon_pulse("Taunt")
+						# 🛡️ Taunt che volano → SEMPRE prioritari
+						var flying_taunts = taunt_cards.filter(func(c):
+							return "Flying" in c.card_data.get_all_talents()
+						)
+
+						if flying_taunts.size() > 0:
+							# 👉 Se esistono Taunt+Flying, puoi colpire SOLO loro
+							if not flying_taunts.has(card):
+								print("🚫 Devi attaccare una carta con TAUNT + FLYING!")
+								
+								if card.has_method("play_invalid_target_flash"):
+									card.play_invalid_target_flash()
+								
+								for ft in flying_taunts:
+									if is_instance_valid(ft):
+										ft.play_talent_icon_pulse("Taunt")
+										ft.play_talent_icon_pulse("Flying")
+								return
+						else:
+							# 👉 Esistono solo Taunt normali
+							if not attacker_has_flying:
+								# niente Flying → regola classica
+								if not ("Taunt" in card.card_data.get_all_talents()):
+									print("🚫 Devi attaccare una carta con TAUNT!")
 									
-							return  # 🔒 blocca il click
+									if card.has_method("play_invalid_target_flash"):
+										card.play_invalid_target_flash()
+									
+									for t in taunt_cards:
+										if is_instance_valid(t):
+											t.play_talent_icon_pulse("Taunt")
+									return
+							# else: attacker vola → può ignorarli
 						
 				if card_manager.selected_card and card_manager.selected_card.card_data.card_type == "Spell" and card.card_data.card_type == "Creature":
 					var enemy_cards = cm.opponent_creatures_on_field

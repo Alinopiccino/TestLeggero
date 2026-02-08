@@ -28,7 +28,7 @@ var just_summoned_creature: Array = []
 var just_played_spell: Array = []
 var player_bonuses: Array[Dictionary] = []
 
-
+var flying_was_useful := false
 var setted_this_turn: Array = []
 var summoned_this_turn: Array = []
 
@@ -850,7 +850,7 @@ func direct_attack(attacking_card):  #CONSUMA AZIONE
 	var slot_name = attacking_card.current_slot.name
 	
 # 🔍 Calcola se Flying è utile PRIMA di inviare l'RPC TALENT FLYING
-	var flying_was_useful := false
+	
 	var attacker_talents = attacking_card.card_data.get_all_talents()
 
 	if "Flying" in attacker_talents:
@@ -934,20 +934,29 @@ func attack(attacking_card, defending_card):
 	var attacker_id = multiplayer.get_unique_id()
 	var defender_id = multiplayer.get_peers()[0] if defending_card.is_enemy_card() else attacker_id
 	rpc("sync_attack_flags", attacking_card.name, defending_card.name, attacker_id, defender_id)
+	
+	var attacker_talents = attacking_card.card_data.get_all_talents()
 
+	if "Flying" in attacker_talents:
+		for c in opponent_creatures_on_field:
+			if "Taunt" in c.card_data.get_all_talents():
+				# Se sto attaccando una creatura NON-Taunt, allora Flying è stato utile
+				if not ("Taunt" in defending_card.card_data.get_all_talents()):
+					flying_was_useful = true
+				break
 
 	print("🧪 attack RPC payload approx:",
 		var_to_bytes({
 			"a": attacking_card.name,
 			"d": defending_card.name,
 			"o": target_owner_id,
-			"s": slot_name
+			"s": slot_name,
+			"f": flying_was_useful
 			}).size(), "bytes"
 	)
 	rpc(
-		"attack_here_and_replicate_client_opponent",player_id,attacking_card.name,defending_card.name,target_owner_id,slot_name
-	)
-	attack_here_and_replicate_client_opponent(player_id,attacking_card.name,defending_card.name,target_owner_id,slot_name)
+		"attack_here_and_replicate_client_opponent",player_id,attacking_card.name,defending_card.name,target_owner_id,slot_name,flying_was_useful)
+	attack_here_and_replicate_client_opponent(player_id,attacking_card.name,defending_card.name,target_owner_id,slot_name,flying_was_useful)
 	
 	
 
@@ -2850,7 +2859,7 @@ func direct_attack_here_and_replicate_client_opponent(player_id: int,attacking_c
 
 	
 @rpc("any_peer")
-func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_name: String,defending_card_name: String,defending_owner_id: int,slot_name: String):
+func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_name: String,defending_card_name: String,defending_owner_id: int,slot_name: String, flying_was_useful: bool = false):
 	#var attacking_card_name = attacking_card_data.get("card_name", "")
 	#var defending_card_name = defending_card_data.get("card_name", "")
 	#var defending_owner_id = defending_card_data.get("owner_id", -1)
@@ -2882,7 +2891,12 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 	# 🔥 Accendi ActionBorder attaccante
 	if attacking_card.has_node("ActionBorder"):
 		attacking_card.get_node("ActionBorder").visible = true
-
+	# ✈️ Mostra l'animazione solo se Flying è presente ed è utile
+	var attacker_talents = attacking_card.card_data.get_all_talents()
+	if "Flying" in attacker_talents and flying_was_useful:
+		attacking_card.play_talent_icon_pulse("Flying")
+		await get_tree().create_timer(1.0).timeout  # piccola attesa per far vedere il pulse
+		
 	attacking_card.z_index = 5
 
 	if not "Ruthless" in attacking_card.card_data.get_all_talents():

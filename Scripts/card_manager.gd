@@ -1240,7 +1240,7 @@ func enter_selection_mode(card, purpose: String):
 
 		# caso speciale: TALENT FLYING (anche da buff)
 		var attacker_talents = card.card_data.get_all_talents()
-		if "Flying" in attacker_talents and not has_already_attacked and not enemy_has_flying_defenders and not enemy_has_taunt:
+		if "Flying" in attacker_talents and not has_already_attacked and not enemy_has_flying_defenders:
 			can_direct_attack = true
 		
 		if can_direct_attack:

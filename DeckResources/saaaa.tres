@@ -1,16 +1,16 @@
 [gd_resource type="Resource" script_class="DeckData" load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_onog3"]
-[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Oceanic Monster.tres" id="2_7v4dk"]
 [ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_js258"]
-[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Acquatic Warrior.tres" id="5_occti"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Spell Vanisher.tres" id="4_trgrv"]
+[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Warrior Maiden.tres" id="5_occti"]
 [ext_resource type="Resource" path="res://CardResources/WATER SPELLS/FREEZE!.tres" id="6_ojmac"]
 [ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Frozen Weapon .tres" id="7_xwrkv"]
 
 [resource]
 script = ExtResource("2_js258")
 deck_name = "saaaa"
-cards = Array[ExtResource("1_onog3")]([ExtResource("2_7v4dk"), ExtResource("2_7v4dk"), ExtResource("2_7v4dk"), ExtResource("6_ojmac"), ExtResource("6_ojmac"), ExtResource("6_ojmac"), ExtResource("7_xwrkv"), ExtResource("7_xwrkv"), ExtResource("5_occti"), ExtResource("5_occti"), ExtResource("5_occti")])
+cards = Array[ExtResource("1_onog3")]([ExtResource("6_ojmac"), ExtResource("6_ojmac"), ExtResource("6_ojmac"), ExtResource("7_xwrkv"), ExtResource("7_xwrkv"), ExtResource("4_trgrv"), ExtResource("4_trgrv"), ExtResource("4_trgrv"), ExtResource("5_occti"), ExtResource("5_occti"), ExtResource("5_occti")])
 is_valid = false
 mana_sort_state = "none"
 rank_sort_state = "none"
