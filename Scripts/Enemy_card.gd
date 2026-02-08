@@ -298,6 +298,28 @@ func _on_self_changed_position(card: Card, new_position: String) -> void:
 		return
 	var combat_manager = get_tree().get_current_scene().get_node_or_null("PlayerField/CombatManager")
 	# ⚠️ Rileva perdita della condizione While
+	
+	match new_position:
+		"defense":
+			if "Berserker" in card_data.get_all_talents():
+				print("💥 [Rotation] Berserker non può stare in difesa → autodistruzione tra 1s!")
+				await get_tree().create_timer(0.3).timeout
+				play_talent_icon_pulse("Berserker")
+				await get_tree().create_timer(0.7).timeout
+				var owner = "Player" if not is_enemy_card() else "Opponent"
+				combat_manager.destroy_card(self, owner)
+
+			# 🚫 Se la carta ha Elusive → perde il talento quando va in difesa
+			if "Elusive" in card_data.get_all_talents():
+				print("👁️‍🗨️ [Rotation] Elusive perso:", card_data.card_name)
+				is_elusive = false
+				remove_talent_overlay("Elusive")
+		"attack":
+			
+			if "Elusive" in card_data.get_all_talents():
+				is_elusive = true
+				_add_talent_overlay("Elusive")
+				
 	if card.card_data.trigger_type == "While_DEFpos" and new_position != "defense":
 		print("🧹 [ENEMY WHILE LOST] Carta", card.card_data.card_name, "ha perso While_DEFpos → emetto segnale")
 		emit_signal("lost_while_condition", self)

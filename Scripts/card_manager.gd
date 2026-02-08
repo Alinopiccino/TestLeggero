@@ -319,7 +319,10 @@ func card_clicked(card):
 						print("🚫 LA CARTA È ROOTED:", card.name, "| ⏳ root_timer =", card.root_timer)
 						card.play_debuff_icon_pulse("Rooted")
 						return
-
+					if card.rooted:
+						print("🚫 LA CARTA È FREEZATA:", card.name, "| ⏳ freze_timer =", card.freeze_timer)
+						card.play_debuff_icon_pulse("Frozen")
+						return
 					# 🚫 NON può cambiare posizione se evocata questo turno
 					var summoned_this_turn = combat_manager.summoned_this_turn.any(
 						func(e): return e.card == card
@@ -456,27 +459,25 @@ func swap_creature_position(card, from_click: bool = false):
 		card.play_rotate_to_defense()
 		rpc("rpc_play_card_rotation", player_id, card.name, "card_rotate_pos_to_def", from_click)
 		# ✅ Controlla se la carta ha il talento Berserker
-		if "Berserker" in card.card_data.get_all_talents():
-			print("💥 [Rotation] Berserker non può stare in difesa → autodistruzione tra 1s!")
-			await get_tree().create_timer(0.3).timeout
-			card.play_talent_icon_pulse("Berserker")
-			await get_tree().create_timer(0.7).timeout
-			var owner = "Player" if not card.is_enemy_card() else "Opponent"
-			$"../CombatManager".destroy_card(card, owner)
-
-		# 🚫 Se la carta ha Elusive → perde il talento quando va in difesa
-		if "Elusive" in card.card_data.get_all_talents():
-			print("👁️‍🗨️ [Rotation] Elusive perso:", card.card_data.card_name)
-			card.is_elusive = false
-			card.remove_talent_overlay("Elusive")
+		#if "Berserker" in card.card_data.get_all_talents():
+			#print("💥 [Rotation] Berserker non può stare in difesa → autodistruzione tra 1s!")
+			#await get_tree().create_timer(0.3).timeout
+			#card.play_talent_icon_pulse("Berserker")
+			#await get_tree().create_timer(0.7).timeout
+			#var owner = "Player" if not card.is_enemy_card() else "Opponent"
+			#$"../CombatManager".destroy_card(card, owner)
+#
+		## 🚫 Se la carta ha Elusive → perde il talento quando va in difesa
+		#if "Elusive" in card.card_data.get_all_talents():
+			#print("👁️‍🗨️ [Rotation] Elusive perso:", card.card_data.card_name)
+			#card.is_elusive = false
+			#card.remove_talent_overlay("Elusive")
 
 	else:
 		card.play_rotate_to_attack()
 		rpc("rpc_play_card_rotation", player_id, card.name, "card_rotate_pos_to_attack", from_click)
 
-		if "Elusive" in card.card_data.get_all_talents():
-			card.is_elusive = true
-			card._add_talent_overlay("Elusive")
+
 
 	card.set_position_type(new_position)
 	rpc("rpc_set_creature_position", player_id, card.name, new_position)
@@ -524,24 +525,24 @@ func rpc_play_card_rotation(player_id: int, card_name: String, animation_name: S
 		push_error("❌ Carta non trovata per rotazione animata:", card_name)
 		return
 
-	# 💥 Effetto TALENT BERSERKER
-	if animation_name == "card_rotate_pos_to_def" and "Berserker" in card.card_data.get_all_talents():
-		print("💥 [Rotation RPC] Berserker non può essere messo in difesa → autodistruzione tra 1s!")
-		await get_tree().create_timer(0.3).timeout
-		card.play_talent_icon_pulse("Berserker")
-		await get_tree().create_timer(0.7).timeout
-		var owner = "Player" if not card.is_enemy_card() else "Opponent"
-		$"../CombatManager".destroy_card(card, owner)
-
-	# 👁️‍🗨️ TALENT ELUSIVE
-	if animation_name == "card_rotate_pos_to_def" and "Elusive" in card.card_data.get_all_talents():
-		print("👁️‍🗨️ [Rotation RPC] Elusive perso: la carta", card.card_data.card_name, "è ora visibile e attaccabile.")
-		card.is_elusive = false
-		card.remove_talent_overlay("Elusive")
-
-	if animation_name == "card_rotate_pos_to_attack" and "Elusive" in card.card_data.get_all_talents():
-		card.is_elusive = true
-		card._add_talent_overlay("Elusive")
+	## 💥 Effetto TALENT BERSERKER
+	#if animation_name == "card_rotate_pos_to_def" and "Berserker" in card.card_data.get_all_talents():
+		#print("💥 [Rotation RPC] Berserker non può essere messo in difesa → autodistruzione tra 1s!")
+		#await get_tree().create_timer(0.3).timeout
+		#card.play_talent_icon_pulse("Berserker")
+		#await get_tree().create_timer(0.7).timeout
+		#var owner = "Player" if not card.is_enemy_card() else "Opponent"
+		#$"../CombatManager".destroy_card(card, owner)
+#
+	## 👁️‍🗨️ TALENT ELUSIVE
+	#if animation_name == "card_rotate_pos_to_def" and "Elusive" in card.card_data.get_all_talents():
+		#print("👁️‍🗨️ [Rotation RPC] Elusive perso: la carta", card.card_data.card_name, "è ora visibile e attaccabile.")
+		#card.is_elusive = false
+		#card.remove_talent_overlay("Elusive")
+		#
+	#if animation_name == "card_rotate_pos_to_attack" and "Elusive" in card.card_data.get_all_talents():
+		#card.is_elusive = true
+		#card._add_talent_overlay("Elusive")
 
 	## 🟩 --- Highlight per enchain anche dopo una rotazione ---
 	#if multiplayer.get_unique_id() != player_id and from_click:

@@ -388,10 +388,25 @@ func set_visible_facedown():
 
 func play_rotate_to_defense():
 	var anim = get_node_or_null("AnimationPlayer")
+	var combat_manager = get_tree().get_current_scene().get_node_or_null("PlayerField/CombatManager")
 	if anim:
 		var player_id = multiplayer.get_unique_id()
 		rpc("rpc_play_rotation_animation", player_id, self.name, "card_rotate_pos_to_def")
 		anim.play("card_rotate_pos_to_def")
+		
+		#if "Berserker" in card_data.get_all_talents():
+			#print("💥 [Rotation] Berserker non può stare in difesa → autodistruzione tra 1s!")
+			#await get_tree().create_timer(0.3).timeout
+			#play_talent_icon_pulse("Berserker")
+			#await get_tree().create_timer(0.7).timeout
+			#var owner = "Player" if not is_enemy_card() else "Opponent"
+			#combat_manager.destroy_card(self, owner)
+#
+		## 🚫 Se la carta ha Elusive → perde il talento quando va in difesa
+		#if "Elusive" in card_data.get_all_talents():
+			#print("👁️‍🗨️ [Rotation] Elusive perso:", card_data.card_name)
+			#is_elusive = false
+			#remove_talent_overlay("Elusive")
 
 func play_rotate_to_attack():
 	var anim = get_node_or_null("AnimationPlayer")
@@ -400,7 +415,9 @@ func play_rotate_to_attack():
 		rpc("rpc_play_rotation_animation", player_id, self.name, "card_rotate_pos_to_attack")
 		anim.play("card_rotate_pos_to_attack")
 		
-
+		#if "Elusive" in card_data.get_all_talents():
+			#is_elusive = true
+			#_add_talent_overlay("Elusive")
 
 #signal clicked
 
@@ -1426,6 +1443,20 @@ func _on_self_changed_position(card: Card, new_position: String) -> void:
 
 	match new_position:
 		"defense":
+			if "Berserker" in card_data.get_all_talents():
+				print("💥 [Rotation] Berserker non può stare in difesa → autodistruzione tra 1s!")
+				await get_tree().create_timer(0.3).timeout
+				play_talent_icon_pulse("Berserker")
+				await get_tree().create_timer(0.7).timeout
+				var owner = "Player" if not is_enemy_card() else "Opponent"
+				combat_manager.destroy_card(self, owner)
+
+			# 🚫 Se la carta ha Elusive → perde il talento quando va in difesa
+			if "Elusive" in card_data.get_all_talents():
+				print("👁️‍🗨️ [Rotation] Elusive perso:", card_data.card_name)
+				is_elusive = false
+				remove_talent_overlay("Elusive")
+			
 			if card_data.trigger_type == "While_DEFpos":
 				await get_tree().create_timer(0.3).timeout
 				print("🛡️ [AUTO] While_DEFpos attivato per", card_data.card_name)
@@ -1440,6 +1471,11 @@ func _on_self_changed_position(card: Card, new_position: String) -> void:
 					card_manager.trigger_card_effect(self)
 
 		"attack":
+			
+			if "Elusive" in card_data.get_all_talents():
+				is_elusive = true
+				_add_talent_overlay("Elusive")
+			
 			if card_data.trigger_type == "While_ATKpos":
 				await get_tree().create_timer(0.3).timeout
 				print("⚔️ [AUTO] While_ATKpos attivato per", card_data.card_name)
