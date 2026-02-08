@@ -170,7 +170,8 @@ func set_phase(new_phase: Phase):
 	if current_phase == Phase.START:
 		print("🔄 Reset carte ed effetti all'inizio della START PHASE")
 		var combat_manager = $"../CombatManager"
-
+	# 🧹 Rimozione bonus player scaduti a EndPhase
+		combat_manager.clear_player_bonuses(null,"EndPhase",null) #null = tutti i bonus type ed effect type
 		# Reset flag delle carte in campo (sia player che opponent)
 		for card in combat_manager.player_creatures_on_field + combat_manager.opponent_creatures_on_field + combat_manager.player_spells_on_field + combat_manager.opponent_spells_on_field:
 			card.effect_triggered_this_turn = false

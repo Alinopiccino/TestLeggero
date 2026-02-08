@@ -949,14 +949,20 @@ func get_next_played_bonus_lines(card, card_data: CardData) -> Array[String]:
 
 	var lines: Array[String] = []
 
-	for bonus in cm.next_played_card_bonuses:
-		if not cm.card_matches_next_played_bonus(card, bonus, owner_id):
+	for bonus in cm.player_bonuses:
+		# 🎯 consideriamo solo i next_played
+		if bonus.get("bonus_type") != "next_played":
+			continue
+
+		# 🔐 owner passato esplicitamente
+		if not cm.card_matches_player_bonus(card, bonus, owner_id):
 			continue
 
 		var source_text := ""
 		var source_card = bonus.get("source_card", null)
 		if is_instance_valid(source_card) and source_card.card_data:
-			source_text = " [font_size=35][i][color=#ffcc00](%s)[/color][/i][/font_size]" % source_card.card_data.card_name
+			source_text = " [font_size=35][i][color=#ffcc00](%s)[/color][/i][/font_size]" \
+				% source_card.card_data.card_name
 
 		match bonus.type:
 			"AddRepeats":

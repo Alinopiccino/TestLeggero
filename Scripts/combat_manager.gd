@@ -26,7 +26,7 @@ var cards_to_destroy_after_chain: Array = []
 var last_played_card: Dictionary = {}  # {"card": Node, "owner_id": int}
 var just_summoned_creature: Array = []
 var just_played_spell: Array = []
-var next_played_card_bonuses: Array[Dictionary] = []
+var player_bonuses: Array[Dictionary] = []
 
 
 var setted_this_turn: Array = []
@@ -1000,7 +1000,8 @@ func apply_untargeted_effect_here_and_replicate_client_opponent(player_id, sourc
 		"card_name": source_card_name,
 		"player_id": player_id,
 		"chain_position": current_chain_index,
-		"was_enchained": source_card.was_enchained
+		"was_enchained": source_card.was_enchained,
+		"has_keep_going": source_card.card_data.has_keep_going,
 	}
 	effect_stack.append(entry)
 	print("🟢 Carta", source_card_name, "entra nella chain. was_enchained =", source_card.was_enchained)
@@ -1011,7 +1012,8 @@ func apply_untargeted_effect_here_and_replicate_client_opponent(player_id, sourc
 		"effect": effect,
 		"magnitude": magnitude,
 		"chain_index": source_card.effect_stack_index,
-		"was_enchained": source_card.was_enchained
+		"was_enchained": source_card.was_enchained,
+		"has_keep_going": source_card.card_data.has_keep_going,
 	}
 	print("🟢 Placeholder", source_card_name, "entra nella chain. was_enchained =", source_card.was_enchained)
 	currently_targeted_cards.append(placeholder)
@@ -1711,7 +1713,8 @@ func apply_effect_here_and_replicate_client_opponent(player_id, source_card_name
 		"card_name": source_card_name,
 		"player_id": player_id,
 		"chain_position": current_chain_index,
-		"was_enchained": source_card.was_enchained
+		"was_enchained": source_card.was_enchained,
+		"has_keep_going": source_card.card_data.has_keep_going,
 	}
 	print("🟢 Carta", source_card_name, "entra nella chain. was_enchained =", source_card.was_enchained)
 	effect_stack.append(entry)
@@ -4588,15 +4591,20 @@ func continue_chain_after_resolve(resolved_card_index: int, simulate_resolve : b
 	var resolved_player_id = -1
 	var resolved_card_name = ""
 	var was_enchained_resolved := false
+	var resolved_has_keep_going := false
 	for e in effect_stack:
 		if e.chain_position == resolved_card_index:
 			resolved_player_id = e.player_id
 			resolved_card_name = e.card_name
 			if e.has("was_enchained"):
 				was_enchained_resolved = e.was_enchained
+			if e.has("has_keep_going"):
+				resolved_has_keep_going = e["has_keep_going"]
 			break
 
-	print("🔎 Carta risolta:", resolved_card_name, "| was_enchained =", was_enchained_resolved)
+	print("🔁 Carta risolta:", resolved_card_name,
+	"| was_enchained =", was_enchained_resolved,
+	"| keep_going =", resolved_has_keep_going)
 
 	# 🧹 Rimuovi overlay e la carta risolta dallo stack
 	for i in effect_stack.size():
@@ -4767,7 +4775,7 @@ func continue_chain_after_resolve(resolved_card_index: int, simulate_resolve : b
 		print("✅ Catena completata, RESET LOCALE chain position: ", current_chain_position)
 
 		# 🌀 Dopo fine chain, se esiste un'azione pending, passala ora
-		if pending_action_after_chain and not was_enchained_resolved:
+		if pending_action_after_chain and not was_enchained_resolved and not resolved_has_keep_going:
 			var phase_manager = get_node_or_null("../PhaseManager")
 			if phase_manager and pending_action_owner_id == multiplayer.get_unique_id():
 				# 🚫 Se l'ultima action proveniva da un attacco, NON ripassare
@@ -5742,20 +5750,31 @@ func apply_simple_effect_to_card(card: Node, effect: String, magnitude: int, sou
 				push_warning("⚠️ CombatManager non trovato per AddRepeats")
 				return false
 
-			# 📌 Dati dal CardData della source
 			var repeat_amount := magnitude
 			var max_cost = source_card.card_data.effect_1_threshold
-			#if max_cost <= 0:
-				#max_cost = 1  # fallback di sicurezza
 
 			var additional_req = null
-			# 📌 Leggi il subtype DIRETTAMENTE dal CardData
 			if source_card.card_data.t_subtype_1 == "MyNextNormalSpell":
 				additional_req = "normal"
 
-			cm.register_next_played_spell_repeat_bonus(player_id,max_cost,repeat_amount,source_card,additional_req)
-			print("🔁 [ADD REPEATS] Prossima", additional_req," Spell ≤", max_cost,
-				"otterrà +", repeat_amount, " repeat")
+			var bonus := {
+				"bonus_type": "next_played",
+				"type": "AddRepeats",
+				"amount": repeat_amount,
+				"max_mana_cost": max_cost,
+				"card_type": "Spell",
+				"owner_id": player_id,
+				"expires": "EndPhase",
+				"source_card": source_card,
+				"additional_requirement": additional_req
+			}
+
+			cm.register_player_bonus(bonus)
+
+			print("🔁 [ADD REPEATS] Prossima", additional_req,
+				" Spell ≤", max_cost, "otterrà +", repeat_amount, " repeat")
+
+
 
 		_:
 			print("⚠️ Effetto non riconosciuto:", effect)
@@ -5766,34 +5785,27 @@ func apply_simple_effect_to_card(card: Node, effect: String, magnitude: int, sou
 	return card.card_data.health == 0
 
 
-func register_next_played_spell_repeat_bonus(owner_id: int,max_cost: int,repeat_amount: int,source_card: Node, additional_requirement = null):
-	var bonus := {
-		"type": "AddRepeats",
-		"amount": repeat_amount,
-		"max_mana_cost": max_cost,
-		"card_type": "Spell",
-		"owner_id": owner_id,
-		"expires": "EndPhase",
-		"source_card": source_card,   # ✅ AGGIUNTO
-		"additional_requirement": additional_requirement # ✅
-	}
+func register_player_bonus(bonus: Dictionary):
+	player_bonuses.append(bonus)
 
-	next_played_card_bonuses.append(bonus)
+	print("✨ [PLAYER BONUS] Registrato:", bonus)
 
-	print("✨ [BONUS] Prossima Spell ≤", max_cost, "ottiene +", repeat_amount, " repeat")
-
-	# 🎨 PREVIEW IMMEDIATA SOLO SUL CLIENT PROPRIETARIO
-	if multiplayer.get_unique_id() != owner_id:
+	# 🎨 preview SOLO sul client che possiede il bonus
+	if multiplayer.get_unique_id() != bonus.owner_id:
 		return
 
-	var player_hand_node = $"../PlayerHand"
-	if not player_hand_node:
+	var hand = $"../PlayerHand"
+	if not hand:
 		return
 
-	for card in player_hand_node.player_hand:
-		if card_matches_next_played_bonus(card, bonus, owner_id):
-			card.show_next_card_buffed_border(true)
-			print("✨ [PREVIEW BONUS] Border ON su:", card.card_data.card_name)
+	if bonus.bonus_type == "next_played":
+		for card in hand.player_hand:
+			# 🔐 owner_id passato esplicitamente
+			if card_matches_player_bonus(card, bonus, bonus.owner_id):
+				card.show_next_card_buffed_border(true)
+				print("✨ [PREVIEW BONUS] Border ON su:", card.card_data.card_name)
+
+
 
 func clear_next_card_buffed_borders():
 	var hand = $"../PlayerHand"
@@ -5803,51 +5815,98 @@ func clear_next_card_buffed_borders():
 	for card in hand.player_hand:
 		card.show_next_card_buffed_border(false)
 
-func apply_next_played_card_bonuses(card: Node2D, owner_id: int):
-	var cm = $"../CombatManager"
+func apply_player_bonuses(card: Node2D, owner_id: int):
+	var applied := []
+	var consumed := []
 
-	if cm.next_played_card_bonuses.is_empty():
-		return
-
-	var bonuses_to_remove: Array = []
-
-	for bonus in cm.next_played_card_bonuses:
-		if not cm.card_matches_next_played_bonus(card, bonus, owner_id):
+	for bonus in player_bonuses:
+		# 🔐 owner esplicito
+		if bonus.owner_id != owner_id:
 			continue
-			
-		card.show_next_card_buffed_border(true, true)  #secondo true = on field.
+
+		# 🔁 i next_played vanno SEMPRE consumati
+		if bonus.bonus_type == "next_played":
+			consumed.append(bonus)
+
+		# ❌ se non matcha la carta, non applico ma verrà comunque consumato
+		if not card_matches_player_bonus(card, bonus, owner_id):
+			continue
+
+		# ✅ applicazione effetto
+		card.show_next_card_buffed_border(true, true)
+
 		match bonus.type:
 			"AddRepeats":
 				var current := int(card.card_data.repeats)
 				card.card_data.repeats = str(current + bonus.amount)
 
-		bonuses_to_remove.append(bonus)
+		applied.append(bonus)
 
-	# 🧹 one-shot
-	for b in bonuses_to_remove:
-		cm.next_played_card_bonuses.erase(b)
-		clear_next_card_buffed_borders()
+	# 🧹 rimuovi TUTTI i next_played (consumati)
+	for b in consumed:
+		player_bonuses.erase(b)
+
+	# 🎨 pulizia preview SOLO client proprietario
+	if not consumed.is_empty():
+		if multiplayer.get_unique_id() == owner_id:
+			clear_next_card_buffed_borders()
+
+	# 🧪 debug
+	if not applied.is_empty():
+		print("✨ [PLAYER BONUS] Applicati:", applied.size())
+	elif not consumed.is_empty():
+		print("⚠️ [PLAYER BONUS] Consumato senza applicazione")
+
+
+
 		
-func card_matches_next_played_bonus(card: Node2D, bonus: Dictionary, owner_id: int) -> bool:
-	# 🧠 owner check (stile set_last_played_card)
+func clear_player_bonuses(bonus_type = null, expires_type = null, effect_type = null):
+	var removed := false
+
+	for bonus in player_bonuses.duplicate():
+		# 🧠 filtro per macro-tipo (es. "next_played", "aura", "static")
+		if bonus_type != null and bonus.get("bonus_type") != bonus_type:
+			continue
+
+		# 🎯 filtro per tipo effetto (es. "AddRepeats")
+		if effect_type != null and bonus.get("type") != effect_type:
+			continue
+
+		# ⏳ filtro per scadenza
+		if expires_type != null and bonus.get("expires") != expires_type:
+			continue
+
+		player_bonuses.erase(bonus)
+		removed = true
+		print("🧹 [PLAYER BONUS] Rimosso:",
+			bonus.get("bonus_type"),
+			bonus.get("type"),
+			"expires =", bonus.get("expires"))
+
+	if removed:
+		clear_next_card_buffed_borders()
+
+		
+		
+	
+func card_matches_player_bonus(card: Node2D, bonus: Dictionary, owner_id) -> bool:
 	if bonus.owner_id != owner_id:
-		print("NON E' OWNER GIUSTO")
 		return false
 
-	# 🎯 tipo carta
+	if bonus.bonus_type != "next_played":
+		return false
+
 	if bonus.card_type != card.card_data.card_type:
-		print("NON E' IL TIPO GIUSTO")
 		return false
 
-	# 🔎 Additional requirement
-	var req = bonus.get("additional_requirement", null)
+	var req = bonus.get("additional_requirement")
 	if req != null:
 		match req:
 			"normal":
 				if card.card_data.card_class != "NormalSpell":
-					print("NON E' NORMALE QUINDI SKIPPO")
 					return false
-	# 💰 calcolo costo mana
+
+	# 💰 mana cost
 	var mana_cost := 0
 	for cost in [
 		card.card_data.mana_cost_1,
@@ -5862,11 +5921,10 @@ func card_matches_next_played_bonus(card: Node2D, bonus: Dictionary, owner_id: i
 			mana_cost += 1
 
 	if mana_cost > bonus.max_mana_cost:
-		print("NON E' MANA COST GIUSTO")
 		return false
 
-	# ✅ tutti i criteri rispettati
 	return true
+
 
 # 💎 Controlla se il Magic Veil blocca l’effetto e gestisce l’animazione
 # 💎 Controlla se il Magic Veil blocca l’effetto e gestisce l’animazione
@@ -5886,7 +5944,7 @@ func check_magic_veil(card: Node, source_card: Node) -> bool:
 
 
 	# Solo se la carta ha il Magic Veil e la sorgente è una Spell
-	if card.has_magic_veil and source_card.card_data.card_type == "Spell":
+	if card.has_magic_veil and source_card.card_data.card_type == "Spell" and source_card.is_enemy_card() != card.is_enemy_card():
 		print("✨ [MAGIC VEIL] Effetto spell annullato su", card.name)
 
 		var overlay: Sprite2D = card.get_node_or_null("Magic Veil_Overlay")
@@ -9736,3 +9794,12 @@ func _trigger_when_equipped_effect(target_card: Card, equip_card: Card) -> void:
 
 		if card_manager and card_manager.has_method("trigger_card_effect"):
 			card_manager.trigger_card_effect(target_card, true, equip_card)
+
+
+@rpc("any_peer")
+func rpc_clear_just_happened_arrays():
+	print("🧹 [RPC] Pulizia just_* su peer:", multiplayer.get_unique_id())
+
+	just_summoned_creature.clear()
+	just_played_spell.clear()
+	just_targeted_creature.clear()

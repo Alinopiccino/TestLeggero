@@ -273,7 +273,7 @@ func play_flip_to_faceup():
 	var combat_manager = get_tree().get_current_scene().get_node_or_null("PlayerField/CombatManager")
 	var card_manager = get_tree().get_current_scene().get_node_or_null("PlayerField/CardManager")
 	
-	await combat_manager.apply_next_played_card_bonuses(self, multiplayer.get_unique_id())
+	await combat_manager.apply_player_bonuses(self, multiplayer.get_unique_id())
 	
 	if combat_manager and card_manager:
 		var is_local_card = not is_enemy_card()

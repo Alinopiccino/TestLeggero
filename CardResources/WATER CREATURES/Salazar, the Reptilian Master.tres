@@ -81,4 +81,5 @@ mana_cost_4 = "Colorless"
 mana_cost_5 = "None"
 mana_cost_6 = "None"
 mana_cost_7 = "None"
+has_keep_going = true
 metadata/_custom_type_script = "uid://cd4htsjoe2w4v"

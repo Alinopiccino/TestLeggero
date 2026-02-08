@@ -616,7 +616,7 @@ func rpc_set_spell_position(player_id: int, card_name: String, new_position: Str
 				var combat_manager = get_tree().get_current_scene().get_node_or_null("PlayerField/CombatManager")
 				var card_manager = get_tree().get_current_scene().get_node_or_null("PlayerField/CardManager")
 				
-				await combat_manager.apply_next_played_card_bonuses(card, player_id)
+				await combat_manager.apply_player_bonuses(card, player_id)
 				if combat_manager:
 					combat_manager.last_played_card = {
 						"card": card,
@@ -932,10 +932,18 @@ func card_right_clicked(card):
 				combat_manager.pending_action_owner_id = multiplayer.get_unique_id()
 
 			return
-	
+	var combat_manager = $"../CombatManager"
 	if card.card_data.effect_type == "Activable":
 		if current_phase != Phase.MAIN:
 			print("⛔ Effetto 'Activable' attivabile solo in MAIN Phase:", card.name)
+			return
+		if card.frozen:
+			print("🚫 LA CARTA È FREEZATA:", card.name, "| ⏳ freze_timer =", card.freeze_timer)
+			card.play_debuff_icon_pulse("Frozen")
+			return
+		if card.stunned and card.position_type == "attack":
+			print("🚫 LA CARTA È STUNNATA:", card.name, "| ⏳ stun_timer =", card.stun_timer)
+			card.play_debuff_icon_pulse("Stunned")
 			return
 		if card.effect_triggered_this_turn:
 			print("⏳ Effetto 'Activable' già attivato questo turno:", card.name)
@@ -946,6 +954,11 @@ func card_right_clicked(card):
 			return
 		print("⚔️ Attivato effetto 'Activable' in Main Phase:", card.name)
 		# Attiva effetto (targeted o no)
+		
+	# 🧹 Pulisci sempre just_summoned_creature e just_played_spell a meno che questa nuova carta sia enchained
+		combat_manager.rpc_clear_just_happened_arrays()
+		combat_manager.rpc("rpc_clear_just_happened_arrays")
+			
 		if card.card_data.targeting_type == "Targeted":
 			enter_selection_mode(card, "effect")
 		else:
@@ -969,14 +982,21 @@ func card_right_clicked(card):
 		if card.effect_triggered_this_turn:
 			print("⏳ Effetto 'ActivableAttack' già attivato questo turno:", card.name)
 			return
-
+		if card.frozen:
+			print("🚫 LA CARTA È FREEZATA:", card.name, "| ⏳ freze_timer =", card.freeze_timer)
+			card.play_debuff_icon_pulse("Frozen")
+			return
+		if card.stunned and card.position_type == "attack":
+			print("🚫 LA CARTA È STUNNATA:", card.name, "| ⏳ stun_timer =", card.stun_timer)
+			card.play_debuff_icon_pulse("Stunned")
+			return
 		# Non può essere già in attesa di RESOLVE
 		if card.has_node("ActionBorder") and card.get_node("ActionBorder").visible:
 			print("⏳ Carta già in attesa di RESOLVE:", card.name)
 			return
 
 		print("⚔️ Attivato effetto 'ActivableAttack' in Battle Phase:", card.name)
-
+		
 		# Attiva effetto (targeted o no)
 		if card.card_data.targeting_type == "Targeted":
 			enter_selection_mode(card, "effect")
@@ -1996,7 +2016,8 @@ func gioca_carta_subito(card: Node2D, slot: Node2D):
 	# ✅ Reset pending vars (puoi farlo ora, dopo tween)
 	pending_card_to_place = null
 	pending_slot_to_place = null
-	await cm.apply_next_played_card_bonuses(card_to_place, multiplayer.get_unique_id())
+	await cm.apply_player_bonuses(card_to_place, player_id)
+
 	
 	
 	
@@ -2302,7 +2323,7 @@ func play_card_here_and_for_clients_opponent(player_id, card_data_dict: Dictiona
 
 	# 🔹 Aggiorna anche lato avversario
 	$"../CombatManager".set_last_played_card(new_card, player_id)
-	await $"../CombatManager".apply_next_played_card_bonuses(new_card, player_id)
+	await $"../CombatManager".apply_player_bonuses(new_card, player_id)
 	
 	apply_existing_aura_effect_per_rpc(new_card)
 

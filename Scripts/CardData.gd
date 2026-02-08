@@ -147,6 +147,8 @@ var voided_atk: int = 0 # ✅
 @export_enum("None", "Colorless", "Fire", "Earth", "Water", "Wind") var mana_cost_6: String = "None"
 @export_enum("None", "Colorless", "Fire", "Earth", "Water", "Wind") var mana_cost_7: String = "None"
 
+@export var has_keep_going: bool = false
+
 func get_mana_cost_array() -> Array[String]:
 	var mana: Array[String] = []
 	if mana_cost_1 != "None": mana.append(mana_cost_1)
@@ -289,6 +291,7 @@ func to_dict() -> Dictionary:
 		"original_spell_multiplier": original_spell_multiplier,
 		"original_spell_duration": original_spell_duration,
 		"mana_cost": get_mana_cost_array(),
+		"has_keep_going": has_keep_going,
 	}
 
 
@@ -389,6 +392,7 @@ static func from_dict(data: Dictionary) -> CardData:
 	cd.original_effect_magnitude_4 = data.get("original_effect_magnitude_4", cd.effect_magnitude_2) # ✅ nuovo
 	cd.original_spell_multiplier = data.get("original_spell_multiplier", cd.spell_multiplier)
 	cd.original_spell_duration = data.get("original_spell_duration", cd.spell_duration)
+	cd.has_keep_going = data.get("has_keep_going", false)
 
 	return cd
 
@@ -476,6 +480,7 @@ func make_runtime_copy() -> CardData:
 	copy.mana_cost_5 = mana_cost_5
 	copy.mana_cost_6 = mana_cost_6
 	copy.mana_cost_7 = mana_cost_7
+	copy.has_keep_going = has_keep_going
 	
 	return copy
 
