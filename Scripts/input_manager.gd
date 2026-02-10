@@ -97,7 +97,9 @@ func raycast_at_cursor():
 				var cm = $"../CombatManager"
 				var card_manager = $"../CardManager"
 				var attacker = card_manager.selected_card
-				var attacker_has_flying = "Flying" in attacker.card_data.get_all_talents()
+				var attacker_has_flying
+				if card_manager.selection_mode_active:
+					attacker_has_flying = "Flying" in attacker.card_data.get_all_talents()
 				
 				if card_manager.selected_card and card_manager.selection_mode_active and card_manager.selection_purpose == "attack":
 					# 🛡️ Carte con Taunt sul campo

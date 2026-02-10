@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_lytmv"]
+[ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_a2hlp"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Ocean.tres" id="2_ttkce"]
+[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Oceanic Monster.tres" id="3_ttkce"]
+
+[resource]
+script = ExtResource("2_a2hlp")
+deck_name = "efdfsdsf"
+cards = Array[ExtResource("1_lytmv")]([ExtResource("2_ttkce"), ExtResource("2_ttkce"), ExtResource("2_ttkce"), ExtResource("3_ttkce"), ExtResource("3_ttkce"), ExtResource("3_ttkce")])
+is_valid = false
+mana_sort_state = "none"
+rank_sort_state = "none"
+mana_slot_1 = "Water"
+mana_slot_2 = "Water"
+mana_slot_3 = "Water"
+mana_slot_4 = "Water"
+mana_slot_5 = "Water"

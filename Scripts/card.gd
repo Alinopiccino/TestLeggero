@@ -1564,6 +1564,7 @@ func _on_self_summoned_on_field(card: Card, position: String) -> void:
 					card_manager.trigger_card_effect(self)
 
 
+			
 	if card_data.trigger_type == "While_NoOtherAlly" or card_data.trigger_type == "IF_NoOtherAlly":
 		await get_tree().create_timer(0.3).timeout
 		print("🧩 [AUTO] While_NoOtherAlly check su summon per", card_data.card_name)
