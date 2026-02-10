@@ -3671,7 +3671,8 @@ func tribute_card(card, card_owner, is_for_tribute_summ: bool = false):
 		card.equipped_to = null
 
 	# 🌀 Effetti generali post-rimozione
-	remove_field_effects()
+	if card.card_data.spell_duration == 1000: #se E' FIELD LA TOGLI
+		remove_field_effects()
 	handle_spellpower_on_destroy(card, card_owner)
 	remove_aura_effects(card)
 	if card.card_data.trigger_type.begins_with("While_"):
@@ -3971,8 +3972,8 @@ func apply_bouncer_effect(card: Node2D, card_owner: String, is_for_tribute_summ:
 
 		# Se l’aura ha perso un target, aggiorna subito la grafica
 		aura.update_card_visuals()
-
-	remove_field_effects()
+	if card.card_data.spell_duration == 1000: #se E' FIELD LA TOGLI
+		remove_field_effects()
 	handle_spellpower_on_destroy(card, card_owner)
 
 	remove_aura_effects(card)
@@ -4394,8 +4395,8 @@ func destroy_card(card, card_owner, is_for_tribute_summ: bool = false):
 
 		# Se l’aura ha perso un target, aggiorna subito la grafica
 		aura.update_card_visuals()
-
-	remove_field_effects()
+	if card.card_data.spell_duration == 1000: #se E' FIELD LA TOGLI
+		remove_field_effects()
 
 	handle_spellpower_on_destroy(card, card_owner)
 
