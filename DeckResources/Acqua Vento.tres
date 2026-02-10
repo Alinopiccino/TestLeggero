@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=22 format=3]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_u5o8w"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Cyclone.tres" id="2_styqi"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Frozen Weapon .tres" id="3_h0fhd"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Ocean.tres" id="4_ee2wp"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Water Cannon.tres" id="5_rsiji"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Turtle Shell.tres" id="6_cuo1s"]
+[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Lenso.tres" id="7_j6e2p"]
+[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Ice Warrior.tres" id="8_pcu1t"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Counterspell.tres" id="9_nhvrd"]
+[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Oceanic Monster.tres" id="10_gbwuh"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Disturbing Water.tres" id="11_akvfx"]
+[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Reptilian Assailant.tres" id="12_81lgt"]
+[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Abyssal Terror.tres" id="13_4w8xj"]
+[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Acquatic Warrior.tres" id="14_c7o50"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Windy Aura.tres" id="15_vnmc5"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Mystical Blade.tres" id="16_7k6a8"]
+[ext_resource type="Resource" path="res://CardResources/WIND CREATURES/Elusive Archer.tres" id="17_uhhoc"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Storm Favour.tres" id="18_kgbs3"]
+[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Warrior Maiden.tres" id="19_g6wxd"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Spell Vanisher.tres" id="20_h07io"]
+[ext_resource type="Script" path="res://Scripts/DeckData.gd" id="21_uknna"]
+
+[resource]
+script = ExtResource("21_uknna")
+deck_name = "Acqua Vento"
+cards = Array[ExtResource("1_u5o8w")]([ExtResource("2_styqi"), ExtResource("3_h0fhd"), ExtResource("4_ee2wp"), ExtResource("4_ee2wp"), ExtResource("5_rsiji"), ExtResource("6_cuo1s"), ExtResource("8_pcu1t"), ExtResource("9_nhvrd"), ExtResource("10_gbwuh"), ExtResource("10_gbwuh"), ExtResource("10_gbwuh"), ExtResource("11_akvfx"), ExtResource("7_j6e2p"), ExtResource("12_81lgt"), ExtResource("12_81lgt"), ExtResource("13_4w8xj"), ExtResource("14_c7o50"), ExtResource("14_c7o50"), ExtResource("15_vnmc5"), ExtResource("16_7k6a8"), ExtResource("17_uhhoc"), ExtResource("17_uhhoc"), ExtResource("18_kgbs3"), ExtResource("18_kgbs3"), ExtResource("19_g6wxd"), ExtResource("20_h07io"), ExtResource("20_h07io"), ExtResource("2_styqi"), ExtResource("16_7k6a8"), ExtResource("15_vnmc5")])
+is_valid = false
+mana_sort_state = "none"
+rank_sort_state = "desc"
+mana_slot_1 = "Water"
+mana_slot_2 = "Water"
+mana_slot_3 = "Water"
+mana_slot_4 = "Wind"
+mana_slot_5 = "Wind"

@@ -1175,7 +1175,7 @@ func player_has_any_actions(is_player: bool, phase_override = null) -> bool:
 				if not is_instance_valid(s):
 					continue
 
-				if s.card_data.card_class == "Equip" \
+				if s.card_data.card_class == "EquipSpell" \
 				and s.position_type != "facedown" \
 				and not s.effect_triggered_this_turn:
 					return true

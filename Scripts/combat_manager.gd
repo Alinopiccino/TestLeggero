@@ -3259,7 +3259,13 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 		print("✅ Fine fase danni (Double Strike gestito automaticamente)")
 
 
-
+		# 📣 [SIGNAL EMIT] direct_damage_fully_resolved (solo se c'è stato danno diretto tipo Overkill)
+		if direct_damage_done > 0 and is_instance_valid(attacking_card):
+			var damage_amount = direct_damage_done
+			var damage_type = "direct_damage"
+			print("📣 [SIGNAL EMIT] direct_damage_fully_resolved per", attacking_card.card_data.card_name,
+				"→", damage_amount, "danni di tipo", damage_type)
+			attacking_card.emit_signal("direct_damage_fully_resolved", attacking_card, damage_amount, damage_type)
 
 		
 		var attacker_destroyed = attacking_card.card_data.health == 0 or attacker_has_deathtouch_kill
@@ -3370,13 +3376,6 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 		print("FREE STRIKE NON CONSUMO ACTION")
 		attacking_card.play_talent_icon_pulse("Free Strike")
 				
-	# 📣 [SIGNAL EMIT] direct_damage_fully_resolved (solo se c'è stato danno diretto tipo Overkill)
-	if direct_damage_done > 0 and is_instance_valid(attacking_card):
-		var damage_amount = direct_damage_done
-		var damage_type = "direct_damage"
-		print("📣 [SIGNAL EMIT] direct_damage_fully_resolved per", attacking_card.card_data.card_name,
-			"→", damage_amount, "danni di tipo", damage_type)
-		attacking_card.emit_signal("direct_damage_fully_resolved", attacking_card, damage_amount, damage_type)
 		
 	$"../ActionButtons".rpc_show_pass_phase_button()
 
