@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=21 format=3]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_6cwxd"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Deathblade.tres" id="2_e7jbr"]
+[ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_exn6u"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Cyclone.tres" id="3_e7jbr"]
+[ext_resource type="Resource" path="res://CardResources/WIND CREATURES/Elusive Archer.tres" id="4_bpdyn"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Forced Return.tres" id="5_ksve8"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Water Cannon.tres" id="6_m6he4"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Ice Barrier.tres" id="7_6ajgc"]
+[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Warrior Maiden.tres" id="8_etwlj"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Spell Vanisher.tres" id="9_ies2m"]
+[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Frost-Soul Dragon.tres" id="10_m2265"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/FREEZE!.tres" id="11_y0wuc"]
+[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Salazar, the Reptilian Master.tres" id="12_2f4bj"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Sharpen the Blades.tres" id="13_iyevm"]
+[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Ghost of the Snowy Mountains.tres" id="14_ra168"]
+[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Ice Lord.tres" id="15_nee5k"]
+[ext_resource type="Resource" path="res://CardResources/WIND CREATURES/Stormcaller .tres" id="17_qff66"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Counterspell.tres" id="18_8nj5v"]
+[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Octokraken.tres" id="19_almeq"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Bufera.tres" id="19_h2fe1"]
+
+[resource]
+script = ExtResource("2_exn6u")
+deck_name = "asasdsad"
+cards = Array[ExtResource("1_6cwxd")]([ExtResource("2_e7jbr"), ExtResource("2_e7jbr"), ExtResource("3_e7jbr"), ExtResource("3_e7jbr"), ExtResource("4_bpdyn"), ExtResource("4_bpdyn"), ExtResource("5_ksve8"), ExtResource("6_m6he4"), ExtResource("6_m6he4"), ExtResource("7_6ajgc"), ExtResource("7_6ajgc"), ExtResource("8_etwlj"), ExtResource("8_etwlj"), ExtResource("9_ies2m"), ExtResource("9_ies2m"), ExtResource("10_m2265"), ExtResource("11_y0wuc"), ExtResource("11_y0wuc"), ExtResource("12_2f4bj"), ExtResource("13_iyevm"), ExtResource("13_iyevm"), ExtResource("14_ra168"), ExtResource("15_nee5k"), ExtResource("3_e7jbr"), ExtResource("17_qff66"), ExtResource("18_8nj5v"), ExtResource("18_8nj5v"), ExtResource("19_almeq"), ExtResource("15_nee5k"), ExtResource("19_h2fe1")])
+is_valid = false
+mana_sort_state = "none"
+rank_sort_state = "none"
+mana_slot_1 = "Wind"
+mana_slot_2 = "Wind"
+mana_slot_3 = "Wind"
+mana_slot_4 = "Water"
+mana_slot_5 = "Water"

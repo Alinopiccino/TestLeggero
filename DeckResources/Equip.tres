@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=18 format=3]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_vy3p6"]
+[ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_3cy40"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Boots of Speed.tres" id="2_jmoj2"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Burning Fist.tres" id="3_jmoj2"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Turtle Shell.tres" id="4_ee8oq"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Berserker.tres" id="5_r00qf"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Mystical Blade.tres" id="6_6fx08"]
+[ext_resource type="Resource" path="res://CardResources/WIND CREATURES/Rain Spirit.tres" id="7_0by3l"]
+[ext_resource type="Resource" path="res://CardResources/WIND CREATURES/Shadow Plunderer.tres" id="8_y18uk"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Enchanted Valley.tres" id="9_xit76"]
+[ext_resource type="Resource" path="res://CardResources/WIND CREATURES/Arsenal Warrior.tres" id="10_h2c4j"]
+[ext_resource type="Resource" path="res://CardResources/WATER SPELLS/Spell Vanisher.tres" id="11_sambr"]
+[ext_resource type="Resource" path="res://CardResources/WATER CREATURES/Ice Warrior.tres" id="12_0bcul"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/FireBeam.tres" id="13_qd7ov"]
+[ext_resource type="Resource" path="res://CardResources/FIRE SPELLS/Firebolt.tres" id="14_ko4c6"]
+[ext_resource type="Resource" path="res://CardResources/FIRE CREATURES/Burning Sun Adept.tres" id="15_lyijy"]
+[ext_resource type="Resource" path="res://CardResources/WIND CREATURES/Elusive Archer.tres" id="16_ddl04"]
+
+[resource]
+script = ExtResource("2_3cy40")
+deck_name = "Equip"
+cards = Array[ExtResource("1_vy3p6")]([ExtResource("2_jmoj2"), ExtResource("2_jmoj2"), ExtResource("3_jmoj2"), ExtResource("3_jmoj2"), ExtResource("4_ee8oq"), ExtResource("4_ee8oq"), ExtResource("4_ee8oq"), ExtResource("5_r00qf"), ExtResource("5_r00qf"), ExtResource("6_6fx08"), ExtResource("7_0by3l"), ExtResource("7_0by3l"), ExtResource("8_y18uk"), ExtResource("8_y18uk"), ExtResource("9_xit76"), ExtResource("9_xit76"), ExtResource("10_h2c4j"), ExtResource("10_h2c4j"), ExtResource("11_sambr"), ExtResource("11_sambr"), ExtResource("12_0bcul"), ExtResource("13_qd7ov"), ExtResource("14_ko4c6"), ExtResource("14_ko4c6"), ExtResource("15_lyijy"), ExtResource("15_lyijy"), ExtResource("16_ddl04"), ExtResource("16_ddl04"), ExtResource("16_ddl04"), ExtResource("7_0by3l")])
+is_valid = false
+mana_sort_state = "none"
+rank_sort_state = "none"
+mana_slot_1 = "Fire"
+mana_slot_2 = "Fire"
+mana_slot_3 = "Wind"
+mana_slot_4 = "Wind"
+mana_slot_5 = "Water"
