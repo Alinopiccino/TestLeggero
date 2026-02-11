@@ -5541,7 +5541,7 @@ func apply_simple_effect_to_card(card: Node, effect: String, magnitude: int, sou
 				var already_had_talent = talent_to_add in card.card_data.get_all_talents()
 
 				# 📦 Aggiungi SEMPRE il buff logico
-				card.card_data.add_buff(source_card, "BuffTalent", 0, 0, trigger_cause)
+				card.card_data.add_buff(source_card, "BuffTalent", 0, 0, 0, trigger_cause)
 
 				# 📎 Inserisci il nome del talento nel dizionario del buff
 				for b in card.card_data.active_buffs:

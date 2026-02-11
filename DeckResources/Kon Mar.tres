@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_rinwe"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Magnetic Protection.tres" id="2_mhjfc"]
+[ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_vmdw4"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Potenziamento.tres" id="3_mhjfc"]
+[ext_resource type="Resource" path="res://CardResources/WIND CREATURES/Elusive Archer.tres" id="4_qen1c"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Ancients Vigor.tres" id="5_tbq0k"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Mini Stone Golem.tres" id="6_wy1ht"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Wolfman .tres" id="7_qjh7x"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Storm Favour.tres" id="8_t3gb5"]
+[ext_resource type="Resource" path="res://CardResources/WIND CREATURES/Rain Spirit.tres" id="9_v1qkn"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Deathblade.tres" id="10_qfe6o"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Windy Aura.tres" id="11_8yilr"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Hole.tres" id="12_l3dou"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Stone Golem.tres" id="13_ydffs"]
+
+[resource]
+script = ExtResource("2_vmdw4")
+deck_name = "Kon Mar"
+cards = Array[ExtResource("1_rinwe")]([ExtResource("13_ydffs"), ExtResource("12_l3dou"), ExtResource("9_v1qkn"), ExtResource("10_qfe6o"), ExtResource("4_qen1c"), ExtResource("5_tbq0k"), ExtResource("5_tbq0k"), ExtResource("5_tbq0k"), ExtResource("4_qen1c"), ExtResource("7_qjh7x"), ExtResource("12_l3dou"), ExtResource("11_8yilr"), ExtResource("4_qen1c"), ExtResource("7_qjh7x"), ExtResource("8_t3gb5"), ExtResource("8_t3gb5"), ExtResource("8_t3gb5"), ExtResource("9_v1qkn"), ExtResource("9_v1qkn"), ExtResource("11_8yilr"), ExtResource("7_qjh7x"), ExtResource("3_mhjfc"), ExtResource("3_mhjfc"), ExtResource("2_mhjfc"), ExtResource("2_mhjfc"), ExtResource("2_mhjfc"), ExtResource("3_mhjfc"), ExtResource("6_wy1ht"), ExtResource("6_wy1ht"), ExtResource("6_wy1ht"), ExtResource("13_ydffs")])
+is_valid = false
+mana_sort_state = "desc"
+rank_sort_state = "none"
+mana_slot_1 = "Wind"
+mana_slot_2 = "Wind"
+mana_slot_3 = "Wind"
+mana_slot_4 = "Earth"
+mana_slot_5 = "Earth"

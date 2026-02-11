@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=17 format=3]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_7h36i"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Desert.tres" id="2_s64tf"]
+[ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_x5tmj"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Diamond Guard.tres" id="3_s64tf"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Sand Gust.tres" id="4_0w6kr"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Mud Golem.tres" id="5_ckvrp"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Magnetic Protection.tres" id="6_aie7y"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Gravitational Armor.tres" id="7_g6xyh"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Gravity Shell.tres" id="8_gvql5"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Hole.tres" id="9_xyev2"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Restoration.tres" id="10_lopu3"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Stone Golem.tres" id="11_e8hqo"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Brawler Bear.tres" id="12_lp2ik"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Mountain Giant.tres" id="13_ouqnt"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Desert King.tres" id="14_2mvgk"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Stun!.tres" id="15_rwssm"]
+
+[resource]
+script = ExtResource("2_x5tmj")
+deck_name = "MONO TERRA"
+cards = Array[ExtResource("1_7h36i")]([ExtResource("14_2mvgk"), ExtResource("12_lp2ik"), ExtResource("12_lp2ik"), ExtResource("13_ouqnt"), ExtResource("11_e8hqo"), ExtResource("15_rwssm"), ExtResource("9_xyev2"), ExtResource("9_xyev2"), ExtResource("9_xyev2"), ExtResource("8_gvql5"), ExtResource("8_gvql5"), ExtResource("3_s64tf"), ExtResource("3_s64tf"), ExtResource("5_ckvrp"), ExtResource("5_ckvrp"), ExtResource("5_ckvrp"), ExtResource("2_s64tf"), ExtResource("2_s64tf"), ExtResource("4_0w6kr"), ExtResource("4_0w6kr"), ExtResource("4_0w6kr"), ExtResource("6_aie7y"), ExtResource("6_aie7y"), ExtResource("7_g6xyh"), ExtResource("10_lopu3"), ExtResource("11_e8hqo"), ExtResource("15_rwssm"), ExtResource("6_aie7y"), ExtResource("15_rwssm"), ExtResource("10_lopu3")])
+is_valid = false
+mana_sort_state = "desc"
+rank_sort_state = "none"
+mana_slot_1 = "Earth"
+mana_slot_2 = "Earth"
+mana_slot_3 = "Earth"
+mana_slot_4 = "Earth"
+mana_slot_5 = "Earth"
