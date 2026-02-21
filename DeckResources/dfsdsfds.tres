@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_8ckeh"]
+[ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_2w8b3"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Enchanted Valley.tres" id="2_tp6la"]
+[ext_resource type="Resource" path="res://CardResources/WIND SPELLS/Storm Favour.tres" id="3_tp6la"]
+[ext_resource type="Resource" path="res://CardResources/WIND CREATURES/Stormcaller .tres" id="4_yu88q"]
+
+[resource]
+script = ExtResource("2_2w8b3")
+deck_name = "dfsdsfds"
+cards = Array[ExtResource("1_8ckeh")]([ExtResource("2_tp6la"), ExtResource("3_tp6la"), ExtResource("4_yu88q")])
+is_valid = false
+mana_sort_state = "none"
+rank_sort_state = "none"
+mana_slot_1 = "Wind"
+mana_slot_2 = "Wind"
+mana_slot_3 = "Wind"
+mana_slot_4 = "Wind"
+mana_slot_5 = "Wind"

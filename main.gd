@@ -7,6 +7,7 @@ extends Node2D
 @onready var ip_input := $IPInput
 @onready var status_label := $StatusLabel
 @onready var copy_ip_button: TextureButton = $CopyIPButton
+@onready var waiting_player_back := $WaitingPlayerBack
 
 var selected_deck: DeckData = null
 var deck_buttons_container: VBoxContainer
@@ -49,7 +50,7 @@ func _ready():
 	copy_ip_button.visible = false
 	status_label.visible = false
 	status_label.text = ""
-
+	waiting_player_back.visible = false
 
 
 
@@ -207,6 +208,18 @@ func _on_host_pressed():
 		return
 	local_deck_data = selected_deck  # ✅ QUI
 	disable_buttons()
+		# 🔹 Disabilita deck selezionato
+	if selected_hbox_ref:
+		var deck_button := selected_hbox_ref.get_child(0) as Button
+		if deck_button:
+			deck_button.disabled = true
+			
+	deck_list_background.visible = false
+	lobby_list_background.visible = false
+	waiting_player_back.visible = true  # 👈 MOSTRA IMMAGINE
+	$PlayerChairLoading.visible = true
+	$VirtualGrid.visible = true
+	$VirtualGridFloor.visible = true
 	MultiplayerManager.host()
 	update_ip_label()
 	copy_ip_button.visible = true

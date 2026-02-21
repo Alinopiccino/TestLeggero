@@ -10,7 +10,9 @@ var player_hand = []
 var center_screen_x
 
 func _ready() -> void:
-	center_screen_x = get_viewport().size.x / 2
+	#center_screen_x = get_viewport().size.x / 2 
+	center_screen_x = 960
+	print ("CENTRO SCHERMO:",center_screen_x)
 
 
 func add_card_to_hand(card, speed):

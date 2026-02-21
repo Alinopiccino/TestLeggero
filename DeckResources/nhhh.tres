@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="DeckData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_16w3r"]
+[ext_resource type="Script" path="res://Scripts/DeckData.gd" id="2_3mqln"]
+[ext_resource type="Resource" path="res://CardResources/EARTH CREATURES/Mud Golem.tres" id="2_5xjf2"]
+[ext_resource type="Resource" path="res://CardResources/EARTH SPELLS/Sand Gust.tres" id="3_5xjf2"]
+
+[resource]
+script = ExtResource("2_3mqln")
+deck_name = "nhhh"
+cards = Array[ExtResource("1_16w3r")]([ExtResource("2_5xjf2"), ExtResource("3_5xjf2")])
+is_valid = false
+mana_sort_state = "none"
+rank_sort_state = "none"
+mana_slot_1 = "Earth"
+mana_slot_2 = "Earth"
+mana_slot_3 = "Earth"
+mana_slot_4 = "Earth"
+mana_slot_5 = "Earth"
