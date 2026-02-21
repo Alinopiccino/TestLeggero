@@ -420,6 +420,10 @@ func _start_game():
 	lobby_list_background.visible = false
 	lobby_list.visible = false
 	deck_list_background.visible = false
+	waiting_player_back.visible = false  
+	$PlayerChairLoading.visible = false
+	$VirtualGrid.visible = false
+	$VirtualGridFloor.visible = false
 	disable_buttons()
 	
 	var player_scene = player_field_scene.instantiate()
