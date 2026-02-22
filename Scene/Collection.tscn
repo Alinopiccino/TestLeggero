@@ -1,8 +1,8 @@
-[gd_scene load_steps=32 format=3 uid="uid://nls3w6x7lyo0"]
+[gd_scene load_steps=31 format=3 uid="uid://nls3w6x7lyo0"]
 
 [ext_resource type="Script" uid="uid://bgab0dg4bw1f2" path="res://Scripts/collection.gd" id="1_svfcu"]
 [ext_resource type="Texture2D" uid="uid://c1ncesmbsjn2g" path="res://Assets Collezione/BackGroundCollection.png" id="2_y2fgx"]
-[ext_resource type="Texture2D" uid="uid://cpig7v54hisg6" path="res://Assets Collezione/BackGroundCollectionDietro.png" id="3_44ngf"]
+[ext_resource type="Texture2D" uid="uid://67ghyiy84pr4" path="res://Assets Collezione/BackGroundCollectionDietro NUOVO.png" id="3_qfgf1"]
 [ext_resource type="Texture2D" uid="uid://bfmei8tbnfre7" path="res://Assets Collezione/NEXT PAGE ICON.png" id="3_xmwbe"]
 [ext_resource type="Texture2D" uid="uid://dtjgd61rj6y7n" path="res://Assets Collezione/PREV PAGE ICON.png" id="4_r1hnu"]
 [ext_resource type="Script" uid="uid://bephcefek25vy" path="res://Scene/card_preview_manager.gd" id="5_r1hnu"]
@@ -25,7 +25,6 @@
 [ext_resource type="Texture2D" uid="uid://w7axfgriqxyc" path="res://Assets Collezione/BackGroundDeck.png" id="18_gyiry"]
 [ext_resource type="Texture2D" uid="uid://cufipy4xereof" path="res://Assets Collezione/EXPAND DECK ICON.png" id="19_gh488"]
 [ext_resource type="Texture2D" uid="uid://bghjvh51fpdxs" path="res://Assets Collezione/SHRINK DECK ICON.png" id="20_kwgrh"]
-[ext_resource type="Texture2D" uid="uid://b7r5x3y1bq8h4" path="res://Assets Collezione/PATCH DECK3.png" id="26_qfgf1"]
 [ext_resource type="Texture2D" uid="uid://cqheuagf2bye1" path="res://Assets Collezione/DECK UI VERTBORDER.png" id="27_2wswb"]
 [ext_resource type="Texture2D" uid="uid://vrhky1v5ydwy" path="res://Assets Collezione/DECK BORDER HORIZ.png" id="28_qfgf1"]
 [ext_resource type="Texture2D" uid="uid://b0f1wwpfvqiki" path="res://Assets Collezione/DECK BORDER HORIZright.png" id="29_hkwvr"]
@@ -43,10 +42,10 @@ position = Vector2(805, 483.5)
 scale = Vector2(1.308, 0.835)
 texture = ExtResource("2_y2fgx")
 
-[node name="BackgroundScreen" type="Sprite2D" parent="."]
+[node name="BackgroundScreen" type="TextureRect" parent="."]
 z_index = -100
-texture = ExtResource("3_44ngf")
-centered = false
+mouse_filter = 2
+texture = ExtResource("3_qfgf1")
 
 [node name="BackButton" type="Button" parent="."]
 z_index = 200
@@ -582,7 +581,6 @@ centered = false
 offset = Vector2(-1000, -500)
 
 [node name="ExpandDeckButton" type="TextureButton" parent="."]
-visible = false
 z_index = 103
 offset_left = 1419.0
 offset_top = 38.0
@@ -608,25 +606,6 @@ texture_pressed = ExtResource("20_kwgrh")
 texture_hover = ExtResource("20_kwgrh")
 texture_disabled = ExtResource("20_kwgrh")
 texture_focused = ExtResource("20_kwgrh")
-
-[node name="PatchDeckSotto" type="TextureRect" parent="."]
-z_index = 100
-offset_left = 1454.0
-offset_top = 908.0
-offset_right = 1921.0
-offset_bottom = 1080.0
-mouse_filter = 2
-texture = ExtResource("26_qfgf1")
-expand_mode = 1
-
-[node name="PatchDeckSopra" type="ColorRect" parent="."]
-z_index = 100
-offset_left = 1500.0
-offset_top = -18.0
-offset_right = 1911.0
-offset_bottom = 157.0
-mouse_filter = 2
-color = Color(0.18, 0.1368, 0.1224, 1)
 
 [node name="DeckUIborders" type="Node2D" parent="."]
 

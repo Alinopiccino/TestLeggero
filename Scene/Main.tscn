@@ -101,7 +101,6 @@ offset_bottom = 653.0
 placeholder_text = "Insert Host IP address..."
 
 [node name="WaitingPlayerBack" type="TextureRect" parent="."]
-visible = false
 z_index = -11
 offset_left = 1.0
 offset_right = 1921.0
@@ -110,7 +109,6 @@ mouse_filter = 2
 texture = ExtResource("4_h3nmf")
 
 [node name="VirtualGrid" type="ColorRect" parent="."]
-visible = false
 z_index = -10
 material = SubResource("ShaderMaterial_hueuk")
 custom_minimum_size = Vector2(1920, 300)
@@ -123,9 +121,9 @@ offset_right = 1921.0
 offset_bottom = 359.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="VirtualGridFloor" type="ColorRect" parent="."]
-visible = false
 z_index = -10
 material = SubResource("ShaderMaterial_yg4ot")
 custom_minimum_size = Vector2(1920, 540)
@@ -138,6 +136,7 @@ offset_right = 1921.0
 offset_bottom = 1075.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="PlayerChairLoading" type="TextureRect" parent="."]
 visible = false
@@ -155,6 +154,15 @@ offset_bottom = 950.0
 scale = Vector2(0.05, 0.05)
 texture_normal = ExtResource("4_h175a")
 texture_hover = ExtResource("5_togfq")
+
+[node name="BackButton" type="Button" parent="."]
+z_index = 200
+custom_minimum_size = Vector2(200, 100)
+offset_left = 1616.0
+offset_top = 877.0
+offset_right = 1816.0
+offset_bottom = 977.0
+text = "BACK"
 
 [connection signal="pressed" from="HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="JoinButton" to="." method="_on_join_button_pressed"]

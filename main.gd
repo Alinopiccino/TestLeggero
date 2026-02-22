@@ -8,6 +8,7 @@ extends Node2D
 @onready var status_label := $StatusLabel
 @onready var copy_ip_button: TextureButton = $CopyIPButton
 @onready var waiting_player_back := $WaitingPlayerBack
+@onready var back_button := $BackButton
 
 var selected_deck: DeckData = null
 var deck_buttons_container: VBoxContainer
@@ -32,6 +33,7 @@ func _ready():
 	MultiplayerManager.failed.connect(_on_failed)
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
+	
 
 	# --- Setup nodi ---
 	deck_buttons_container = $DeckList
@@ -43,6 +45,7 @@ func _ready():
 	# --- Bottoni ---
 	host_button.pressed.connect(_on_host_pressed)
 	join_button.pressed.connect(_on_join_pressed)
+	back_button.pressed.connect(_on_back_pressed)
 	ip_input.text_changed.connect(_on_ip_text_changed)
 	copy_ip_button.pressed.connect(_on_copy_ip_pressed)
 
@@ -50,7 +53,7 @@ func _ready():
 	copy_ip_button.visible = false
 	status_label.visible = false
 	status_label.text = ""
-	waiting_player_back.visible = false
+	#waiting_player_back.visible = false
 
 
 
@@ -477,4 +480,12 @@ func _on_copy_ip_pressed():
 	elif lan_ip != "":
 		DisplayServer.clipboard_set(lan_ip)
 	
+func _on_back_pressed():
+	print("⬅️ Ritorno al menu principale")
+
+	# Chiudi eventuale multiplayer attivo
+	if multiplayer.has_multiplayer_peer():
+		multiplayer.multiplayer_peer.close()
+		multiplayer.multiplayer_peer = null
 	
+	get_tree().change_scene_to_file("res://Scene/main_menu.tscn")
