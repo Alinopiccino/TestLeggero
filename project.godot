@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="BattleCards"
-run/main_scene="uid://bxrh2d6fl8xv5"
+run/main_scene="uid://5ro760eaj6st"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://Assets/icon.svg"
 
@@ -20,6 +20,7 @@ config/icon="res://Assets/icon.svg"
 MultiplayerManager="*res://Scripts/multiplayer_manager.gd"
 CardSpawner="res://Scripts/card_spawner.gd"
 CardDatabase="*res://card_database.gd"
+MenuState="*res://Scripts/Menu_State.gd"
 
 [display]
 

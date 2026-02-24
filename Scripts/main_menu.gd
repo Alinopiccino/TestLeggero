@@ -1,12 +1,20 @@
 extends Control
 
-@onready var play_button = $VBoxContainer/PlayButton
-@onready var collection_button = $VBoxContainer/CollectionButton
-@onready var quit_button = $VBoxContainer/QuitButton
-@onready var username_edit = $UsernameEdit
-@onready var username_label = $UsernameLabel
-@onready var luce_accesa = $LuceAccesa
+@onready var world = $World
+
+@onready var play_button = $World/VBoxContainer/PlayButton
+@onready var collection_button = $World/VBoxContainer/CollectionButton
+@onready var quit_button = $World/VBoxContainer/QuitButton
+
+@onready var username_edit = $World/UsernameEdit
+@onready var username_label = $World/UsernameLabel
+
+@onready var luce_accesa = $World/LuceAccesa
+@onready var luce_spenta = $World/LuceSpenta
+
+@onready var background = $World/Background
 @onready var flicker_timer = $FlickerTimer
+
 
 var is_flickering := false
 var flicker_count := 0
@@ -14,34 +22,58 @@ var flicker_max := 0
 
 var current_username := "Player"
 
+
 func _ready():
-	# Bottoni menu
+
+	if not MenuState.main_menu_intro_played:
+		MenuState.main_menu_intro_played = true
+		await _play_camera_settle()
+	else:
+		world.position.y = 0  # niente animazione
+
+	# --- resto del tuo codice ---
 	play_button.pressed.connect(_on_play_pressed)
 	collection_button.pressed.connect(_on_collection_pressed)
 	quit_button.pressed.connect(_on_quit_pressed)
 
-	# Username edit/label
 	username_label.text = current_username
-
 	username_edit.text = current_username
 	username_edit.visible = false
 
-	# Connetti segnali del LineEdit
 	username_edit.focus_entered.connect(_on_username_focus_entered)
 	username_edit.focus_exited.connect(_on_username_focus_exited)
 	username_edit.text_submitted.connect(_on_username_submitted)
-
 	username_label.gui_input.connect(_on_label_clicked)
-	randomize()
 
+	randomize()
 	flicker_timer.timeout.connect(_on_flicker_timeout)
 	_start_stable_phase()
+
+
+# =====================================================
+# 🎥 CAMERA SETTLE (ARRIVO DALLO SPLASH)
+# =====================================================
+
+func _play_camera_settle():
+	await get_tree().process_frame
+
+	world.position.y = 1920
+
+	var tween := create_tween()
+	tween.tween_property(world, "position:y", 0, 0.9) \
+		.set_trans(Tween.TRANS_EXPO) \
+		.set_ease(Tween.EASE_OUT)
+
+	await tween.finished
+
+
+# =====================================================
+# 💡 FLICKER LUCE
+# =====================================================
 
 func _start_stable_phase():
 	is_flickering = false
 	luce_accesa.visible = true
-	
-	# Rimane stabile per un tempo casuale
 	flicker_timer.wait_time = randf_range(0.4, 0.5)
 	flicker_timer.start()
 
@@ -49,40 +81,32 @@ func _start_stable_phase():
 func _start_flicker_phase():
 	is_flickering = true
 	flicker_count = 0
-	
-	# Numero casuale di lampeggi veloci
 	flicker_max = randi_range(3, 4)
-	
-	# Prima oscillazione veloce
 	flicker_timer.wait_time = randf_range(0.04, 0.08)
 	flicker_timer.start()
 
 
 func _on_flicker_timeout():
 	if is_flickering:
-		# Toggle veloce
 		luce_accesa.visible = !luce_accesa.visible
 		flicker_count += 1
-		
+
 		if flicker_count >= flicker_max:
-			# Torna stabile
 			_start_stable_phase()
 		else:
-			# Continua flicker veloce
 			flicker_timer.wait_time = randf_range(0.04, 0.08)
 			flicker_timer.start()
-	
 	else:
-		# Decide casualmente se iniziare flicker
-		if randf() < 0.10:  # 15% probabilità
+		if randf() < 0.10:
 			_start_flicker_phase()
 		else:
 			_start_stable_phase()
 
 
+# =====================================================
+# ✏️ USERNAME
+# =====================================================
 
-
-# --- GESTIONE USERNAME ---
 func _on_label_clicked(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		username_label.visible = false
@@ -92,40 +116,50 @@ func _on_label_clicked(event: InputEvent) -> void:
 
 
 func _on_username_focus_entered() -> void:
-	# (facoltativo: potresti aggiungere effetti visivi qui)
 	pass
 
 
 func _on_username_focus_exited() -> void:
-	# Se perde il focus senza aver premuto Invio → annulla modifica
 	username_edit.text = current_username
 	username_edit.visible = false
 	username_label.visible = true
 
 
 func _on_username_submitted(new_text: String) -> void:
-	# Aggiorna l'username solo quando si preme Invio
 	current_username = new_text.strip_edges()
 	username_label.text = current_username
 	username_label.visible = true
 	username_edit.visible = false
-	# Rimuovi il focus per evitare riattivazioni indesiderate
 	username_edit.release_focus()
 
 
-# --- GESTIONE BOTTONI ---
+# =====================================================
+# 🎮 BOTTONI
+# =====================================================
+
 func _on_play_pressed():
-	print("🎮 Vai alla scena multiplayer...")
-	get_tree().change_scene_to_file("res://Scene/Main.tscn")
-	
-	flicker_timer.stop()   # ← Ferma il flicker
+	flicker_timer.stop()
+
+	var next_scene = load("res://Scene/Main.tscn").instantiate()
+	var tree := get_tree()
+
+	tree.root.add_child(next_scene)
+	tree.current_scene = next_scene
+
+	queue_free()  # rimuove il MainMenu
+
 
 func _on_collection_pressed():
-	print("📚 Vai alla collezione...")
-	get_tree().change_scene_to_file("res://Scene/Collection.tscn")
-	
-	flicker_timer.stop()   # ← Ferma il flicker
+	flicker_timer.stop()
+
+	var next_scene = load("res://Scene/Collection.tscn").instantiate()
+	var tree := get_tree()
+
+	tree.root.add_child(next_scene)
+	tree.current_scene = next_scene
+
+	queue_free()
+
 
 func _on_quit_pressed():
-	print("👋 Esco dal gioco")
 	get_tree().quit()

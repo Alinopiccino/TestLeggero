@@ -59,6 +59,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -66,7 +68,12 @@ size_flags_vertical = 4
 script = ExtResource("1_ftydy")
 metadata/_edit_use_anchors_ = true
 
-[node name="UsernameEdit" type="LineEdit" parent="."]
+[node name="World" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="UsernameEdit" type="LineEdit" parent="World"]
 visible = false
 layout_mode = 2
 offset_left = 1462.0
@@ -75,7 +82,7 @@ offset_right = 1876.0
 offset_bottom = 970.0
 theme_override_font_sizes/font_size = 50
 
-[node name="UsernameLabel" type="RichTextLabel" parent="."]
+[node name="UsernameLabel" type="RichTextLabel" parent="World"]
 visible = false
 layout_mode = 2
 offset_left = 1464.0
@@ -89,24 +96,24 @@ scroll_active = false
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="World"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -899.0
-offset_top = -407.0
-offset_right = -601.0
-offset_bottom = 36.0
+offset_left = 41.0
+offset_top = 113.0
+offset_right = 339.0
+offset_bottom = 556.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.0523599
 size_flags_horizontal = 4
 theme_override_constants/separation = 30
 
-[node name="PlayButton" type="Button" parent="VBoxContainer"]
+[node name="PlayButton" type="Button" parent="World/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_pressed_color = Color(0.988235, 0.815686, 0.505882, 1)
@@ -120,7 +127,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_kqsxi")
 theme_override_styles/normal = SubResource("StyleBoxFlat_pvidh")
 text = "PLAY"
 
-[node name="CollectionButton" type="Button" parent="VBoxContainer"]
+[node name="CollectionButton" type="Button" parent="World/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_pressed_color = Color(0.988235, 0.815686, 0.505882, 1)
@@ -135,7 +142,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_pvidh")
 text = "COLLECTION
 "
 
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
+[node name="QuitButton" type="Button" parent="World/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_pressed_color = Color(0.988235, 0.815686, 0.505882, 1)
@@ -150,20 +157,29 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_pvidh")
 text = "QUIT
 "
 
-[node name="LuceSpenta" type="TextureRect" parent="."]
+[node name="LuceSpenta" type="TextureRect" parent="World"]
 z_index = -100
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1920.0
+offset_bottom = 1080.0
 mouse_filter = 2
 texture = ExtResource("2_hii65")
 
-[node name="LuceAccesa" type="TextureRect" parent="."]
+[node name="LuceAccesa" type="TextureRect" parent="World"]
 z_index = -99
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+texture = ExtResource("3_kqsxi")
+
+[node name="SfondoNero" type="ColorRect" parent="."]
+z_index = -200
+custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
-texture = ExtResource("3_kqsxi")
+color = Color(0, 0, 0, 1)
 
 [node name="FlickerTimer" type="Timer" parent="."]
