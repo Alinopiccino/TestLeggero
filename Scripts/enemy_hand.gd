@@ -1,7 +1,7 @@
 extends Node2D
 
 const CARD_WIDTH = 155
-const HAND_Y_POSITION = 0   # In alto invece che in basso
+const HAND_Y_POSITION = -50   # In alto invece che in basso
 const DEFAULT_CARD_MOVE_SPEED = 0.1
 
 var opponent_hand = []

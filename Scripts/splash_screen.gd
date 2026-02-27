@@ -13,7 +13,7 @@ func play_intro():
 	fade.tween_property(logo, "modulate:a", 1.0, 0.8)
 
 	await fade.finished
-	await get_tree().create_timer(0.4).timeout
+	await get_tree().create_timer(1.5).timeout
 
 	var screen_height := get_viewport_rect().size.y + 300
 
@@ -47,7 +47,7 @@ func play_intro():
 	).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
 
 	await slide.finished
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(1).timeout
 	
 	var next_scene = load("res://Scene/main_menu.tscn").instantiate()
 	get_tree().root.add_child(next_scene)

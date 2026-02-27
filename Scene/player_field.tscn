@@ -1,9 +1,10 @@
-[gd_scene load_steps=44 format=3 uid="uid://bkx2nydgmhnop"]
+[gd_scene load_steps=50 format=3 uid="uid://bkx2nydgmhnop"]
 
 [ext_resource type="Script" uid="uid://mhnnyqbkjiwh" path="res://Scene/GameSetup.gd" id="1_rwyy7"]
 [ext_resource type="Script" uid="uid://gutrgdj4rmsl" path="res://Scripts/InserimentoDeck.gd" id="1_wawig"]
 [ext_resource type="PackedScene" uid="uid://h1c0uc7u0h6r" path="res://Scene/Card.tscn" id="2_rwyy7"]
 [ext_resource type="Script" uid="uid://jmy3uo0jdcjr" path="res://Scripts/card_manager.gd" id="3_aifdw"]
+[ext_resource type="Shader" uid="uid://rr5r2thlgvo3" path="res://Scene/GriglieSlot2.gdshader" id="3_ya6wd"]
 [ext_resource type="Script" uid="uid://ma2p6fts1f7v" path="res://Scripts/input_manager.gd" id="4_g20td"]
 [ext_resource type="PackedScene" uid="uid://bpb4ljr5q8fb5" path="res://Scene/card_slot.tscn" id="5_225pa"]
 [ext_resource type="Script" uid="uid://es340uv1h6fc" path="res://Scripts/CreatureCardSlot.gd" id="6_vobt0"]
@@ -32,7 +33,22 @@
 [ext_resource type="Texture2D" uid="uid://b41g764utippy" path="res://Assets/WATERSPELLPOWER ICON.png" id="30_2bqq7"]
 [ext_resource type="Script" uid="uid://dophsw7seos7w" path="res://Scene/custom_effects.gd" id="32_ubc3m"]
 [ext_resource type="Texture2D" uid="uid://cpig7v54hisg6" path="res://Assets Collezione/BackGroundCollectionDietro.png" id="33_3om6r"]
+[ext_resource type="Texture2D" uid="uid://dsaf8kfqkr2jc" path="res://Assets Ui/FIELD FORATO.png" id="34_ttc12"]
 [ext_resource type="Texture2D" uid="uid://cc261yydobx0i" path="res://Assets/Mana/ACTION BASE.png" id="34_ulniw"]
+[ext_resource type="Texture2D" uid="uid://cg67iy6ykxcfa" path="res://Assets Ui/box caselle.png" id="35_dwb4g"]
+[ext_resource type="Texture2D" uid="uid://b4kntqiejfnmy" path="res://Assets Ui/pattern esagoni.png" id="35_ttc12"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_53ceb"]
+shader = ExtResource("3_ya6wd")
+shader_parameter/origin = Vector2(0.5, 0.5)
+shader_parameter/base_size_uv = 0.2
+shader_parameter/progress = 0.0
+shader_parameter/sweep_width = 0.25
+shader_parameter/edge_softness = 0.005
+shader_parameter/intensity = 1.0
+shader_parameter/glow_color = Color(0.2, 1, 0.2, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ya6wd"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_frrmm"]
 
@@ -95,6 +111,47 @@ border_color = Color(0.803922, 0.466667, 0.133333, 0)
 
 [node name="PlayerField" type="Node2D"]
 script = ExtResource("1_rwyy7")
+
+[node name="CampoGrigio" type="TextureRect" parent="."]
+z_index = -100
+offset_left = 532.0
+offset_top = 89.0
+offset_right = 1382.0
+offset_bottom = 939.0
+mouse_filter = 2
+texture = ExtResource("34_ttc12")
+expand_mode = 1
+
+[node name="GriglieSlot" type="TextureRect" parent="."]
+z_index = -99
+material = SubResource("ShaderMaterial_53ceb")
+offset_left = 532.0
+offset_top = 89.0
+offset_right = 1382.0
+offset_bottom = 939.0
+mouse_filter = 2
+texture = ExtResource("35_dwb4g")
+expand_mode = 1
+
+[node name="Esagoni" type="TextureRect" parent="."]
+z_index = -100
+material = SubResource("ShaderMaterial_ya6wd")
+custom_minimum_size = Vector2(800, 800)
+offset_left = 532.0
+offset_top = 89.0
+offset_right = 1382.0
+offset_bottom = 939.0
+mouse_filter = 2
+texture = ExtResource("35_ttc12")
+expand_mode = 1
+
+[node name="CampoVerde" type="ColorRect" parent="."]
+z_index = -1000
+custom_minimum_size = Vector2(1920, 1080)
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+color = Color(0.129412, 0.270588, 0.27451, 1)
 
 [node name="InputManager" type="Node2D" parent="."]
 script = ExtResource("4_g20td")
@@ -245,114 +302,115 @@ card_scene = ExtResource("2_rwyy7")
 [node name="CardContainer" type="Node2D" parent="."]
 
 [node name="PlayerZones" type="Node2D" parent="."]
+position = Vector2(-26, 0)
 
 [node name="CreatureSlot1" parent="PlayerZones" instance=ExtResource("5_225pa")]
-position = Vector2(620, 614)
+position = Vector2(667, 647)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("6_vobt0")
 
 [node name="CreatureSlot2" parent="PlayerZones" instance=ExtResource("5_225pa")]
-position = Vector2(785, 614)
+position = Vector2(825, 647)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("6_vobt0")
 
 [node name="CreatureSlot3" parent="PlayerZones" instance=ExtResource("5_225pa")]
-position = Vector2(950, 614)
+position = Vector2(983, 647)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("6_vobt0")
 
 [node name="CreatureSlot4" parent="PlayerZones" instance=ExtResource("5_225pa")]
-position = Vector2(1115, 614)
+position = Vector2(1141, 647)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("6_vobt0")
 
 [node name="CreatureSlot5" parent="PlayerZones" instance=ExtResource("5_225pa")]
-position = Vector2(1280, 614)
+position = Vector2(1299, 647)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("6_vobt0")
 
 [node name="SpellSlot1" parent="PlayerZones" instance=ExtResource("5_225pa")]
-position = Vector2(620, 790)
+position = Vector2(667, 812)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("7_onb2x")
 
 [node name="SpellSlot2" parent="PlayerZones" instance=ExtResource("5_225pa")]
-position = Vector2(785, 790)
+position = Vector2(825, 812)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("7_onb2x")
 
 [node name="SpellSlot3" parent="PlayerZones" instance=ExtResource("5_225pa")]
-position = Vector2(950, 790)
+position = Vector2(983, 812)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("7_onb2x")
 
 [node name="SpellSlot4" parent="PlayerZones" instance=ExtResource("5_225pa")]
-position = Vector2(1115, 790)
+position = Vector2(1141, 812)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("7_onb2x")
 
 [node name="SpellSlot5" parent="PlayerZones" instance=ExtResource("5_225pa")]
-position = Vector2(1280, 790)
+position = Vector2(1299, 812)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("7_onb2x")
 
 [node name="EnemyCreatureSlot1" parent="PlayerZones" instance=ExtResource("10_g20td")]
 z_index = -10
-position = Vector2(1280, 371)
+position = Vector2(1299, 380)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("6_vobt0")
 
 [node name="EnemyCreatureSlot2" parent="PlayerZones" instance=ExtResource("10_g20td")]
 z_index = -10
-position = Vector2(1115, 371)
+position = Vector2(1141, 380)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("6_vobt0")
 
 [node name="EnemyCreatureSlot3" parent="PlayerZones" instance=ExtResource("10_g20td")]
 z_index = -10
-position = Vector2(950, 371)
+position = Vector2(983, 380)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("6_vobt0")
 
 [node name="EnemyCreatureSlot4" parent="PlayerZones" instance=ExtResource("10_g20td")]
 z_index = -10
-position = Vector2(785, 371)
+position = Vector2(825, 380)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("6_vobt0")
 
 [node name="EnemyCreatureSlot5" parent="PlayerZones" instance=ExtResource("10_g20td")]
 z_index = -10
-position = Vector2(620, 371)
+position = Vector2(667, 380)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("6_vobt0")
 
 [node name="EnemySpellSlot5" parent="PlayerZones" instance=ExtResource("10_g20td")]
 z_index = -10
-position = Vector2(620, 196)
+position = Vector2(667, 212)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("7_onb2x")
 
 [node name="EnemySpellSlot4" parent="PlayerZones" instance=ExtResource("10_g20td")]
 z_index = -10
-position = Vector2(785, 196)
+position = Vector2(825, 212)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("7_onb2x")
 
 [node name="EnemySpellSlot3" parent="PlayerZones" instance=ExtResource("10_g20td")]
 z_index = -10
-position = Vector2(950, 196)
+position = Vector2(983, 212)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("7_onb2x")
 
 [node name="EnemySpellSlot2" parent="PlayerZones" instance=ExtResource("10_g20td")]
 z_index = -10
-position = Vector2(1115, 196)
+position = Vector2(1141, 212)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("7_onb2x")
 
 [node name="EnemySpellSlot1" parent="PlayerZones" instance=ExtResource("10_g20td")]
 z_index = -10
-position = Vector2(1280, 196)
+position = Vector2(1299, 212)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("7_onb2x")
 
@@ -519,10 +577,10 @@ text = "PASS PHASE"
 
 [node name="PhaseIndicators" type="HBoxContainer" parent="."]
 z_index = -10
-offset_left = 547.0
-offset_top = 456.0
-offset_right = 1351.0
-offset_bottom = 528.0
+offset_left = 572.0
+offset_top = 476.0
+offset_right = 1376.0
+offset_bottom = 548.0
 
 [node name="StartPhasePanel" type="Panel" parent="PhaseIndicators"]
 custom_minimum_size = Vector2(100, 0)
@@ -1081,5 +1139,5 @@ offset_right = 187.0
 offset_bottom = 911.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(851, 500)
+position = Vector2(861, 539)
 offset = Vector2(100, 0)

@@ -65,6 +65,7 @@ offset_right = 34.0
 offset_bottom = 22.0
 scale = Vector2(2.5, 2.5)
 text = "0"
+metadata/_edit_use_anchors_ = true
 
 [node name="EnemyDeckTimer" type="Timer" parent="EnemyDeck"]
 
@@ -72,61 +73,61 @@ text = "0"
 
 [node name="CreatureSlot1" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
 z_index = -10
-position = Vector2(1280, 371)
+position = Vector2(1273, 380)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("10_78tqf")
 
 [node name="CreatureSlot2" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
 z_index = -10
-position = Vector2(1115, 371)
+position = Vector2(1115, 380)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("10_78tqf")
 
 [node name="CreatureSlot3" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
 z_index = -10
-position = Vector2(950, 371)
+position = Vector2(957, 380)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("10_78tqf")
 
 [node name="CreatureSlot4" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
 z_index = -10
-position = Vector2(785, 371)
+position = Vector2(799, 380)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("10_78tqf")
 
 [node name="CreatureSlot5" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
 z_index = -10
-position = Vector2(620, 371)
+position = Vector2(641, 380)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("10_78tqf")
 
 [node name="SpellSlot5" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
 z_index = -10
-position = Vector2(620, 196)
+position = Vector2(641, 212)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("11_mlp73")
 
 [node name="SpellSlot4" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
 z_index = -10
-position = Vector2(785, 196)
+position = Vector2(799, 212)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("11_mlp73")
 
 [node name="SpellSlot3" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
 z_index = -10
-position = Vector2(950, 196)
+position = Vector2(957, 212)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("11_mlp73")
 
 [node name="SpellSlot2" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
 z_index = -10
-position = Vector2(1115, 196)
+position = Vector2(1115, 212)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("11_mlp73")
 
 [node name="SpellSlot1" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
 z_index = -10
-position = Vector2(1280, 196)
+position = Vector2(1273, 212)
 scale = Vector2(0.15, 0.15)
 script = ExtResource("11_mlp73")
 
@@ -158,6 +159,7 @@ offset_right = 31.0
 offset_bottom = 16.0
 scale = Vector2(2, 2)
 text = "0"
+metadata/_edit_use_anchors_ = true
 
 [node name="HighlightBorder" type="ColorRect" parent="EnemyGY"]
 visible = false
@@ -182,6 +184,7 @@ offset_right = -1.0
 offset_bottom = 61.0
 scale = Vector2(0.75, 0.75)
 mouse_filter = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="HealthGYLabel" type="RichTextLabel" parent="EnemyGY"]
 modulate = Color(0, 0, 0, 1)
@@ -193,6 +196,7 @@ offset_right = 50.0
 offset_bottom = 61.0
 scale = Vector2(0.75, 0.75)
 mouse_filter = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="SpellMultiGYLabel" type="RichTextLabel" parent="EnemyGY"]
 modulate = Color(0, 0, 0, 1)
@@ -204,6 +208,7 @@ offset_right = 62.0
 offset_bottom = 67.0
 scale = Vector2(0.5, 0.5)
 mouse_filter = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="SpellDurGYLabel" type="RichTextLabel" parent="EnemyGY"]
 modulate = Color(0, 0, 0, 1)
@@ -215,6 +220,7 @@ offset_right = 72.0
 offset_bottom = 97.0
 scale = Vector2(0.5, 0.5)
 mouse_filter = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="EnemyLP" type="RichTextLabel" parent="."]
 offset_left = 1690.0
@@ -247,9 +253,9 @@ script = ExtResource("12_lg81y")
 is_enemy = true
 
 [node name="ExtraManaSlots" type="VBoxContainer" parent="."]
-offset_left = 1713.0
+offset_left = 1686.0
 offset_top = 170.0
-offset_right = 1724.0
+offset_right = 1697.0
 offset_bottom = 181.0
 theme_override_constants/separation = -10
 script = ExtResource("12_lg81y")

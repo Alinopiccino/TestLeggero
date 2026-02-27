@@ -47,6 +47,17 @@ var previous_button_state := {
 
 func _ready() -> void:
 	#add_to_group("Cards")
+	var scene = get_tree().get_current_scene()
+	var grid = scene.get_node("PlayerField/GriglieSlot")
+	var hex  = scene.get_node("PlayerField/Esagoni")
+
+	for target in [grid, hex]:
+		if target.material is ShaderMaterial:
+			var mat: ShaderMaterial = target.material
+			mat.set_shader_parameter("progress", 0.0)
+			mat.set_shader_parameter("intensity", 0.0)
+			mat.set_shader_parameter("origin", Vector2(-10, -10))
+			
 	screen_size = get_viewport_rect().size
 	player_hand_reference = $"../PlayerHand"
 	$"../InputManager".connect("left_mouse_button_released", on_left_click_released)
@@ -1833,11 +1844,13 @@ func gioca_carta_subito(card: Node2D, slot: Node2D):
 	tween.tween_property(card_to_place, "global_position", slot_to_place.global_position, DEFAULT_CARD_MOVE_SPEED)
 	tween.parallel().tween_property(card_to_place, "scale", Vector2(CARD_SMALLER_SCALE, CARD_SMALLER_SCALE), DEFAULT_CARD_MOVE_SPEED)
 
-
+	# ✅ Posiziona localmente sullo slot e SHADE ILLUMINAZIONE
+	trigger_grid_glow(slot_to_place.global_position, card_to_place.card_data.card_attribute, card_to_place.position_type == "facedown")
+	
 	await tween.finished
 
-	# ✅ Posiziona localmente sullo slot
-	card_to_place.position = slot_to_place.position
+
+	#card_to_place.position = slot_to_place.position
 	card_to_place.z_index = Z_INDEX_SLOT
 
 	# Blocca collisione dello slot
@@ -3854,3 +3867,105 @@ func rpc_mark_card_as_enchained(card_name: String, owner_id: int):
 	if card:
 		card.was_enchained = true
 		print("🟢 [SYNC ENCHAIN] Carta marcata come enchained:", card.name, "su peer", local_id)
+
+
+#func trigger_grid_glow(global_drop_position: Vector2): #RETTANGOLO CHE SI ESPANDE
+#
+	#var grid = get_tree().get_current_scene().get_node("PlayerField/GriglieSlot")
+	#var hex  = get_tree().get_current_scene().get_node("PlayerField/Esagoni")
+#
+	#for target in [grid, hex]:
+#
+		#if target.material is ShaderMaterial:
+			#var mat: ShaderMaterial = target.material
+#
+			#var local_pos = global_drop_position - target.global_position
+			#var size = target.size
+#
+			#var uv = Vector2(
+				#local_pos.x / size.x,
+				#local_pos.y / size.y
+			#)
+#
+			#var rect_uv_size = Vector2(
+				#112.0 / size.x,
+				#156.0 / size.y
+			#)
+#
+			#mat.set_shader_parameter("origin", uv)
+			#mat.set_shader_parameter("rect_size", rect_uv_size)
+			#mat.set_shader_parameter("expansion", 0.0)
+			#mat.set_shader_parameter("intensity", 3.5)
+			#mat.set_shader_parameter("irregularity", 0.0)
+#
+			#var tween = get_tree().create_tween()
+			#tween.set_trans(Tween.TRANS_EXPO)
+			#tween.set_ease(Tween.EASE_OUT)
+#
+			#tween.tween_property(mat, "shader_parameter/expansion", 0.12, 0.2)
+			#tween.parallel().tween_property(mat, "shader_parameter/intensity", 0.0, 0.8)
+			#tween.parallel().tween_property(mat, "shader_parameter/irregularity", 0.08, 1.0)
+			
+func trigger_grid_glow(global_drop_position: Vector2, card_attribute: String, is_facedown: bool):
+
+	var scene = get_tree().get_current_scene()
+	var grid = scene.get_node("PlayerField/GriglieSlot")
+	var hex  = scene.get_node("PlayerField/Esagoni")
+
+	# 🎨 Mappa colori per attributo
+	var glow_color := Color(0.1, 1.0, 0.3, 1.0) # default verde
+
+	if is_facedown:
+		# ⚪ Glow bianco per carte coperte
+		glow_color = Color(1.0, 1.0, 1.0, 1.0)
+	else:
+		match card_attribute:
+			"Earth":
+				glow_color = Color(0.85, 0.60, 0.05, 1.0)
+			"Fire":
+				glow_color = Color(1.0, 0.05, 0.05, 1.0)
+			"Water":
+				glow_color = Color(0.0, 0.45, 1.0, 1.0)
+			"Wind":
+				glow_color = Color(0.0, 1.0, 0.35, 1.0)
+
+	for target in [grid, hex]:
+
+		if target and target.material is ShaderMaterial:
+
+			var mat: ShaderMaterial = target.material
+
+			var size = target.size
+			var local_pos = global_drop_position - target.global_position
+
+			var uv = Vector2(
+				local_pos.x / size.x,
+				local_pos.y / size.y
+			)
+
+			var base_uv_size = 167.0 / size.x
+
+			mat.set_shader_parameter("glow_color", glow_color)
+			mat.set_shader_parameter("origin", uv)
+			mat.set_shader_parameter("base_size_uv", base_uv_size)
+			mat.set_shader_parameter("progress", 0.0)
+			mat.set_shader_parameter("sweep_width", 0.25)
+			mat.set_shader_parameter("intensity", 3.0)
+
+			var tween = get_tree().create_tween()
+			tween.set_trans(Tween.TRANS_SINE)
+			tween.set_ease(Tween.EASE_OUT)
+
+			tween.tween_property(
+				mat,
+				"shader_parameter/progress",
+				1.0,
+				0.4
+			)
+
+			tween.parallel().tween_property(
+				mat,
+				"shader_parameter/intensity",
+				0.0,
+				0.4
+			)
