@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cg67iy6ykxcfa"
-path="res://.godot/imported/box caselle.png-7ec22b6eae20075fd4c5ac73801c9310.ctex"
+uid="uid://pt01c3rk5dj0"
+path="res://.godot/imported/box caselle (1).png-5422809868b0555d7028c10319ce54bc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets Ui/box caselle.png"
-dest_files=["res://.godot/imported/box caselle.png-7ec22b6eae20075fd4c5ac73801c9310.ctex"]
+source_file="res://Assets Ui/box caselle (1).png"
+dest_files=["res://.godot/imported/box caselle (1).png-5422809868b0555d7028c10319ce54bc.ctex"]
 
 [params]
 

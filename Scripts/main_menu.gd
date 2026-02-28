@@ -2,9 +2,9 @@ extends Control
 
 @onready var world = $World
 
-@onready var play_button = $World/VBoxContainer/PlayButton
-@onready var collection_button = $World/VBoxContainer/CollectionButton
-@onready var quit_button = $World/VBoxContainer/QuitButton
+@onready var play_button = $World/PlayButton
+@onready var collection_button = $World/CollectionButton
+@onready var quit_button = $World/QuitButton
 
 @onready var username_edit = $World/UsernameEdit
 @onready var username_label = $World/UsernameLabel

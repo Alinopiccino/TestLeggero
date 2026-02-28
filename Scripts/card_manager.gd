@@ -3943,7 +3943,7 @@ func trigger_grid_glow(global_drop_position: Vector2, card_attribute: String, is
 				local_pos.y / size.y
 			)
 
-			var base_uv_size = 167.0 / size.x
+			var base_uv_size = 195.0 / size.x
 
 			mat.set_shader_parameter("glow_color", glow_color)
 			mat.set_shader_parameter("origin", uv)

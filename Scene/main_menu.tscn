@@ -1,58 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://bxrh2d6fl8xv5"]
+[gd_scene load_steps=12 format=3 uid="uid://bxrh2d6fl8xv5"]
 
 [ext_resource type="Script" uid="uid://dkhi8i726dof4" path="res://Scripts/main_menu.gd" id="1_ftydy"]
 [ext_resource type="Texture2D" uid="uid://t4p5vapb162i" path="res://Assets Interfacce/MAIN MENU LUCE SPENTA.png" id="2_hii65"]
+[ext_resource type="Texture2D" uid="uid://djrkdqeqoxrpe" path="res://Assets Interfacce/play1.png" id="2_klvvj"]
+[ext_resource type="Texture2D" uid="uid://c2hbsphn353ps" path="res://Assets Interfacce/play2.png" id="3_47k5r"]
 [ext_resource type="Texture2D" uid="uid://dqrbfywhotir3" path="res://Assets Interfacce/MAIN MENU LUCE ACCESA.png" id="3_kqsxi"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ftydy"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_87ipw"]
-bg_color = Color(0.0509804, 0.235294, 0.278431, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.988091, 0.816125, 0.507255, 1)
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hii65"]
-bg_color = Color(0.100243, 0.369607, 0.436973, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.988091, 0.816125, 0.507255, 1)
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqsxi"]
-bg_color = Color(0.0501014, 0.233707, 0.279574, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.988091, 0.816125, 0.507255, 1)
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pvidh"]
-bg_color = Color(0.0733515, 0.297045, 0.352949, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.988091, 0.816125, 0.507255, 1)
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
+[ext_resource type="Texture2D" uid="uid://b70b1wvn452dw" path="res://Assets Interfacce/COLLECTION1.png" id="4_hag5k"]
+[ext_resource type="Texture2D" uid="uid://cgo74rffl74xk" path="res://Assets Interfacce/collection2.png" id="5_4ckpx"]
+[ext_resource type="Texture2D" uid="uid://casyglc2l0iys" path="res://Assets Interfacce/settings1.png" id="6_shpw1"]
+[ext_resource type="Texture2D" uid="uid://yio0spvmo0xt" path="res://Assets Interfacce/Settings2.png" id="7_34sut"]
+[ext_resource type="Texture2D" uid="uid://do0ih8k56fhcm" path="res://Assets Interfacce/QUIT.png" id="8_fqtvk"]
+[ext_resource type="Texture2D" uid="uid://cft01t8lby1vg" path="res://Assets Interfacce/QUIT2.png" id="9_p1wrw"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -72,6 +30,7 @@ metadata/_edit_use_anchors_ = true
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
 [node name="UsernameEdit" type="LineEdit" parent="World"]
 visible = false
@@ -96,66 +55,53 @@ scroll_active = false
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="World"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 41.0
-offset_top = 113.0
-offset_right = 339.0
-offset_bottom = 556.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -0.0523599
-size_flags_horizontal = 4
-theme_override_constants/separation = 30
-
-[node name="PlayButton" type="Button" parent="World/VBoxContainer"]
+[node name="PlayButton" type="TextureButton" parent="World"]
 layout_mode = 2
+offset_left = 67.0
+offset_top = 116.0
+offset_right = 3001.0
+offset_bottom = 721.0
+rotation = -0.0344446
+scale = Vector2(0.2, 0.2)
 size_flags_vertical = 3
-theme_override_colors/font_hover_pressed_color = Color(0.988235, 0.815686, 0.505882, 1)
-theme_override_colors/font_hover_color = Color(0.988235, 0.815686, 0.505882, 1)
-theme_override_colors/font_pressed_color = Color(0.988235, 0.815686, 0.505882, 1)
-theme_override_font_sizes/font_size = 40
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ftydy")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_87ipw")
-theme_override_styles/hover = SubResource("StyleBoxFlat_hii65")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_kqsxi")
-theme_override_styles/normal = SubResource("StyleBoxFlat_pvidh")
-text = "PLAY"
+texture_normal = ExtResource("2_klvvj")
+texture_hover = ExtResource("3_47k5r")
 
-[node name="CollectionButton" type="Button" parent="World/VBoxContainer"]
+[node name="CollectionButton" type="TextureButton" parent="World"]
 layout_mode = 2
+offset_left = 73.6467
+offset_top = 251.826
+offset_right = 3017.65
+offset_bottom = 869.826
+rotation = -0.0662164
+scale = Vector2(0.1, 0.15)
 size_flags_vertical = 3
-theme_override_colors/font_hover_pressed_color = Color(0.988235, 0.815686, 0.505882, 1)
-theme_override_colors/font_hover_color = Color(0.988235, 0.815686, 0.505882, 1)
-theme_override_colors/font_pressed_color = Color(0.988235, 0.815686, 0.505882, 1)
-theme_override_font_sizes/font_size = 40
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ftydy")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_87ipw")
-theme_override_styles/hover = SubResource("StyleBoxFlat_hii65")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_kqsxi")
-theme_override_styles/normal = SubResource("StyleBoxFlat_pvidh")
-text = "COLLECTION
-"
+texture_normal = ExtResource("4_hag5k")
+texture_hover = ExtResource("5_4ckpx")
 
-[node name="QuitButton" type="Button" parent="World/VBoxContainer"]
+[node name="SettingsButton" type="TextureButton" parent="World"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 383.0
+offset_right = 2476.0
+offset_bottom = 953.0
+rotation = -0.121504
+scale = Vector2(0.12, 0.12)
+texture_normal = ExtResource("6_shpw1")
+texture_hover = ExtResource("7_34sut")
+
+[node name="QuitButton" type="TextureButton" parent="World"]
 layout_mode = 2
+offset_left = 95.0
+offset_top = 479.0
+offset_right = 3039.0
+offset_bottom = 1003.0
+rotation = -0.132768
+scale = Vector2(0.15, 0.15)
 size_flags_vertical = 3
-theme_override_colors/font_hover_pressed_color = Color(0.988235, 0.815686, 0.505882, 1)
-theme_override_colors/font_hover_color = Color(0.988235, 0.815686, 0.505882, 1)
-theme_override_colors/font_pressed_color = Color(0.988235, 0.815686, 0.505882, 1)
-theme_override_font_sizes/font_size = 40
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ftydy")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_87ipw")
-theme_override_styles/hover = SubResource("StyleBoxFlat_hii65")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_kqsxi")
-theme_override_styles/normal = SubResource("StyleBoxFlat_pvidh")
-text = "QUIT
-"
+texture_normal = ExtResource("8_fqtvk")
+texture_pressed = ExtResource("9_p1wrw")
+texture_hover = ExtResource("9_p1wrw")
 
 [node name="LuceSpenta" type="TextureRect" parent="World"]
 z_index = -100
