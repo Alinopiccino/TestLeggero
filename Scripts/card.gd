@@ -15,6 +15,31 @@ class_name Card
 @onready var green_highlight_border = $GreenHighlightBorder
 @onready var talent_icons_container: HBoxContainer = $TalentIconsContainer
 @onready var debuff_icons_container: VBoxContainer = $DebuffIconsContainer
+@onready var pivot = $Pivot
+@onready var bg = $Pivot/Background
+@onready var art = $Pivot/Art
+@onready var frame = $Pivot/Frame
+
+@export var perspective_strength := 1
+@export var vertical_compress := 0.15
+@export var max_tilt := 10.0
+@export var art_strength := 100.0     # prima era 20
+@export var bg_strength := 100.0      # più basso = più profondità
+@export var smooth := 200.0           # leggermente più reattivo
+var hover_start_mouse_pos: Vector2 = Vector2.ZERO
+var mouse_distance := 0.0
+var base_tilt := 0.0
+var mouse_tilt := 0.0
+var tilt_sign := 1.0
+var original_pivot_scale : Vector2 = Vector2(0.4,0.4)
+
+var target_skew_x := 0.0
+var target_skew_y := 0.0
+var tilt_active := false
+var target_rot := 0.0
+var target_offset := Vector2.ZERO
+
+
 
 signal hovered
 signal hovered_off
@@ -103,14 +128,75 @@ var NEGATED_ICON := {
 	"Negated": preload("res://Assets/DebuffSprites/NEGATED SPRITE.png")
 }
 
-func _process(_delta):
+func _process(delta):
+
 	if not hover_enabled or card_is_in_playerGY:
 		return
 
-	# Se la carta è attualmente hoverata
+	if original_pivot_scale == Vector2.ZERO:
+		original_pivot_scale = pivot.scale
+
+	# 🔹 Highlight target con CTRL
 	if highlight_border.visible:
 		var modifier_pressed = Input.is_key_pressed(KEY_CTRL)
 		highlight_linked_target(modifier_pressed)
+
+	# 🔹 Gestione tilt
+	if tilt_active:
+		update_parallax(get_global_mouse_position())
+	else:
+		mouse_distance = 0.0
+		base_tilt = 0.0
+		mouse_tilt = 0.0
+		target_rot = 0.0
+		target_offset = Vector2.ZERO
+		target_skew_x = 0.0
+		target_skew_y = 0.0
+
+	# ==================================================
+	# 🔥 ROTAZIONE + SKEW + SCALE (CORRETTA)
+	# ==================================================
+
+	var target_transform := Transform2D()
+
+	# 1️⃣ Rotazione
+	target_transform = target_transform.rotated(deg_to_rad(target_rot))
+
+	# 2️⃣ Skew sull'asse X
+	target_transform.x.y = target_skew_x
+	target_transform.y.x = target_skew_y 
+
+	# 3️⃣ Applica scala originale (es: 0.5, 0.5)
+	target_transform.x *= original_pivot_scale.x
+	target_transform.y *= original_pivot_scale.y 
+
+	# 4️⃣ Interpolazione fluida
+	pivot.transform = pivot.transform.interpolate_with(
+		target_transform,
+		delta * smooth
+	)
+	
+	# ==================================================
+	# 🔹 PARALLASSE LAYER
+	# ==================================================
+
+	# 🖼 FRAME (medio)
+	frame.position = frame.position.lerp(
+		target_offset * 0.6,
+		delta * smooth
+	)
+
+	# 🎨 ART (foreground)
+	art.position = art.position.lerp(
+		target_offset * 1.0,
+		delta * smooth
+	)
+
+	# 🌌 BACKGROUND (profondità)
+	bg.position = bg.position.lerp(
+		target_offset * 0.3,
+		delta * smooth
+	)
 
 func set_card_data(data: CardData) -> void:
 	card_data = data
@@ -483,6 +569,7 @@ func _ready() -> void:
 	#print("Attack label:", attack_label)
 	#print("Health label:", health_label)
 	scale = Vector2(1, 1)
+	original_pivot_scale = pivot.scale
 	
 	var current = get_parent()
 	while current and not current.has_method("connect_card_signals"):
@@ -1782,3 +1869,27 @@ func show_next_card_buffed_border(show: bool, on_field: bool = false) -> void:
 	## ✨ animazione SOLO in mano
 	#if not on_field:
 		#start_overlay_animation(border)
+func update_parallax(mouse_pos: Vector2):
+
+	# 🔹 Differenza rispetto alla posizione iniziale
+	var delta = mouse_pos - hover_start_mouse_pos
+
+	# 🔹 Riduci sensibilità
+	var sensitivity := 0.10
+	var offset = delta * sensitivity
+
+	# 🔹 Clamp per evitare eccessi
+	offset.x = clamp(offset.x, -art_strength, art_strength)
+	offset.y = clamp(offset.y, -art_strength, art_strength)
+
+	var mouse_distance_x = offset.x / art_strength
+	var mouse_distance_y = offset.y / art_strength
+
+	mouse_tilt = mouse_distance_x * (max_tilt * 0.2)
+
+	target_rot = base_tilt + mouse_tilt * 0.1
+	target_offset = offset
+
+	# 🔥 NUOVO: skew su entrambi gli assi
+	target_skew_x = mouse_distance_x * perspective_strength * 1
+	target_skew_y = mouse_distance_y * perspective_strength * 1

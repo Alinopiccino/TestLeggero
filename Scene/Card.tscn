@@ -1,7 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://h1c0uc7u0h6r"]
+[gd_scene load_steps=15 format=3 uid="uid://h1c0uc7u0h6r"]
 
 [ext_resource type="Script" uid="uid://b4xr5pi00bttv" path="res://Scripts/card.gd" id="1_hael8"]
 [ext_resource type="Texture2D" uid="uid://l3fn21vjinjd" path="res://Assets Collezione/HighlightBorderSoffuso ALT.png" id="2_cl8pl"]
+[ext_resource type="Texture2D" uid="uid://bd4acke1c2l8g" path="res://Assets Ui/1MORGANO.png" id="2_yjknr"]
+[ext_resource type="Texture2D" uid="uid://bxo0og33dniot" path="res://Assets Ui/FRAME.png" id="3_sx4i5"]
+[ext_resource type="Texture2D" uid="uid://dum816pi6ctd1" path="res://Assets Ui/1BACK.png" id="4_kn6op"]
+[ext_resource type="Texture2D" uid="uid://c81x3lgit1xrj" path="res://Assets Ui/BORDER parallasse.png" id="5_kn6op"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cl8pl"]
 size = Vector2(150, 208)
@@ -283,6 +287,27 @@ position = Vector2(1800, 890)
 script = ExtResource("1_hael8")
 
 [node name="CardBack" type="Sprite2D" parent="."]
+
+[node name="Pivot" type="Node2D" parent="."]
+scale = Vector2(0.4, 0.4)
+
+[node name="Art" type="Sprite2D" parent="Pivot"]
+z_index = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_yjknr")
+
+[node name="Frame" type="Sprite2D" parent="Pivot"]
+z_index = 2
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_sx4i5")
+
+[node name="Background" type="Sprite2D" parent="Pivot"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_kn6op")
+
+[node name="Border" type="Sprite2D" parent="Pivot"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_kn6op")
 
 [node name="CardImage" type="Sprite2D" parent="."]
 z_index = -1

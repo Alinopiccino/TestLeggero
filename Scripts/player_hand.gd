@@ -17,7 +17,8 @@ func _ready() -> void:
 
 func add_card_to_hand(card, speed):
 	# 👇 disattiva hover finché non finisce l’animazione
-	card.hover_enabled = false
+	#card.hover_enabled = false
+	card.tilt_active = false
 
 	if card not in player_hand:
 		if card.card_data == null:
@@ -79,3 +80,8 @@ func remove_card_from_hand(card):
 		update_hand_positions(DEFAULT_CARD_MOVE_SPEED)
 	
 	
+func get_center_x() -> float:
+	return center_screen_x
+
+func get_hand_width() -> float:
+	return (player_hand.size() - 1) * get_dynamic_card_width()

@@ -4,6 +4,7 @@ extends Node2D
 @onready var card_field = get_node(card_field_path)
 @onready var player_selection_label = $"../PromptLabels/PlayerSelectionLabel"
 
+
 const COLLISION_MASK_CARD = 1
 const COLLISION_MASK_CARD_SLOT = 2
 const COLLISION_MASK_ENEMY_HOVER = 64  # Layer 7
@@ -84,6 +85,7 @@ func cancel_drag():
 		card_being_dragged.z_index = Z_INDEX_HAND
 		if currently_hovered_card:
 			highlight_card(currently_hovered_card, false)
+			currently_hovered_card.tilt_active = false
 		currently_hovered_card = null  # <-- AGGIUNGI QUESTA LINEA
 		# Forza il re-hover se il mouse è ancora sopra
 		#var hovered_card = raycast_check_for_card()
@@ -1381,7 +1383,7 @@ func start_drag(card):
 	card_being_dragged = card
 	card.scale = Vector2(1, 1)
 	card.z_index = Z_INDEX_DRAG
-
+	#card.tilt_active = false
 
 	
 	# Calcola l'offset tra il centro della carta e il mouse al momento del click
@@ -2637,11 +2639,11 @@ func handle_enemy_hover():
 				#card.remove_meta("original_position")
 				
 func highlight_card(card, hovered):
+
 	if card.card_data.card_type == "Spell" and card.card_is_in_slot:
 		return
 
 	if card.card_is_in_slot:
-		# logica highlight slot
 		return
 
 	# 🧹 Kill tween precedente
@@ -2651,27 +2653,58 @@ func highlight_card(card, hovered):
 	var tween := create_tween()
 	tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	card.set_meta("hover_tween", tween)
-
 	if hovered:
+
 		if card.get_meta("is_hovering", false):
 			return
-		card.set_meta("is_hovering", true)
 
+		card.set_meta("is_hovering", true)
+		card.tilt_active = true
+		card.hover_start_mouse_pos = get_global_mouse_position()
+
+		var hand_node = $"../PlayerHand" # adatta il path se serve
+
+		var hand_center_x = hand_node.get_center_x()
+		var hand_width = hand_node.get_hand_width()
+
+		var card_x = card.position.x  # usa posizione locale alla mano
+
+		var distance_from_center = card_x - hand_center_x
+		var half_hand_width = max(hand_width / 2.0, 1.0)
+
+		# valore normalizzato 0 → 1
+		var normalized_distance = clamp(abs(distance_from_center) / half_hand_width, 0.0, 1.0)
+
+		# 👇 due livelli di tilt
+		var light_tilt := 3.0
+		var strong_tilt := 6.0
+
+		var chosen_tilt = strong_tilt if normalized_distance > 0.5 else light_tilt
+
+		card.base_tilt = chosen_tilt if distance_from_center > 0 else -chosen_tilt
+		card.tilt_sign = sign(card.base_tilt)
+		
+		print(card.base_tilt)
+		print(distance_from_center)
 		tween.parallel().tween_property(card, "scale", Vector2(1.25, 1.25), 0.10)
 		tween.parallel().tween_property(card, "position", card.original_position - Vector2(0, 60), 0.10)
 
 		card.z_index = Z_INDEX_HOVER
+		
 
 	else:
+
 		if not card.get_meta("is_hovering", false):
 			return
+
 		card.set_meta("is_hovering", false)
+		card.tilt_active = false
+		card.base_tilt = 0.0
 
 		card.z_index = Z_INDEX_HAND
 
 		tween.parallel().tween_property(card, "scale", Vector2(1, 1), 0.10)
 		tween.parallel().tween_property(card, "position", card.original_position, 0.10)
-
 	
 		
 func raycast_check_for_card_slot():
