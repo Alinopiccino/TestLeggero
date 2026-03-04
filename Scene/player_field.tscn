@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://bkx2nydgmhnop"]
+[gd_scene load_steps=70 format=3 uid="uid://bkx2nydgmhnop"]
 
 [ext_resource type="Script" uid="uid://mhnnyqbkjiwh" path="res://Scene/GameSetup.gd" id="1_rwyy7"]
 [ext_resource type="Script" uid="uid://gutrgdj4rmsl" path="res://Scripts/InserimentoDeck.gd" id="1_wawig"]
@@ -26,17 +26,39 @@
 [ext_resource type="Script" uid="uid://delbjee3vpasv" path="res://Scene/choose_position_popup.gd" id="20_onb2x"]
 [ext_resource type="Script" uid="uid://bs15k2437dca7" path="res://Scene/action_buttons.gd" id="21_f8xqc"]
 [ext_resource type="Script" uid="uid://mmaey6tqspid" path="res://Scene/mana_slot_manager.gd" id="22_7yhcc"]
+[ext_resource type="Texture2D" uid="uid://coy8r5dp00yap" path="res://Assets Ui/PASSPHASESPENTO.png" id="23_1om0u"]
 [ext_resource type="Texture2D" uid="uid://ohd6fdqp2blt" path="res://Assets/UI/clessidra.png" id="23_gm5u4"]
+[ext_resource type="Texture2D" uid="uid://lb1avsyjx7tk" path="res://Assets Ui/PASSPHASEACCESO.png" id="24_muul7"]
 [ext_resource type="Script" uid="uid://bfoq7m41csq6g" path="res://Scene/gy_popup.gd" id="25_frrmm"]
 [ext_resource type="Script" uid="uid://bephcefek25vy" path="res://Scene/card_preview_manager.gd" id="26_vy6tj"]
 [ext_resource type="Texture2D" uid="uid://db23caja8vw41" path="res://Assets/FIRESPELLPOWER ICON.png" id="28_xa1iw"]
 [ext_resource type="Texture2D" uid="uid://sek2ddfj4huf" path="res://Assets/WINDSPELLPOWER ICON.png" id="29_2bqq7"]
 [ext_resource type="Texture2D" uid="uid://dkrumfc1avvdj" path="res://Assets/EARTHSPELLPOWER ICON.png" id="29_4ljq4"]
+[ext_resource type="Texture2D" uid="uid://bwukkorhyc57u" path="res://Assets Ui/RESOLVEACCESO.png" id="29_j33hq"]
 [ext_resource type="Texture2D" uid="uid://b41g764utippy" path="res://Assets/WATERSPELLPOWER ICON.png" id="30_2bqq7"]
+[ext_resource type="Texture2D" uid="uid://hm0ie7e6s04s" path="res://Assets Ui/OKACCESO.png" id="30_lfrbi"]
+[ext_resource type="Texture2D" uid="uid://ctt1dwnqbea8n" path="res://Assets Ui/OKSPENTO.png" id="31_2yva8"]
+[ext_resource type="Texture2D" uid="uid://hx7cxenxyhjn" path="res://Assets Ui/RESOLVE SPENTO.png" id="32_45jcx"]
 [ext_resource type="Script" uid="uid://dophsw7seos7w" path="res://Scene/custom_effects.gd" id="32_ubc3m"]
 [ext_resource type="Texture2D" uid="uid://cpig7v54hisg6" path="res://Assets Collezione/BackGroundCollectionDietro.png" id="33_3om6r"]
+[ext_resource type="Texture2D" uid="uid://b6edfobbg2prn" path="res://Assets Ui/GOTOCOMBATSPENTO.png" id="33_qpw1d"]
+[ext_resource type="Texture2D" uid="uid://isw7aa674r6e" path="res://Assets Ui/GOTOCOMBATACCESO.png" id="34_m667i"]
 [ext_resource type="Texture2D" uid="uid://cc261yydobx0i" path="res://Assets/Mana/ACTION BASE.png" id="34_ulniw"]
+[ext_resource type="Texture2D" uid="uid://n5by2agsbfip" path="res://Assets Ui/TODAMAGESTEPSPENTO.png" id="35_20v0l"]
 [ext_resource type="Texture2D" uid="uid://b4kntqiejfnmy" path="res://Assets Ui/pattern esagoni.png" id="35_ttc12"]
+[ext_resource type="Texture2D" uid="uid://b7rg2tbb4cwu" path="res://Assets Ui/TODAMAGESTEPACCESO.png" id="36_5p4o3"]
+[ext_resource type="Texture2D" uid="uid://d0fplajrfofei" path="res://Assets Ui/RETALIATESPENTO.png" id="37_nr068"]
+[ext_resource type="Texture2D" uid="uid://hu1d33x1qixd" path="res://Assets Ui/FASI OSCURATE.png" id="38_enjyw"]
+[ext_resource type="Texture2D" uid="uid://bd5seed2cenhx" path="res://Assets Ui/RETALIATEACCESO.png" id="38_u4oxv"]
+[ext_resource type="Texture2D" uid="uid://bgg8a11txuohn" path="res://Assets Ui/DIRECTATTACK SPENTO.png" id="39_p78i5"]
+[ext_resource type="Texture2D" uid="uid://jnf6l3bt3715" path="res://Assets Ui/SP.png" id="39_uynbh"]
+[ext_resource type="Shader" uid="uid://d3g11rca8lp4x" path="res://Scene/ShaderPhases.gdshader" id="39_ve160"]
+[ext_resource type="Texture2D" uid="uid://cawfy28y22urq" path="res://Assets Ui/DIRECTATTACKACCESO.png" id="40_r1pc4"]
+[ext_resource type="Texture2D" uid="uid://deuy7fagcc4kc" path="res://Assets Ui/UP.png" id="40_ve160"]
+[ext_resource type="Texture2D" uid="uid://bqlwy6uenu88j" path="res://Assets Ui/MP.png" id="41_h4u4c"]
+[ext_resource type="Texture2D" uid="uid://cpyqnn0sexr6v" path="res://Assets Ui/PP.png" id="42_monh0"]
+[ext_resource type="Texture2D" uid="uid://bc2q20xxy2dpr" path="res://Assets Ui/CP.png" id="43_604tb"]
+[ext_resource type="Texture2D" uid="uid://d4lstguicuf3l" path="res://Assets Ui/EP.png" id="44_i5d0t"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_53ceb"]
 shader = ExtResource("3_ya6wd")
@@ -61,53 +83,33 @@ size = Vector2(150, 209)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m0mch"]
 size = Vector2(1013.33, 1240)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g20td"]
-bg_color = Color(0, 0, 0, 0.392157)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0.803922, 0.466667, 0.133333, 0)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h4u4c"]
+shader = ExtResource("39_ve160")
+shader_parameter/glow_color = Color(0.443137, 0.764706, 0.635294, 1)
+shader_parameter/outline_size = 2.5
+shader_parameter/glow_strength = 1.2
+shader_parameter/speed = 1.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7yhcc"]
-bg_color = Color(0, 0, 0, 0.392157)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0.803922, 0.466667, 0.133333, 0)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uynbh"]
+shader = ExtResource("39_ve160")
+shader_parameter/glow_color = Color(0.443137, 0.764706, 0.635294, 1)
+shader_parameter/outline_size = 2.5
+shader_parameter/glow_strength = 1.2
+shader_parameter/speed = 1.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_225pa"]
-bg_color = Color(0, 0, 0, 0.392157)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0.803922, 0.466667, 0.133333, 0)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ve160"]
+shader = ExtResource("39_ve160")
+shader_parameter/glow_color = Color(0.443137, 0.764706, 0.635294, 1)
+shader_parameter/outline_size = 2.5
+shader_parameter/glow_strength = 1.2
+shader_parameter/speed = 1.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vobt0"]
-bg_color = Color(0, 0, 0, 0.392157)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0.803922, 0.466667, 0.133333, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_onb2x"]
-bg_color = Color(0, 0, 0, 0.392157)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0.803922, 0.466667, 0.133333, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f8xqc"]
-bg_color = Color(0, 0, 0, 0.392157)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0.803922, 0.466667, 0.133333, 0)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_monh0"]
+shader = ExtResource("39_ve160")
+shader_parameter/glow_color = Color(0.443137, 0.764706, 0.635294, 1)
+shader_parameter/outline_size = 2.5
+shader_parameter/glow_strength = 1.2
+shader_parameter/speed = 1.0
 
 [node name="PlayerField" type="Node2D"]
 script = ExtResource("1_rwyy7")
@@ -559,117 +561,23 @@ script = ExtResource("13_vy6tj")
 [node name="PhaseManager" type="Node" parent="."]
 script = ExtResource("17_g20td")
 
-[node name="PlayerPassPhaseButton" type="Button" parent="."]
+[node name="PlayerPassPhaseButton" type="TextureButton" parent="."]
 offset_left = 1450.0
 offset_top = 500.0
 offset_right = 1630.0
 offset_bottom = 580.0
-text = "PASS PHASE"
+texture_normal = ExtResource("23_1om0u")
+texture_pressed = ExtResource("24_muul7")
+texture_hover = ExtResource("24_muul7")
 
-[node name="EnemyPassPhaseButton" type="Button" parent="."]
+[node name="EnemyPassPhaseButton" type="TextureButton" parent="."]
 visible = false
 offset_left = 1450.0
 offset_top = 410.0
 offset_right = 1630.0
 offset_bottom = 490.0
-text = "PASS PHASE"
-
-[node name="PhaseIndicators" type="HBoxContainer" parent="."]
-z_index = -10
-offset_left = 572.0
-offset_top = 476.0
-offset_right = 1376.0
-offset_bottom = 548.0
-
-[node name="StartPhasePanel" type="Panel" parent="PhaseIndicators"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_g20td")
-
-[node name="SPLabel" type="Label" parent="PhaseIndicators/StartPhasePanel"]
-layout_mode = 0
-offset_right = 63.0
-offset_bottom = 36.0
-scale = Vector2(2, 2)
-text = "SP"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="UpkeepPhasePanel" type="Panel" parent="PhaseIndicators"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_7yhcc")
-
-[node name="UPLabel" type="Label" parent="PhaseIndicators/UpkeepPhasePanel"]
-layout_mode = 0
-offset_right = 63.0
-offset_bottom = 36.0
-scale = Vector2(2, 2)
-text = "UP"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="MainPhasePanel" type="Panel" parent="PhaseIndicators"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_225pa")
-
-[node name="MPLabel" type="Label" parent="PhaseIndicators/MainPhasePanel"]
-layout_mode = 0
-offset_right = 63.0
-offset_bottom = 36.0
-scale = Vector2(2, 2)
-text = "MP"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="PrepPhasePanel" type="Panel" parent="PhaseIndicators"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_vobt0")
-
-[node name="PPLabel" type="Label" parent="PhaseIndicators/PrepPhasePanel"]
-layout_mode = 0
-offset_right = 63.0
-offset_bottom = 36.0
-scale = Vector2(2, 2)
-text = "PP"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BattlePhasePanel" type="Panel" parent="PhaseIndicators"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_onb2x")
-
-[node name="BPLabel" type="Label" parent="PhaseIndicators/BattlePhasePanel"]
-layout_mode = 0
-offset_right = 63.0
-offset_bottom = 36.0
-scale = Vector2(2, 2)
-text = "BP"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="EndPhasePanel" type="Panel" parent="PhaseIndicators"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_f8xqc")
-
-[node name="EPLabel" type="Label" parent="PhaseIndicators/EndPhasePanel"]
-layout_mode = 0
-offset_right = 63.0
-offset_bottom = 36.0
-scale = Vector2(2, 2)
-text = "EP"
-horizontal_alignment = 1
-vertical_alignment = 1
+texture_normal = ExtResource("24_muul7")
+texture_disabled = ExtResource("24_muul7")
 
 [node name="DefenderIcon" type="TextureRect" parent="."]
 visible = false
@@ -710,91 +618,83 @@ text = "Always Resolve"
 [node name="ActionButtons" type="Node2D" parent="."]
 script = ExtResource("21_f8xqc")
 
-[node name="EnemyResolveButton" type="Button" parent="ActionButtons"]
-modulate = Color(0, 0.490196, 0.886275, 1)
+[node name="EnemyResolveButton" type="TextureButton" parent="ActionButtons"]
 offset_left = 1450.0
 offset_top = 410.0
-offset_right = 1590.0
-offset_bottom = 470.0
-scale = Vector2(1.3, 1.3)
-text = "RESOLVE
-"
+offset_right = 1637.0
+offset_bottom = 492.0
+texture_normal = ExtResource("29_j33hq")
+texture_disabled = ExtResource("30_lfrbi")
 
-[node name="PlayerOkButton" type="Button" parent="ActionButtons"]
-modulate = Color(1, 0.72549, 0, 1)
+[node name="PlayerOkButton" type="TextureButton" parent="ActionButtons"]
 offset_left = 1450.0
 offset_top = 609.0
-offset_right = 1525.0
-offset_bottom = 661.0
-scale = Vector2(1.5, 1.5)
-text = "OK"
+offset_right = 1637.0
+offset_bottom = 691.0
+texture_normal = ExtResource("31_2yva8")
+texture_pressed = ExtResource("30_lfrbi")
+texture_hover = ExtResource("30_lfrbi")
 
-[node name="PlayerResolveButton" type="Button" parent="ActionButtons"]
-modulate = Color(0, 0.490196, 0.886275, 1)
+[node name="PlayerResolveButton" type="TextureButton" parent="ActionButtons"]
 offset_left = 1450.0
 offset_top = 500.0
-offset_right = 1590.0
-offset_bottom = 560.0
-scale = Vector2(1.3, 1.3)
-text = "RESOLVE
-"
+offset_right = 1637.0
+offset_bottom = 582.0
+texture_normal = ExtResource("32_45jcx")
+texture_pressed = ExtResource("29_j33hq")
+texture_hover = ExtResource("29_j33hq")
 
-[node name="PlayerGoToCombatButton" type="Button" parent="ActionButtons"]
-modulate = Color(0, 0.490196, 0.886275, 1)
+[node name="PlayerGoToCombatButton" type="TextureButton" parent="ActionButtons"]
 offset_left = 1450.0
 offset_top = 500.0
-offset_right = 1590.0
-offset_bottom = 560.0
-scale = Vector2(1.3, 1.3)
-text = "GO TO COMBAT
-"
+offset_right = 1637.0
+offset_bottom = 582.0
+texture_normal = ExtResource("33_qpw1d")
+texture_pressed = ExtResource("34_m667i")
+texture_hover = ExtResource("34_m667i")
 
-[node name="PlayerToDamageStepButton" type="Button" parent="ActionButtons"]
-modulate = Color(0, 0.490196, 0.886275, 1)
+[node name="PlayerToDamageStepButton" type="TextureButton" parent="ActionButtons"]
 offset_left = 1448.0
 offset_top = 501.0
-offset_right = 1591.0
-offset_bottom = 561.0
-scale = Vector2(1.3, 1.3)
-text = "TO DAMAGE STEP
-"
+offset_right = 1635.0
+offset_bottom = 583.0
+texture_normal = ExtResource("35_20v0l")
+texture_pressed = ExtResource("36_5p4o3")
+texture_hover = ExtResource("36_5p4o3")
 
-[node name="PlayerRetaliateButton" type="Button" parent="ActionButtons"]
-modulate = Color(1, 0.160784, 0, 1)
+[node name="PlayerRetaliateButton" type="TextureButton" parent="ActionButtons"]
 offset_left = 1450.0
 offset_top = 500.0
-offset_right = 1590.0
-offset_bottom = 560.0
-scale = Vector2(1.3, 1.3)
-text = "RETALIATE"
+offset_right = 1637.0
+offset_bottom = 582.0
+texture_normal = ExtResource("37_nr068")
+texture_pressed = ExtResource("38_u4oxv")
+texture_hover = ExtResource("38_u4oxv")
 
-[node name="PlayerDirectAttackButton" type="Button" parent="ActionButtons"]
-modulate = Color(1, 0.160784, 0, 1)
+[node name="PlayerDirectAttackButton" type="TextureButton" parent="ActionButtons"]
 offset_left = 1450.0
 offset_top = 500.0
-offset_right = 1590.0
-offset_bottom = 560.0
-scale = Vector2(1.3, 1.3)
-text = "DIRECT ATTACK
-"
+offset_right = 1637.0
+offset_bottom = 582.0
+texture_normal = ExtResource("39_p78i5")
+texture_pressed = ExtResource("40_r1pc4")
+texture_hover = ExtResource("40_r1pc4")
 
-[node name="EnemyOkButton" type="Button" parent="ActionButtons"]
-modulate = Color(1, 0.72549, 0, 1)
+[node name="EnemyOkButton" type="TextureButton" parent="ActionButtons"]
 offset_left = 1450.0
 offset_top = 410.0
-offset_right = 1525.0
-offset_bottom = 462.0
-scale = Vector2(1.5, 1.5)
-text = "OK"
+offset_right = 1637.0
+offset_bottom = 492.0
+texture_normal = ExtResource("30_lfrbi")
+texture_disabled = ExtResource("30_lfrbi")
 
-[node name="EnemyRetaliateButton" type="Button" parent="ActionButtons"]
-modulate = Color(1, 0.160784, 0, 1)
+[node name="EnemyRetaliateButton" type="TextureButton" parent="ActionButtons"]
 offset_left = 1450.0
 offset_top = 410.0
-offset_right = 1590.0
-offset_bottom = 470.0
-scale = Vector2(1.3, 1.3)
-text = "RETALIATE"
+offset_right = 1637.0
+offset_bottom = 492.0
+texture_normal = ExtResource("38_u4oxv")
+texture_disabled = ExtResource("38_u4oxv")
 
 [node name="PromptLabels" type="Node2D" parent="."]
 
@@ -1140,3 +1040,37 @@ offset_bottom = 911.0
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(861, 539)
 offset = Vector2(100, 0)
+
+[node name="PhasesAll" type="Sprite2D" parent="."]
+position = Vector2(942, 509)
+texture = ExtResource("38_enjyw")
+
+[node name="SP" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_h4u4c")
+position = Vector2(633, 509)
+texture = ExtResource("39_uynbh")
+
+[node name="UP" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_uynbh")
+position = Vector2(755, 509)
+texture = ExtResource("40_ve160")
+
+[node name="MP" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ve160")
+position = Vector2(879, 509)
+texture = ExtResource("41_h4u4c")
+
+[node name="PP" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_monh0")
+position = Vector2(1003, 509)
+texture = ExtResource("42_monh0")
+
+[node name="CP" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_monh0")
+position = Vector2(1128, 509)
+texture = ExtResource("43_604tb")
+
+[node name="EP" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_monh0")
+position = Vector2(1253, 509)
+texture = ExtResource("44_i5d0t")

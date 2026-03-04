@@ -1379,11 +1379,12 @@ func start_drag(card):
 	if preview_manager:
 		preview_manager.hide_preview()
 		preview_manager.dragging = true   # 👈 segnala che siamo in drag
-		
+	
+	
 	card_being_dragged = card
 	card.scale = Vector2(1, 1)
 	card.z_index = Z_INDEX_DRAG
-	#card.tilt_active = false
+	card.tilt_active = false
 
 	
 	# Calcola l'offset tra il centro della carta e il mouse al momento del click
@@ -1400,10 +1401,12 @@ func start_drag(card):
 	
 func finish_drag():
 	card_being_dragged.scale = Vector2(1, 1)
+	card_being_dragged.tilt_active = false
 	var card_slot_found = raycast_check_for_card_slot()
 	var preview_manager = get_tree().get_current_scene().get_node_or_null("PlayerField/CardPreviewManager")
 	if preview_manager:
 		preview_manager.dragging = false
+		
 	
 	var phase_manager = get_tree().get_current_scene().get_node_or_null("PlayerField/PhaseManager")
 	if phase_manager.current_phase != phase_manager.Phase.MAIN:

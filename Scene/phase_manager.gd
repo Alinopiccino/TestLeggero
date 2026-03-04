@@ -26,26 +26,34 @@ var enemy_action_count: int = 0
 @onready var player_pass_button = $"../PlayerPassPhaseButton"
 @onready var enemy_pass_button = $"../EnemyPassPhaseButton"
 @onready var phase_indicators = {
-	Phase.START: $"../PhaseIndicators/StartPhasePanel",
-	Phase.UPKEEP: $"../PhaseIndicators/UpkeepPhasePanel", # 🆕
-	Phase.MAIN: $"../PhaseIndicators/MainPhasePanel",
-	Phase.PREPARATION: $"../PhaseIndicators/PrepPhasePanel",
-	Phase.BATTLE: $"../PhaseIndicators/BattlePhasePanel",
-	Phase.END: $"../PhaseIndicators/EndPhasePanel"
+	Phase.START: $"../SP",
+	Phase.UPKEEP: $"../UP",
+	Phase.MAIN: $"../MP",
+	Phase.PREPARATION: $"../PP",
+	Phase.BATTLE: $"../CP",
+	Phase.END: $"../EP"
 }
+
+@onready var phases_base = $"../PhasesAll"
 
 func _ready():
 	player_pass_button.pressed.connect(func(): on_player_pass_button_pressed(true))
 	player_pass_button.disabled = false
-	player_pass_button.text = "Pass Phase"
+	#player_pass_button.text = "Pass Phase"
 	
 	enemy_pass_button.modulate = Color(0, 0, 0, 0)  #invisibile ad inizio game
 	enemy_pass_button.visible = false
 	enemy_pass_button.disabled = false
-	enemy_pass_button.text = "Pass Phase"
+	#enemy_pass_button.text = "Pass Phase"
 	enemy_pass_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
-	update_phase_indicators() # 🆕 Aggiungi questa riga qui!!
+	for sprite in phase_indicators.values():
+		sprite.visible = false
+
+	phases_base.visible = true
+
+	update_phase_indicators()
+
 	
 	print("🟢 Fase iniziale:", get_phase_name())
 
@@ -86,10 +94,10 @@ func on_player_pass_button_pressed(is_manual: bool = false, force: bool = false)
 	player_pass_button.release_focus()
 	player_pass_button.focus_mode = Control.FOCUS_NONE
 
-	if current_phase == Phase.END:
-		player_pass_button.text = "ENDED"
-	else:
-		player_pass_button.text = "PASSED"
+	#if current_phase == Phase.END:
+		#player_pass_button.text = "ENDED"
+	#else:
+		#player_pass_button.text = "PASSED"
 
 	print("✅ Hai passato la fase:", get_phase_name())
 
@@ -135,10 +143,10 @@ func notify_enemy_passed_phase():
 
 func update_enemy_pass_button():
 	enemy_pass_button.visible = true # 👈 Ora visibile
-	if current_phase == Phase.END:
-		enemy_pass_button.text = "ENDED"
-	else:
-		enemy_pass_button.text = "PASSED"
+	#if current_phase == Phase.END:
+		#enemy_pass_button.text = "ENDED"
+	#else:
+		#enemy_pass_button.text = "PASSED"
 	enemy_pass_button.disabled = true
 	enemy_pass_button.modulate = Color(0.7, 0.7, 0.7, 1) # <-- Grigetto per indicare che ha passato
 	
@@ -155,13 +163,13 @@ func set_phase(new_phase: Phase):
 	# Player pass button reset
 	
 	#player_pass_button.disabled = false
-	player_pass_button.text = "Pass Phase"
+	#player_pass_button.text = "Pass Phase"
 	player_pass_button.modulate = Color(1, 1, 1, 1)
 
 	# Enemy pass button reset
 	enemy_pass_button.disabled = false
 	enemy_pass_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	enemy_pass_button.text = "Pass Phase"
+	#enemy_pass_button.text = "Pass Phase"
 	enemy_pass_button.modulate = Color(1, 1, 1, 1)
 	enemy_pass_button.visible = false  # 👈 Nascondi sempre a inizio fase
 	
@@ -315,8 +323,8 @@ func set_phase(new_phase: Phase):
 
 	
 	if current_phase == Phase.END:
-		player_pass_button.text = "End Turn"
-		enemy_pass_button.text = "End Turn"
+		#player_pass_button.text = "End Turn"
+		#enemy_pass_button.text = "End Turn"
 		
 				# =====================================
 		# ⏭️ AUTO-PASS IMMEDIATO IN END PHASE
@@ -326,8 +334,9 @@ func set_phase(new_phase: Phase):
 		print("⏭️ [END PHASE ENTER] Auto-pass immediato.")
 		on_player_pass_button_pressed(true) 
 	else:
-		player_pass_button.text = "Pass Phase"
-		enemy_pass_button.text = "Pass Phase"
+		print("Pass phase ho tolto i text prche ora e' texturebutton")
+		#player_pass_button.text = "Pass Phase"
+		#enemy_pass_button.text = "Pass Phase"
 	
 	print("🌟 Nuova fase:", get_phase_name())
 	
@@ -381,7 +390,7 @@ func rpc_give_action(peer_id: int, from_attack: bool = false, from_phase: bool =
 				print("🟢 [POST-ATTACK] Nemico ha passato ma ho ancora azioni → mostro Pass Phase.")
 				player_pass_button.visible = true
 				player_pass_button.disabled = false
-				player_pass_button.text = "Pass Phase"
+				#player_pass_button.text = "Pass Phase"
 				print("🟢 [PhaseManager] Bottone Pass Phase RIAPPARSO (hai l'azione).")
 		
 		# 🕒 Nascondi la clessidra se attiva
@@ -458,7 +467,7 @@ func rpc_give_action(peer_id: int, from_attack: bool = false, from_phase: bool =
 			print("🧠 [ACTION OK] Action ricevuta e azioni disponibili → nessun auto-pass e mostro pass phase.")
 			player_pass_button.visible = true
 			player_pass_button.disabled = false
-			player_pass_button.text = "Pass Phase"
+			#player_pass_button.text = "Pass Phase"
 			print("🟢 SONO IO IL PEER [PhaseManager] Bottone Pass Phase RIAPPARSO (hai l'azione).")
 
 			# 🕒 Nascondi la clessidra se attiva
@@ -847,27 +856,19 @@ func both_players_passed() -> bool:
 	return has_passed_this_phase and enemy_has_passed_this_phase
 	
 func update_phase_indicators():
-	for phase in Phase.values():
-		var panel = phase_indicators.get(phase)
-		if panel != null:
-			var style = panel.get_theme_stylebox("panel") as StyleBoxFlat
-			if style:
-				style.border_color = Color(0, 0, 0, 0) # Nessun bordo
-				style.border_width_top = 0
-				style.border_width_bottom = 0
-				style.border_width_left = 0
-				style.border_width_right = 0
 
-	
-	var active_panel = phase_indicators.get(current_phase)
-	if active_panel != null:
-		var active_style = active_panel.get_theme_stylebox("panel") as StyleBoxFlat
-		if active_style:
-			active_style.border_color = Color(1, 0.5, 0, 1) # 🧡 Bordo arancione
-			active_style.border_width_top = 4
-			active_style.border_width_bottom = 4
-			active_style.border_width_left = 4
-			active_style.border_width_right = 4
+	# Nasconde tutte le icone fase
+	for sprite in phase_indicators.values():
+		if sprite:
+			sprite.visible = false
+
+	# Mostra quella della fase attuale
+	var active_sprite = phase_indicators.get(current_phase)
+
+	if active_sprite:
+		active_sprite.visible = true
+
+	print("📍 Phase Indicator aggiornato:", get_phase_name())
 
 func decide_starting_roles():
 	if multiplayer.is_server():

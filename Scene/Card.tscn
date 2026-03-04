@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://h1c0uc7u0h6r"]
+[gd_scene load_steps=16 format=3 uid="uid://h1c0uc7u0h6r"]
 
 [ext_resource type="Script" uid="uid://b4xr5pi00bttv" path="res://Scripts/card.gd" id="1_hael8"]
 [ext_resource type="Texture2D" uid="uid://l3fn21vjinjd" path="res://Assets Collezione/HighlightBorderSoffuso ALT.png" id="2_cl8pl"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bxo0og33dniot" path="res://Assets Ui/FRAME.png" id="3_sx4i5"]
 [ext_resource type="Texture2D" uid="uid://dum816pi6ctd1" path="res://Assets Ui/1BACK.png" id="4_kn6op"]
 [ext_resource type="Texture2D" uid="uid://c81x3lgit1xrj" path="res://Assets Ui/BORDER parallasse.png" id="5_kn6op"]
+[ext_resource type="FontFile" uid="uid://c7kmpfrd3kjkj" path="res://Assets Fonts/AmericanCaptain-MdEY.otf" id="6_kn6op"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cl8pl"]
 size = Vector2(150, 208)
@@ -348,6 +349,11 @@ offset_top = 28.0
 offset_right = -15.0
 offset_bottom = 68.0
 mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("6_kn6op")
+theme_override_fonts/mono_font = ExtResource("6_kn6op")
+theme_override_fonts/italics_font = ExtResource("6_kn6op")
+theme_override_fonts/bold_italics_font = ExtResource("6_kn6op")
+theme_override_fonts/bold_font = ExtResource("6_kn6op")
 text = "0"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
@@ -359,6 +365,11 @@ offset_top = 28.0
 offset_right = 56.0
 offset_bottom = 68.0
 mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("6_kn6op")
+theme_override_fonts/mono_font = ExtResource("6_kn6op")
+theme_override_fonts/italics_font = ExtResource("6_kn6op")
+theme_override_fonts/bold_italics_font = ExtResource("6_kn6op")
+theme_override_fonts/bold_font = ExtResource("6_kn6op")
 text = "0"
 autowrap_mode = 0
 horizontal_alignment = 1
