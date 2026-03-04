@@ -18,7 +18,22 @@ func _ready() -> void:
 func add_card_to_hand(card, speed):
 	# 👇 disattiva hover finché non finisce l’animazione
 	#card.hover_enabled = false
+
+	# -------------------------
+	# RESET DRAG / TILT
+	# -------------------------
+
+	card.set_meta("is_dragging", false)
 	card.tilt_active = false
+
+	card.mouse_velocity = Vector2.ZERO
+	card.last_mouse_pos = Vector2.ZERO
+
+	card.pivot.rotation_degrees = 0
+	card.pivot.skew = 0
+	card.pivot.scale = card.original_pivot_scale
+
+
 
 	if card not in player_hand:
 		if card.card_data == null:

@@ -19,7 +19,18 @@ class_name Card
 @onready var bg = $Pivot/Background
 @onready var art = $Pivot/Art
 @onready var frame = $Pivot/Frame
+@onready var card_shadow = $Pivot/CardShadow
+@onready var border = $Pivot/Border
 
+var last_mouse_pos := Vector2.ZERO
+var mouse_velocity := Vector2.ZERO
+
+@export var drag_tilt_strength := 0.15
+@export var drag_tilt_max := 20.0
+@export var drag_skew_strength := 0.0006
+@export var drag_scale_strength := 0.04
+@export var drag_scale_max := 0.08
+@export var drag_squash_strength := 0.0005
 
 var auto_time := 0.0
 @export var auto_speed := 1.2
@@ -142,34 +153,97 @@ func _process(delta):
 		var modifier_pressed = Input.is_key_pressed(KEY_CTRL)
 		highlight_linked_target(modifier_pressed)
 
+	var is_dragging = get_meta("is_dragging", false)
+
+	# -------------------------------------------------
+	# DRAG PHYSICS
+	# -------------------------------------------------
+
+	if is_dragging:
+
+		var mouse_pos = get_global_mouse_position()
+
+		mouse_velocity = (mouse_pos - last_mouse_pos) / max(delta, 0.0001)
+		last_mouse_pos = mouse_pos
+
+		# ----------------
+		# TILT
+		# ----------------
+
+		var tilt = clamp(mouse_velocity.x * drag_tilt_strength, -drag_tilt_max, drag_tilt_max)
+
+		pivot.rotation_degrees = lerp(
+			pivot.rotation_degrees,
+			tilt,
+			delta * 12.0
+		)
+
+		# ----------------
+		# SKEW ORIZZONTALE
+		# ----------------
+
+		var skew_target = clamp(mouse_velocity.x * drag_skew_strength, -0.25, 0.25)
+
+		pivot.skew = lerp(
+			pivot.skew,
+			skew_target,
+			delta * 10.0
+		)
+
+		# ----------------
+		# SQUASH DIREZIONALE VERTICALE
+		# ----------------
+
+		var vy = mouse_velocity.y
+
+		var squash = clamp(vy * drag_squash_strength, -drag_scale_max, drag_scale_max)
+
+		var target_scale := original_pivot_scale
+
+		if vy < 0:
+			target_scale.y = original_pivot_scale.y - abs(squash)
+		else:
+			target_scale.y = original_pivot_scale.y - abs(squash)
+
+		target_scale.x = original_pivot_scale.x + abs(squash) * 0.5
+
+		pivot.scale = pivot.scale.lerp(
+			target_scale,
+			delta * 10.0
+		)
+
+
+
+
+	# -------------------------------------------------
+	# PARALLAX
+	# -------------------------------------------------
+
 	if tilt_active:
 		update_auto_parallax(delta)
 	else:
 		target_offset = target_offset.lerp(Vector2.ZERO, delta * smooth)
-	#if tilt_active:
-		#update_parallax(get_global_mouse_position())
-	#else:
-		#target_offset = target_offset.lerp(Vector2.ZERO, delta * smooth)
 
-	# 🎨 Art (foreground)
 	art.position = art.position.lerp(
 		target_offset * 1.0,
 		delta * smooth
 	)
 
-	# 🖼 Frame
 	frame.position = frame.position.lerp(
 		target_offset * 0.5,
 		delta * smooth
 	)
 
-	# 🌌 Background
 	bg.position = bg.position.lerp(
 		target_offset * 0.25,
 		delta * smooth
 	)
 
-	if tilt_active:
+	# -------------------------------------------------
+	# HOVER TILT
+	# -------------------------------------------------
+
+	if tilt_active and not is_dragging:
 
 		var mouse_pos = get_global_mouse_position()
 		var diff = mouse_pos - hover_center
@@ -179,14 +253,6 @@ func _process(delta):
 		pivot.rotation_degrees = lerp(
 			pivot.rotation_degrees,
 			base_tilt + tilt_x * 2.0,
-			delta * smooth
-		)
-
-	else:
-
-		pivot.rotation_degrees = lerp(
-			pivot.rotation_degrees,
-			sin(auto_time * 0.8) * 0.5,
 			delta * smooth
 		)
 
@@ -554,7 +620,16 @@ func set_position_type(pos_type: String) -> void:
 
 
 func _ready() -> void:
-	
+
+	# forza materiale unico per ogni carta
+	if border and border.material:
+		var new_mat = border.material.duplicate(true)   # deep duplicate
+		border.material = new_mat
+
+		if new_mat is ShaderMaterial:
+			new_mat.set_shader_parameter("time_offset", randf() * 100.0)
+
+	scale = Vector2(1, 1)
 	#for child in get_children():
 		#print("Child:", child.name)
 	#print("READY card: ", self.name)
@@ -562,6 +637,8 @@ func _ready() -> void:
 	#print("Health label:", health_label)
 	scale = Vector2(1, 1)
 	original_pivot_scale = pivot.scale
+	card_shadow.visible = false
+	
 	
 	var current = get_parent()
 	while current and not current.has_method("connect_card_signals"):

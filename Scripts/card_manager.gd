@@ -1384,7 +1384,10 @@ func start_drag(card):
 	card_being_dragged = card
 	card.scale = Vector2(1, 1)
 	card.z_index = Z_INDEX_DRAG
-	card.tilt_active = false
+	#card.tilt_active = false
+	card.set_meta("is_dragging", true)
+	card.last_mouse_pos = get_global_mouse_position()
+	card.card_shadow.visible = true
 
 	
 	# Calcola l'offset tra il centro della carta e il mouse al momento del click
@@ -1402,6 +1405,12 @@ func start_drag(card):
 func finish_drag():
 	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.tilt_active = false
+	card_being_dragged.set_meta("is_dragging", false)
+	card_being_dragged.set_meta("is_hovering", false)
+	card_being_dragged.card_shadow.visible = false
+	card_being_dragged.base_tilt = 0.0
+	card_being_dragged.pivot.rotation_degrees = 0
+	
 	var card_slot_found = raycast_check_for_card_slot()
 	var preview_manager = get_tree().get_current_scene().get_node_or_null("PlayerField/CardPreviewManager")
 	if preview_manager:
@@ -1855,7 +1864,7 @@ func gioca_carta_subito(card: Node2D, slot: Node2D):
 	await tween.finished
 
 
-	#card_to_place.position = slot_to_place.position
+	card_to_place.position = slot_to_place.global_position
 	card_to_place.z_index = Z_INDEX_SLOT
 
 	# Blocca collisione dello slot
@@ -2707,6 +2716,8 @@ func highlight_card(card, hovered):
 		card.set_meta("is_hovering", false)
 		card.tilt_active = false
 		card.base_tilt = 0.0
+		# 👇 reset tilt
+		card.pivot.rotation_degrees = 0
 
 		card.z_index = Z_INDEX_HAND
 
