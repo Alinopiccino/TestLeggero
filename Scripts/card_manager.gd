@@ -82,7 +82,7 @@ func cancel_drag():
 		
 	if card_being_dragged:
 		player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
-		card_being_dragged.z_index = Z_INDEX_HAND
+		#card_being_dragged.z_index = Z_INDEX_HAND
 		if currently_hovered_card:
 			highlight_card(currently_hovered_card, false)
 			currently_hovered_card.tilt_active = false
@@ -1383,7 +1383,7 @@ func start_drag(card):
 	
 	card_being_dragged = card
 	card.scale = Vector2(1, 1)
-	card.z_index = Z_INDEX_DRAG
+	#card.z_index = card.z_index + 100
 	#card.tilt_active = false
 	card.set_meta("is_dragging", true)
 	card.last_mouse_pos = get_global_mouse_position()
@@ -1421,7 +1421,7 @@ func finish_drag():
 	if phase_manager.current_phase != phase_manager.Phase.MAIN:
 		print("⛔ Non puoi giocare carte fuori dalla Main Phase! (fase attuale:", phase_manager.get_phase_name(), ")")
 		player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
-		card_being_dragged.z_index = Z_INDEX_HAND
+		#card_being_dragged.z_index = card_being_dragged.z_index - 100
 		card_being_dragged = null
 		$"../ManaSlots".set_all_slots_using(false)
 		return
@@ -1437,7 +1437,7 @@ func finish_drag():
 
 		# ↩️ Ritorna la carta in mano
 		player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
-		card_being_dragged.z_index = Z_INDEX_HAND
+		#card_being_dragged.z_index = card_being_dragged.z_index - 100
 		card_being_dragged = null
 
 		# 🔥 Reset highlight USING
@@ -1488,7 +1488,7 @@ func finish_drag():
 			else:
 				# ❌ Mancano i tributi necessari (considerando solo creature valide)
 				player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
-				card_being_dragged.z_index = Z_INDEX_HAND
+				#card_being_dragged.z_index = Z_INDEX_HAND
 
 				
 
@@ -1496,14 +1496,14 @@ func finish_drag():
 
 			
 			player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
-			card_being_dragged.z_index = Z_INDEX_HAND
+			#card_being_dragged.z_index = card_being_dragged.z_index - 100
 
 	else:
 		
 
 			
 		player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
-		card_being_dragged.z_index = Z_INDEX_HAND
+		#card_being_dragged.z_index = card_being_dragged.z_index - 100
 
 	card_being_dragged = null
 	
@@ -2705,7 +2705,7 @@ func highlight_card(card, hovered):
 		tween.parallel().tween_property(card, "scale", Vector2(1.25, 1.25), 0.10)
 		tween.parallel().tween_property(card, "position", card.original_position - Vector2(0, 60), 0.10)
 
-		card.z_index = Z_INDEX_HOVER
+		card.z_index = card.z_index + 100
 		
 
 	else:
@@ -2719,8 +2719,8 @@ func highlight_card(card, hovered):
 		# 👇 reset tilt
 		card.pivot.rotation_degrees = 0
 
-		card.z_index = Z_INDEX_HAND
-
+		#card.z_index = Z_INDEX_HAND
+		card.z_index = card.z_index - 100
 		tween.parallel().tween_property(card, "scale", Vector2(1, 1), 0.10)
 		tween.parallel().tween_property(card, "position", card.original_position, 0.10)
 	

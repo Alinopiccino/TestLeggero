@@ -32,6 +32,7 @@ func add_card_to_hand(card, speed):
 	card.pivot.rotation_degrees = 0
 	card.pivot.skew = 0
 	card.pivot.scale = card.original_pivot_scale
+	card.z_index = 20
 
 
 
@@ -52,7 +53,8 @@ func update_hand_positions(speed):
 		var card = player_hand[i]
 
 		card.position_in_hand = new_position
-		card.original_position = new_position  # 👈 aggiorna sempre la posizione base!
+		card.original_position = new_position
+
 
 		animate_card_to_position(card, new_position, speed)
 		

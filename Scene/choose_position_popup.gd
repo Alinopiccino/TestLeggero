@@ -172,7 +172,7 @@ func _emit_choice(choice: String):
 func _return_card_to_hand(card_manager, card_to_play):
 	card_to_play.visible = true
 	card_manager.player_hand_reference.add_card_to_hand(card_to_play, card_manager.DEFAULT_CARD_MOVE_SPEED)
-	card_to_play.z_index = card_manager.Z_INDEX_HAND
+	#card_to_play.z_index = card_to_play.z_index - 100
 	card_manager.pending_card_to_place = null
 	card_manager.pending_slot_to_place = null
 	card_manager.is_position_popup_open = false
@@ -266,7 +266,7 @@ func _on_popup_hide():
 		var card = card_manager.pending_card_to_place
 		card.visible = true
 		card_manager.player_hand_reference.add_card_to_hand(card, card_manager.DEFAULT_CARD_MOVE_SPEED)
-		card.z_index = card_manager.Z_INDEX_HAND
+		#card.z_index = card.z_index - 100
 		
 		# ✅ Annulla il drag manualmente
 		card_manager.highlight_card(card, false)

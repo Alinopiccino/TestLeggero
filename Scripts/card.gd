@@ -16,15 +16,16 @@ class_name Card
 @onready var talent_icons_container: HBoxContainer = $TalentIconsContainer
 @onready var debuff_icons_container: VBoxContainer = $DebuffIconsContainer
 @onready var pivot = $Pivot
-@onready var bg = $Pivot/Background
-@onready var art = $Pivot/Art
-@onready var frame = $Pivot/Frame
+@onready var bg = $Pivot/ClipMask/Background
+@onready var art = $Pivot/ClipMask/Art
+@onready var frame = $Pivot/ClipMask/Frame
+@onready var border = $Pivot/ClipMask/Border
 @onready var card_shadow = $Pivot/CardShadow
-@onready var border = $Pivot/Border
 
 var last_mouse_pos := Vector2.ZERO
 var mouse_velocity := Vector2.ZERO
-
+var smooth_mouse_velocity := Vector2.ZERO
+@export var drag_min_speed := 250.0
 @export var drag_tilt_strength := 0.15
 @export var drag_tilt_max := 20.0
 @export var drag_skew_strength := 0.0006
@@ -37,8 +38,7 @@ var auto_time := 0.0
 @export var auto_strength := 0.6
 
 @export var max_tilt := 10.0
-@export var art_strength := 20.0     # prima era 20
-@export var bg_strength := 100.0      # più basso = più profondità
+@export var art_strength := 30.0     # prima era 20
 @export var smooth := 200.0           # leggermente più reattivo
 var hover_start_mouse_pos: Vector2 = Vector2.ZERO
 var mouse_distance := 0.0
@@ -164,13 +164,22 @@ func _process(delta):
 		var mouse_pos = get_global_mouse_position()
 
 		mouse_velocity = (mouse_pos - last_mouse_pos) / max(delta, 0.0001)
+		#var raw_velocity = (mouse_pos - last_mouse_pos) / max(delta, 0.0001)
+		#smooth_mouse_velocity = smooth_mouse_velocity.lerp(raw_velocity, delta * 12.0)
+		#mouse_velocity = smooth_mouse_velocity
 		last_mouse_pos = mouse_pos
+
+		var speed := mouse_velocity.length()
+
+		# 🔹 fattore di intensità effetti (0 → 1)
+		var speed_factor = clamp((speed - drag_min_speed) / 1200.0, 0.0, 1.0)
+		speed_factor = pow(speed_factor, 1.5) # rende l'effetto più naturale
 
 		# ----------------
 		# TILT
 		# ----------------
 
-		var tilt = clamp(mouse_velocity.x * drag_tilt_strength, -drag_tilt_max, drag_tilt_max)
+		var tilt = clamp(mouse_velocity.x * drag_tilt_strength * speed_factor, -drag_tilt_max, drag_tilt_max)
 
 		pivot.rotation_degrees = lerp(
 			pivot.rotation_degrees,
@@ -182,7 +191,7 @@ func _process(delta):
 		# SKEW ORIZZONTALE
 		# ----------------
 
-		var skew_target = clamp(mouse_velocity.x * drag_skew_strength, -0.25, 0.25)
+		var skew_target = clamp(mouse_velocity.x * drag_skew_strength * speed_factor, -0.25, 0.25)
 
 		pivot.skew = lerp(
 			pivot.skew,
@@ -196,7 +205,7 @@ func _process(delta):
 
 		var vy = mouse_velocity.y
 
-		var squash = clamp(vy * drag_squash_strength, -drag_scale_max, drag_scale_max)
+		var squash = clamp(vy * drag_squash_strength * speed_factor, -drag_scale_max, drag_scale_max)
 
 		var target_scale := original_pivot_scale
 
@@ -212,8 +221,11 @@ func _process(delta):
 			delta * 10.0
 		)
 
-
-
+	else:
+		# 🔹 reset morbido quando non si dragga
+		pivot.rotation_degrees = lerp(pivot.rotation_degrees, 0.0, delta * 10.0)
+		pivot.skew = lerp(pivot.skew, 0.0, delta * 10.0)
+		pivot.scale = pivot.scale.lerp(original_pivot_scale, delta * 10.0)
 
 	# -------------------------------------------------
 	# PARALLAX
