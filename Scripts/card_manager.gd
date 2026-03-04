@@ -2664,7 +2664,10 @@ func highlight_card(card, hovered):
 		card.set_meta("is_hovering", true)
 		card.tilt_active = true
 		card.hover_start_mouse_pos = get_global_mouse_position()
+		# ⭐ memorizza centro carta al momento dell'hover
+		card.hover_center = card.get_global_transform_with_canvas().origin
 
+		card.target_offset = Vector2.ZERO
 		var hand_node = $"../PlayerHand" # adatta il path se serve
 
 		var hand_center_x = hand_node.get_center_x()
@@ -2679,13 +2682,14 @@ func highlight_card(card, hovered):
 		var normalized_distance = clamp(abs(distance_from_center) / half_hand_width, 0.0, 1.0)
 
 		# 👇 due livelli di tilt
-		var light_tilt := 3.0
-		var strong_tilt := 6.0
+		var light_tilt := 1.5
+		var strong_tilt := 3.0
 
 		var chosen_tilt = strong_tilt if normalized_distance > 0.5 else light_tilt
 
 		card.base_tilt = chosen_tilt if distance_from_center > 0 else -chosen_tilt
 		card.tilt_sign = sign(card.base_tilt)
+		
 		
 		print(card.base_tilt)
 		print(distance_from_center)

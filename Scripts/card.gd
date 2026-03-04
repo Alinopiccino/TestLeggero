@@ -20,26 +20,27 @@ class_name Card
 @onready var art = $Pivot/Art
 @onready var frame = $Pivot/Frame
 
-@export var perspective_strength := 1
-@export var vertical_compress := 0.15
+
+var auto_time := 0.0
+@export var auto_speed := 1.2
+@export var auto_strength := 0.6
+
 @export var max_tilt := 10.0
-@export var art_strength := 100.0     # prima era 20
+@export var art_strength := 20.0     # prima era 20
 @export var bg_strength := 100.0      # più basso = più profondità
 @export var smooth := 200.0           # leggermente più reattivo
 var hover_start_mouse_pos: Vector2 = Vector2.ZERO
 var mouse_distance := 0.0
 var base_tilt := 0.0
-var mouse_tilt := 0.0
 var tilt_sign := 1.0
 var original_pivot_scale : Vector2 = Vector2(0.4,0.4)
-
-var target_skew_x := 0.0
-var target_skew_y := 0.0
 var tilt_active := false
-var target_rot := 0.0
+
 var target_offset := Vector2.ZERO
+var hover_center := Vector2.ZERO
 
-
+var target_skew := 0.0
+var target_scale := Vector2(0.4,0.4)
 
 signal hovered
 signal hovered_off
@@ -141,62 +142,53 @@ func _process(delta):
 		var modifier_pressed = Input.is_key_pressed(KEY_CTRL)
 		highlight_linked_target(modifier_pressed)
 
-	# 🔹 Gestione tilt
 	if tilt_active:
-		update_parallax(get_global_mouse_position())
+		update_auto_parallax(delta)
 	else:
-		mouse_distance = 0.0
-		base_tilt = 0.0
-		mouse_tilt = 0.0
-		target_rot = 0.0
-		target_offset = Vector2.ZERO
-		target_skew_x = 0.0
-		target_skew_y = 0.0
+		target_offset = target_offset.lerp(Vector2.ZERO, delta * smooth)
+	#if tilt_active:
+		#update_parallax(get_global_mouse_position())
+	#else:
+		#target_offset = target_offset.lerp(Vector2.ZERO, delta * smooth)
 
-	# ==================================================
-	# 🔥 ROTAZIONE + SKEW + SCALE (CORRETTA)
-	# ==================================================
-
-	var target_transform := Transform2D()
-
-	# 1️⃣ Rotazione
-	target_transform = target_transform.rotated(deg_to_rad(target_rot))
-
-	# 2️⃣ Skew sull'asse X
-	target_transform.x.y = target_skew_x
-	target_transform.y.x = target_skew_y 
-
-	# 3️⃣ Applica scala originale (es: 0.5, 0.5)
-	target_transform.x *= original_pivot_scale.x
-	target_transform.y *= original_pivot_scale.y 
-
-	# 4️⃣ Interpolazione fluida
-	pivot.transform = pivot.transform.interpolate_with(
-		target_transform,
-		delta * smooth
-	)
-	
-	# ==================================================
-	# 🔹 PARALLASSE LAYER
-	# ==================================================
-
-	# 🖼 FRAME (medio)
-	frame.position = frame.position.lerp(
-		target_offset * 0.6,
-		delta * smooth
-	)
-
-	# 🎨 ART (foreground)
+	# 🎨 Art (foreground)
 	art.position = art.position.lerp(
 		target_offset * 1.0,
 		delta * smooth
 	)
 
-	# 🌌 BACKGROUND (profondità)
-	bg.position = bg.position.lerp(
-		target_offset * 0.3,
+	# 🖼 Frame
+	frame.position = frame.position.lerp(
+		target_offset * 0.5,
 		delta * smooth
 	)
+
+	# 🌌 Background
+	bg.position = bg.position.lerp(
+		target_offset * 0.25,
+		delta * smooth
+	)
+
+	if tilt_active:
+
+		var mouse_pos = get_global_mouse_position()
+		var diff = mouse_pos - hover_center
+
+		var tilt_x = clamp(diff.x / 200.0, -1.0, 1.0)
+
+		pivot.rotation_degrees = lerp(
+			pivot.rotation_degrees,
+			base_tilt + tilt_x * 2.0,
+			delta * smooth
+		)
+
+	else:
+
+		pivot.rotation_degrees = lerp(
+			pivot.rotation_degrees,
+			sin(auto_time * 0.8) * 0.5,
+			delta * smooth
+		)
 
 func set_card_data(data: CardData) -> void:
 	card_data = data
@@ -1869,27 +1861,41 @@ func show_next_card_buffed_border(show: bool, on_field: bool = false) -> void:
 	## ✨ animazione SOLO in mano
 	#if not on_field:
 		#start_overlay_animation(border)
+
+
+
 func update_parallax(mouse_pos: Vector2):
 
-	# 🔹 Differenza rispetto alla posizione iniziale
-	var delta = mouse_pos - hover_start_mouse_pos
+	var diff = mouse_pos - hover_center
 
-	# 🔹 Riduci sensibilità
-	var sensitivity := 0.10
-	var offset = delta * sensitivity
+	var nx = clamp(diff.x / 150.0, -1.0, 1.0)
+	var ny = clamp(diff.y / 200.0, -1.0, 1.0)
 
-	# 🔹 Clamp per evitare eccessi
-	offset.x = clamp(offset.x, -art_strength, art_strength)
-	offset.y = clamp(offset.y, -art_strength, art_strength)
+	target_offset = Vector2(-nx, -ny) * art_strength 
+	
+func update_auto_parallax(delta):
 
-	var mouse_distance_x = offset.x / art_strength
-	var mouse_distance_y = offset.y / art_strength
+	auto_time += delta * auto_speed
 
-	mouse_tilt = mouse_distance_x * (max_tilt * 0.2)
+	# 🌊 Idle animation
+	var nx = sin(auto_time * 0.8)
+	var ny = cos(auto_time * 0.45)
 
-	target_rot = base_tilt + mouse_tilt * 0.1
-	target_offset = offset
+	var auto_offset = Vector2(nx, ny) * art_strength * auto_strength
 
-	# 🔥 NUOVO: skew su entrambi gli assi
-	target_skew_x = mouse_distance_x * perspective_strength * 1
-	target_skew_y = mouse_distance_y * perspective_strength * 1
+	# 🖱 Mouse micro interaction
+	var mouse_pos = get_global_mouse_position()
+	var diff = mouse_pos - hover_center
+
+	var mx = clamp(diff.x / 140.0, -1.0, 1.0)
+	var my = clamp(diff.y / 160.0, -1.0, 1.0)
+
+	var mouse_offset = Vector2(mx, my) * art_strength * 0.35
+
+	# 🔹 Combine
+	target_offset = auto_offset + mouse_offset
+
+func reset_card(delta):
+
+	pivot.rotation_degrees = lerp(pivot.rotation_degrees, 0.0, delta * smooth)
+	target_offset = target_offset.lerp(Vector2.ZERO, delta * smooth)
