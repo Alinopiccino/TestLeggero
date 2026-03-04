@@ -40,6 +40,7 @@ var auto_time := 0.0
 @export var max_tilt := 10.0
 @export var art_strength := 30.0     # prima era 20
 @export var smooth := 200.0           # leggermente più reattivo
+var mouse_target_offset := Vector2.ZERO
 var hover_start_mouse_pos: Vector2 = Vector2.ZERO
 var mouse_distance := 0.0
 var base_tilt := 0.0
@@ -236,8 +237,10 @@ func _process(delta):
 	else:
 		target_offset = target_offset.lerp(Vector2.ZERO, delta * smooth)
 
+	var mouse_boost := mouse_target_offset * 2.0
+
 	art.position = art.position.lerp(
-		target_offset * 1.0,
+		(target_offset + mouse_boost) * 1.0,
 		delta * smooth
 	)
 
@@ -247,7 +250,7 @@ func _process(delta):
 	)
 
 	bg.position = bg.position.lerp(
-		target_offset * 0.25,
+		(target_offset + mouse_boost) * 0.25,
 		delta * smooth
 	)
 
@@ -265,7 +268,7 @@ func _process(delta):
 		pivot.rotation_degrees = lerp(
 			pivot.rotation_degrees,
 			base_tilt + tilt_x * 2.0,
-			delta * smooth
+			delta * smooth 
 		)
 
 func set_card_data(data: CardData) -> void:
@@ -1979,10 +1982,10 @@ func update_auto_parallax(delta):
 	var mx = clamp(diff.x / 140.0, -1.0, 1.0)
 	var my = clamp(diff.y / 160.0, -1.0, 1.0)
 
-	var mouse_offset = Vector2(mx, my) * art_strength * 0.35
+	mouse_target_offset = Vector2(mx, my) * art_strength * 0.35
 
-	# 🔹 Combine
-	target_offset = auto_offset + mouse_offset
+	# 🔹 Auto movement separato dal mouse
+	target_offset = auto_offset
 
 func reset_card(delta):
 

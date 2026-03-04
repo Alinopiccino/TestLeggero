@@ -313,21 +313,17 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_hngpe")
 
 [node name="Background" type="Sprite2D" parent="Pivot/ClipMask"]
-scale = Vector2(1, 1)
 texture = ExtResource("4_kn6op")
 
 [node name="Art" type="Sprite2D" parent="Pivot/ClipMask"]
 material = SubResource("ShaderMaterial_2dfsg")
-scale = Vector2(1, 1)
 texture = ExtResource("2_yjknr")
 
 [node name="Frame" type="Sprite2D" parent="Pivot/ClipMask"]
-scale = Vector2(1, 1)
 texture = ExtResource("3_sx4i5")
 
 [node name="Border" type="Sprite2D" parent="Pivot/ClipMask"]
 material = SubResource("ShaderMaterial_oxp6h")
-scale = Vector2(1, 1)
 texture = ExtResource("5_kn6op")
 
 [node name="CardShadow" type="Sprite2D" parent="Pivot"]
