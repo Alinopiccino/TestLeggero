@@ -1807,10 +1807,10 @@ func gioca_carta_subito(card: Node2D, slot: Node2D):
 		
 		if atk_label:
 			atk_label.scale = Vector2(1.01, 1.01)
-			atk_label.position = Vector2(-45, 20)
+			atk_label.position = Vector2(-45, 25)
 		if hp_label:
 			hp_label.scale = Vector2(1.01, 1.01)
-			hp_label.position = Vector2(6, 20)
+			hp_label.position = Vector2(6, 25)
 		if spell_dur:
 			spell_dur.scale = Vector2(1.3, 1.3)
 			spell_dur.position = Vector2(7, 30)
@@ -2285,10 +2285,10 @@ func play_card_here_and_for_clients_opponent(player_id, card_data_dict: Dictiona
 
 		if atk_label:
 			atk_label.scale = Vector2(1.01, 1.01)
-			atk_label.position = Vector2(-45, 20)
+			atk_label.position = Vector2(-45, 25)
 		if hp_label:
 			hp_label.scale = Vector2(1.01, 1.01)
-			hp_label.position = Vector2(6, 20)
+			hp_label.position = Vector2(6, 25)
 		if spell_dur:
 			spell_dur.scale = Vector2(1.3, 1.3)
 			spell_dur.position = Vector2(7, 30)

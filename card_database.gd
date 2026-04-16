@@ -20,11 +20,19 @@ func _load_all_cards(path: String):
 		if dir.current_is_dir() and not file_name.begins_with("."):
 			_load_all_cards(path + "/" + file_name)
 		elif file_name.ends_with(".tres") or file_name.ends_with(".res"):
+			print("Carico:", path + "/" + file_name)  # 👈 QUI
+
 			var card: CardData = load(path + "/" + file_name)
+
 			if card:
+				print("OK:", card.tooltip_name)  # 👈 AGGIUNGI ANCHE QUESTO
+
 				if cards_by_tooltip.has(card.tooltip_name):
 					push_warning("⚠️ Tooltip duplicato: " + card.tooltip_name)
+
 				cards_by_tooltip[card.tooltip_name] = card
+			else:
+				print("❌ ERRORE load:", path + "/" + file_name)  # 👈 IMPORTANTISSIMO
 		file_name = dir.get_next()
 
 	dir.list_dir_end()
