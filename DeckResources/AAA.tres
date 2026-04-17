@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("3")
-deck_name = "SSSS"
+deck_name = "AAA"
 cards = Array[ExtResource("1")]([ExtResource("2"), ExtResource("2"), ExtResource("2")])
 is_valid = false
 mana_sort_state = "none"

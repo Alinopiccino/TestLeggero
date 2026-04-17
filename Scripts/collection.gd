@@ -24,6 +24,7 @@ var refreshing_expand_view := false  # 👈 nuovo flag temporaneo
 @onready var save_confirm_popup: ConfirmationDialog = $SaveConfirmPopup
 @onready var delete_popup: ConfirmationDialog = $DeleteDeckPopup
 
+const DECKS_PATH := "user://DeckResources"
 var attribute_buttons := {} # dizionario per accesso rapido
 var original_deck_snapshot: DeckData = null
 var current_deck_data: DeckData = null
@@ -58,6 +59,7 @@ var scroll_offset := 0.0
 var scroll_speed := 100.0
 var scroll_min := -9999.0
 var scroll_max := 0.0
+
 # ----------------------------------------------------------
 # 🧱 SEZIONE DECKS
 # ----------------------------------------------------------
@@ -238,21 +240,37 @@ func _unhandled_input(event: InputEvent) -> void:
 # ----------------------------------------------------------
 # 📦 Caricamento carte
 # ----------------------------------------------------------
-func load_all_card_paths(path: String):
-	var dir = DirAccess.open(path)
-	if not dir:
-		push_error("❌ Impossibile aprire la cartella: " + path)
-		return
+#func load_all_card_paths(path: String):
+	#var dir = DirAccess.open(path)
+	#if not dir:
+		#push_error("❌ Impossibile aprire la cartella: " + path)
+		#return
+#
+	#dir.list_dir_begin()
+	#var file_name = dir.get_next()
+	#while file_name != "":
+		#if dir.current_is_dir() and not file_name.begins_with("."):
+			#load_all_card_paths(path + "/" + file_name)
+		#elif file_name.ends_with(".tres") or file_name.ends_with(".res"):
+			#all_card_paths.append(path + "/" + file_name)
+		#file_name = dir.get_next()
+	#dir.list_dir_end()
 
-	dir.list_dir_begin()
-	var file_name = dir.get_next()
-	while file_name != "":
-		if dir.current_is_dir() and not file_name.begins_with("."):
-			load_all_card_paths(path + "/" + file_name)
-		elif file_name.ends_with(".tres") or file_name.ends_with(".res"):
-			all_card_paths.append(path + "/" + file_name)
-		file_name = dir.get_next()
-	dir.list_dir_end()
+func load_all_card_paths(path: String):
+	all_card_paths.clear()
+	_scan_card_paths_recursive(path)
+
+func _scan_card_paths_recursive(path: String):
+	var entries: PackedStringArray = ResourceLoader.list_directory(path)
+
+	for entry in entries:
+		var full_path := path.path_join(entry)
+
+		if entry.ends_with("/"):
+			_scan_card_paths_recursive(full_path.trim_suffix("/"))
+		elif entry.ends_with(".tres") or entry.ends_with(".res"):
+			if ResourceLoader.exists(full_path):
+				all_card_paths.append(full_path)
 
 # ----------------------------------------------------------
 # 🧩 Crea tutte le carte una sola volta
@@ -837,42 +855,41 @@ func _preload_all_cards():
 
 
 func _load_existing_decks():
-	# 🧹 Pulisce la lista precedente
 	for child in deck_buttons_container.get_children():
 		child.queue_free()
 
-	deck_buttons_container = VBoxContainer.new()
-	$DeckListPanel/VBoxContainer.add_child(deck_buttons_container, true)
+	if not DirAccess.dir_exists_absolute(DECKS_PATH):
+		DirAccess.make_dir_recursive_absolute(DECKS_PATH)
 
-	var deck_folder := "res://DeckResources"
-	var dir := DirAccess.open(deck_folder)
+	var dir := DirAccess.open(DECKS_PATH)
 	if not dir:
-		print("⚠️ Nessuna cartella deck trovata:", deck_folder)
+		print("⚠️ Nessuna cartella deck trovata:", DECKS_PATH)
 		return
 
 	dir.list_dir_begin()
 	var file_name = dir.get_next()
 
 	while file_name != "":
-		if file_name.ends_with(".tres") or file_name.ends_with(".res"):
-			var deck_data: DeckData = load(deck_folder + "/" + file_name)
-			if deck_data:
-				# ✅ Controlla subito se il deck è invalido per rank > 100
-				#_check_total_rank_validity(deck_data)
-				# 🔹 Contenitore orizzontale per bottone + X
+		if not dir.current_is_dir() and (file_name.ends_with(".tres") or file_name.ends_with(".res")):
+			var full_path = DECKS_PATH + "/" + file_name
+			var loaded_deck: DeckData = load(full_path)
+
+			if loaded_deck:
+				var deck_ref := loaded_deck
+				var deck_path = full_path
+				var deck_name_ref := loaded_deck.deck_name
+
 				var hbox = HBoxContainer.new()
 				hbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 				hbox.custom_minimum_size = Vector2(0, 80)
 				hbox.add_theme_constant_override("separation", 8)
 
-				# 🔹 Bottone principale deck
 				var deck_button = Button.new()
 				deck_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 				deck_button.custom_minimum_size = Vector2(0, 80)
 				deck_button.focus_mode = Control.FOCUS_NONE
-				deck_button.connect("pressed", func(): _on_deck_selected(deck_data))
+				deck_button.pressed.connect(func(): _on_deck_selected(deck_ref))
 
-				# Contenuto del deck button (nome + mana)
 				var margin_container = MarginContainer.new()
 				margin_container.add_theme_constant_override("margin_left", 12)
 				margin_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -883,8 +900,8 @@ func _load_existing_decks():
 				vbox.add_theme_constant_override("separation", 4)
 
 				var name_label = Label.new()
-				name_label.text = deck_data.deck_name
-				name_label.modulate = Color(1, 0.3, 0.3) if not deck_data.is_valid else Color(1, 1, 1)
+				name_label.text = deck_name_ref
+				name_label.modulate = Color(1, 0.3, 0.3) if not deck_ref.is_valid else Color(1, 1, 1)
 				name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 				name_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 				name_label.add_theme_font_size_override("font_size", 20)
@@ -901,34 +918,30 @@ func _load_existing_decks():
 					"Earth": preload("res://Assets/Mana/Terra.png")
 				}
 
-
-				for mana_type in deck_data.get_mana_slots():
+				for mana_type in deck_ref.get_mana_slots():
 					if mana_type == "":
 						continue
 					var icon = TextureRect.new()
 					icon.texture = mana_textures.get(mana_type, null)
 					icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 					icon.ignore_texture_size = true
-					icon.scale = Vector2(1, 1)
 					icon.custom_minimum_size = Vector2(40, 40)
-					icon.mouse_filter = Control.MOUSE_FILTER_IGNORE  # 👈 non blocca il click
+					icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 					mana_hbox.add_child(icon)
-				
+
 				vbox.add_child(mana_hbox)
 				margin_container.add_child(vbox)
 				deck_button.add_child(margin_container)
 
-				# 🔴 Bottone X per eliminare deck
 				var delete_button = Button.new()
 				delete_button.text = "❌"
 				delete_button.custom_minimum_size = Vector2(60, 60)
 				delete_button.focus_mode = Control.FOCUS_NONE
-				delete_button.modulate = Color(1, 0.3, 0.3) # rosso tenue
-				delete_button.connect("pressed", func():
-					_on_delete_deck_pressed(deck_folder + "/" + file_name, deck_data.deck_name)
+				delete_button.modulate = Color(1, 0.3, 0.3)
+				delete_button.pressed.connect(func():
+					_on_delete_deck_pressed(deck_path, deck_name_ref)
 				)
 
-				# ➕ Aggiungi entrambi all’HBox
 				hbox.add_child(deck_button)
 				hbox.add_child(delete_button)
 				deck_buttons_container.add_child(hbox)
@@ -959,7 +972,7 @@ func _on_delete_deck_pressed(deck_path: String, deck_name: String = ""):
 
 
 func _on_delete_deck_confirmed(deck_path: String, deck_name: String):
-	var dir := DirAccess.open("res://DeckResources")
+	var dir := DirAccess.open(DECKS_PATH)
 	if dir and dir.file_exists(deck_path):
 		var err = dir.remove(deck_path)
 		if err == OK:
@@ -1073,7 +1086,7 @@ func _on_deck_creation_confirmed():
 	new_deck.mana_slot_4 = mana_slots[3]
 	new_deck.mana_slot_5 = mana_slots[4]
 
-	var save_dir = "res://DeckResources"
+	var save_dir = DECKS_PATH
 	if not DirAccess.dir_exists_absolute(save_dir):
 		DirAccess.make_dir_recursive_absolute(save_dir)
 
@@ -1467,8 +1480,8 @@ func _check_invalid_cards_in_deck(deck_data: DeckData):
 	_update_deck_validity_visual(deck_data, not deck_data.is_valid)
 
 	# 🔹 Salva subito la proprietà nel file del deck
-	var save_path = "res://DeckResources/" + deck_data.deck_name + ".tres"
-	var dir := DirAccess.open("res://DeckResources")
+	var save_path = DECKS_PATH + "/" + deck_data.deck_name + ".tres"
+	var dir := DirAccess.open(DECKS_PATH)
 	if dir and dir.file_exists(save_path.get_file()):
 		var result = ResourceSaver.save(deck_data, save_path)
 		if result == OK:
@@ -1517,7 +1530,7 @@ func _on_save_deck_pressed(deck_data: DeckData):
 		push_warning("⚠️ Nessun deck selezionato per il salvataggio.")
 		return
 
-	var save_dir = "res://DeckResources"
+	var save_dir = DECKS_PATH
 	if not DirAccess.dir_exists_absolute(save_dir):
 		DirAccess.make_dir_recursive_absolute(save_dir)
 
@@ -2435,7 +2448,7 @@ func _on_mana_ordering_button_pressed():
 			
 	if current_deck_data:
 		current_deck_data.mana_sort_state = mana_order_state
-		ResourceSaver.save(current_deck_data, "res://DeckResources/%s.tres" % current_deck_data.deck_name)
+		ResourceSaver.save(current_deck_data, "%s/%s.tres" % [DECKS_PATH, current_deck_data.deck_name])
 	# Aggiorna icona
 	_update_ordering_icon(mana_order_state, mana_ordering_icon)
 
@@ -2460,7 +2473,7 @@ func _on_rank_ordering_button_pressed():
 
 	if current_deck_data:
 		current_deck_data.rank_sort_state = rank_order_state
-		ResourceSaver.save(current_deck_data, "res://DeckResources/%s.tres" % current_deck_data.deck_name)
+		ResourceSaver.save(current_deck_data, "%s/%s.tres" % [DECKS_PATH, current_deck_data.deck_name])
 
 	_update_ordering_icon(rank_order_state, rank_ordering_icon)
 	_apply_deck_sorting()
