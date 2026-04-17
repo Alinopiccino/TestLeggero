@@ -9,6 +9,7 @@ extends Node2D
 @onready var copy_ip_button: TextureButton = $CopyIPButton
 @onready var waiting_player_back := $WaitingPlayerBack
 @onready var back_button := $BackButton
+const DECKS_PATH := "user://DeckResources"
 
 var selected_deck: DeckData = null
 var deck_buttons_container: VBoxContainer
@@ -65,45 +66,50 @@ func _load_existing_decks():
 	for child in deck_buttons_container.get_children():
 		child.queue_free()
 
-	var deck_folder := "res://DeckResources"
-	var dir := DirAccess.open(deck_folder)
+	if not DirAccess.dir_exists_absolute(DECKS_PATH):
+		DirAccess.make_dir_recursive_absolute(DECKS_PATH)
+
+	var dir := DirAccess.open(DECKS_PATH)
 	if not dir:
-		print("⚠️ Nessuna cartella deck trovata:", deck_folder)
+		print("⚠️ Nessuna cartella deck trovata:", DECKS_PATH)
 		return
 
 	dir.list_dir_begin()
 	var file_name = dir.get_next()
 
 	while file_name != "":
-		if file_name.ends_with(".tres") or file_name.ends_with(".res"):
-			var deck_data: DeckData = load(deck_folder + "/" + file_name)
-			if deck_data:
-				var hbox = HBoxContainer.new()
+		if not dir.current_is_dir() and (file_name.ends_with(".tres") or file_name.ends_with(".res")):
+			var full_path = DECKS_PATH + "/" + file_name
+			var loaded_deck: DeckData = load(full_path)
+
+			if loaded_deck:
+				var deck_ref := loaded_deck
+				var hbox := HBoxContainer.new()
 				hbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 				hbox.custom_minimum_size = Vector2(0, 80)
 				hbox.add_theme_constant_override("separation", 8)
 
-				var deck_button = Button.new()
+				var deck_button := Button.new()
 				deck_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 				deck_button.custom_minimum_size = Vector2(0, 80)
 				deck_button.focus_mode = Control.FOCUS_NONE
-				deck_button.connect("pressed", func(): _on_deck_selected(deck_data, hbox))
+				deck_button.pressed.connect(func(): _on_deck_selected(deck_ref, hbox))
 
-				var margin_container = MarginContainer.new()
+				var margin_container := MarginContainer.new()
 				margin_container.add_theme_constant_override("margin_left", 12)
 				margin_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 
-				var vbox = VBoxContainer.new()
+				var vbox := VBoxContainer.new()
 				vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 				vbox.alignment = BoxContainer.ALIGNMENT_BEGIN
 				vbox.add_theme_constant_override("separation", 4)
 
-				var name_label = Label.new()
-				name_label.text = deck_data.deck_name
+				var name_label := Label.new()
+				name_label.text = deck_ref.deck_name
 				name_label.add_theme_font_size_override("font_size", 20)
 				vbox.add_child(name_label)
 
-				var mana_hbox = HBoxContainer.new()
+				var mana_hbox := HBoxContainer.new()
 				mana_hbox.add_theme_constant_override("separation", 6)
 
 				var mana_textures = {
@@ -113,17 +119,17 @@ func _load_existing_decks():
 					"Earth": preload("res://Assets/Mana/Terra.png")
 				}
 
-				for mana_type in deck_data.get_mana_slots():
+				for mana_type in deck_ref.get_mana_slots():
 					if mana_type == "":
 						continue
-					var icon = TextureRect.new()
+					var icon := TextureRect.new()
 					icon.texture = mana_textures.get(mana_type, null)
 					icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 					icon.ignore_texture_size = true
 					icon.custom_minimum_size = Vector2(40, 40)
 					icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 					mana_hbox.add_child(icon)
-				
+
 				vbox.add_child(mana_hbox)
 				margin_container.add_child(vbox)
 				deck_button.add_child(margin_container)
