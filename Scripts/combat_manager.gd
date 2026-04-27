@@ -3279,7 +3279,7 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 			
 			
 				# 🔁 Riporta indietro l'attaccante se ancora vivo
-		if not attacker_destroyed:
+		if not attacker_destroyed and attacking_card.card_is_in_slot:
 			var tween_return = create_tween()
 			tween_return.tween_property(attacking_card, "position", attacking_card.current_slot.position, DEFAULT_CARD_MOVE_SPEED_ATTACK)
 			await tween_return.finished
