@@ -6186,6 +6186,7 @@ func set_last_played_card(card: Node, owner_id: int):
 	# 🔍 Controlla effetti immediati o facedown
 	var no_immediate_effect = (
 		card.card_data.effect_type not in ["OnPlay", "Aura", "Equip"]
+		
 		or card.position_type == "facedown"
 		or (
 			card.card_data.effect_type in ["OnPlay", "Aura", "Equip"]
@@ -6196,7 +6197,7 @@ func set_last_played_card(card: Node, owner_id: int):
 
 	
 	# 👇 Mostra i green highlight solo sul client opposto
-	if no_immediate_effect and multiplayer.get_unique_id() != owner_id and not $"../ActionButtons".auto_skip_resolve:
+	if no_immediate_effect and multiplayer.get_unique_id() != owner_id and not $"../ActionButtons".auto_skip_resolve and not ("Assault" in card.card_data.get_all_talents() and card.position_type == "attack"):
 		print("🟩 [CombatManager] Attivo green highlight su carte chainabili (giocatore opposto)")
 		$"../ActionButtons".highlight_cards_for_enchain(true)
 		$"../ActionButtons".show_label($"../PromptLabels/PlayerEnchainLabel")
