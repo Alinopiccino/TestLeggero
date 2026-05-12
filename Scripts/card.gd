@@ -102,6 +102,9 @@ var equipped_to: Card = null
 var enchanted_to: Card = null         # 👉 Se questa carta è un EquipSpell, a chi è legata
 var equipped_spells: Array[Card] = []     # 👉 Se questa carta è una creatura, quali equip le sono legati
 var enchant_spells: Array[Card] = []
+var follow_mouse_rotation := false
+var base_rotation := 0.0
+var starting_pos: String = ""
 
 var TALENT_ICONS := {
 	"Overkill": preload("res://Assets/TalentSprites/OVERKILL SPRITE.png"),
@@ -271,6 +274,33 @@ func _process(delta):
 			delta * smooth 
 		)
 
+	if follow_mouse_rotation:
+
+		var mouse_pos = get_global_mouse_position()
+		var dir = mouse_pos - global_position
+
+		var target_angle = rad_to_deg(dir.angle()) + 90.0
+
+		# evita wrap strani
+		target_angle = wrapf(target_angle, -180.0, 180.0)
+
+		# clamp diverso in base alla posizione iniziale
+		if starting_pos == "attack":
+			target_angle = clampf(target_angle, -90.0, 90.0)
+
+		elif starting_pos == "defense":
+			target_angle = clampf(target_angle, 0.0, 90.0)
+
+		rotation_degrees = lerpf(
+			rotation_degrees,
+			target_angle,
+			delta * 10.0
+		)
+
+		# icona sempre dritta
+		if has_node("ChangePosIcon"):
+			$ChangePosIcon.rotation_degrees = -rotation_degrees
+			
 func set_card_data(data: CardData) -> void:
 	card_data = data
 	card_data.init_original_stats()  # ✅ inizializza i valori originali
@@ -598,12 +628,13 @@ func set_position_type(pos_type: String) -> void:
 
 	match position_type:
 		"defense":
-			if previous_position_type == "attack" and rotation_degrees != 90:
+			if previous_position_type == "attack" and (rotation_degrees != 90 or rotation_degrees != -90):
 				play_rotate_to_defense()
 				emit_signal("changed_position", self, position_type)
 				print("📣 [SIGNAL] changed_position →", card_data.card_name, "→", position_type)
 			else:
-				rotation_degrees = 90
+				if not position_type == "defense":
+					rotation_degrees = 90
 			print("🛡️ Posizione impostata su DEFENSE per:", card_data.card_name)
 
 		"attack":
@@ -612,7 +643,8 @@ func set_position_type(pos_type: String) -> void:
 				emit_signal("changed_position", self, position_type)
 				print("📣 [SIGNAL] changed_position →", card_data.card_name, "→", position_type)
 			else:
-				rotation_degrees = 0
+				if not position_type == "attack":
+					rotation_degrees = 0
 			print("⚔️ Posizione impostata su ATTACK per:", card_data.card_name)
 
 		"faceup":

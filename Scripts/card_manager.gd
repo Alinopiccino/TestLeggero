@@ -17,6 +17,8 @@ const Z_INDEX_HOVER = 30    # Quando ci passi sopra col mouse o stai trascinando
 const Z_INDEX_HIGHLIGHT_BORDER = 10
 const Z_INDEX_DRAG = 50
 
+var starting_pos
+var change_pos_mode_active
 var selection_purpose: String = ""  # può essere "attack" oppure "effect"
 var selection_is_forced: bool = false
 var is_position_popup_open: bool = false
@@ -344,41 +346,42 @@ func card_clicked(card):
 					if summoned_this_turn:
 						return
 					if not card.already_changed_position_this_turn:
-						swap_creature_position(card, true)
-						card.already_changed_position_this_turn = true
-						await get_tree().create_timer(0.3).timeout
-
-						var phase_manager = get_node_or_null("../PhaseManager")
-
-
-
-
-						# Se l'avversario ha già passato ma può ancora rispondere (chain window)
-						if phase_manager.enemy_has_passed_this_phase and combat_manager.check_opponent_has_response(true) and not action_buttons.enemy_auto_skip_resolve:  #IMPOSTAZIONE AUTO-APPROVE
-							print("⏳ [Chain Window] Avversario ha passato la phase ma può rispondere → apro Resolve per cambio posizione.")
-							await cm.wait_for_resolve_choice(true)
-							print("✅ [Resolve] Cambio posizione approvato, chiudo Resolve.")
-
-							# 🔹 Nascondi manualmente il bottone Resolve dopo l’approvazione
-
-							if action_buttons:
-								action_buttons.hide_resolve_button()
-								print("🧹 [Resolve] Bottoni Resolve e quindi viene rimostrato pass phase.")
-
-						# ♻️ Dopo (eventuale) Resolve, passa azione 
-						#if not phase_manager.enemy_has_passed_this_phase and not combat_manager.pending_action_after_chain:
-						if not combat_manager.pending_action_after_chain:
-							var peers = multiplayer.get_peers()
-							if peers.size() > 0:
-								var other_id = peers[0]
-								print("♻️ [Action Switch] Dopo cambio posizione → passo azione all’altro peer:", other_id)
-								phase_manager.rpc("rpc_give_action", other_id, true)  # 👈 true = from_attack ma funziona anche per change pos
-								phase_manager.rpc_give_action(other_id, true)
-						else:
-							print("🚫 [Action Hold] Avversario ha già passato → non passo azione (resta turno attivo per Resolve/chain).")
-
-						
-					return
+						enter_change_pos_mode(card,card.position_type)
+						#swap_creature_position(card, true)
+						#card.already_changed_position_this_turn = true
+						#await get_tree().create_timer(0.3).timeout
+#
+						#var phase_manager = get_node_or_null("../PhaseManager")
+#
+#
+#
+#
+						## Se l'avversario ha già passato ma può ancora rispondere (chain window)
+						#if phase_manager.enemy_has_passed_this_phase and combat_manager.check_opponent_has_response(true) and not action_buttons.enemy_auto_skip_resolve:  #IMPOSTAZIONE AUTO-APPROVE
+							#print("⏳ [Chain Window] Avversario ha passato la phase ma può rispondere → apro Resolve per cambio posizione.")
+							#await cm.wait_for_resolve_choice(true)
+							#print("✅ [Resolve] Cambio posizione approvato, chiudo Resolve.")
+#
+							## 🔹 Nascondi manualmente il bottone Resolve dopo l’approvazione
+#
+							#if action_buttons:
+								#action_buttons.hide_resolve_button()
+								#print("🧹 [Resolve] Bottoni Resolve e quindi viene rimostrato pass phase.")
+#
+						## ♻️ Dopo (eventuale) Resolve, passa azione 
+						##if not phase_manager.enemy_has_passed_this_phase and not combat_manager.pending_action_after_chain:
+						#if not combat_manager.pending_action_after_chain:
+							#var peers = multiplayer.get_peers()
+							#if peers.size() > 0:
+								#var other_id = peers[0]
+								#print("♻️ [Action Switch] Dopo cambio posizione → passo azione all’altro peer:", other_id)
+								#phase_manager.rpc("rpc_give_action", other_id, true)  # 👈 true = from_attack ma funziona anche per change pos
+								#phase_manager.rpc_give_action(other_id, true)
+						#else:
+							#print("🚫 [Action Hold] Avversario ha già passato → non passo azione (resta turno attivo per Resolve/chain).")
+#
+						#
+					#return
 
 			# Fase di battaglia
 			Phase.BATTLE:
@@ -1174,6 +1177,169 @@ func select_card_for_battle(card):
 	#else:
 		#selected_card = card
 		#card.position.y -= 20
+
+
+func enter_change_pos_mode(card, pos: String):
+	#var player_id = multiplayer.get_unique_id()
+	#rpc("rpc_notify_selection_mode_start", player_id, card.name, purpose)
+	change_pos_mode_active = true
+	starting_pos = pos
+	card.starting_pos = pos
+	selected_card = card
+
+	add_change_pos_overlay(card)
+
+
+
+	# 🔧 Salva lo stato attuale dei bottoni
+	previous_button_state = {
+		"resolve": $"../ActionButtons".resolve_button.visible,
+		"retaliate": $"../ActionButtons".retaliate_button.visible,
+		"direct_attack": $"../ActionButtons".direct_attack_button.visible,
+		"go_to_combat": $"../ActionButtons".go_to_combat_button.visible,
+		"to_damage_step": $"../ActionButtons".to_damage_step_button.visible
+	}
+
+			
+	card.z_index = 19
+	card.action_border.visible = true
+	print("🎯 Change Pos mode attiva con:", card.name)
+	
+	#$"../ActionButtons".show_label(player_selection_label)
+
+
+	#if purpose == "attack":
+		#player_selection_label.text = "[color=green]SELECT[/color] AN ENEMY TO ATTACK"
+	#elif purpose == "effect":
+		#player_selection_label.text = "[color=green]SELECT[/color] A TARGET FOR EFFECT"
+	#elif purpose == "tribute_selection":
+		#player_selection_label.text = "[color=green]SELECT[/color] TRIBUTES"
+
+
+func exit_change_pos_mode(selection_resolved := false):
+	var player_id = multiplayer.get_unique_id()
+	var new_position: String
+	var phase_manager = get_node_or_null("../PhaseManager")
+	var combat_manager = $"../CombatManager"
+	var action_buttons = $"../ActionButtons"
+
+	if selected_card:
+		remove_change_pos_overlay(selected_card)
+		selected_card.z_index = Z_INDEX_SLOT
+		selected_card.action_border.visible = false
+		selected_card.action_border.z_index = -1
+
+
+	if not selection_resolved:
+		if starting_pos == "attack":
+			selected_card.rotation_degrees = 0
+		elif starting_pos == "defense":
+			selected_card.rotation_degrees = 90
+			
+		starting_pos = ""
+		change_pos_mode_active = false
+		var allow_restore_resolve = true
+
+		# ❌ Blocca restore solo se la selezione ha avuto esito (target scelto)
+		if selection_resolved and $"../CombatManager".chain_resolving_in_progress:
+			allow_restore_resolve = false
+
+		$"../ActionButtons".update_buttons_visibility(
+			allow_restore_resolve and previous_button_state["resolve"],
+			previous_button_state["retaliate"],
+			previous_button_state["direct_attack"],
+			previous_button_state["go_to_combat"],
+			previous_button_state["to_damage_step"]
+		)
+		if not selection_resolved:
+			$"../ActionButtons".update_pass_phase_button_state() #AGGIUNTO PER EVITARE BUG CHE QUANDO SI ANNULLA SELECITON CON CLICK DESTRO
+															  #SI NASCONDE IL PASS PHASE
+		#$"../ActionButtons".hide_label(player_selection_label)
+		print("❌ Change Pos mode disattivata")
+		selected_card = null
+		
+		
+	elif selection_resolved:
+		var rot = selected_card.rotation_degrees
+		# distanza da attack (0°)
+		var dist_attack = abs(rot)
+		# distanza dal defense più vicino (90 o -90)
+		var dist_defense = min(
+			abs(rot - 90.0),
+			abs(rot + 90.0)
+		)
+
+		# scegli posizione più vicina
+		if dist_attack < dist_defense:
+			if selected_card.position_type == "defense":
+				selected_card.position_type = "attack"
+				create_tween().tween_property(selected_card, "rotation_degrees", 0, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+				
+				rpc("rpc_play_card_rotation", player_id, selected_card.name, "card_rotate_pos_to_attack", true)
+				new_position = "attack"
+				selected_card.already_changed_position_this_turn = true
+				print("⚔️ Posizione finale: ATTACK")
+			else:
+				create_tween().tween_property(selected_card, "rotation_degrees", 0, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+				print("⚔️ ERA GIA' IN ATTACCO")
+		else:
+			if selected_card.position_type == "attack":
+				selected_card.position_type = "defense"
+				# scegli il lato defense più vicino
+				if rot >= 0:
+					create_tween().tween_property(selected_card, "rotation_degrees", 90.0, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+				else:
+					create_tween().tween_property(selected_card, "rotation_degrees", -90.0, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+
+				rpc("rpc_play_card_rotation", player_id, selected_card.name, "card_rotate_pos_to_def", true)
+				new_position = "defense"
+				selected_card.already_changed_position_this_turn = true
+				print("🛡️ Posizione finale: DEFENSE")
+			else:
+				create_tween().tween_property(selected_card, "rotation_degrees", 90.0, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+				print("⚔️ ERA GIA' IN DEFENSE")
+				
+		starting_pos = ""
+		change_pos_mode_active = false
+		print("❌ Change Pos mode disattivata")
+
+			 #SE IL CHANGE E' ANDATO A BUON FINE
+		if selected_card.already_changed_position_this_turn:
+			selected_card.set_position_type(new_position)
+			selected_card.emit_signal("changed_position", selected_card, new_position) 
+			rpc("rpc_set_creature_position", player_id, selected_card.name, new_position)
+			await get_tree().create_timer(0.3).timeout
+
+	
+			# Se l'avversario ha già passato ma può ancora rispondere (chain window)
+			if phase_manager.enemy_has_passed_this_phase and combat_manager.check_opponent_has_response(true) and not action_buttons.enemy_auto_skip_resolve:  #IMPOSTAZIONE AUTO-APPROVE
+				print("⏳ [Chain Window] Avversario ha passato la phase ma può rispondere → apro Resolve per cambio posizione.")
+				await combat_manager.wait_for_resolve_choice(true)
+				print("✅ [Resolve] Cambio posizione approvato, chiudo Resolve.")
+
+				# 🔹 Nascondi manualmente il bottone Resolve dopo l’approvazione
+
+				if action_buttons:
+					action_buttons.hide_resolve_button()
+					print("🧹 [Resolve] Bottoni Resolve e quindi viene rimostrato pass phase.")
+
+			# ♻️ Dopo (eventuale) Resolve, passa azione 
+			#if not phase_manager.enemy_has_passed_this_phase and not combat_manager.pending_action_after_chain:
+			if not combat_manager.pending_action_after_chain:
+				var peers = multiplayer.get_peers()
+				if peers.size() > 0:
+					var other_id = peers[0]
+					print("♻️ [Action Switch] Dopo cambio posizione → passo azione all’altro peer:", other_id)
+					phase_manager.rpc("rpc_give_action", other_id, true)  # 👈 true = from_attack ma funziona anche per change pos
+					phase_manager.rpc_give_action(other_id, true)
+			else:
+				print("🚫 [Action Hold] Avversario ha già passato → non passo azione (resta turno attivo per Resolve/chain).")
+		
+		selected_card = null
+
+	return
+
+
 func enter_selection_mode(card, purpose: String):
 	var player_id = multiplayer.get_unique_id()
 	rpc("rpc_notify_selection_mode_start", player_id, card.name, purpose)
@@ -2932,7 +3098,40 @@ func add_attack_overlay(card: Node2D) -> void:
 
 	print("⚔️ AttackIcon aggiunto su", card.name, "con scala fissa:", base_scale)
 
+func add_change_pos_overlay(card: Node2D) -> void:
+	if not card or not card.card_is_in_slot:
+		return
 
+	# 🔄 Rimuovi overlay precedente se già esiste
+	if card.has_node("ChangePosIcon"):
+		card.get_node("ChangePosIcon").queue_free()
+		await get_tree().process_frame
+
+	var icon := Sprite2D.new()
+	icon.name = "ChangePosIcon"
+	icon.texture = preload("res://Assets/Combat/CHANGE POS ICONA.png")
+	icon.position = Vector2(0, -20)  # sopra la carta
+	icon.z_index = 200
+	card.add_child(icon)
+
+	# Fissalo dritto (se la carta è in difesa ruotata)
+	icon.rotation_degrees = -card.rotation_degrees
+
+	# 📏 Usa dimensione fissa
+	var base_scale := Vector2(0.04, 0.04)
+	icon.scale = base_scale
+
+	# ✨ Tween per farlo “pulsare leggermente” attorno alla scala base
+	var tween = card.create_tween()
+	card.set_meta("change_pos_icon_pulse_tween", tween)
+	tween.set_loops()
+	tween.tween_property(icon, "scale", base_scale * 1.2, 0.4)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(icon, "scale", base_scale, 0.4)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+
+	print("⚔️ ChangePosIcon aggiunto su", card.name, "con scala fissa:", base_scale)
+	card.follow_mouse_rotation = true
 
 func add_selection_overlay(card: Node2D) -> void:
 	if not card or not card.card_is_in_slot:
@@ -2983,6 +3182,20 @@ func remove_attack_overlay(card: Node2D) -> void:
 
 	if card.has_node("AttackIcon"):
 		card.get_node("AttackIcon").queue_free()
+
+func remove_change_pos_overlay(card: Node2D) -> void:
+	if not card:
+		return
+	if card.has_meta("change_pos_icon_pulse_tween"):
+		var tween: Tween = card.get_meta("change_pos_icon_pulse_tween")
+		if tween and tween.is_valid():
+			tween.kill()
+		card.remove_meta("change_pos_icon_pulse_tween")
+
+	if card.has_node("ChangePosIcon"):
+		card.get_node("ChangePosIcon").queue_free()
+		
+	card.follow_mouse_rotation = false
 
 var tribute_selection_active: bool = false
 var tribute_selection_required: int = 0

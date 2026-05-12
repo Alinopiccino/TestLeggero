@@ -45,9 +45,20 @@ func _input(event):
 			#raycast_at_cursor_right_click()
 			
 func raycast_at_cursor():
+	
 	if inputs_disabled:
 		print("🔒 Input disabilitati, ignorato click sinistro.")
 		return
+	# 🔄 CHANGE POS MODE
+	if $"../CardManager".change_pos_mode_active:
+
+		var cm = $"../CardManager"
+
+		# conferma immediata cliccando ovunque
+		cm.exit_change_pos_mode(true)
+
+		return
+		
 	var space_state = get_world_2d().direct_space_state
 	var parameters = PhysicsPointQueryParameters2D.new()
 	parameters.position = get_global_mouse_position()
@@ -329,7 +340,7 @@ func raycast_at_cursor_right_click():
 		return
 
 	var selected_card = card_manager_reference.selected_card
-	if selected_card:
+	if selected_card and not card_manager_reference.change_pos_mode_active:
 		var action_border_visible = selected_card.has_node("ActionBorder") and selected_card.get_node("ActionBorder").visible
 		var should_block_right_click = (not card_manager_reference.selection_mode_active and action_border_visible)
 
@@ -349,6 +360,10 @@ func raycast_at_cursor_right_click():
 		and not selected_card.card_data.effect_type == "OnPlay":
 			card_manager_reference.exit_selection_mode()
 			return
+	
+	if card_manager_reference.change_pos_mode_active:
+		card_manager_reference.exit_change_pos_mode()
+		return
 
 	# Altrimenti: raycast come prima
 	var space_state = get_world_2d().direct_space_state
