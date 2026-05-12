@@ -308,6 +308,7 @@ func card_clicked(card):
 				and (card.equipped_to == null or not is_instance_valid(card.equipped_to)):
 					
 					if card.effect_triggered_this_turn:
+						$"../CombatManager".play_damage_shake(card, 0)
 						print("⏳ Left-click ignorato: Equip già triggerato questo turno:", card.name)
 						return
 					print("🔧 Equip attivato in Preparation:", card.name)
@@ -344,9 +345,13 @@ func card_clicked(card):
 					)
 
 					if summoned_this_turn:
+						combat_manager.play_damage_shake(card, 0)
 						return
+						
 					if not card.already_changed_position_this_turn:
 						enter_change_pos_mode(card,card.position_type)
+					else:
+						combat_manager.play_damage_shake(card, 0)
 						#swap_creature_position(card, true)
 						#card.already_changed_position_this_turn = true
 						#await get_tree().create_timer(0.3).timeout
@@ -458,7 +463,9 @@ func card_clicked(card):
 						$"../CombatManager".direct_attack(card)
 					else:
 						enter_selection_mode(card, "attack")
-
+				else: #se ha gia' attaccato
+					$"../CombatManager".play_damage_shake(card, 0)
+					
 				return
 
 			Phase.START, Phase.MAIN, Phase.END:
@@ -930,6 +937,7 @@ func card_right_clicked(card):
 		and (card.equipped_to == null or not is_instance_valid(card.equipped_to)):
 			
 			if card.effect_triggered_this_turn:
+				$"../CombatManager".play_damage_shake(card, 0)
 				print("⏳ Right-click ignorato: Equip già triggerato questo turno:", card.name)
 				return
 
@@ -963,6 +971,7 @@ func card_right_clicked(card):
 			card.play_debuff_icon_pulse("Stunned")
 			return
 		if card.effect_triggered_this_turn:
+			$"../CombatManager".play_damage_shake(card, 0)
 			print("⏳ Effetto 'Activable' già attivato questo turno:", card.name)
 			return
 			# Non può essere già in attesa di RESOLVE
@@ -997,6 +1006,7 @@ func card_right_clicked(card):
 
 		# Non può aver già usato l’effetto
 		if card.effect_triggered_this_turn:
+			$"../CombatManager".play_damage_shake(card, 0)
 			print("⏳ Effetto 'ActivableAttack' già attivato questo turno:", card.name)
 			return
 		if card.frozen:

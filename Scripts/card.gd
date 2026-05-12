@@ -628,10 +628,10 @@ func set_position_type(pos_type: String) -> void:
 
 	match position_type:
 		"defense":
-			if previous_position_type == "attack" and (rotation_degrees != 90 or rotation_degrees != -90):
+			if previous_position_type == "attack" and rotation_degrees != 90 and rotation_degrees != -90:
 				play_rotate_to_defense()
 				emit_signal("changed_position", self, position_type)
-				print("📣 [SIGNAL] changed_position →", card_data.card_name, "→", position_type)
+				print("📣 [SIGNAL] CAZZO changed_position →", card_data.card_name, "→", position_type)
 			else:
 				if not position_type == "defense":
 					rotation_degrees = 90
