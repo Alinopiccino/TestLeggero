@@ -2629,7 +2629,9 @@ func direct_attack_here_and_replicate_client_opponent(player_id: int,attacking_c
 			attacking_card = enemy_slot.card_in_slot
 			attack_pos_y = 980
 	
-			
+	var original_attack_pos = attacking_card.position
+	if is_attacker:
+		original_attack_pos.y += 10 #perche' la posizione viene salvata dal lato attacker considerando Y INDEX + 10 perche' ha action border
 	#if attacking_card == null:  #DEBUG
 		#push_error("❌ Carta attaccante non trovata per attacco diretto.")
 		#return
@@ -2638,6 +2640,8 @@ func direct_attack_here_and_replicate_client_opponent(player_id: int,attacking_c
 		offset = -10
 	else:
 		offset = 10
+	
+
 		
 	attacking_card.position.y += offset
 	attacking_card.has_an_attack_target = true
@@ -2714,7 +2718,7 @@ func direct_attack_here_and_replicate_client_opponent(player_id: int,attacking_c
 
 	if attacking_card.card_is_in_slot and not attacking_card.attack_negated and enemy_LP > 0:
 		print("ATTACCO PROSEGUE")
-		var attack_pos = Vector2(attacking_card.current_slot.position.x, attack_pos_y)
+		var attack_pos = Vector2(original_attack_pos.x, attack_pos_y)
 
 
 		var num_strikes = 1
@@ -2775,7 +2779,7 @@ func direct_attack_here_and_replicate_client_opponent(player_id: int,attacking_c
 
 			# 💨 Tween indietro come in attack_here_and_replicate_client_opponent
 			var tween_back = create_tween()
-			tween_back.tween_property(attacking_card, "position", attacking_card.current_slot.position, DEFAULT_CARD_MOVE_SPEED_ATTACK)
+			tween_back.tween_property(attacking_card, "position", original_attack_pos, DEFAULT_CARD_MOVE_SPEED_ATTACK)
 			await tween_back.finished
 			attacking_card.z_index = 0
 
@@ -2788,7 +2792,7 @@ func direct_attack_here_and_replicate_client_opponent(player_id: int,attacking_c
 	#await get_tree().create_timer(0.15).timeout
 	if attacking_card.card_is_in_slot:
 		var tween_back = create_tween()
-		tween_back.tween_property(attacking_card, "position", attacking_card.current_slot.position, DEFAULT_CARD_MOVE_SPEED_ATTACK)
+		tween_back.tween_property(attacking_card, "position", original_attack_pos, DEFAULT_CARD_MOVE_SPEED_ATTACK)
 		await tween_back.finished
 		attacking_card.z_index = 0
 	
@@ -2910,7 +2914,9 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 		# 🔄 Replica su entrambi i client
 		#rpc("rpc_remove_talent_overlay", player_id, attacking_card.name, "Elusive")
 
-
+	var original_attack_pos = attacking_card.position
+	if is_attacker:
+		original_attack_pos.y += 10 #perche' la posizione viene salvata dal lato attacker considerando Y INDEX + 10 perche' ha action border
 	# 🔥 Animazione attacco
 	var new_pos = Vector2(defending_card.position.x, defending_card.position.y + y_offset)
 	var tween_attack = create_tween()
@@ -2969,7 +2975,7 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 		# ✅ FIX VISUALE: riporta l'attaccante nella sua posizione di slot se ancora valido
 		if attacking_card and attacking_card.card_is_in_slot and attacking_card.current_slot:
 			var tween_back = create_tween()
-			tween_back.tween_property(attacking_card, "position", attacking_card.current_slot.position, DEFAULT_CARD_MOVE_SPEED_ATTACK)
+			tween_back.tween_property(attacking_card, "position", original_attack_pos, DEFAULT_CARD_MOVE_SPEED_ATTACK)
 			await tween_back.finished
 			attacking_card.z_index = 0
 	else:
@@ -3024,7 +3030,7 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 					var tween_back = create_tween()
 					tween_back.set_trans(Tween.TRANS_QUAD)  # curva dolce (quadratica)
 					tween_back.set_ease(Tween.EASE_OUT)     # rallenta in arrivo
-					tween_back.tween_property(attacking_card, "position", attacking_card.current_slot.position, 0.25)
+					tween_back.tween_property(attacking_card, "position", original_attack_pos, 0.25)
 					await tween_back.finished
 
 				# ✨ 2. Pulse dell'icona Double Strike
@@ -3281,7 +3287,7 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 				# 🔁 Riporta indietro l'attaccante se ancora vivo
 		if not attacker_destroyed and attacking_card.card_is_in_slot:
 			var tween_return = create_tween()
-			tween_return.tween_property(attacking_card, "position", attacking_card.current_slot.position, DEFAULT_CARD_MOVE_SPEED_ATTACK)
+			tween_return.tween_property(attacking_card, "position", original_attack_pos, DEFAULT_CARD_MOVE_SPEED_ATTACK)
 			await tween_return.finished
 			attacking_card.z_index = 0
 	

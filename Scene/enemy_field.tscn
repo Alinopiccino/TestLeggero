@@ -73,61 +73,61 @@ metadata/_edit_use_anchors_ = true
 
 [node name="CreatureSlot1" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
 z_index = -10
-position = Vector2(1307, 364)
+position = Vector2(1306, 364)
 scale = Vector2(0.175, 0.175)
 script = ExtResource("10_78tqf")
 
 [node name="CreatureSlot2" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
 z_index = -10
-position = Vector2(1124, 364)
+position = Vector2(1123, 364)
 scale = Vector2(0.175, 0.175)
 script = ExtResource("10_78tqf")
 
 [node name="CreatureSlot3" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
 z_index = -10
-position = Vector2(941, 364)
+position = Vector2(940, 364)
 scale = Vector2(0.175, 0.175)
 script = ExtResource("10_78tqf")
 
 [node name="CreatureSlot4" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
 z_index = -10
-position = Vector2(759, 364)
+position = Vector2(758, 364)
 scale = Vector2(0.175, 0.175)
 script = ExtResource("10_78tqf")
 
 [node name="CreatureSlot5" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
 z_index = -10
-position = Vector2(576, 364)
+position = Vector2(575, 364)
 scale = Vector2(0.175, 0.175)
 script = ExtResource("10_78tqf")
 
 [node name="SpellSlot5" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
 z_index = -10
-position = Vector2(576, 181)
+position = Vector2(575, 181)
 scale = Vector2(0.175, 0.175)
 script = ExtResource("11_mlp73")
 
 [node name="SpellSlot4" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
 z_index = -10
-position = Vector2(759, 181)
+position = Vector2(758, 181)
 scale = Vector2(0.175, 0.175)
 script = ExtResource("11_mlp73")
 
 [node name="SpellSlot3" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
 z_index = -10
-position = Vector2(941, 181)
+position = Vector2(940, 181)
 scale = Vector2(0.175, 0.175)
 script = ExtResource("11_mlp73")
 
 [node name="SpellSlot2" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
 z_index = -10
-position = Vector2(1124, 181)
+position = Vector2(1123, 181)
 scale = Vector2(0.175, 0.175)
 script = ExtResource("11_mlp73")
 
 [node name="SpellSlot1" parent="EnemyZones" instance=ExtResource("9_nsw4n")]
 z_index = -10
-position = Vector2(1307, 181)
+position = Vector2(1306, 181)
 scale = Vector2(0.175, 0.175)
 script = ExtResource("11_mlp73")
 
