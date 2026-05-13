@@ -1087,10 +1087,10 @@ func apply_untargeted_effect_here_and_replicate_client_opponent(player_id, sourc
 
 
 	# --- 🧩 Procedi solo se la carta non è un On_Trigger immediato ---
-	if source_card.card_data.effect_type != "On_Trigger" \
-	or (source_card.card_data.effect_type == "On_Trigger"
-		and source_card.card_data.trigger_type in ["On_UpKeepPhase", "On_EndPhase"]):
-
+	#if source_card.card_data.effect_type != "On_Trigger" \
+	#or (source_card.card_data.effect_type == "On_Trigger"
+		#and source_card.card_data.trigger_type in ["On_UpKeepPhase", "On_EndPhase"]):
+	if source_card.card_data.effect_type != "On_Trigger":
 		var responder_wants_skip: bool
 		if is_attacker:
 			# io ho attivato → sta rispondendo il nemico
@@ -1480,9 +1480,9 @@ func apply_untargeted_effect_here_and_replicate_client_opponent(player_id, sourc
 
 
 
-	if source_card.card_data.effect_type == "On_Trigger":
-		if not source_card.card_data.trigger_type in ["On_UpKeepPhase", "On_EndPhase"]:
-		
+	#if source_card.card_data.effect_type == "On_Trigger":
+		#if not source_card.card_data.trigger_type in ["On_UpKeepPhase", "On_EndPhase"]:
+		if source_card.card_data.effect_type != "On_Trigger":
 						# 🔎 Check rapido se l'avversario ha carte Quick o facedown (solo per On_Trigger)
 			#opponent_has_response = false
 			if is_attacker:
@@ -1797,10 +1797,10 @@ func apply_effect_here_and_replicate_client_opponent(player_id, source_card_name
 	var action_buttons = $"../ActionButtons"
 
 	# --- 🧩 Procedi solo se la carta non è un On_Trigger immediato ---
-	if source_card.card_data.effect_type != "On_Trigger" \
-	or (source_card.card_data.effect_type == "On_Trigger"
-		and source_card.card_data.trigger_type in ["On_UpKeepPhase", "On_EndPhase"]):
-
+	#if source_card.card_data.effect_type != "On_Trigger" \
+	#or (source_card.card_data.effect_type == "On_Trigger"
+		#and source_card.card_data.trigger_type in ["On_UpKeepPhase", "On_EndPhase"]):
+	if source_card.card_data.effect_type != "On_Trigger":
 		var responder_wants_skip: bool
 		if is_attacker:
 			# io ho attivato → sta rispondendo il nemico
@@ -4603,7 +4603,7 @@ func wait(wait_time):
 
 func continue_chain_after_resolve(resolved_card_index: int, simulate_resolve : bool):
 	print("🔁 Risoluzione completata per chain_position:", resolved_card_index)
-
+	var card_node: Node2D = null
 	if not just_targeted_creature.is_empty():
 		print("🧹 [Risolta una carta] Pulizia just_targeted_creature (nuova fase)")
 		just_targeted_creature.clear()
@@ -4630,7 +4630,7 @@ func continue_chain_after_resolve(resolved_card_index: int, simulate_resolve : b
 	for i in effect_stack.size():
 		if effect_stack[i].chain_position == resolved_card_index:
 			# 🔥 Pulizia overlay prima della rimozione
-			var card_node: Node2D = null
+			#var card_node: Node2D = null
 			if multiplayer.get_unique_id() == resolved_player_id:
 				card_node = $"../CardManager".get_node_or_null(resolved_card_name)
 			else:
@@ -4795,7 +4795,7 @@ func continue_chain_after_resolve(resolved_card_index: int, simulate_resolve : b
 		print("✅ Catena completata, RESET LOCALE chain position: ", current_chain_position)
 
 		# 🌀 Dopo fine chain, se esiste un'azione pending, passala ora
-		if pending_action_after_chain and not was_enchained_resolved and not resolved_has_keep_going:
+		if pending_action_after_chain and not was_enchained_resolved and not resolved_has_keep_going and card_node.card_data.effect_type != "On_Trigger" :
 			var phase_manager = get_node_or_null("../PhaseManager")
 			if phase_manager and pending_action_owner_id == multiplayer.get_unique_id():
 				# 🚫 Se l'ultima action proveniva da un attacco, NON ripassare
