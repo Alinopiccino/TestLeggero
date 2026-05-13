@@ -1038,7 +1038,7 @@ func trigger_card_effect(card, from_triggered_effect: bool = false, card_that_ca
 	var combat_manager = $"../CombatManager"
 
 		
-	if not combat_manager.pending_action_after_chain:
+	if not combat_manager.pending_action_after_chain and not from_triggered_effect: #MESSO PER CONSENTIRE A CEENTAURO DI PASSARE ACTION APPENA EVOCATO, TOGLI SE SI BUGGANO ALTRI TRIGGER.
 		print("⏳ [Action Delay] Effetto Untargeted → azione passerà solo dopo chain.")
 		action_consume_pending = true
 		combat_manager.pending_action_after_chain = true
@@ -2315,7 +2315,7 @@ func gioca_carta_subito(card: Node2D, slot: Node2D):
 	var phase_manager = get_node_or_null("../PhaseManager")
 	if phase_manager:
 		#var combat_manager = $"../CombatManager"
-		if not combat_manager.pending_action_after_chain:
+		if not combat_manager.pending_action_after_chain :
 			var my_id = multiplayer.get_unique_id()
 			var peers = multiplayer.get_peers()
 			if peers.size() > 0:

@@ -1800,7 +1800,7 @@ func _on_self_summoned_on_field(card: Card, position: String) -> void:
 				})
 			else:
 				if card_manager and card_manager.has_method("trigger_card_effect"):
-					card_manager.trigger_card_effect(self)
+					card_manager.trigger_card_effect(self,true)
 
 # 🧩 --- NUOVO BLOCCO: While_FieldFlooded ---
 
