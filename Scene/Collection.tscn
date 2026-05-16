@@ -15,12 +15,9 @@
 [ext_resource type="Script" uid="uid://by1gaj6vyqoun" path="res://Scene/mana_slot_deckbuild.gd" id="12_jhy48"]
 [ext_resource type="Texture2D" uid="uid://diod0rkhwoeny" path="res://Assets Collezione/NO FILTER ICON.png" id="12_u2g57"]
 [ext_resource type="Texture2D" uid="uid://3dy5uhc60i5g" path="res://Assets Collezione/BANNER ICONA PER FILTRO DECK.png" id="13_xbgpi"]
-[ext_resource type="Texture2D" uid="uid://cp7wn7jtghjlk" path="res://Assets/Mana/Vento.png" id="14_b5ewn"]
 [ext_resource type="Script" uid="uid://cnoxx2d11te0i" path="res://Scripts/mana_options.gd" id="14_jhy48"]
 [ext_resource type="Texture2D" uid="uid://42pfvuo4ktge" path="res://Assets Collezione/STAR ICON BOH.png" id="14_ni68y"]
-[ext_resource type="Texture2D" uid="uid://61821jq0ggy2" path="res://Assets/Mana/Acqua.png" id="15_gyiry"]
 [ext_resource type="Texture2D" uid="uid://ddokxenulklk" path="res://Assets Collezione/CARDICONPERLABEL.png" id="15_us43y"]
-[ext_resource type="Texture2D" uid="uid://bf810bpd8kxhv" path="res://Assets/Mana/Terra.png" id="16_gh488"]
 [ext_resource type="Texture2D" uid="uid://w7axfgriqxyc" path="res://Assets Collezione/BackGroundDeck.png" id="18_gyiry"]
 [ext_resource type="Texture2D" uid="uid://cufipy4xereof" path="res://Assets Collezione/EXPAND DECK ICON.png" id="19_gh488"]
 [ext_resource type="Texture2D" uid="uid://bghjvh51fpdxs" path="res://Assets Collezione/SHRINK DECK ICON.png" id="20_kwgrh"]
@@ -32,6 +29,15 @@
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_815e0"]
 load_path = "res://.godot/imported/Fuoco.png-cb850ca991839c3c8c5df09eed9fc1b7.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_us43y"]
+load_path = "res://.godot/imported/Vento.png-3557723ff20e43dc7c7e2cea7a8ede67.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_11qbe"]
+load_path = "res://.godot/imported/Acqua.png-3ce608553cfd30598ad47a6f16638198.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tcwij"]
+load_path = "res://.godot/imported/Terra.png-2e84d88516eb658e8b98ebd205cec9bf.ctex"
 
 [node name="Collection" type="Node2D"]
 script = ExtResource("1_svfcu")
@@ -536,7 +542,7 @@ mana_type = "Fire"
 [node name="Wind" type="TextureRect" parent="DeckCreationPopup/MarginContainer/VBoxContainer/ManaOptions"]
 layout_mode = 2
 mouse_filter = 0
-texture = ExtResource("14_b5ewn")
+texture = SubResource("CompressedTexture2D_us43y")
 expand_mode = 3
 script = ExtResource("14_jhy48")
 mana_type = "Wind"
@@ -544,7 +550,7 @@ mana_type = "Wind"
 [node name="Water" type="TextureRect" parent="DeckCreationPopup/MarginContainer/VBoxContainer/ManaOptions"]
 layout_mode = 2
 mouse_filter = 0
-texture = ExtResource("15_gyiry")
+texture = SubResource("CompressedTexture2D_11qbe")
 expand_mode = 3
 script = ExtResource("14_jhy48")
 mana_type = "Water"
@@ -552,7 +558,7 @@ mana_type = "Water"
 [node name="Earth" type="TextureRect" parent="DeckCreationPopup/MarginContainer/VBoxContainer/ManaOptions"]
 layout_mode = 2
 mouse_filter = 0
-texture = ExtResource("16_gh488")
+texture = SubResource("CompressedTexture2D_tcwij")
 expand_mode = 3
 script = ExtResource("14_jhy48")
 mana_type = "Earth"

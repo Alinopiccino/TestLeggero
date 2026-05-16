@@ -568,11 +568,12 @@ z_index = 200
 scale = Vector2(0.75, 0.75)
 
 [node name="PlayerLP" type="RichTextLabel" parent="."]
-z_index = 100
+z_index = 301
 offset_left = 50.0
 offset_top = 996.0
 offset_right = 201.0
 offset_bottom = 1051.0
+mouse_filter = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 0
@@ -591,15 +592,17 @@ scroll_active = false
 vertical_alignment = 1
 
 [node name="HealthBar" type="TextureRect" parent="."]
-z_index = -2
+z_index = 300
 offset_left = 31.0
 offset_top = 949.0
 offset_right = 205.0
 offset_bottom = 1090.0
+mouse_filter = 2
 texture = ExtResource("23_m667i")
 expand_mode = 1
 
 [node name="HealthStructure" type="TextureRect" parent="."]
+z_index = 300
 offset_left = -15.0
 offset_top = 964.0
 offset_right = 249.0
@@ -812,9 +815,9 @@ text = "
 
 [node name="ManaStructure" type="TextureRect" parent="."]
 offset_left = -494.0
-offset_top = -33.0
+offset_top = -37.0
 offset_right = 655.0
-offset_bottom = 1460.0
+offset_bottom = 1456.0
 mouse_filter = 2
 texture = ExtResource("46_5p4o3")
 expand_mode = 1
