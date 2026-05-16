@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqlwy6uenu88j"
-path="res://.godot/imported/MP.png-2bdf6cee3669b8390c43c06c46026754.ctex"
+uid="uid://dp6vo1el31kcd"
+path="res://.godot/imported/offensive player icon.png-5b9234c6ab03a17afa9f24d58adb6527.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets Ui/MP.png"
-dest_files=["res://.godot/imported/MP.png-2bdf6cee3669b8390c43c06c46026754.ctex"]
+source_file="res://Assets Ui/offensive player icon.png"
+dest_files=["res://.godot/imported/offensive player icon.png-5b9234c6ab03a17afa9f24d58adb6527.ctex"]
 
 [params]
 

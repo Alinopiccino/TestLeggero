@@ -14,7 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://6g8k1vf73lik" path="res://Assets Collezione/MANA ICON DECKBUILDER.png" id="11_xbgpi"]
 [ext_resource type="Script" uid="uid://by1gaj6vyqoun" path="res://Scene/mana_slot_deckbuild.gd" id="12_jhy48"]
 [ext_resource type="Texture2D" uid="uid://diod0rkhwoeny" path="res://Assets Collezione/NO FILTER ICON.png" id="12_u2g57"]
-[ext_resource type="Texture2D" uid="uid://cbdee37b1muhh" path="res://Assets/Mana/Fuoco.png" id="13_80u6b"]
 [ext_resource type="Texture2D" uid="uid://3dy5uhc60i5g" path="res://Assets Collezione/BANNER ICONA PER FILTRO DECK.png" id="13_xbgpi"]
 [ext_resource type="Texture2D" uid="uid://cp7wn7jtghjlk" path="res://Assets/Mana/Vento.png" id="14_b5ewn"]
 [ext_resource type="Script" uid="uid://cnoxx2d11te0i" path="res://Scripts/mana_options.gd" id="14_jhy48"]
@@ -30,6 +29,9 @@
 [ext_resource type="Texture2D" uid="uid://b0f1wwpfvqiki" path="res://Assets Collezione/DECK BORDER HORIZright.png" id="29_hkwvr"]
 [ext_resource type="Texture2D" uid="uid://bhdmw3d6vfjv8" path="res://Assets Collezione/DECK BORDER TOPleft.png" id="30_hkwvr"]
 [ext_resource type="Texture2D" uid="uid://co50rsn3rn174" path="res://Assets Collezione/DECK BORDER TOPright.png" id="31_8joyb"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_815e0"]
+load_path = "res://.godot/imported/Fuoco.png-cb850ca991839c3c8c5df09eed9fc1b7.ctex"
 
 [node name="Collection" type="Node2D"]
 script = ExtResource("1_svfcu")
@@ -526,7 +528,7 @@ alignment = 1
 [node name="Fire" type="TextureRect" parent="DeckCreationPopup/MarginContainer/VBoxContainer/ManaOptions"]
 layout_mode = 2
 mouse_filter = 0
-texture = ExtResource("13_80u6b")
+texture = SubResource("CompressedTexture2D_815e0")
 expand_mode = 3
 script = ExtResource("14_jhy48")
 mana_type = "Fire"

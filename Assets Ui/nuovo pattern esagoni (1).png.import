@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dn1gmm8wk4f52"
-path="res://.godot/imported/Fuoco.png-cb850ca991839c3c8c5df09eed9fc1b7.ctex"
+uid="uid://brdgk05b57jew"
+path="res://.godot/imported/nuovo pattern esagoni (1).png-326ca8a4f4d512f4ff90e0c87ea0a85c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Mana/Fuoco.png"
-dest_files=["res://.godot/imported/Fuoco.png-cb850ca991839c3c8c5df09eed9fc1b7.ctex"]
+source_file="res://Assets Ui/nuovo pattern esagoni (1).png"
+dest_files=["res://.godot/imported/nuovo pattern esagoni (1).png-326ca8a4f4d512f4ff90e0c87ea0a85c.ctex"]
 
 [params]
 

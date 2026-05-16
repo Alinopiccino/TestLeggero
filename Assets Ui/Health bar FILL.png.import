@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dn1gmm8wk4f52"
-path="res://.godot/imported/Fuoco.png-cb850ca991839c3c8c5df09eed9fc1b7.ctex"
+uid="uid://2uien2eyy8sk"
+path="res://.godot/imported/Health bar FILL.png-d369c9a9e4c43f13d2bca22e62898687.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Mana/Fuoco.png"
-dest_files=["res://.godot/imported/Fuoco.png-cb850ca991839c3c8c5df09eed9fc1b7.ctex"]
+source_file="res://Assets Ui/Health bar FILL.png"
+dest_files=["res://.godot/imported/Health bar FILL.png-d369c9a9e4c43f13d2bca22e62898687.ctex"]
 
 [params]
 

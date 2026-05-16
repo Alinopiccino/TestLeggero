@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dn1gmm8wk4f52"
-path="res://.godot/imported/Fuoco.png-cb850ca991839c3c8c5df09eed9fc1b7.ctex"
+uid="uid://b5eh68hi2x61c"
+path="res://.godot/imported/OMBRA PER PASS.png-abe3d684b494c3219bc336453dfe4042.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Mana/Fuoco.png"
-dest_files=["res://.godot/imported/Fuoco.png-cb850ca991839c3c8c5df09eed9fc1b7.ctex"]
+source_file="res://Assets Ui/OMBRA PER PASS.png"
+dest_files=["res://.godot/imported/OMBRA PER PASS.png-abe3d684b494c3219bc336453dfe4042.ctex"]
 
 [params]
 

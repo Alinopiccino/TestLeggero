@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dn1gmm8wk4f52"
-path="res://.godot/imported/Fuoco.png-cb850ca991839c3c8c5df09eed9fc1b7.ctex"
+uid="uid://u3dwxa6p2420"
+path="res://.godot/imported/EP (1).png-cec4783c85354e1324bcf298520312e3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Mana/Fuoco.png"
-dest_files=["res://.godot/imported/Fuoco.png-cb850ca991839c3c8c5df09eed9fc1b7.ctex"]
+source_file="res://Assets Ui/EP (1).png"
+dest_files=["res://.godot/imported/EP (1).png-cec4783c85354e1324bcf298520312e3.ctex"]
 
 [params]
 

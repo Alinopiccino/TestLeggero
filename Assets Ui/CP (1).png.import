@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hu1d33x1qixd"
-path="res://.godot/imported/FASI OSCURATE.png-af1ace743648dabf48ef602ba3dc68b1.ctex"
+uid="uid://qjuerbr8d1v1"
+path="res://.godot/imported/CP (1).png-6b22ebecd1be1883561c585924846455.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets Ui/FASI OSCURATE.png"
-dest_files=["res://.godot/imported/FASI OSCURATE.png-af1ace743648dabf48ef602ba3dc68b1.ctex"]
+source_file="res://Assets Ui/CP (1).png"
+dest_files=["res://.godot/imported/CP (1).png-6b22ebecd1be1883561c585924846455.ctex"]
 
 [params]
 

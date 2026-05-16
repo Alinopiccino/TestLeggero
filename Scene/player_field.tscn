@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://bkx2nydgmhnop"]
+[gd_scene load_steps=78 format=3 uid="uid://bkx2nydgmhnop"]
 
 [ext_resource type="Script" uid="uid://mhnnyqbkjiwh" path="res://Scene/GameSetup.gd" id="1_rwyy7"]
 [ext_resource type="Script" uid="uid://gutrgdj4rmsl" path="res://Scripts/InserimentoDeck.gd" id="1_wawig"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://pt01c3rk5dj0" path="res://Assets Ui/box caselle (1).png" id="4_53ceb"]
 [ext_resource type="Script" uid="uid://ma2p6fts1f7v" path="res://Scripts/input_manager.gd" id="4_g20td"]
 [ext_resource type="PackedScene" uid="uid://bpb4ljr5q8fb5" path="res://Scene/card_slot.tscn" id="5_225pa"]
+[ext_resource type="Texture2D" uid="uid://brdgk05b57jew" path="res://Assets Ui/nuovo pattern esagoni (1).png" id="5_r6n4j"]
+[ext_resource type="Texture2D" uid="uid://bn8s6y7gp417a" path="res://Assets Ui/NUOVO BACK.png" id="6_1om0u"]
 [ext_resource type="Script" uid="uid://es340uv1h6fc" path="res://Scripts/CreatureCardSlot.gd" id="6_vobt0"]
 [ext_resource type="Script" uid="uid://c0h5iua6g02js" path="res://Scripts/SpellCardSlot.gd" id="7_onb2x"]
 [ext_resource type="Script" uid="uid://dev5d6lf0cjb4" path="res://Scripts/player_hand.gd" id="8_f8xqc"]
@@ -21,16 +23,20 @@
 [ext_resource type="Script" uid="uid://btwsi426pmyiq" path="res://Scripts/Player_GY.gd" id="16_vd8tq"]
 [ext_resource type="Script" uid="uid://cikt2jq28gq33" path="res://Scene/phase_manager.gd" id="17_g20td"]
 [ext_resource type="Texture2D" uid="uid://bcqy48w4qwmom" path="res://Assets/SPELLPOWER ICON.png" id="18_ba1e6"]
-[ext_resource type="Texture2D" uid="uid://5q7iohemkifu" path="res://Assets/SPADA ICONA.png" id="18_vobt0"]
-[ext_resource type="Texture2D" uid="uid://cwykxa01a7mv5" path="res://Assets/SCUDO ICONA.png" id="19_onb2x"]
 [ext_resource type="Script" uid="uid://delbjee3vpasv" path="res://Scene/choose_position_popup.gd" id="20_onb2x"]
 [ext_resource type="Script" uid="uid://bs15k2437dca7" path="res://Scene/action_buttons.gd" id="21_f8xqc"]
 [ext_resource type="Script" uid="uid://mmaey6tqspid" path="res://Scene/mana_slot_manager.gd" id="22_7yhcc"]
+[ext_resource type="FontFile" uid="uid://c7kmpfrd3kjkj" path="res://Assets Fonts/AmericanCaptain-MdEY.otf" id="22_qpw1d"]
 [ext_resource type="Texture2D" uid="uid://coy8r5dp00yap" path="res://Assets Ui/PASSPHASESPENTO.png" id="23_1om0u"]
 [ext_resource type="Texture2D" uid="uid://ohd6fdqp2blt" path="res://Assets/UI/clessidra.png" id="23_gm5u4"]
+[ext_resource type="Texture2D" uid="uid://2uien2eyy8sk" path="res://Assets Ui/Health bar FILL.png" id="23_m667i"]
+[ext_resource type="Texture2D" uid="uid://bx2lmindei6mn" path="res://Assets Ui/health barra.png" id="24_20v0l"]
 [ext_resource type="Texture2D" uid="uid://lb1avsyjx7tk" path="res://Assets Ui/PASSPHASEACCESO.png" id="24_muul7"]
 [ext_resource type="Script" uid="uid://bfoq7m41csq6g" path="res://Scene/gy_popup.gd" id="25_frrmm"]
+[ext_resource type="Texture2D" uid="uid://b5eh68hi2x61c" path="res://Assets Ui/OMBRA PER PASS.png" id="26_1om0u"]
+[ext_resource type="Texture2D" uid="uid://djjqvmlm71hfu" path="res://Assets Ui/defo player icon.png" id="26_r6n4j"]
 [ext_resource type="Script" uid="uid://bephcefek25vy" path="res://Scene/card_preview_manager.gd" id="26_vy6tj"]
+[ext_resource type="Texture2D" uid="uid://dp6vo1el31kcd" path="res://Assets Ui/offensive player icon.png" id="27_1om0u"]
 [ext_resource type="Texture2D" uid="uid://db23caja8vw41" path="res://Assets/FIRESPELLPOWER ICON.png" id="28_xa1iw"]
 [ext_resource type="Texture2D" uid="uid://sek2ddfj4huf" path="res://Assets/WINDSPELLPOWER ICON.png" id="29_2bqq7"]
 [ext_resource type="Texture2D" uid="uid://dkrumfc1avvdj" path="res://Assets/EARTHSPELLPOWER ICON.png" id="29_4ljq4"]
@@ -45,20 +51,20 @@
 [ext_resource type="Texture2D" uid="uid://isw7aa674r6e" path="res://Assets Ui/GOTOCOMBATACCESO.png" id="34_m667i"]
 [ext_resource type="Texture2D" uid="uid://cc261yydobx0i" path="res://Assets/Mana/ACTION BASE.png" id="34_ulniw"]
 [ext_resource type="Texture2D" uid="uid://n5by2agsbfip" path="res://Assets Ui/TODAMAGESTEPSPENTO.png" id="35_20v0l"]
-[ext_resource type="Texture2D" uid="uid://b4kntqiejfnmy" path="res://Assets Ui/pattern esagoni.png" id="35_ttc12"]
 [ext_resource type="Texture2D" uid="uid://b7rg2tbb4cwu" path="res://Assets Ui/TODAMAGESTEPACCESO.png" id="36_5p4o3"]
 [ext_resource type="Texture2D" uid="uid://d0fplajrfofei" path="res://Assets Ui/RETALIATESPENTO.png" id="37_nr068"]
-[ext_resource type="Texture2D" uid="uid://hu1d33x1qixd" path="res://Assets Ui/FASI OSCURATE.png" id="38_enjyw"]
 [ext_resource type="Texture2D" uid="uid://bd5seed2cenhx" path="res://Assets Ui/RETALIATEACCESO.png" id="38_u4oxv"]
 [ext_resource type="Texture2D" uid="uid://bgg8a11txuohn" path="res://Assets Ui/DIRECTATTACK SPENTO.png" id="39_p78i5"]
-[ext_resource type="Texture2D" uid="uid://jnf6l3bt3715" path="res://Assets Ui/SP.png" id="39_uynbh"]
 [ext_resource type="Shader" uid="uid://d3g11rca8lp4x" path="res://Scene/ShaderPhases.gdshader" id="39_ve160"]
 [ext_resource type="Texture2D" uid="uid://cawfy28y22urq" path="res://Assets Ui/DIRECTATTACKACCESO.png" id="40_r1pc4"]
-[ext_resource type="Texture2D" uid="uid://deuy7fagcc4kc" path="res://Assets Ui/UP.png" id="40_ve160"]
-[ext_resource type="Texture2D" uid="uid://bqlwy6uenu88j" path="res://Assets Ui/MP.png" id="41_h4u4c"]
-[ext_resource type="Texture2D" uid="uid://cpyqnn0sexr6v" path="res://Assets Ui/PP.png" id="42_monh0"]
-[ext_resource type="Texture2D" uid="uid://bc2q20xxy2dpr" path="res://Assets Ui/CP.png" id="43_604tb"]
-[ext_resource type="Texture2D" uid="uid://d4lstguicuf3l" path="res://Assets Ui/EP.png" id="44_i5d0t"]
+[ext_resource type="Texture2D" uid="uid://dv4s8jntj0ndt" path="res://Assets Ui/struttura mana.png" id="46_5p4o3"]
+[ext_resource type="Texture2D" uid="uid://ceysuhmohrtdh" path="res://Assets Ui/FASI OSCURATE (1).png" id="53_muul7"]
+[ext_resource type="Texture2D" uid="uid://63ygj8cbnwhg" path="res://Assets Ui/SP (1).png" id="55_j33hq"]
+[ext_resource type="Texture2D" uid="uid://mkj4nh2sq0ks" path="res://Assets Ui/UP (1).png" id="56_lfrbi"]
+[ext_resource type="Texture2D" uid="uid://o74dsoute3qv" path="res://Assets Ui/MP (1).png" id="57_2yva8"]
+[ext_resource type="Texture2D" uid="uid://ip1dt825oya0" path="res://Assets Ui/PP (1).png" id="58_45jcx"]
+[ext_resource type="Texture2D" uid="uid://dw5k0ehth7tvq" path="res://Assets Ui/CP rosso.png" id="60_muul7"]
+[ext_resource type="Texture2D" uid="uid://u3dwxa6p2420" path="res://Assets Ui/EP (1).png" id="61_j33hq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_53ceb"]
 shader = ExtResource("3_ya6wd")
@@ -82,6 +88,8 @@ size = Vector2(150, 209)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m0mch"]
 size = Vector2(1013.33, 1240)
+
+[sub_resource type="ImageTexture" id="ImageTexture_muul7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h4u4c"]
 shader = ExtResource("39_ve160")
@@ -111,10 +119,18 @@ shader_parameter/outline_size = 2.5
 shader_parameter/glow_strength = 1.2
 shader_parameter/speed = 1.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1om0u"]
+shader = ExtResource("39_ve160")
+shader_parameter/glow_color = Color(0.878431, 0.407843, 0.2, 1)
+shader_parameter/outline_size = 2.5
+shader_parameter/glow_strength = 1.2
+shader_parameter/speed = 1.0
+
 [node name="PlayerField" type="Node2D"]
 script = ExtResource("1_rwyy7")
 
 [node name="CampoGrigio" type="TextureRect" parent="."]
+visible = false
 z_index = -100
 offset_left = 456.0
 offset_top = 60.0
@@ -134,25 +150,32 @@ mouse_filter = 2
 texture = ExtResource("4_53ceb")
 
 [node name="Esagoni" type="TextureRect" parent="."]
-visible = false
+self_modulate = Color(1, 1, 0.960784, 0.333333)
 z_index = -100
 material = SubResource("ShaderMaterial_ya6wd")
 custom_minimum_size = Vector2(800, 800)
-offset_left = 532.0
-offset_top = 89.0
-offset_right = 1382.0
-offset_bottom = 939.0
+offset_left = 185.0
+offset_top = 1.0
+offset_right = 1704.0
+offset_bottom = 1079.0
 mouse_filter = 2
-texture = ExtResource("35_ttc12")
+texture = ExtResource("5_r6n4j")
 expand_mode = 1
 
-[node name="CampoVerde" type="ColorRect" parent="."]
+[node name="CampoVerde" type="TextureRect" parent="."]
 z_index = -1000
-custom_minimum_size = Vector2(1920, 1080)
+offset_left = 184.0
+offset_top = -1.0
+offset_right = 1704.0
+offset_bottom = 1079.0
+texture = ExtResource("6_1om0u")
+
+[node name="SfondoCampoNero" type="ColorRect" parent="."]
+z_index = -2000
 offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
-color = Color(0.129412, 0.270588, 0.27451, 1)
+color = Color(0.0156863, 0.0509804, 0.0901961, 1)
 
 [node name="InputManager" type="Node2D" parent="."]
 script = ExtResource("4_g20td")
@@ -545,13 +568,45 @@ z_index = 200
 scale = Vector2(0.75, 0.75)
 
 [node name="PlayerLP" type="RichTextLabel" parent="."]
-offset_left = 56.0
-offset_top = 862.0
-offset_right = 116.0
-offset_bottom = 887.0
-scale = Vector2(2.5, 2.5)
+z_index = 100
+offset_left = 50.0
+offset_top = 996.0
+offset_right = 201.0
+offset_bottom = 1051.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/normal_font = ExtResource("22_qpw1d")
+theme_override_font_sizes/bold_italics_font_size = 40
+theme_override_font_sizes/italics_font_size = 40
+theme_override_font_sizes/normal_font_size = 50
+theme_override_font_sizes/bold_font_size = 50
 bbcode_enabled = true
 text = "0"
+fit_content = true
+scroll_active = false
+vertical_alignment = 1
+
+[node name="HealthBar" type="TextureRect" parent="."]
+z_index = -2
+offset_left = 31.0
+offset_top = 949.0
+offset_right = 205.0
+offset_bottom = 1090.0
+texture = ExtResource("23_m667i")
+expand_mode = 1
+
+[node name="HealthStructure" type="TextureRect" parent="."]
+offset_left = -15.0
+offset_top = 964.0
+offset_right = 249.0
+offset_bottom = 1077.0
+mouse_filter = 2
+texture = ExtResource("24_20v0l")
+expand_mode = 1
 
 [node name="CombatManager" type="Node" parent="."]
 script = ExtResource("13_vy6tj")
@@ -569,6 +624,15 @@ offset_bottom = 580.0
 texture_normal = ExtResource("23_1om0u")
 texture_pressed = ExtResource("24_muul7")
 texture_hover = ExtResource("24_muul7")
+texture_disabled = SubResource("ImageTexture_muul7")
+
+[node name="PlayerPassed" type="TextureRect" parent="."]
+visible = false
+offset_left = 184.0
+offset_top = 702.0
+offset_right = 1704.0
+offset_bottom = 1079.0
+texture = ExtResource("26_1om0u")
 
 [node name="EnemyPassPhaseButton" type="TextureButton" parent="."]
 visible = false
@@ -579,6 +643,15 @@ offset_bottom = 490.0
 texture_normal = ExtResource("24_muul7")
 texture_disabled = ExtResource("24_muul7")
 
+[node name="EnemyPassed" type="TextureRect" parent="."]
+visible = false
+offset_left = 184.0
+offset_top = -1.0
+offset_right = 1704.0
+offset_bottom = 376.0
+texture = ExtResource("26_1om0u")
+flip_v = true
+
 [node name="DefenderIcon" type="TextureRect" parent="."]
 visible = false
 offset_left = 350.0
@@ -587,7 +660,7 @@ offset_right = 2350.0
 offset_bottom = 2550.0
 scale = Vector2(0.06, 0.06)
 mouse_filter = 2
-texture = ExtResource("19_onb2x")
+texture = ExtResource("26_r6n4j")
 
 [node name="AttackerIcon" type="TextureRect" parent="."]
 visible = false
@@ -597,7 +670,7 @@ offset_right = 2350.0
 offset_bottom = 2330.0
 scale = Vector2(0.06, 0.06)
 mouse_filter = 2
-texture = ExtResource("18_vobt0")
+texture = ExtResource("27_1om0u")
 
 [node name="HourglassIcon" type="TextureRect" parent="."]
 z_index = 1000
@@ -737,11 +810,20 @@ scale = Vector2(1.5, 1.5)
 text = "
 "
 
+[node name="ManaStructure" type="TextureRect" parent="."]
+offset_left = -494.0
+offset_top = -33.0
+offset_right = 655.0
+offset_bottom = 1460.0
+mouse_filter = 2
+texture = ExtResource("46_5p4o3")
+expand_mode = 1
+
 [node name="ManaSlots" type="VBoxContainer" parent="."]
-offset_left = 69.0
-offset_top = 566.0
-offset_right = 80.0
-offset_bottom = 577.0
+offset_left = 39.0
+offset_top = 568.0
+offset_right = 50.0
+offset_bottom = 579.0
 theme_override_constants/separation = -10
 script = ExtResource("22_7yhcc")
 
@@ -1043,34 +1125,35 @@ offset = Vector2(100, 0)
 
 [node name="PhasesAll" type="Sprite2D" parent="."]
 position = Vector2(942, 509)
-texture = ExtResource("38_enjyw")
+texture = ExtResource("53_muul7")
 
 [node name="SP" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_h4u4c")
 position = Vector2(633, 509)
-texture = ExtResource("39_uynbh")
+texture = ExtResource("55_j33hq")
 
 [node name="UP" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_uynbh")
 position = Vector2(755, 509)
-texture = ExtResource("40_ve160")
+texture = ExtResource("56_lfrbi")
 
 [node name="MP" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_ve160")
 position = Vector2(879, 509)
-texture = ExtResource("41_h4u4c")
+texture = ExtResource("57_2yva8")
 
 [node name="PP" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_monh0")
 position = Vector2(1003, 509)
-texture = ExtResource("42_monh0")
+texture = ExtResource("58_45jcx")
 
 [node name="CP" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_monh0")
+z_index = 100
+material = SubResource("ShaderMaterial_1om0u")
 position = Vector2(1128, 509)
-texture = ExtResource("43_604tb")
+texture = ExtResource("60_muul7")
 
 [node name="EP" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_monh0")
 position = Vector2(1253, 509)
-texture = ExtResource("44_i5d0t")
+texture = ExtResource("61_j33hq")

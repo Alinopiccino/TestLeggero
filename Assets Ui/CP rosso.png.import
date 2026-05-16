@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dn1gmm8wk4f52"
-path="res://.godot/imported/Fuoco.png-cb850ca991839c3c8c5df09eed9fc1b7.ctex"
+uid="uid://dw5k0ehth7tvq"
+path="res://.godot/imported/CP rosso.png-5a620cdbea49adb8da085ddd74d7e3b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Mana/Fuoco.png"
-dest_files=["res://.godot/imported/Fuoco.png-cb850ca991839c3c8c5df09eed9fc1b7.ctex"]
+source_file="res://Assets Ui/CP rosso.png"
+dest_files=["res://.godot/imported/CP rosso.png-5a620cdbea49adb8da085ddd74d7e3b0.ctex"]
 
 [params]
 

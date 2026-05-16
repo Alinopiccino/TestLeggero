@@ -1750,7 +1750,7 @@ func _on_self_summoned_on_field(card: Card, position: String) -> void:
 					})
 				elif card_manager and card_manager.has_method("trigger_card_effect"):
 					print("CHAIN NON E' LOCKED")
-					card_manager.trigger_card_effect(self)
+					card_manager.trigger_card_effect(self,true)
 
 		"attack":
 			if card_data.trigger_type == "While_ATKpos":
@@ -1764,7 +1764,7 @@ func _on_self_summoned_on_field(card: Card, position: String) -> void:
 					})
 				elif card_manager and card_manager.has_method("trigger_card_effect"):
 					print("CHAIN NON E' LOCKED")
-					card_manager.trigger_card_effect(self)
+					card_manager.trigger_card_effect(self,true)
 
 
 			

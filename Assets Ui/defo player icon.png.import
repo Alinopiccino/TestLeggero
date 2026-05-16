@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bc2q20xxy2dpr"
-path="res://.godot/imported/CP.png-68958afe48debffe96001b2753fc9cce.ctex"
+uid="uid://djjqvmlm71hfu"
+path="res://.godot/imported/defo player icon.png-ac3a74d5fe94b280a1a4cebe6f3e8083.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets Ui/CP.png"
-dest_files=["res://.godot/imported/CP.png-68958afe48debffe96001b2753fc9cce.ctex"]
+source_file="res://Assets Ui/defo player icon.png"
+dest_files=["res://.godot/imported/defo player icon.png-ac3a74d5fe94b280a1a4cebe6f3e8083.ctex"]
 
 [params]
 

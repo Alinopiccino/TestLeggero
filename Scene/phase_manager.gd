@@ -25,6 +25,8 @@ var enemy_action_count: int = 0
 @onready var draw_prompt_label = $"../PromptLabels/DrawPromptLabel"
 @onready var player_pass_button = $"../PlayerPassPhaseButton"
 @onready var enemy_pass_button = $"../EnemyPassPhaseButton"
+@onready var player_passed_shadow = $"../PlayerPassed"
+@onready var enemy_passed_shadow = $"../EnemyPassed"
 @onready var phase_indicators = {
 	Phase.START: $"../SP",
 	Phase.UPKEEP: $"../UP",
@@ -39,11 +41,14 @@ var enemy_action_count: int = 0
 func _ready():
 	player_pass_button.pressed.connect(func(): on_player_pass_button_pressed(true))
 	player_pass_button.disabled = false
+
 	#player_pass_button.text = "Pass Phase"
 	
 	enemy_pass_button.modulate = Color(0, 0, 0, 0)  #invisibile ad inizio game
 	enemy_pass_button.visible = false
 	enemy_pass_button.disabled = false
+	enemy_passed_shadow.visible= false
+	
 	#enemy_pass_button.text = "Pass Phase"
 	enemy_pass_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
@@ -58,6 +63,10 @@ func _ready():
 	print("🟢 Fase iniziale:", get_phase_name())
 
 func on_player_pass_button_pressed(is_manual: bool = false, force: bool = false):
+	
+	if current_phase == Phase.MAIN and not is_manual:  #la main fphase si deve fare a prescindere
+		print("LA MAIN PHASE SI GIOCA SEMPRE")
+		return
 	
 		# ⛔FAILSAFE Guard: già passato questa fase → ignora
 	if already_passed_phase.get(current_phase, false):
@@ -91,6 +100,7 @@ func on_player_pass_button_pressed(is_manual: bool = false, force: bool = false)
 	already_passed_phase[current_phase] = true
 	print("FASE PASSATA")
 	player_pass_button.disabled = true
+	player_passed_shadow.visible = true
 	player_pass_button.release_focus()
 	player_pass_button.focus_mode = Control.FOCUS_NONE
 
@@ -134,6 +144,7 @@ func on_player_pass_button_pressed(is_manual: bool = false, force: bool = false)
 func notify_enemy_passed_phase():
 	print("NOTIFICA RPC PASSED")
 	enemy_has_passed_this_phase = true
+	enemy_passed_shadow.visible = true
 	update_enemy_pass_button()
 	rpc("update_enemy_pass_button_rpc")  # <-- chiama anche l'RPC!
 	
@@ -142,11 +153,7 @@ func notify_enemy_passed_phase():
 		go_to_next_phase()
 
 func update_enemy_pass_button():
-	enemy_pass_button.visible = true # 👈 Ora visibile
-	#if current_phase == Phase.END:
-		#enemy_pass_button.text = "ENDED"
-	#else:
-		#enemy_pass_button.text = "PASSED"
+	
 	enemy_pass_button.disabled = true
 	enemy_pass_button.modulate = Color(0.7, 0.7, 0.7, 1) # <-- Grigetto per indicare che ha passato
 	
@@ -167,11 +174,17 @@ func set_phase(new_phase: Phase):
 	player_pass_button.modulate = Color(1, 1, 1, 1)
 
 	# Enemy pass button reset
+	if not current_phase == Phase.END and not current_phase == Phase.START: #aggiunto perhce' non voglio cambiare il check anyplayer perche' potrebbe fuckuppare la logica di end phase triggers
+		var phase_is_playable = any_player_has_actions_for_phase(new_phase)
+		if phase_is_playable:
+			player_passed_shadow.visible = false
+			enemy_passed_shadow.visible = false
+			
 	enemy_pass_button.disabled = false
 	enemy_pass_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	#enemy_pass_button.text = "Pass Phase"
 	enemy_pass_button.modulate = Color(1, 1, 1, 1)
-	enemy_pass_button.visible = false  # 👈 Nascondi sempre a inizio fase
+	
 	
 		# 👁️ Mostra/nasconde la label in base alla fase
 	# ✅ RESET all'inizio della Start Phase
@@ -253,7 +266,7 @@ func set_phase(new_phase: Phase):
 		await process_trigger_upkeep_phase_effects()
 		
 			
-		await get_tree().create_timer(0.5).timeout
+		#await get_tree().create_timer(0.5).timeout
 		#await get_tree().process_frame
 		on_player_pass_button_pressed()
 	
@@ -320,6 +333,7 @@ func set_phase(new_phase: Phase):
 				print("🧠 [PREPARATION] Attaccante ha azioni → niente auto-pass.")
 				player_pass_button.visible = true
 				player_pass_button.disabled = false
+				#player_passed_shadow.visible = false
 
 	
 	if current_phase == Phase.END:
@@ -352,6 +366,10 @@ func set_phase(new_phase: Phase):
 
 @rpc("any_peer")
 func rpc_give_action(peer_id: int, from_attack: bool = false, from_phase: bool = false):
+	
+	if current_phase == Phase.END:
+		print("NON SERVE PASSARE ACTION IN END")
+		return
 
 	var my_id = multiplayer.get_unique_id()
 	print("🎯 [RPC_GIVE_ACTION] Chiamata ricevuta → peer_id:", peer_id, "| from_attack =", from_attack)
@@ -390,6 +408,7 @@ func rpc_give_action(peer_id: int, from_attack: bool = false, from_phase: bool =
 				print("🟢 [POST-ATTACK] Nemico ha passato ma ho ancora azioni → mostro Pass Phase.")
 				player_pass_button.visible = true
 				player_pass_button.disabled = false
+				#player_passed_shadow.visible = false
 				#player_pass_button.text = "Pass Phase"
 				print("🟢 [PhaseManager] Bottone Pass Phase RIAPPARSO (hai l'azione).")
 		
@@ -467,6 +486,7 @@ func rpc_give_action(peer_id: int, from_attack: bool = false, from_phase: bool =
 			print("🧠 [ACTION OK] Action ricevuta e azioni disponibili → nessun auto-pass e mostro pass phase.")
 			player_pass_button.visible = true
 			player_pass_button.disabled = false
+			#player_passed_shadow.visible = false
 			#player_pass_button.text = "Pass Phase"
 			print("🟢 SONO IO IL PEER [PhaseManager] Bottone Pass Phase RIAPPARSO (hai l'azione).")
 
@@ -483,6 +503,7 @@ func rpc_give_action(peer_id: int, from_attack: bool = false, from_phase: bool =
 			player_pass_button.disabled = true
 			if has_passed_this_phase:
 				player_pass_button.visible = true
+				#player_passed_shadow.visible = true
 				print("🔴 [PhaseManager] Bottone Pass Phase MOSTRATO PERCHE TANTO HO PASSATO ( quindi e' PASSED ).")
 			else:
 				player_pass_button.visible = false
@@ -490,6 +511,7 @@ func rpc_give_action(peer_id: int, from_attack: bool = false, from_phase: bool =
 		else:
 			player_pass_button.visible = true
 			player_pass_button.disabled = true
+			#player_passed_shadow.visible = true
 			print(" HO PASSATO QUINDI RIMANE VISIBILE")
 
 
@@ -506,6 +528,7 @@ func rpc_give_action(peer_id: int, from_attack: bool = false, from_phase: bool =
 	if player_action_count != 0 and not already_passed_phase[current_phase]:
 		if player_pass_button.visible:
 			player_pass_button.disabled = false
+			
 
 
 func get_phase_name() -> String:
@@ -1135,7 +1158,7 @@ func player_has_any_actions(is_player: bool, phase_override = null) -> bool:
 	var phase_to_check = phase_override if phase_override != null else phase_manager.current_phase
 	
 	match phase_to_check:
-		
+
 		phase_manager.Phase.UPKEEP:
 			# Se esiste almeno un TriggerUpkeepPhase su QUALSIASI field
 			# allora la fase ha senso, altrimenti va skippata
