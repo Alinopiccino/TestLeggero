@@ -1331,8 +1331,9 @@ func apply_untargeted_effect_here_and_replicate_client_opponent(player_id, sourc
 					"SelfPlayer":
 						if is_attacker:
 							if effect_name == "GainLP":
+								var old_lp = player_LP
 								player_LP += magnitude
-								$"../PlayerLP".text = str(player_LP)
+								animate_lp($"../PlayerLP",$"../HealthBar",old_lp,player_LP,STARTING_LP)
 
 							elif effect_name == "Damage":
 								# ➤ Danno al player locale (SelfPlayer)
@@ -1340,8 +1341,9 @@ func apply_untargeted_effect_here_and_replicate_client_opponent(player_id, sourc
 								if protected:
 									print("🩹 Nessun danno SelfPlayer inflitto (Protection attiva).")
 								else:
+									var old_lp = player_LP
 									player_LP = max(0, player_LP - magnitude)
-									$"../PlayerLP".text = str(player_LP)
+									animate_lp($"../PlayerLP",$"../HealthBar",old_lp,player_LP,STARTING_LP)
 									source_card.emit_signal("damage_dealt", source_card, magnitude, "direct_damage")
 									print("💥 SelfPlayer infligge", magnitude, "danni al player (rimasti:", player_LP, ")")
 
@@ -1375,8 +1377,15 @@ func apply_untargeted_effect_here_and_replicate_client_opponent(player_id, sourc
 
 						else:
 							if effect_name == "GainLP":
+								var old_lp = enemy_LP
 								enemy_LP += magnitude
-								get_parent().get_parent().get_node("EnemyField/EnemyLP").text = str(enemy_LP)
+								animate_lp(
+									get_parent().get_parent().get_node("EnemyField/EnemyLP"),
+									get_parent().get_parent().get_node("EnemyField/HealthBar"),
+									old_lp,
+									enemy_LP,
+									STARTING_LP
+								)
 
 							elif effect_name == "Damage":
 								# ➤ Danno al nemico (SelfPlayer per il difensore)
@@ -1384,8 +1393,15 @@ func apply_untargeted_effect_here_and_replicate_client_opponent(player_id, sourc
 								if protected:
 									print("🩹 Nessun danno SelfPlayer inflitto al nemico (Protection attiva).")
 								else:
+									var old_lp = enemy_LP
 									enemy_LP = max(0, enemy_LP - magnitude)
-									get_parent().get_parent().get_node("EnemyField/EnemyLP").text = str(enemy_LP)
+									animate_lp(
+										get_parent().get_parent().get_node("EnemyField/EnemyLP"),
+										get_parent().get_parent().get_node("EnemyField/HealthBar"),
+										old_lp,
+										enemy_LP,
+										STARTING_LP
+									)
 									print("💥 SelfPlayer infligge", magnitude, "danni al nemico (rimasti:", enemy_LP, ")")
 
 							elif effect_name == "PreventDamage":  # 🛡️ nuovo effetto
@@ -1420,8 +1436,15 @@ func apply_untargeted_effect_here_and_replicate_client_opponent(player_id, sourc
 					"EnemyPlayer":
 						if is_attacker:
 							if effect_name == "GainLP":
+								var old_lp = enemy_LP
 								enemy_LP += magnitude
-								get_parent().get_parent().get_node("EnemyField/EnemyLP").text = str(enemy_LP)
+								animate_lp(
+									get_parent().get_parent().get_node("EnemyField/EnemyLP"),
+									get_parent().get_parent().get_node("EnemyField/HealthBar"),
+									old_lp,
+									enemy_LP,
+									STARTING_LP
+								)
 
 							elif effect_name == "Damage":
 								# ➤ Danno al nemico (target = enemy)
@@ -1429,8 +1452,15 @@ func apply_untargeted_effect_here_and_replicate_client_opponent(player_id, sourc
 								if protected:
 									print("🩹 Nessun danno EnemyPlayer inflitto (Protection attiva).")
 								else:
+									var old_lp = enemy_LP
 									enemy_LP = max(0, enemy_LP - magnitude)
-									get_parent().get_parent().get_node("EnemyField/EnemyLP").text = str(enemy_LP)
+									animate_lp(
+										get_parent().get_parent().get_node("EnemyField/EnemyLP"),
+										get_parent().get_parent().get_node("EnemyField/HealthBar"),
+										old_lp,
+										enemy_LP,
+										STARTING_LP
+									)
 									print("💥 EnemyPlayer infligge", magnitude, "danni al nemico (rimasti:", enemy_LP, ")")
 
 							elif effect_name == "PreventDamage":  # 🛡️ nuovo effetto
@@ -1443,8 +1473,9 @@ func apply_untargeted_effect_here_and_replicate_client_opponent(player_id, sourc
 
 						else:
 							if effect_name == "GainLP":
+								var old_lp = player_LP
 								player_LP += magnitude
-								$"../PlayerLP".text = str(player_LP)
+								animate_lp($"../PlayerLP",$"../HealthBar",old_lp,player_LP,STARTING_LP)
 
 							elif effect_name == "Damage":
 								# ➤ Danno al player locale (target = player)
@@ -1452,8 +1483,9 @@ func apply_untargeted_effect_here_and_replicate_client_opponent(player_id, sourc
 								if protected:
 									print("🩹 Nessun danno EnemyPlayer subìto (Protection attiva).")
 								else:
+									var old_lp = player_LP
 									player_LP = max(0, player_LP - magnitude)
-									$"../PlayerLP".text = str(player_LP)
+									animate_lp($"../PlayerLP",$"../HealthBar",old_lp,player_LP,STARTING_LP)
 									print("💥 EnemyPlayer subisce", magnitude, "danni (rimasti:", player_LP, ")")
 
 							elif effect_name == "PreventDamage":  # 🛡️ nuovo effetto
@@ -2755,8 +2787,15 @@ func direct_attack_here_and_replicate_client_opponent(player_id: int,attacking_c
 					if protected:
 						print("🩹 Nessun danno inflitto: Protection attiva.")
 					else:
+						var old_lp = enemy_LP
 						enemy_LP = max(0, enemy_LP - attacking_card.card_data.attack)
-						get_parent().get_parent().get_node("EnemyField/EnemyLP").text = str(enemy_LP)
+						animate_lp(
+							get_parent().get_parent().get_node("EnemyField/EnemyLP"),
+							get_parent().get_parent().get_node("EnemyField/HealthBar"),
+							old_lp,
+							enemy_LP,
+							STARTING_LP
+						)
 						attacking_card.emit_signal("damage_dealt", attacking_card, attacking_card.card_data.attack, "direct_damage")
 						print("💥 Direct attack infligge", attacking_card.card_data.attack, "danni al nemico (rimasti:", enemy_LP, ")")
 						direct_damage_done += attacking_card.card_data.attack  # 👈 memorizza danno
@@ -2767,8 +2806,9 @@ func direct_attack_here_and_replicate_client_opponent(player_id: int,attacking_c
 					if protected:
 						print("🩹 Nessun danno subìto: Protection attiva.")
 					else:
+						var old_lp = player_LP
 						player_LP = max(0, player_LP - attacking_card.card_data.attack)
-						$"../PlayerLP".text = str(player_LP)
+						animate_lp($"../PlayerLP",$"../HealthBar",old_lp,player_LP,STARTING_LP)
 						attacking_card.emit_signal("damage_dealt", attacking_card, attacking_card.card_data.attack, "direct_damage")
 						print("💥 Direct attack subisce", attacking_card.card_data.attack, "danni (rimasti:", player_LP, ")")
 						direct_damage_done += attacking_card.card_data.attack  # 👈 memorizza danno
@@ -3131,15 +3171,23 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 							print("🩹 Nessun danno Overkill inflitto: Protection attiva.")
 						else:
 							if is_attacker:
+								var old_lp = enemy_LP
 								enemy_LP = max(0, enemy_LP - excess)
-								get_parent().get_parent().get_node("EnemyField/EnemyLP").text = str(enemy_LP)
+								animate_lp(
+									get_parent().get_parent().get_node("EnemyField/EnemyLP"),
+									get_parent().get_parent().get_node("EnemyField/HealthBar"),
+									old_lp,
+									enemy_LP,
+									STARTING_LP
+								)
 								attacking_card.emit_signal("damage_dealt", attacking_card, excess, "direct_damage")
 								print("💥 Overkill infligge", excess, "danni diretti al nemico (rimasti:", enemy_LP, ")")
 								direct_damage_done = excess  # 👈 memorizza per segnale finale
 
 							else:
+								var old_lp = player_LP
 								player_LP = max(0, player_LP - excess)
-								$"../PlayerLP".text = str(player_LP)
+								animate_lp($"../PlayerLP",$"../HealthBar",old_lp,player_LP,STARTING_LP)
 								attacking_card.emit_signal("damage_dealt", attacking_card, excess, "direct_damage")
 								print("💥 Overkill subisce", excess, "danni diretti (rimasti:", player_LP, ")")
 								direct_damage_done = excess  # 👈 memorizza per segnale finale
@@ -8603,8 +8651,9 @@ func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_i
 					"SelfPlayer":
 						if is_attacker:
 							if effect_name == "GainLP":
+								var old_lp = player_LP
 								player_LP += magnitude
-								$"../PlayerLP".text = str(player_LP)
+								animate_lp($"../PlayerLP",$"../HealthBar",old_lp,player_LP,STARTING_LP)
 
 							elif effect_name == "Damage":
 								# ➤ Danno al player locale (SelfPlayer)
@@ -8612,8 +8661,9 @@ func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_i
 								if protected:
 									print("🩹 Nessun danno SelfPlayer inflitto (Protection attiva).")
 								else:
+									var old_lp = player_LP
 									player_LP = max(0, player_LP - magnitude)
-									$"../PlayerLP".text = str(player_LP)
+									animate_lp($"../PlayerLP",$"../HealthBar",old_lp,player_LP,STARTING_LP)
 									source_card.emit_signal("damage_dealt", source_card, magnitude, "direct_damage")
 									print("💥 SelfPlayer infligge", magnitude, "danni al player (rimasti:", player_LP, ")")
 
@@ -8647,8 +8697,15 @@ func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_i
 
 						else:
 							if effect_name == "GainLP":
+								var old_lp = enemy_LP
 								enemy_LP += magnitude
-								get_parent().get_parent().get_node("EnemyField/EnemyLP").text = str(enemy_LP)
+								animate_lp(
+									get_parent().get_parent().get_node("EnemyField/EnemyLP"),
+									get_parent().get_parent().get_node("EnemyField/HealthBar"),
+									old_lp,
+									enemy_LP,
+									STARTING_LP
+								)
 
 							elif effect_name == "Damage":
 								# ➤ Danno al nemico (SelfPlayer per il difensore)
@@ -8656,8 +8713,15 @@ func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_i
 								if protected:
 									print("🩹 Nessun danno SelfPlayer inflitto al nemico (Protection attiva).")
 								else:
+									var old_lp = enemy_LP
 									enemy_LP = max(0, enemy_LP - magnitude)
-									get_parent().get_parent().get_node("EnemyField/EnemyLP").text = str(enemy_LP)
+									animate_lp(
+										get_parent().get_parent().get_node("EnemyField/EnemyLP"),
+										get_parent().get_parent().get_node("EnemyField/HealthBar"),
+										old_lp,
+										enemy_LP,
+										STARTING_LP
+									)
 									source_card.emit_signal("damage_dealt", source_card, magnitude, "direct_damage")
 									print("💥 SelfPlayer infligge", magnitude, "danni al nemico (rimasti:", enemy_LP, ")")
 
@@ -8693,8 +8757,15 @@ func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_i
 					"EnemyPlayer":
 						if is_attacker:
 							if effect_name == "GainLP":
+								var old_lp = enemy_LP
 								enemy_LP += magnitude
-								get_parent().get_parent().get_node("EnemyField/EnemyLP").text = str(enemy_LP)
+								animate_lp(
+									get_parent().get_parent().get_node("EnemyField/EnemyLP"),
+									get_parent().get_parent().get_node("EnemyField/HealthBar"),
+									old_lp,
+									enemy_LP,
+									STARTING_LP
+								)
 
 							elif effect_name == "Damage":
 								# ➤ Danno al nemico (target = enemy)
@@ -8702,8 +8773,15 @@ func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_i
 								if protected:
 									print("🩹 Nessun danno EnemyPlayer inflitto (Protection attiva).")
 								else:
+									var old_lp = enemy_LP
 									enemy_LP = max(0, enemy_LP - magnitude)
-									get_parent().get_parent().get_node("EnemyField/EnemyLP").text = str(enemy_LP)
+									animate_lp(
+										get_parent().get_parent().get_node("EnemyField/EnemyLP"),
+										get_parent().get_parent().get_node("EnemyField/HealthBar"),
+										old_lp,
+										enemy_LP,
+										STARTING_LP
+									)
 									print("💥 EnemyPlayer infligge", magnitude, "danni al nemico (rimasti:", enemy_LP, ")")
 
 							elif effect_name == "PreventDamage":  # 🛡️ nuovo effetto
@@ -8716,8 +8794,9 @@ func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_i
 
 						else:
 							if effect_name == "GainLP":
+								var old_lp = player_LP
 								player_LP += magnitude
-								$"../PlayerLP".text = str(player_LP)
+								animate_lp($"../PlayerLP",$"../HealthBar",old_lp,player_LP,STARTING_LP)
 
 							elif effect_name == "Damage":
 								# ➤ Danno al player locale (target = player)
@@ -8725,8 +8804,9 @@ func apply_untargeted_TRIGGER_effect_here_and_replicate_client_opponent(player_i
 								if protected:
 									print("🩹 Nessun danno EnemyPlayer subìto (Protection attiva).")
 								else:
+									var old_lp = player_LP
 									player_LP = max(0, player_LP - magnitude)
-									$"../PlayerLP".text = str(player_LP)
+									animate_lp($"../PlayerLP",$"../HealthBar",old_lp,player_LP,STARTING_LP)
 									source_card.emit_signal("damage_dealt", source_card, magnitude, "direct_damage")
 									print("💥 EnemyPlayer subisce", magnitude, "danni (rimasti:", player_LP, ")")
 
@@ -9824,3 +9904,40 @@ func rpc_clear_just_happened_arrays():
 	just_summoned_creature.clear()
 	just_played_spell.clear()
 	just_targeted_creature.clear()
+
+
+
+func animate_lp(
+	label: Control,
+	bar: TextureRect,
+	from_value: int,
+	to_value: int,
+	starting_lp: int,
+	duration: float = 0.8
+):
+	var tween = create_tween()
+
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.set_ease(Tween.EASE_OUT)
+
+	# EnemyField = shrink da sinistra verso destra
+	if not "EnemyField" in str(bar.get_path()):
+		bar.pivot_offset = Vector2(0, bar.size.y / 2.0)
+	else:
+		# Player = shrink da destra verso sinistra
+		bar.pivot_offset = Vector2(bar.size.x, bar.size.y / 2.0)
+
+	tween.tween_method(
+		func(value):
+			var current_value = int(value)
+
+			label.text = str(current_value)
+
+			var ratio = float(current_value) / float(starting_lp)
+			ratio = clamp(ratio, 0.0, 1.0)
+
+			bar.scale.x = ratio,
+		from_value,
+		to_value,
+		duration
+	)
