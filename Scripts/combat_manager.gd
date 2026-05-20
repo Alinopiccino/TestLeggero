@@ -2662,7 +2662,7 @@ func direct_attack_here_and_replicate_client_opponent(player_id: int,attacking_c
 			attack_pos_y = 980
 	
 	var original_attack_pos = attacking_card.position
-	if is_attacker:
+	if is_attacker and attacking_card.action_border.visible == true:
 		original_attack_pos.y += 10 #perche' la posizione viene salvata dal lato attacker considerando Y INDEX + 10 perche' ha action border
 	#if attacking_card == null:  #DEBUG
 		#push_error("❌ Carta attaccante non trovata per attacco diretto.")
@@ -2955,7 +2955,7 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 		#rpc("rpc_remove_talent_overlay", player_id, attacking_card.name, "Elusive")
 
 	var original_attack_pos = attacking_card.position
-	if is_attacker:
+	if is_attacker and attacking_card.action_border.visible == true:
 		original_attack_pos.y += 10 #perche' la posizione viene salvata dal lato attacker considerando Y INDEX + 10 perche' ha action border
 	# 🔥 Animazione attacco
 	var new_pos = Vector2(defending_card.position.x, defending_card.position.y + y_offset)
@@ -9915,16 +9915,18 @@ func animate_lp(
 	starting_lp: int,
 	duration: float = 0.8
 ):
+	if to_value < from_value:
+		var damage_amount := from_value - to_value
+		flash_lp_structures(bar, damage_amount, starting_lp)
+
 	var tween = create_tween()
 
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.set_ease(Tween.EASE_OUT)
 
-	# EnemyField = shrink da sinistra verso destra
 	if not "EnemyField" in str(bar.get_path()):
 		bar.pivot_offset = Vector2(0, bar.size.y / 2.0)
 	else:
-		# Player = shrink da destra verso sinistra
 		bar.pivot_offset = Vector2(bar.size.x, bar.size.y / 2.0)
 
 	tween.tween_method(
@@ -9941,3 +9943,73 @@ func animate_lp(
 		to_value,
 		duration
 	)
+
+
+func flash_lp_structures(bar: TextureRect, damage_amount: int, starting_lp: int):
+	var field_root := bar.get_parent()
+
+	var health_structure := field_root.get_node_or_null("HealthStructure")
+	var mana_structure := field_root.get_node_or_null("ManaStructure")
+	var mana_slots := field_root.get_node_or_null("ManaSlots")
+	var extra_mana_slots := field_root.get_node_or_null("ExtraManaSlots")
+
+	var damage_ratio = clamp(float(damage_amount) / float(starting_lp), 0.0, 1.0)
+
+	var min_alpha = lerp(0.65, 0.05, damage_ratio)
+	var flashes := int(lerp(2.0, 7.0, damage_ratio))
+	var flash_time = lerp(0.08, 0.035, damage_ratio)
+
+	var alpha_targets: Array[CanvasItem] = []
+	var shader_targets: Array[TextureRect] = []
+
+	for node in [health_structure, mana_structure]:
+		if node and node is CanvasItem:
+			alpha_targets.append(node)
+
+	for container in [mana_slots, extra_mana_slots]:
+		if container and container is CanvasItem:
+			alpha_targets.append(container)
+
+			for child in container.get_children():
+				if child is TextureRect and child.material is ShaderMaterial:
+					shader_targets.append(child)
+				elif child is CanvasItem:
+					alpha_targets.append(child)
+
+	for node in alpha_targets:
+		var tween := create_tween()
+		tween.set_trans(Tween.TRANS_LINEAR)
+		tween.set_ease(Tween.EASE_IN_OUT)
+
+		for i in range(flashes):
+			tween.tween_property(node, "modulate:a", min_alpha, flash_time)
+			tween.tween_property(node, "modulate:a", 1.0, flash_time)
+
+		tween.tween_property(node, "modulate:a", 1.0, 0.01)
+
+	#for slot in shader_targets:
+		#var mat := slot.material as ShaderMaterial
+		#var tween := create_tween()
+		#tween.set_trans(Tween.TRANS_LINEAR)
+		#tween.set_ease(Tween.EASE_IN_OUT)
+#
+		#for i in range(flashes):
+			#tween.tween_method(
+				#func(v):
+					#mat.set_shader_parameter("flash_color", Color(v, v, v, 1.0)),
+				#1.0,
+				#0.15,
+				#flash_time
+			#)
+#
+			#tween.tween_method(
+				#func(v):
+					#mat.set_shader_parameter("flash_color", Color(v, v, v, 1.0)),
+				#0.15,
+				#1.0,
+				#flash_time
+			#)
+#
+		#tween.tween_callback(func():
+			#mat.set_shader_parameter("flash_color", Color.WHITE)
+		#)
