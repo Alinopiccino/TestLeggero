@@ -1,10 +1,11 @@
-[gd_scene load_steps=24 format=3 uid="uid://36dutrfrtp7d"]
+[gd_scene load_steps=25 format=3 uid="uid://36dutrfrtp7d"]
 
 [ext_resource type="Script" uid="uid://bammlhxplk7i" path="res://Scripts/GameSetupEnemy.gd" id="1_lg81y"]
 [ext_resource type="Script" uid="uid://gutrgdj4rmsl" path="res://Scripts/InserimentoDeck.gd" id="1_pouhd"]
 [ext_resource type="PackedScene" uid="uid://h1c0uc7u0h6r" path="res://Scene/Card.tscn" id="2_lg81y"]
 [ext_resource type="Script" uid="uid://bq65wma5oewk5" path="res://Scripts/enemy_hand.gd" id="4_tmkv5"]
 [ext_resource type="Script" uid="uid://08ir0551wuqp" path="res://Scripts/Enemydeck.gd" id="5_uc1t6"]
+[ext_resource type="Texture2D" uid="uid://ct8l0is3q6q5r" path="res://Assets Ui/CUBO MODEL.png" id="6_dpvds"]
 [ext_resource type="Texture2D" uid="uid://dccu85osvlr6w" path="res://Assets/CardImages/BackMano3.png" id="7_xbrkl"]
 [ext_resource type="Texture2D" uid="uid://bytdqg80bi846" path="res://Assets/CardSlot.png" id="8_xbrkl"]
 [ext_resource type="PackedScene" uid="uid://cpkmgeqgtpd1r" path="res://Scene/Enemy_card_slot.tscn" id="9_nsw4n"]
@@ -51,6 +52,16 @@ script = ExtResource("4_tmkv5")
 position = Vector2(100, 120)
 script = ExtResource("5_uc1t6")
 deck_data = SubResource("Resource_20l8a")
+
+[node name="TextureRect" type="TextureRect" parent="EnemyDeck"]
+offset_left = -315.0
+offset_top = 96.0
+offset_right = 22.0
+offset_bottom = 473.0
+rotation = -1.52381
+texture = ExtResource("6_dpvds")
+expand_mode = 1
+flip_v = true
 
 [node name="Sprite2D" type="Sprite2D" parent="EnemyDeck"]
 z_index = -2

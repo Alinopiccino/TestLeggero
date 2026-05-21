@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://bkx2nydgmhnop"]
+[gd_scene load_steps=82 format=3 uid="uid://bkx2nydgmhnop"]
 
 [ext_resource type="Script" uid="uid://mhnnyqbkjiwh" path="res://Scene/GameSetup.gd" id="1_rwyy7"]
 [ext_resource type="Script" uid="uid://gutrgdj4rmsl" path="res://Scripts/InserimentoDeck.gd" id="1_wawig"]
@@ -24,6 +24,8 @@
 [ext_resource type="Script" uid="uid://btwsi426pmyiq" path="res://Scripts/Player_GY.gd" id="16_vd8tq"]
 [ext_resource type="Script" uid="uid://cikt2jq28gq33" path="res://Scene/phase_manager.gd" id="17_g20td"]
 [ext_resource type="Texture2D" uid="uid://bcqy48w4qwmom" path="res://Assets/SPELLPOWER ICON.png" id="18_ba1e6"]
+[ext_resource type="Texture2D" uid="uid://ct8l0is3q6q5r" path="res://Assets Ui/CUBO MODEL.png" id="19_20v0l"]
+[ext_resource type="Texture2D" uid="uid://bkwenddyxrr2d" path="res://Assets/CardImagesFIELD/BackField3.png" id="20_20v0l"]
 [ext_resource type="Script" uid="uid://delbjee3vpasv" path="res://Scene/choose_position_popup.gd" id="20_onb2x"]
 [ext_resource type="Script" uid="uid://bs15k2437dca7" path="res://Scene/action_buttons.gd" id="21_f8xqc"]
 [ext_resource type="Script" uid="uid://mmaey6tqspid" path="res://Scene/mana_slot_manager.gd" id="22_7yhcc"]
@@ -461,16 +463,44 @@ position = Vector2(1800, 890)
 script = ExtResource("9_7yhcc")
 deck_data = SubResource("Resource_3om6r")
 
+[node name="TextureRect" type="TextureRect" parent="Deck"]
+z_index = -200
+offset_left = -161.0
+offset_top = 57.0
+offset_right = 181.0
+offset_bottom = 439.0
+rotation = -0.325243
+texture = ExtResource("19_20v0l")
+expand_mode = 1
+
 [node name="Sprite2D" type="Sprite2D" parent="Deck"]
+visible = false
 z_index = -2
+position = Vector2(6, 39)
+rotation = -0.998044
+skew = 0.647517
+texture = ExtResource("20_20v0l")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Deck"]
+visible = false
+position = Vector2(9, 39)
+rotation = -0.968658
+scale = Vector2(0.78, 0.78)
+skew = 0.645772
 texture = ExtResource("14_ulniw")
 
 [node name="Sprite2D2" type="Sprite2D" parent="Deck"]
+visible = false
 z_index = -3
+position = Vector2(-51.3062, 51.2831)
+rotation = -0.988391
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("12_frrmm")
 
 [node name="Area2D" type="Area2D" parent="Deck"]
+visible = false
+position = Vector2(-51.3062, 51.2831)
+rotation = -0.988391
 collision_layer = 4
 collision_mask = 4
 
@@ -481,10 +511,10 @@ shape = SubResource("RectangleShape2D_xa1iw")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Deck"]
 z_index = -2
-offset_left = -11.0
-offset_top = -30.0
-offset_right = 34.0
-offset_bottom = 22.0
+offset_left = 86.0
+offset_top = -38.0
+offset_right = 131.0
+offset_bottom = 14.0
 scale = Vector2(2.5, 2.5)
 text = "0"
 metadata/_edit_use_anchors_ = true
