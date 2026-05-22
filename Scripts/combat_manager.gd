@@ -9909,7 +9909,7 @@ func rpc_clear_just_happened_arrays():
 
 func animate_lp(
 	label: Control,
-	bar: TextureRect,
+	bar: ColorRect,
 	from_value: int,
 	to_value: int,
 	starting_lp: int,
@@ -9938,14 +9938,54 @@ func animate_lp(
 			var ratio = float(current_value) / float(starting_lp)
 			ratio = clamp(ratio, 0.0, 1.0)
 
-			bar.scale.x = ratio,
+			bar.scale.x = ratio
+
+			var green := Color(0.2, 0.85, 0.2)
+			var yellow := Color(1.0, 0.9, 0.2)
+			var orange := Color(1.0, 0.55, 0.0)
+			var red := Color(1.0, 0.15, 0.15)
+
+			if current_value >= 4000:
+				bar.color = green
+			elif current_value >= 3000:
+				var t := inverse_lerp(4000.0, 3000.0, float(current_value))
+				bar.color = green.lerp(yellow, t)
+			elif current_value >= 2000:
+				var t := inverse_lerp(3000.0, 2000.0, float(current_value))
+				bar.color = yellow.lerp(orange, t)
+			elif current_value >= 1000:
+				var t := inverse_lerp(2000.0, 1000.0, float(current_value))
+				bar.color = orange.lerp(red, t)
+			else:
+				bar.color = red,
 		from_value,
 		to_value,
 		duration
 	)
 
+	await tween.finished
 
-func flash_lp_structures(bar: TextureRect, damage_amount: int, starting_lp: int):
+	if to_value < 1000:
+		var pulse_tween = create_tween()
+		pulse_tween.set_loops()
+		pulse_tween.set_trans(Tween.TRANS_SINE)
+		pulse_tween.set_ease(Tween.EASE_IN_OUT)
+
+		pulse_tween.tween_property(
+			bar,
+			"color",
+			Color(1.0, 0.15, 0.15, 0.35),
+			0.6
+		)
+
+		pulse_tween.tween_property(
+			bar,
+			"color",
+			Color(1.0, 0.15, 0.15, 1.0),
+			0.6
+		)
+
+func flash_lp_structures(bar: ColorRect, damage_amount: int, starting_lp: int):
 	var field_root := bar.get_parent()
 
 	var health_structure := field_root.get_node_or_null("HealthStructure")

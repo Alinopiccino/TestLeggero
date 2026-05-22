@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://bkx2nydgmhnop"]
+[gd_scene load_steps=83 format=3 uid="uid://bkx2nydgmhnop"]
 
 [ext_resource type="Script" uid="uid://mhnnyqbkjiwh" path="res://Scene/GameSetup.gd" id="1_rwyy7"]
 [ext_resource type="Script" uid="uid://gutrgdj4rmsl" path="res://Scripts/InserimentoDeck.gd" id="1_wawig"]
@@ -6,14 +6,15 @@
 [ext_resource type="Texture2D" uid="uid://davua2trmat2u" path="res://Assets Ui/forato solo caselle.png" id="2_ya6wd"]
 [ext_resource type="Script" uid="uid://jmy3uo0jdcjr" path="res://Scripts/card_manager.gd" id="3_aifdw"]
 [ext_resource type="Shader" uid="uid://rr5r2thlgvo3" path="res://Scene/GriglieSlot2.gdshader" id="3_ya6wd"]
-[ext_resource type="Texture2D" uid="uid://pt01c3rk5dj0" path="res://Assets Ui/box caselle (1).png" id="4_53ceb"]
+[ext_resource type="Texture2D" uid="uid://f8yvdlgkx2og" path="res://Assets Ui/box caselle (2).png" id="4_20v0l"]
 [ext_resource type="Script" uid="uid://ma2p6fts1f7v" path="res://Scripts/input_manager.gd" id="4_g20td"]
+[ext_resource type="Texture2D" uid="uid://plqxjlyu5hdc" path="res://Assets Ui/pattern esagoni (1).png" id="5_5p4o3"]
 [ext_resource type="PackedScene" uid="uid://bpb4ljr5q8fb5" path="res://Scene/card_slot.tscn" id="5_225pa"]
-[ext_resource type="Texture2D" uid="uid://brdgk05b57jew" path="res://Assets Ui/nuovo pattern esagoni (1).png" id="5_r6n4j"]
-[ext_resource type="Texture2D" uid="uid://bn8s6y7gp417a" path="res://Assets Ui/NUOVO BACK.png" id="6_1om0u"]
+[ext_resource type="Texture2D" uid="uid://nwnymsdxexle" path="res://Assets Ui/BASE BOARD VERDE.png" id="6_nr068"]
 [ext_resource type="Script" uid="uid://es340uv1h6fc" path="res://Scripts/CreatureCardSlot.gd" id="6_vobt0"]
 [ext_resource type="Shader" uid="uid://b7migl1g40xe5" path="res://Scene/ReticoloSfondo.gdshader" id="7_m667i"]
 [ext_resource type="Script" uid="uid://c0h5iua6g02js" path="res://Scripts/SpellCardSlot.gd" id="7_onb2x"]
+[ext_resource type="Texture2D" uid="uid://jqmrr3p451yp" path="res://Assets Ui/bordi laterali.png" id="7_u4oxv"]
 [ext_resource type="Script" uid="uid://dev5d6lf0cjb4" path="res://Scripts/player_hand.gd" id="8_f8xqc"]
 [ext_resource type="Script" uid="uid://dqv0e1edprlh6" path="res://Scripts/deck.gd" id="9_7yhcc"]
 [ext_resource type="PackedScene" uid="uid://cpkmgeqgtpd1r" path="res://Scene/Enemy_card_slot.tscn" id="10_g20td"]
@@ -30,11 +31,8 @@
 [ext_resource type="Script" uid="uid://bs15k2437dca7" path="res://Scene/action_buttons.gd" id="21_f8xqc"]
 [ext_resource type="Script" uid="uid://mmaey6tqspid" path="res://Scene/mana_slot_manager.gd" id="22_7yhcc"]
 [ext_resource type="FontFile" uid="uid://c7kmpfrd3kjkj" path="res://Assets Fonts/AmericanCaptain-MdEY.otf" id="22_qpw1d"]
-[ext_resource type="Texture2D" uid="uid://coy8r5dp00yap" path="res://Assets Ui/PASSPHASESPENTO.png" id="23_1om0u"]
 [ext_resource type="Texture2D" uid="uid://ohd6fdqp2blt" path="res://Assets/UI/clessidra.png" id="23_gm5u4"]
-[ext_resource type="Texture2D" uid="uid://2uien2eyy8sk" path="res://Assets Ui/Health bar FILL.png" id="23_m667i"]
 [ext_resource type="Texture2D" uid="uid://bx2lmindei6mn" path="res://Assets Ui/health barra.png" id="24_20v0l"]
-[ext_resource type="Texture2D" uid="uid://lb1avsyjx7tk" path="res://Assets Ui/PASSPHASEACCESO.png" id="24_muul7"]
 [ext_resource type="Script" uid="uid://bfoq7m41csq6g" path="res://Scene/gy_popup.gd" id="25_frrmm"]
 [ext_resource type="Texture2D" uid="uid://b5eh68hi2x61c" path="res://Assets Ui/OMBRA PER PASS.png" id="26_1om0u"]
 [ext_resource type="Texture2D" uid="uid://djjqvmlm71hfu" path="res://Assets Ui/defo player icon.png" id="26_r6n4j"]
@@ -43,24 +41,26 @@
 [ext_resource type="Texture2D" uid="uid://db23caja8vw41" path="res://Assets/FIRESPELLPOWER ICON.png" id="28_xa1iw"]
 [ext_resource type="Texture2D" uid="uid://sek2ddfj4huf" path="res://Assets/WINDSPELLPOWER ICON.png" id="29_2bqq7"]
 [ext_resource type="Texture2D" uid="uid://dkrumfc1avvdj" path="res://Assets/EARTHSPELLPOWER ICON.png" id="29_4ljq4"]
-[ext_resource type="Texture2D" uid="uid://bwukkorhyc57u" path="res://Assets Ui/RESOLVEACCESO.png" id="29_j33hq"]
 [ext_resource type="Texture2D" uid="uid://b41g764utippy" path="res://Assets/WATERSPELLPOWER ICON.png" id="30_2bqq7"]
-[ext_resource type="Texture2D" uid="uid://hm0ie7e6s04s" path="res://Assets Ui/OKACCESO.png" id="30_lfrbi"]
-[ext_resource type="Texture2D" uid="uid://ctt1dwnqbea8n" path="res://Assets Ui/OKSPENTO.png" id="31_2yva8"]
-[ext_resource type="Texture2D" uid="uid://hx7cxenxyhjn" path="res://Assets Ui/RESOLVE SPENTO.png" id="32_45jcx"]
+[ext_resource type="Texture2D" uid="uid://03f1t2lpko86" path="res://Assets Ui/pass phase 1.png" id="31_nr068"]
+[ext_resource type="Texture2D" uid="uid://b2f0iaioukph3" path="res://Assets Ui/pass phase 2.png" id="32_u4oxv"]
 [ext_resource type="Script" uid="uid://dophsw7seos7w" path="res://Scene/custom_effects.gd" id="32_ubc3m"]
 [ext_resource type="Texture2D" uid="uid://cpig7v54hisg6" path="res://Assets Collezione/BackGroundCollectionDietro.png" id="33_3om6r"]
-[ext_resource type="Texture2D" uid="uid://b6edfobbg2prn" path="res://Assets Ui/GOTOCOMBATSPENTO.png" id="33_qpw1d"]
-[ext_resource type="Texture2D" uid="uid://isw7aa674r6e" path="res://Assets Ui/GOTOCOMBATACCESO.png" id="34_m667i"]
 [ext_resource type="Texture2D" uid="uid://cc261yydobx0i" path="res://Assets/Mana/ACTION BASE.png" id="34_ulniw"]
-[ext_resource type="Texture2D" uid="uid://n5by2agsbfip" path="res://Assets Ui/TODAMAGESTEPSPENTO.png" id="35_20v0l"]
-[ext_resource type="Texture2D" uid="uid://b7rg2tbb4cwu" path="res://Assets Ui/TODAMAGESTEPACCESO.png" id="36_5p4o3"]
-[ext_resource type="Texture2D" uid="uid://d0fplajrfofei" path="res://Assets Ui/RETALIATESPENTO.png" id="37_nr068"]
-[ext_resource type="Texture2D" uid="uid://bd5seed2cenhx" path="res://Assets Ui/RETALIATEACCESO.png" id="38_u4oxv"]
-[ext_resource type="Texture2D" uid="uid://bgg8a11txuohn" path="res://Assets Ui/DIRECTATTACK SPENTO.png" id="39_p78i5"]
+[ext_resource type="Texture2D" uid="uid://bgsd54wcwky1k" path="res://Assets Ui/ok 2.png" id="35_m667i"]
+[ext_resource type="Texture2D" uid="uid://bg4uukqamgmok" path="res://Assets Ui/ok 1.png" id="36_20v0l"]
+[ext_resource type="Texture2D" uid="uid://3u1wjmrbrw54" path="res://Assets Ui/Resolve 1.png" id="37_5p4o3"]
+[ext_resource type="Texture2D" uid="uid://ciud385d5vjl0" path="res://Assets Ui/Resolve 2.png" id="38_nr068"]
+[ext_resource type="Texture2D" uid="uid://bjuj841bmvhc" path="res://Assets Ui/go to combat 1.png" id="39_u4oxv"]
 [ext_resource type="Shader" uid="uid://d3g11rca8lp4x" path="res://Scene/ShaderPhases.gdshader" id="39_ve160"]
-[ext_resource type="Texture2D" uid="uid://cawfy28y22urq" path="res://Assets Ui/DIRECTATTACKACCESO.png" id="40_r1pc4"]
+[ext_resource type="Texture2D" uid="uid://bwijx3l26kbqj" path="res://Assets Ui/go to combat 2.png" id="40_p78i5"]
+[ext_resource type="Texture2D" uid="uid://cqooq282voicr" path="res://Assets Ui/to damage step.png" id="41_r1pc4"]
+[ext_resource type="Texture2D" uid="uid://dcik1e4a7hbq5" path="res://Assets Ui/to damage step 2.png" id="42_kd685"]
+[ext_resource type="Texture2D" uid="uid://cildg2svb7dlk" path="res://Assets Ui/retaliate 1.png" id="43_qlvla"]
+[ext_resource type="Texture2D" uid="uid://cg00sljmpldb7" path="res://Assets Ui/retaliate 2.png" id="44_xift8"]
+[ext_resource type="Texture2D" uid="uid://col7calbawf6e" path="res://Assets Ui/Direct atk 1.png" id="45_1ikea"]
 [ext_resource type="Texture2D" uid="uid://dv4s8jntj0ndt" path="res://Assets Ui/struttura mana.png" id="46_5p4o3"]
+[ext_resource type="Texture2D" uid="uid://b50bnjuvgjkll" path="res://Assets Ui/Direct atk 2.png" id="46_8218g"]
 [ext_resource type="Texture2D" uid="uid://ceysuhmohrtdh" path="res://Assets Ui/FASI OSCURATE (1).png" id="53_muul7"]
 [ext_resource type="Texture2D" uid="uid://63ygj8cbnwhg" path="res://Assets Ui/SP (1).png" id="55_j33hq"]
 [ext_resource type="Texture2D" uid="uid://mkj4nh2sq0ks" path="res://Assets Ui/UP (1).png" id="56_lfrbi"]
@@ -105,6 +105,9 @@ size = Vector2(150, 209)
 size = Vector2(1013.33, 1240)
 
 [sub_resource type="ImageTexture" id="ImageTexture_muul7"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_i83f4"]
+load_path = "res://.godot/imported/PASSPHASEACCESO.png-b3d1e87974222e97b6376a06f5b4a736.ctex"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h4u4c"]
 shader = ExtResource("39_ve160")
@@ -162,7 +165,7 @@ offset_top = 89.0
 offset_right = 1399.0
 offset_bottom = 930.0
 mouse_filter = 2
-texture = ExtResource("4_53ceb")
+texture = ExtResource("4_20v0l")
 
 [node name="Esagoni" type="TextureRect" parent="."]
 self_modulate = Color(1, 1, 0.960784, 0.333333)
@@ -174,7 +177,7 @@ offset_top = 1.0
 offset_right = 1704.0
 offset_bottom = 1079.0
 mouse_filter = 2
-texture = ExtResource("5_r6n4j")
+texture = ExtResource("5_5p4o3")
 expand_mode = 1
 
 [node name="CampoVerde" type="TextureRect" parent="."]
@@ -182,7 +185,14 @@ z_index = -1000
 offset_left = 184.0
 offset_right = 1704.0
 offset_bottom = 1080.0
-texture = ExtResource("6_1om0u")
+texture = ExtResource("6_nr068")
+
+[node name="BordiLaterali" type="TextureRect" parent="."]
+z_index = -1000
+offset_left = 184.0
+offset_right = 1704.0
+offset_bottom = 1080.0
+texture = ExtResource("7_u4oxv")
 
 [node name="SfondoCampoNero" type="ColorRect" parent="."]
 z_index = -2000
@@ -636,15 +646,14 @@ fit_content = true
 scroll_active = false
 vertical_alignment = 1
 
-[node name="HealthBar" type="TextureRect" parent="."]
+[node name="HealthBar" type="ColorRect" parent="."]
 z_index = 300
-offset_left = 31.0
-offset_top = 949.0
-offset_right = 205.0
-offset_bottom = 1090.0
+offset_left = 38.0
+offset_top = 994.0
+offset_right = 201.0
+offset_bottom = 1044.0
 mouse_filter = 2
-texture = ExtResource("23_m667i")
-expand_mode = 1
+color = Color(0.180392, 0.839216, 0, 1)
 
 [node name="HealthStructure" type="TextureRect" parent="."]
 z_index = 300
@@ -669,9 +678,9 @@ offset_left = 1450.0
 offset_top = 500.0
 offset_right = 1630.0
 offset_bottom = 580.0
-texture_normal = ExtResource("23_1om0u")
-texture_pressed = ExtResource("24_muul7")
-texture_hover = ExtResource("24_muul7")
+texture_normal = ExtResource("31_nr068")
+texture_pressed = ExtResource("32_u4oxv")
+texture_hover = ExtResource("32_u4oxv")
 texture_disabled = SubResource("ImageTexture_muul7")
 
 [node name="PlayerPassed" type="TextureRect" parent="."]
@@ -688,8 +697,8 @@ offset_left = 1450.0
 offset_top = 410.0
 offset_right = 1630.0
 offset_bottom = 490.0
-texture_normal = ExtResource("24_muul7")
-texture_disabled = ExtResource("24_muul7")
+texture_normal = SubResource("CompressedTexture2D_i83f4")
+texture_disabled = SubResource("CompressedTexture2D_i83f4")
 
 [node name="EnemyPassed" type="TextureRect" parent="."]
 visible = false
@@ -744,78 +753,78 @@ offset_left = 1450.0
 offset_top = 410.0
 offset_right = 1637.0
 offset_bottom = 492.0
-texture_normal = ExtResource("29_j33hq")
-texture_disabled = ExtResource("30_lfrbi")
+texture_normal = ExtResource("35_m667i")
+texture_disabled = ExtResource("35_m667i")
 
 [node name="PlayerOkButton" type="TextureButton" parent="ActionButtons"]
 offset_left = 1450.0
 offset_top = 609.0
 offset_right = 1637.0
 offset_bottom = 691.0
-texture_normal = ExtResource("31_2yva8")
-texture_pressed = ExtResource("30_lfrbi")
-texture_hover = ExtResource("30_lfrbi")
+texture_normal = ExtResource("36_20v0l")
+texture_pressed = ExtResource("35_m667i")
+texture_hover = ExtResource("35_m667i")
 
 [node name="PlayerResolveButton" type="TextureButton" parent="ActionButtons"]
 offset_left = 1450.0
 offset_top = 500.0
 offset_right = 1637.0
 offset_bottom = 582.0
-texture_normal = ExtResource("32_45jcx")
-texture_pressed = ExtResource("29_j33hq")
-texture_hover = ExtResource("29_j33hq")
+texture_normal = ExtResource("37_5p4o3")
+texture_pressed = ExtResource("38_nr068")
+texture_hover = ExtResource("38_nr068")
 
 [node name="PlayerGoToCombatButton" type="TextureButton" parent="ActionButtons"]
 offset_left = 1450.0
 offset_top = 500.0
 offset_right = 1637.0
 offset_bottom = 582.0
-texture_normal = ExtResource("33_qpw1d")
-texture_pressed = ExtResource("34_m667i")
-texture_hover = ExtResource("34_m667i")
+texture_normal = ExtResource("39_u4oxv")
+texture_pressed = ExtResource("40_p78i5")
+texture_hover = ExtResource("40_p78i5")
 
 [node name="PlayerToDamageStepButton" type="TextureButton" parent="ActionButtons"]
 offset_left = 1448.0
 offset_top = 501.0
 offset_right = 1635.0
 offset_bottom = 583.0
-texture_normal = ExtResource("35_20v0l")
-texture_pressed = ExtResource("36_5p4o3")
-texture_hover = ExtResource("36_5p4o3")
+texture_normal = ExtResource("41_r1pc4")
+texture_pressed = ExtResource("42_kd685")
+texture_hover = ExtResource("42_kd685")
 
 [node name="PlayerRetaliateButton" type="TextureButton" parent="ActionButtons"]
 offset_left = 1450.0
 offset_top = 500.0
 offset_right = 1637.0
 offset_bottom = 582.0
-texture_normal = ExtResource("37_nr068")
-texture_pressed = ExtResource("38_u4oxv")
-texture_hover = ExtResource("38_u4oxv")
+texture_normal = ExtResource("43_qlvla")
+texture_pressed = ExtResource("44_xift8")
+texture_hover = ExtResource("44_xift8")
 
 [node name="PlayerDirectAttackButton" type="TextureButton" parent="ActionButtons"]
 offset_left = 1450.0
 offset_top = 500.0
 offset_right = 1637.0
 offset_bottom = 582.0
-texture_normal = ExtResource("39_p78i5")
-texture_pressed = ExtResource("40_r1pc4")
-texture_hover = ExtResource("40_r1pc4")
+texture_normal = ExtResource("45_1ikea")
+texture_pressed = ExtResource("46_8218g")
+texture_hover = ExtResource("46_8218g")
 
 [node name="EnemyOkButton" type="TextureButton" parent="ActionButtons"]
 offset_left = 1450.0
 offset_top = 410.0
 offset_right = 1637.0
 offset_bottom = 492.0
-texture_normal = ExtResource("30_lfrbi")
-texture_disabled = ExtResource("30_lfrbi")
+texture_normal = ExtResource("35_m667i")
+texture_disabled = ExtResource("35_m667i")
 
 [node name="EnemyRetaliateButton" type="TextureButton" parent="ActionButtons"]
 offset_left = 1450.0
 offset_top = 410.0
 offset_right = 1637.0
 offset_bottom = 492.0
-texture_normal = ExtResource("38_u4oxv")
-texture_disabled = ExtResource("38_u4oxv")
+texture_normal = ExtResource("44_xift8")
+texture_disabled = ExtResource("44_xift8")
 
 [node name="PromptLabels" type="Node2D" parent="."]
 

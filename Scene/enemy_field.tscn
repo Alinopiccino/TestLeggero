@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://36dutrfrtp7d"]
+[gd_scene load_steps=24 format=3 uid="uid://36dutrfrtp7d"]
 
 [ext_resource type="Script" uid="uid://bammlhxplk7i" path="res://Scripts/GameSetupEnemy.gd" id="1_lg81y"]
 [ext_resource type="Script" uid="uid://gutrgdj4rmsl" path="res://Scripts/InserimentoDeck.gd" id="1_pouhd"]
@@ -20,7 +20,6 @@
 [ext_resource type="Texture2D" uid="uid://sek2ddfj4huf" path="res://Assets/WINDSPELLPOWER ICON.png" id="16_xbrkl"]
 [ext_resource type="Texture2D" uid="uid://b41g764utippy" path="res://Assets/WATERSPELLPOWER ICON.png" id="17_xbrkl"]
 [ext_resource type="FontFile" uid="uid://c7kmpfrd3kjkj" path="res://Assets Fonts/AmericanCaptain-MdEY.otf" id="18_78tqf"]
-[ext_resource type="Texture2D" uid="uid://2uien2eyy8sk" path="res://Assets Ui/Health bar FILL.png" id="19_mlp73"]
 [ext_resource type="Texture2D" uid="uid://bx2lmindei6mn" path="res://Assets Ui/health barra.png" id="20_dpvds"]
 
 [sub_resource type="Resource" id="Resource_20l8a"]
@@ -435,15 +434,14 @@ scroll_active = false
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="HealthBar" type="TextureRect" parent="."]
+[node name="HealthBar" type="ColorRect" parent="."]
 z_index = 300
-offset_left = 1706.0
-offset_top = -13.0
-offset_right = 1880.0
-offset_bottom = 128.0
+offset_left = 1713.0
+offset_top = 32.0
+offset_right = 1876.0
+offset_bottom = 82.0
 mouse_filter = 2
-texture = ExtResource("19_mlp73")
-expand_mode = 1
+color = Color(0.180392, 0.839216, 0, 1)
 
 [node name="HealthStructure" type="TextureRect" parent="."]
 z_index = 300

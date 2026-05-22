@@ -70,7 +70,7 @@ void fragment() {
 
 	vec3 color = main_color * (grid + scanlines + glow + ambient + glitch_line) * flicker;
 
-	color *= 0.05;
+	color *= 0.2 ;
 
 	COLOR = vec4(color, 1.0);
 }
