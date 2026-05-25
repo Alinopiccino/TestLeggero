@@ -308,7 +308,6 @@ z_index = 10
 scale = Vector2(0.4, 0.4)
 
 [node name="ClipMask" type="Sprite2D" parent="Pivot"]
-visible = false
 clip_children = 2
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_hngpe")

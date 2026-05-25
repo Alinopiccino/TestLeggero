@@ -107,7 +107,6 @@ size = Vector2(1013.33, 1240)
 [sub_resource type="ImageTexture" id="ImageTexture_muul7"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_i83f4"]
-load_path = "res://.godot/imported/PASSPHASEACCESO.png-b3d1e87974222e97b6376a06f5b4a736.ctex"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h4u4c"]
 shader = ExtResource("39_ve160")
