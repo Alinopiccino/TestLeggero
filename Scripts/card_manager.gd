@@ -1400,7 +1400,7 @@ func enter_selection_mode(card, purpose: String):
 		var enemy_has_taunt = false
 
 		for c in $"../CombatManager".opponent_creatures_on_field:
-			if c.position_type == "defense":
+			if c.position_type == "defense" and not c in $"../CombatManager".player_creatures_that_retaliated_this_turn:
 				enemy_has_defenders = true
 				# 🕊️ Se la creatura in difesa ha "Flying" (anche da buff)
 				var talents = c.card_data.get_all_talents()

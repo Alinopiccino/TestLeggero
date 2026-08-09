@@ -18,7 +18,7 @@ var opponent_spells_on_field = []
 var player_creatures_on_field = []
 var player_spells_on_field = []
 var player_creature_that_attacked_this_turn = []
-#var player_creatures_that_retaliated_this_turn = []
+var player_creatures_that_retaliated_this_turn = []
 var trigger_endphase_cards: Array[Dictionary] = []
 var trigger_upkeep_cards: Array[Dictionary] = []
 var triggered_effects_this_chain_link: Array = []
@@ -3244,7 +3244,7 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 					defending_card.play_talent_icon_pulse("Reactivity")
 					
 				
-				#if defending_card not in player_creatures_that_retaliated_this_turn:
+
 				# 💥 Calcolo del danno effettivo inflitto all'attaccante
 				var damage_to_attacker = min((defending_card.card_data.attack - attacking_card.card_data.armour), attacking_card.card_data.health) 
 				# 💔 Applica il danno all'attaccante (ma rispetta Phys Immune)
@@ -3302,7 +3302,8 @@ func attack_here_and_replicate_client_opponent(player_id: int,attacking_card_nam
 							attacking_card.play_debuff_icon_pulse("Frozen")
 							attacking_card.freeze_timer = 1
 					#player_creatures_that_retaliated_this_turn.append(defending_card)
-
+				if defending_card not in player_creatures_that_retaliated_this_turn:
+					player_creatures_that_retaliated_this_turn.append(defending_card)
 					# 🔁 Aggiorna visuali
 				attacking_card.update_card_visuals()
 				defending_card.update_card_visuals()
