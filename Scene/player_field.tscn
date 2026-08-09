@@ -1181,36 +1181,42 @@ position = Vector2(860, 540)
 offset = Vector2(100, 0)
 
 [node name="PhasesAll" type="Sprite2D" parent="."]
+z_index = -100
 position = Vector2(942, 509)
 texture = ExtResource("53_muul7")
 
 [node name="SP" type="Sprite2D" parent="."]
+z_index = -100
 material = SubResource("ShaderMaterial_h4u4c")
 position = Vector2(633, 509)
 texture = ExtResource("55_j33hq")
 
 [node name="UP" type="Sprite2D" parent="."]
+z_index = -100
 material = SubResource("ShaderMaterial_uynbh")
 position = Vector2(755, 509)
 texture = ExtResource("56_lfrbi")
 
 [node name="MP" type="Sprite2D" parent="."]
+z_index = -100
 material = SubResource("ShaderMaterial_ve160")
 position = Vector2(879, 509)
 texture = ExtResource("57_2yva8")
 
 [node name="PP" type="Sprite2D" parent="."]
+z_index = -100
 material = SubResource("ShaderMaterial_monh0")
 position = Vector2(1003, 509)
 texture = ExtResource("58_45jcx")
 
 [node name="CP" type="Sprite2D" parent="."]
-z_index = 100
+z_index = -100
 material = SubResource("ShaderMaterial_1om0u")
 position = Vector2(1128, 509)
 texture = ExtResource("60_muul7")
 
 [node name="EP" type="Sprite2D" parent="."]
+z_index = -100
 material = SubResource("ShaderMaterial_monh0")
 position = Vector2(1253, 509)
 texture = ExtResource("61_j33hq")
