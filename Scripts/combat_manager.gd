@@ -1512,9 +1512,10 @@ func apply_untargeted_effect_here_and_replicate_client_opponent(player_id, sourc
 
 
 
-	#if source_card.card_data.effect_type == "On_Trigger":
+	if source_card.card_data.effect_type == "On_Trigger":
 		#if not source_card.card_data.trigger_type in ["On_UpKeepPhase", "On_EndPhase"]:
 		if source_card.card_data.effect_type != "On_Trigger":
+			print("CAZOOOOOOOOOOOOOO")
 						# 🔎 Check rapido se l'avversario ha carte Quick o facedown (solo per On_Trigger)
 			#opponent_has_response = false
 			if is_attacker:
